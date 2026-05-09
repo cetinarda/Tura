@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,10 +6,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   Animated,
-  Dimensions,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as Haptics from 'expo-haptics';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import quotesData from '../data/quotes.json';
 import stonesData from '../data/stones.json';
@@ -17,157 +18,187 @@ import animalsData from '../data/animals.json';
 import nagualsData from '../data/naguals.json';
 import { useTuraStore } from '../store/useStore';
 
-const { width } = Dimensions.get('window');
-
 interface HomeScreenProps {
   onNavigateToProfile?: () => void;
 }
 
-// ─── Kilim dekoratif bileşenler ──────────────────────────────────────────────
+const { width: SCREEN_W } = Dimensions.get('window');
+const CARD_W = SCREEN_W - 64;
+const CARD_H = CARD_W * 1.72; // tarot proportions
 
-function KilimRow({ color, style }: { color: string; style?: any }) {
-  const symbols = ['◆', '▲', '◆', '▲', '◆', '▲', '◆'];
+// ─── Kilim dekorasyon ─────────────────────────────────────────────────────────
+
+function KilimBand({ color }: { color: string }) {
+  const m = ['◆', '▲', '◆', '▼', '◆', '▲', '◆', '▼', '◆', '▲', '◆'];
   return (
-    <View style={[{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 6 }, style]}>
-      {symbols.map((s, i) => (
-        <Text key={i} style={{ color, fontSize: 7, opacity: 0.7 }}>{s}</Text>
+    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 3 }}>
+      {m.map((s, i) => (
+        <Text key={i} style={{ color, fontSize: 7, opacity: 0.55 }}>{s}</Text>
       ))}
     </View>
   );
 }
 
 function SunSymbol({ color, size = 32 }: { color: string; size?: number }) {
-  return (
-    <Text style={{ fontSize: size, color, lineHeight: size + 4 }}>☀</Text>
-  );
+  return <Text style={{ fontSize: size, color, lineHeight: size + 4 }}>☀</Text>;
 }
 
-function KilimCorner({ position, color }: { position: 'TL' | 'TR' | 'BL' | 'BR'; color: string }) {
-  const isTop = position.startsWith('T');
-  const isLeft = position.endsWith('L');
+// ─── Kart içerikleri ──────────────────────────────────────────────────────────
+
+function QuoteContent({ quote }: { quote: typeof quotesData[0] }) {
   return (
-    <View style={{
-      position: 'absolute',
-      top: isTop ? 10 : undefined,
-      bottom: isTop ? undefined : 10,
-      left: isLeft ? 10 : undefined,
-      right: isLeft ? undefined : 10,
-      alignItems: isLeft ? 'flex-start' : 'flex-end',
-    }}>
-      <Text style={{ color, fontSize: 10, opacity: 0.6, lineHeight: 12 }}>◆</Text>
-      <Text style={{ color, fontSize: 7, opacity: 0.4, lineHeight: 10 }}>{isLeft ? '▲' : '▲'}</Text>
+    <View style={cs.container}>
+      <Text style={cs.quoteText}>{quote.text}</Text>
+      <View style={cs.divider} />
+      <Text style={[cs.source, { color: Colors.gold }]}>{quote.source}</Text>
     </View>
   );
 }
 
-// ─── Tek kart bileşeni ───────────────────────────────────────────────────────
-
-interface RevealCardProps {
-  title: string;
-  subtitle: string;
-  accentColor: string;
-  isRevealed: boolean;
-  isLocked: boolean;
-  onReveal: () => void;
-  children: React.ReactNode;
-}
-
-function RevealCard({ title, subtitle, accentColor, isRevealed, isLocked, onReveal, children }: RevealCardProps) {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const scaleAnim = useRef(new Animated.Value(0.97)).current;
-
-  React.useEffect(() => {
-    if (isRevealed) {
-      Animated.parallel([
-        Animated.timing(fadeAnim, { toValue: 1, duration: 600, useNativeDriver: true }),
-        Animated.spring(scaleAnim, { toValue: 1, friction: 8, useNativeDriver: true }),
-      ]).start();
-    }
-  }, [isRevealed]);
-
+function StoneContent({ stone }: { stone: typeof stonesData[0] }) {
   return (
-    <TouchableOpacity
-      onPress={!isRevealed && !isLocked ? onReveal : undefined}
-      activeOpacity={isRevealed ? 1 : 0.85}
-      style={[styles.card, { borderColor: isRevealed ? accentColor + '60' : Colors.divider }]}
-    >
-      <KilimCorner position="TL" color={accentColor} />
-      <KilimCorner position="TR" color={accentColor} />
-      <KilimCorner position="BL" color={accentColor} />
-      <KilimCorner position="BR" color={accentColor} />
-
-      <KilimRow color={accentColor} style={{ marginBottom: Spacing.sm }} />
-
-      {!isRevealed ? (
-        <View style={styles.cardLocked}>
-          <SunSymbol color={isLocked ? Colors.textMuted : accentColor} size={28} />
-          <Text style={[styles.cardLockedTitle, { color: isLocked ? Colors.textMuted : accentColor }]}>
-            {title}
-          </Text>
-          <Text style={styles.cardLockedSub}>{subtitle}</Text>
-          {!isLocked && (
-            <Text style={[styles.cardTapHint, { color: accentColor }]}>dokunarak aç</Text>
-          )}
-          {isLocked && (
-            <Text style={styles.cardTapHint}>öncekini önce aç</Text>
-          )}
+    <View style={cs.container}>
+      <View style={[cs.medallion, { borderColor: Colors.purple + '50' }]}>
+        <View style={[cs.medallionInner, { borderColor: Colors.purple + '30' }]}>
+          <Text style={cs.stoneEmoji}>{stone.emoji}</Text>
         </View>
-      ) : (
-        <Animated.View style={{ opacity: fadeAnim, transform: [{ scale: scaleAnim }] }}>
-          <View style={styles.cardRevealedHeader}>
-            <SunSymbol color={accentColor} size={16} />
-            <Text style={[styles.cardRevealedTitle, { color: accentColor }]}>{title}</Text>
-          </View>
-          {children}
-        </Animated.View>
-      )}
-
-      <KilimRow color={accentColor} style={{ marginTop: Spacing.sm }} />
-    </TouchableOpacity>
+      </View>
+      <Text style={[cs.name, { color: Colors.purpleLight }]}>{stone.name}</Text>
+      <Text style={cs.meta}>{stone.chakra}</Text>
+      <View style={[cs.divider, { backgroundColor: Colors.purple }]} />
+      <Text style={cs.body}>{stone.dailyMessage}</Text>
+      <View style={[cs.affirmBox, { borderColor: Colors.purple + '40' }]}>
+        <Text style={[cs.affirmText, { color: Colors.purpleLight }]}>{stone.affirmation}</Text>
+      </View>
+    </View>
   );
 }
 
-// ─── Ana ekran ───────────────────────────────────────────────────────────────
+function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
+  return (
+    <View style={cs.container}>
+      <View style={[cs.medallionOuter, { borderColor: Colors.teal + '25' }]}>
+        <View style={[cs.medallion, { borderColor: Colors.teal + '50' }]}>
+          <View style={[cs.medallionInner, { borderColor: Colors.teal + '30' }]}>
+            <Text style={cs.animalEmoji}>{animal.emoji}</Text>
+          </View>
+        </View>
+      </View>
+      <Text style={[cs.name, { color: Colors.tealLight }]}>{animal.name}</Text>
+      <Text style={cs.meta}>{animal.element} · {animal.anatolianMeaning}</Text>
+      <View style={[cs.divider, { backgroundColor: Colors.teal }]} />
+      <Text style={cs.body}>{animal.dailyMessage}</Text>
+      <View style={[cs.affirmBox, { borderColor: Colors.teal + '40' }]}>
+        <Text style={[cs.affirmText, { color: Colors.tealLight }]}>{animal.guidance}</Text>
+      </View>
+    </View>
+  );
+}
+
+// ─── Ana ekran ────────────────────────────────────────────────────────────────
+
+const CARDS = [
+  { title: 'Bilgenin Sözü',  subtitle: 'Anadolu bilgeliğinden', color: Colors.gold },
+  { title: 'Kristal Rehber', subtitle: 'Taşın enerjisinden',    color: Colors.purple },
+  { title: 'Ruh Hayvanın',   subtitle: 'Şamanik gelenekten',    color: Colors.teal },
+];
 
 export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const insets = useSafeAreaInsets();
   const { profile, dailyReading, generateDailyReading, updateStats, getLevelTitle } = useTuraStore();
 
-  const [currentReading, setCurrentReading] = useState(dailyReading);
-  const [revealed, setRevealed] = useState({ quote: !!dailyReading, stone: !!dailyReading, animal: !!dailyReading });
+  const [reading, setReading] = useState(dailyReading);
+  const [step, setStep] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [done, setDone] = useState(false);
 
-  const quote = currentReading ? quotesData.find(q => q.id === currentReading.quoteId) : null;
-  const stone = currentReading ? stonesData.find(s => s.id === currentReading.stoneId) : null;
-  const animal = currentReading ? animalsData.find(a => a.id === currentReading.animalId) : null;
-  const nagual = currentReading ? nagualsData.find(n => n.id === currentReading.nagualId) : null;
+  const backFade  = useRef(new Animated.Value(1)).current;
+  const frontFade = useRef(new Animated.Value(0)).current;
+  const revealedRef = useRef(false);
 
-  const ensureReading = useCallback(async () => {
-    if (currentReading) return currentReading;
-    const quoteIds = quotesData.map(q => q.id);
-    const stoneIds = stonesData.map(s => s.id);
-    const animalIds = animalsData.map(a => a.id);
-    const nagualIds = nagualsData.map(n => n.id);
-    const reading = await generateDailyReading(quoteIds, stoneIds, animalIds, nagualIds);
-    setCurrentReading(reading);
-    const q = quotesData.find(x => x.id === reading.quoteId)!;
-    await updateStats(q.id, q.source, reading.stoneId, reading.animalId, reading.nagualId);
-    return reading;
-  }, [currentReading, generateDailyReading, updateStats]);
+  useEffect(() => {
+    if (!reading) {
+      const qIds = quotesData.map(q => q.id);
+      const sIds = stonesData.map(s => s.id);
+      const aIds = animalsData.map(a => a.id);
+      const nIds = nagualsData.map(n => n.id);
+      generateDailyReading(qIds, sIds, aIds, nIds).then(r => {
+        const q = quotesData.find(x => x.id === r.quoteId)!;
+        updateStats(q.id, q.source, r.stoneId, r.animalId, r.nagualId);
+        setReading(r);
+      });
+    }
+  }, []);
 
-  const handleReveal = useCallback(async (key: 'quote' | 'stone' | 'animal') => {
-    await ensureReading();
-    setRevealed(prev => ({ ...prev, [key]: true }));
-  }, [ensureReading]);
+  // Shake detection via expo-sensors (dynamic import for web compatibility)
+  useEffect(() => {
+    let subscription: { remove: () => void } | null = null;
+    let lastX = 0, lastY = 0, lastZ = 0;
+    let cooldown = false;
+
+    const setup = async () => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { Accelerometer } = require('expo-sensors');
+        Accelerometer.setUpdateInterval(100);
+        subscription = Accelerometer.addListener(({ x, y, z }: { x: number; y: number; z: number }) => {
+          const delta = Math.abs(x - lastX) + Math.abs(y - lastY) + Math.abs(z - lastZ);
+          lastX = x; lastY = y; lastZ = z;
+          if (delta > 2.4 && !revealedRef.current && !cooldown) {
+            cooldown = true;
+            setTimeout(() => { cooldown = false; }, 800);
+            triggerReveal();
+          }
+        });
+      } catch {
+        // expo-sensors not available (web / simulator fallback)
+      }
+    };
+
+    setup();
+    return () => { subscription?.remove(); };
+  }, []);
+
+  const quote  = reading ? quotesData.find(q => q.id === reading.quoteId)  : null;
+  const stone  = reading ? stonesData.find(s => s.id === reading.stoneId)  : null;
+  const animal = reading ? animalsData.find(a => a.id === reading.animalId) : null;
+
+  const card = CARDS[step];
+
+  const triggerReveal = () => {
+    if (revealedRef.current) return;
+    revealedRef.current = true;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    Animated.timing(backFade, { toValue: 0, duration: 280, useNativeDriver: true }).start(() => {
+      setRevealed(true);
+      Animated.timing(frontFade, { toValue: 1, duration: 420, useNativeDriver: true }).start();
+    });
+  };
+
+  const handleReveal = () => triggerReveal();
+
+  const handleNext = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    if (step < CARDS.length - 1) {
+      Animated.timing(frontFade, { toValue: 0, duration: 250, useNativeDriver: true }).start(() => {
+        setStep(s => s + 1);
+        setRevealed(false);
+        revealedRef.current = false;
+        backFade.setValue(1);
+        frontFade.setValue(0);
+      });
+    } else {
+      setDone(true);
+    }
+  };
 
   const greeting = () => {
     const h = new Date().getHours();
-    if (h < 6) return 'Gece';
+    if (h < 6)  return 'Gece';
     if (h < 12) return 'Günaydın';
     if (h < 18) return 'İyi günler';
     return 'İyi akşamlar';
   };
-
-  const levelTitle = profile ? getLevelTitle(profile.level) : '';
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -178,146 +209,115 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
         <View>
           <Text style={styles.greeting}>{greeting()}</Text>
           <Text style={styles.username}>{profile?.name || 'Yolcu'}</Text>
-          {profile && <Text style={styles.level}>{levelTitle}</Text>}
         </View>
         <TouchableOpacity onPress={onNavigateToProfile} style={styles.profileBtn}>
-          <Text style={styles.profileInitial}>{profile?.name?.charAt(0).toUpperCase() || '☀'}</Text>
+          <Text style={styles.profileInitial}>
+            {profile?.name?.charAt(0).toUpperCase() || '☀'}
+          </Text>
         </TouchableOpacity>
       </View>
 
-      {/* Güneş motifi */}
-      <View style={styles.sunRow}>
-        <View style={styles.sunLine} />
-        <SunSymbol color={Colors.gold} size={22} />
-        <View style={styles.sunLine} />
-      </View>
-
-      <ScrollView
-        contentContainerStyle={styles.scroll}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* 1. Bilgenin Sözü */}
-        <RevealCard
-          title="Bilgenin Sözü"
-          subtitle="Anadolu bilgeliğinden"
-          accentColor={Colors.gold}
-          isRevealed={revealed.quote}
-          isLocked={false}
-          onReveal={() => handleReveal('quote')}
-        >
-          {quote && <QuoteContent quote={quote} />}
-        </RevealCard>
-
-        <KilimDivider />
-
-        {/* 2. Kristal Taş */}
-        <RevealCard
-          title="Kristal Rehber"
-          subtitle="Taşın enerjisinden"
-          accentColor={Colors.purple}
-          isRevealed={revealed.stone}
-          isLocked={!revealed.quote}
-          onReveal={() => handleReveal('stone')}
-        >
-          {stone && <StoneContent stone={stone} />}
-        </RevealCard>
-
-        <KilimDivider />
-
-        {/* 3. Ruh Hayvan */}
-        <RevealCard
-          title="Ruh Hayvanın"
-          subtitle="Şamanik gelenekten"
-          accentColor={Colors.teal}
-          isRevealed={revealed.animal}
-          isLocked={!revealed.stone}
-          onReveal={() => handleReveal('animal')}
-        >
-          {animal && <AnimalContent animal={animal} />}
-        </RevealCard>
-
-        <View style={{ height: Spacing.xxxl }} />
-      </ScrollView>
-    </View>
-  );
-}
-
-// ─── Kilim ara deseni ─────────────────────────────────────────────────────────
-
-function KilimDivider() {
-  return (
-    <View style={divStyles.container}>
-      <View style={divStyles.line} />
-      <View style={divStyles.symbols}>
-        {['◇', '◆', '◇'].map((s, i) => (
-          <Text key={i} style={divStyles.symbol}>{s}</Text>
-        ))}
-      </View>
-      <View style={divStyles.line} />
-    </View>
-  );
-}
-
-const divStyles = StyleSheet.create({
-  container: { flexDirection: 'row', alignItems: 'center', marginVertical: Spacing.md, paddingHorizontal: Spacing.lg },
-  line: { flex: 1, height: 1, backgroundColor: Colors.divider },
-  symbols: { flexDirection: 'row', gap: 6, paddingHorizontal: Spacing.md },
-  symbol: { color: Colors.gold, fontSize: 10, opacity: 0.5 },
-});
-
-// ─── Kart içerikleri ──────────────────────────────────────────────────────────
-
-function QuoteContent({ quote }: { quote: typeof quotesData[0] }) {
-  return (
-    <View style={contentStyles.container}>
-      <Text style={contentStyles.quoteText}>{quote.text}</Text>
-      <View style={contentStyles.divider} />
-      <Text style={[contentStyles.sourceText, { color: Colors.gold }]}>{quote.source}</Text>
-    </View>
-  );
-}
-
-function StoneContent({ stone }: { stone: typeof stonesData[0] }) {
-  return (
-    <View style={contentStyles.container}>
-      <View style={[contentStyles.medallion, { borderColor: Colors.purple + '60' }]}>
-        <View style={[contentStyles.medallionInner, { borderColor: Colors.purple + '40' }]}>
-          <Text style={contentStyles.medallionEmoji}>{stone.emoji}</Text>
+      {/* Adım noktaları */}
+      {!done && (
+        <View style={styles.dots}>
+          {CARDS.map((c, i) => (
+            <View
+              key={i}
+              style={[
+                styles.dot,
+                i < step   && { backgroundColor: Colors.textMuted, width: 6 },
+                i === step  && { backgroundColor: c.color, width: 22 },
+                i > step   && { backgroundColor: Colors.divider, width: 6 },
+              ]}
+            />
+          ))}
         </View>
-        <Text style={[contentStyles.medallionDot, { top: 2, color: Colors.purple }]}>◆</Text>
-        <Text style={[contentStyles.medallionDot, { bottom: 2, color: Colors.purple }]}>◆</Text>
-      </View>
-      <Text style={[contentStyles.cardName, { color: Colors.purpleLight }]}>{stone.name}</Text>
-      <Text style={contentStyles.cardSub}>{stone.chakra}</Text>
-      <View style={[contentStyles.divider, { backgroundColor: Colors.purple }]} />
-      <Text style={contentStyles.cardMessage}>{stone.dailyMessage}</Text>
-      <View style={[contentStyles.affirmBox, { borderColor: Colors.purple + '40' }]}>
-        <Text style={[contentStyles.affirmText, { color: Colors.purpleLight }]}>{stone.affirmation}</Text>
-      </View>
-    </View>
-  );
-}
+      )}
 
-function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
-  return (
-    <View style={contentStyles.container}>
-      {/* Şamanik madalyon — 3 halka */}
-      <View style={[contentStyles.medallionOuter, { borderColor: Colors.teal + '30' }]}>
-        <View style={[contentStyles.medallion, { borderColor: Colors.teal + '60' }]}>
-          <View style={[contentStyles.medallionInner, { borderColor: Colors.teal + '40' }]}>
-            <Text style={contentStyles.animalEmoji}>{animal.emoji}</Text>
+      {/* Kart alanı */}
+      <View style={styles.cardArea}>
+
+        {done ? (
+          <View style={styles.doneView}>
+            <SunSymbol color={Colors.gold} size={48} />
+            <Text style={styles.doneTitle}>Günlük rehberlik tamamlandı</Text>
+            <Text style={styles.doneSub}>Yarın yeni bir yolculuk başlar</Text>
+            {quote && (
+              <>
+                <View style={styles.doneDivider} />
+                <Text style={styles.doneQuote}>
+                  {quote.text.length > 100 ? quote.text.slice(0, 97) + '…' : quote.text}
+                </Text>
+              </>
+            )}
           </View>
-          <Text style={[contentStyles.medallionDot, { top: 2, color: Colors.teal }]}>◆</Text>
-          <Text style={[contentStyles.medallionDot, { bottom: 2, color: Colors.teal }]}>◆</Text>
-        </View>
-      </View>
 
-      <Text style={[contentStyles.cardName, { color: Colors.tealLight }]}>{animal.name}</Text>
-      <Text style={contentStyles.cardSub}>{animal.element} · {animal.anatolianMeaning}</Text>
-      <View style={[contentStyles.divider, { backgroundColor: Colors.teal }]} />
-      <Text style={contentStyles.cardMessage}>{animal.dailyMessage}</Text>
-      <View style={[contentStyles.affirmBox, { borderColor: Colors.teal + '40' }]}>
-        <Text style={[contentStyles.affirmText, { color: Colors.tealLight }]}>{animal.guidance}</Text>
+        ) : !revealed ? (
+          <Animated.View style={[styles.card, { opacity: backFade, borderColor: card.color + '35' }]}>
+            <TouchableOpacity style={styles.cardBackInner} onPress={handleReveal} activeOpacity={0.88}>
+              {/* Üst kilim bandı */}
+              <View style={styles.bandRow}>
+                <View style={[styles.bandLine, { backgroundColor: card.color }]} />
+                <KilimBand color={card.color} />
+                <View style={[styles.bandLine, { backgroundColor: card.color }]} />
+              </View>
+
+              <View style={styles.cardBackCenter}>
+                {/* Köşe yıldızları */}
+                <Text style={[styles.cornerStar, { top: 0, left: 0, color: card.color }]}>✦</Text>
+                <Text style={[styles.cornerStar, { top: 0, right: 0, color: card.color }]}>✦</Text>
+                <Text style={[styles.cornerStar, { bottom: 0, left: 0, color: card.color }]}>✦</Text>
+                <Text style={[styles.cornerStar, { bottom: 0, right: 0, color: card.color }]}>✦</Text>
+
+                {/* Yatay ince çizgiler */}
+                <View style={[styles.sideLineH, { top: '30%', backgroundColor: card.color }]} />
+                <View style={[styles.sideLineH, { bottom: '30%', backgroundColor: card.color }]} />
+
+                <SunSymbol color={card.color} size={52} />
+                <Text style={[styles.cardBackTitle, { color: card.color }]}>{card.title}</Text>
+                <Text style={styles.cardBackSub}>{card.subtitle}</Text>
+                <View style={styles.tapRow}>
+                  <View style={[styles.tapLine, { backgroundColor: card.color }]} />
+                  <Text style={[styles.tapHint, { color: card.color }]}>salla · dokun</Text>
+                  <View style={[styles.tapLine, { backgroundColor: card.color }]} />
+                </View>
+              </View>
+
+              {/* Alt kilim bandı */}
+              <View style={styles.bandRow}>
+                <View style={[styles.bandLine, { backgroundColor: card.color }]} />
+                <KilimBand color={card.color} />
+                <View style={[styles.bandLine, { backgroundColor: card.color }]} />
+              </View>
+            </TouchableOpacity>
+          </Animated.View>
+
+        ) : (
+          <Animated.View style={[styles.card, { opacity: frontFade, borderColor: card.color + '50' }]}>
+            <View style={[styles.cardFrontHeader, { borderBottomColor: card.color + '30' }]}>
+              <SunSymbol color={card.color} size={13} />
+              <Text style={[styles.cardFrontTitle, { color: card.color }]}>{card.title}</Text>
+            </View>
+            <ScrollView
+              style={styles.cardScroll}
+              contentContainerStyle={styles.cardScrollPad}
+              showsVerticalScrollIndicator={false}
+            >
+              {step === 0 && quote  && <QuoteContent quote={quote} />}
+              {step === 1 && stone  && <StoneContent stone={stone} />}
+              {step === 2 && animal && <AnimalContent animal={animal} />}
+            </ScrollView>
+            <TouchableOpacity
+              style={[styles.nextBtn, { borderColor: card.color }]}
+              onPress={handleNext}
+              activeOpacity={0.8}
+            >
+              <Text style={[styles.nextBtnText, { color: card.color }]}>
+                {step < CARDS.length - 1 ? 'Sonraki →' : 'Tamamlandı'}
+              </Text>
+            </TouchableOpacity>
+          </Animated.View>
+        )}
       </View>
     </View>
   );
@@ -327,12 +327,13 @@ function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
+
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
+    paddingVertical: Spacing.sm,
   },
   greeting: {
     fontSize: Typography.size.xs,
@@ -341,183 +342,242 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   username: {
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,
     color: Colors.textPrimary,
-    marginTop: 2,
-  },
-  level: {
-    fontSize: Typography.size.xs,
-    color: Colors.gold,
-    marginTop: 2,
-    letterSpacing: 1,
+    marginTop: 1,
   },
   profileBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 36, height: 36, borderRadius: 18,
     backgroundColor: Colors.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: Colors.cardBorder,
+    alignItems: 'center', justifyContent: 'center',
+    borderWidth: 1, borderColor: Colors.cardBorder,
   },
   profileInitial: {
     fontSize: Typography.size.sm,
     color: Colors.gold,
     fontWeight: Typography.weight.semibold,
   },
-  sunRow: {
+
+  dots: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: Spacing.lg,
-    marginBottom: Spacing.md,
-    gap: Spacing.sm,
+    gap: 6,
+    paddingVertical: Spacing.sm,
   },
-  sunLine: {
+  dot: { height: 6, borderRadius: 3 },
+
+  cardArea: {
     flex: 1,
-    height: 1,
-    backgroundColor: Colors.gold,
-    opacity: 0.2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: Spacing.lg,
   },
-  scroll: {
-    paddingHorizontal: Spacing.md,
-    paddingTop: Spacing.xs,
-  },
+
   card: {
+    width: CARD_W,
+    height: CARD_H,
     backgroundColor: Colors.backgroundCard,
-    borderRadius: BorderRadius.lg,
+    borderRadius: BorderRadius.xl,
     borderWidth: 1,
-    padding: Spacing.md,
     overflow: 'hidden',
   },
-  cardLocked: {
-    alignItems: 'center',
-    paddingVertical: Spacing.xl,
-    gap: Spacing.xs,
+
+  // Kart sırtı
+  cardBackInner: {
+    flex: 1,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
+    justifyContent: 'space-between',
   },
-  cardLockedTitle: {
-    fontSize: Typography.size.lg,
-    fontWeight: Typography.weight.semibold,
-    letterSpacing: 1,
-    marginTop: Spacing.sm,
-  },
-  cardLockedSub: {
-    fontSize: Typography.size.xs,
-    color: Colors.textMuted,
-    letterSpacing: 0.5,
-  },
-  cardTapHint: {
-    fontSize: Typography.size.xs,
-    color: Colors.textMuted,
-    letterSpacing: 1,
-    marginTop: Spacing.sm,
-    textTransform: 'uppercase',
-  },
-  cardRevealedHeader: {
+  bandRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.xs,
-    marginBottom: Spacing.md,
   },
-  cardRevealedTitle: {
+  bandLine: {
+    flex: 1,
+    height: 1,
+    opacity: 0.3,
+  },
+  cardBackCenter: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: Spacing.md,
+    position: 'relative',
+  },
+  cornerStar: {
+    position: 'absolute',
+    fontSize: 11,
+    opacity: 0.45,
+  },
+  sideLineH: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    height: 1,
+    opacity: 0.12,
+  },
+  cardBackTitle: {
+    fontSize: Typography.size.xxl,
+    fontWeight: Typography.weight.bold,
+    letterSpacing: 2,
+    textAlign: 'center',
+    marginTop: Spacing.sm,
+  },
+  cardBackSub: {
+    fontSize: Typography.size.sm,
+    color: Colors.textMuted,
+    letterSpacing: 1,
+  },
+  tapRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+    marginTop: Spacing.xl,
+    opacity: 0.65,
+  },
+  tapLine: { flex: 1, height: 1, opacity: 0.5 },
+  tapHint: {
+    fontSize: Typography.size.xs,
+    letterSpacing: 3,
+    textTransform: 'uppercase',
+  },
+
+  // Kart içi
+  cardFrontHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
+    borderBottomWidth: 1,
+  },
+  cardFrontTitle: {
     fontSize: Typography.size.xs,
     fontWeight: Typography.weight.semibold,
     letterSpacing: 2,
     textTransform: 'uppercase',
   },
+  cardScroll: { flex: 1 },
+  cardScrollPad: { padding: Spacing.lg },
+
+  nextBtn: {
+    margin: Spacing.lg,
+    marginTop: 0,
+    paddingVertical: Spacing.md,
+    borderRadius: BorderRadius.round,
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  nextBtnText: {
+    fontSize: Typography.size.sm,
+    fontWeight: Typography.weight.semibold,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+  },
+
+  // Tamamlandı
+  doneView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: Spacing.xl,
+    gap: Spacing.md,
+  },
+  doneTitle: {
+    fontSize: Typography.size.xl,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textPrimary,
+    textAlign: 'center',
+    letterSpacing: 0.5,
+    marginTop: Spacing.md,
+  },
+  doneSub: { fontSize: Typography.size.sm, color: Colors.textMuted, letterSpacing: 1 },
+  doneDivider: {
+    width: 40, height: 1,
+    backgroundColor: Colors.gold,
+    opacity: 0.3,
+    marginVertical: Spacing.md,
+  },
+  doneQuote: {
+    fontSize: Typography.size.sm,
+    color: Colors.textSecondary,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    lineHeight: Typography.size.sm * 1.8,
+    fontWeight: Typography.weight.light,
+  },
 });
 
-const contentStyles = StyleSheet.create({
+const cs = StyleSheet.create({
   container: { alignItems: 'center' },
   quoteText: {
     fontSize: Typography.size.md,
     color: Colors.textPrimary,
     textAlign: 'center',
-    lineHeight: Typography.size.md * 1.8,
+    lineHeight: Typography.size.md * 1.9,
     fontStyle: 'italic',
     fontWeight: Typography.weight.light,
-    paddingHorizontal: Spacing.sm,
   },
   divider: {
-    width: 28,
-    height: 1,
+    width: 24, height: 1,
     backgroundColor: Colors.gold,
     opacity: 0.4,
-    marginVertical: Spacing.md,
+    marginVertical: Spacing.lg,
   },
-  sourceText: {
+  source: {
     fontSize: Typography.size.sm,
-    letterSpacing: 1,
+    letterSpacing: 1.5,
     fontWeight: Typography.weight.medium,
+    textAlign: 'center',
   },
   medallionOuter: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: 120, height: 120, borderRadius: 60,
     borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center', justifyContent: 'center',
     marginBottom: Spacing.md,
   },
   medallion: {
-    width: 104,
-    height: 104,
-    borderRadius: 52,
+    width: 96, height: 96, borderRadius: 48,
     borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+    alignItems: 'center', justifyContent: 'center',
   },
   medallionInner: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 72, height: 72, borderRadius: 36,
     borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.03)',
+    alignItems: 'center', justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.02)',
   },
-  medallionEmoji: {
-    fontSize: 40,
-  },
-  animalEmoji: {
-    fontSize: 48,
-  },
-  medallionDot: {
-    position: 'absolute',
-    fontSize: 8,
-    left: '50%',
-    marginLeft: -4,
-  },
-  cardName: {
+  stoneEmoji:  { fontSize: 34, marginBottom: Spacing.md },
+  animalEmoji: { fontSize: 42, marginBottom: Spacing.md },
+  name: {
     fontSize: Typography.size.xl,
     fontWeight: Typography.weight.semibold,
     letterSpacing: 0.5,
     marginBottom: 3,
   },
-  cardSub: {
+  meta: {
     fontSize: Typography.size.xs,
     color: Colors.textMuted,
-    letterSpacing: 1,
+    letterSpacing: 1.5,
     textTransform: 'uppercase',
     textAlign: 'center',
   },
-  cardMessage: {
+  body: {
     fontSize: Typography.size.sm,
     color: Colors.textSecondary,
     textAlign: 'center',
-    lineHeight: Typography.size.sm * 1.8,
+    lineHeight: Typography.size.sm * 1.9,
     fontWeight: Typography.weight.light,
-    paddingHorizontal: Spacing.xs,
     marginBottom: Spacing.md,
   },
   affirmBox: {
     borderWidth: 1,
-    borderRadius: BorderRadius.sm,
+    borderRadius: BorderRadius.md,
     padding: Spacing.md,
     width: '100%',
-    marginBottom: Spacing.xs,
   },
   affirmText: {
     fontSize: Typography.size.sm,
