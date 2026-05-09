@@ -1,16 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export type ReadingType = 'quote' | 'stone' | 'animal';
+export type ReadingType = 'quote' | 'stone' | 'animal' | 'nagual';
 
 export interface DailyReading {
   date: string;
   quoteId: string;
   stoneId: string;
   animalId: string;
+  nagualId: string;
   quoteSaved: boolean;
   stoneSaved: boolean;
   animalSaved: boolean;
+  nagualSaved: boolean;
 }
 
 export interface UserProfile {
@@ -29,12 +31,14 @@ export interface ArchiveEntry {
   quoteId: string;
   stoneId: string;
   animalId: string;
+  nagualId: string;
 }
 
 export interface Stats {
   quoteCounts: Record<string, number>;
   stoneCounts: Record<string, number>;
   animalCounts: Record<string, number>;
+  nagualCounts: Record<string, number>;
   sourceCounts: Record<string, number>;
 }
 
@@ -59,6 +63,7 @@ export function useTuraStore() {
     quoteCounts: {},
     stoneCounts: {},
     animalCounts: {},
+    nagualCounts: {},
     sourceCounts: {},
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -91,7 +96,10 @@ export function useTuraStore() {
       }
 
       if (archiveRaw) setArchive(JSON.parse(archiveRaw));
-      if (statsRaw) setStats(JSON.parse(statsRaw));
+      if (statsRaw) {
+        const s = JSON.parse(statsRaw);
+        setStats({ nagualCounts: {}, ...s });
+      }
     } catch (e) {
       console.error('Load error:', e);
     } finally {
@@ -121,7 +129,8 @@ export function useTuraStore() {
   const generateDailyReading = useCallback(async (
     quoteIds: string[],
     stoneIds: string[],
-    animalIds: string[]
+    animalIds: string[],
+    nagualIds: string[]
   ) => {
     const today = todayStr();
     const reading: DailyReading = {
@@ -129,9 +138,11 @@ export function useTuraStore() {
       quoteId: pickRandom(quoteIds),
       stoneId: pickRandom(stoneIds),
       animalId: pickRandom(animalIds),
+      nagualId: pickRandom(nagualIds),
       quoteSaved: false,
       stoneSaved: false,
       animalSaved: false,
+      nagualSaved: false,
     };
 
     setDailyReading(reading);
@@ -142,6 +153,7 @@ export function useTuraStore() {
       quoteId: reading.quoteId,
       stoneId: reading.stoneId,
       animalId: reading.animalId,
+      nagualId: reading.nagualId,
     };
     const newArchive = [entry, ...archive.filter(a => a.date !== today)];
     setArchive(newArchive);
@@ -171,12 +183,14 @@ export function useTuraStore() {
     quoteId: string,
     source: string,
     stoneId: string,
-    animalId: string
+    animalId: string,
+    nagualId: string
   ) => {
     const newStats: Stats = {
       quoteCounts: { ...stats.quoteCounts, [quoteId]: (stats.quoteCounts[quoteId] || 0) + 1 },
       stoneCounts: { ...stats.stoneCounts, [stoneId]: (stats.stoneCounts[stoneId] || 0) + 1 },
       animalCounts: { ...stats.animalCounts, [animalId]: (stats.animalCounts[animalId] || 0) + 1 },
+      nagualCounts: { ...stats.nagualCounts, [nagualId]: (stats.nagualCounts[nagualId] || 0) + 1 },
       sourceCounts: { ...stats.sourceCounts, [source]: (stats.sourceCounts[source] || 0) + 1 },
     };
     setStats(newStats);

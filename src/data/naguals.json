@@ -1,0 +1,252 @@
+[
+  {
+    "id": "ng001",
+    "name": "Gölge",
+    "emoji": "🌑",
+    "element": "karanlık",
+    "aspect": "Bilinçdışı",
+    "dailyMessage": "Bugün görmek istemediğin şeye bak. Gölgende saklanan her şey bir öğretmen taşır.",
+    "guidance": "Reddettiğin yanını tanı. Onu anlayınca, seni yönetme gücünü yitirir.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng002",
+    "name": "Ayna",
+    "emoji": "🪞",
+    "element": "su",
+    "aspect": "Yansıma",
+    "dailyMessage": "Seni rahatsız eden her insan, sende bir şeyi yansıtır. Dışarıda aradığını içinde bul.",
+    "guidance": "Bugün eleştirdiğin birini düşün. O özellik sende de var mı?",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng003",
+    "name": "Köz",
+    "emoji": "🔥",
+    "element": "ateş",
+    "aspect": "Gizli Enerji",
+    "dailyMessage": "Söndü sandığın ateş külün altında yaşıyor. Küçük bir üfürüm kor olmaya yeter.",
+    "guidance": "Vazgeçtiğin bir hayalini hatırla. Onu küçük bir adımla canlandır.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng004",
+    "name": "Uçurum",
+    "emoji": "🌊",
+    "element": "toprak",
+    "aspect": "Derinlik",
+    "dailyMessage": "Düşmekten korktuğun yer, büyümenin başladığı noktadır.",
+    "guidance": "Seni en çok korkutan şey nedir? Bugün ona bir adım yaklaş.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng005",
+    "name": "Sis",
+    "emoji": "🌫️",
+    "element": "hava",
+    "aspect": "Belirsizlik",
+    "dailyMessage": "Her şeyin net olmadığı anlarda bile yürüyebilirsin. Sis dağılır, ama sen zaten yoldasın.",
+    "guidance": "Cevabını bilmediğin soruyu taşımaya devam et. Yanıt, hazır olduğunda gelir.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng006",
+    "name": "Kök",
+    "emoji": "🌱",
+    "element": "toprak",
+    "aspect": "Temel",
+    "dailyMessage": "Görünmez olan her şey en önemli olandır. Kökler toprak altında güç toplar.",
+    "guidance": "Seni ayakta tutan nedir? Bugün o temeli fark et ve ona şükret.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng007",
+    "name": "Suskunluk",
+    "emoji": "◯",
+    "element": "hava",
+    "aspect": "Boşluk",
+    "dailyMessage": "En derin sesler kelimesiz gelir. Bugün sadece sessizliği dinle.",
+    "guidance": "On dakika hiçbir şey yapmadan otur. Rahatsızlığı geçene kadar bekle.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng008",
+    "name": "Labirent",
+    "emoji": "🌀",
+    "element": "toprak",
+    "aspect": "İç Yolculuk",
+    "dailyMessage": "Her çıkmaz sokak yanlış değildir. Seni kendine götüren yolun bir parçasıdır.",
+    "guidance": "Kafanda dönen o soruyu bir kağıda yaz. Dışarı çıkardığında şekil alır.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng009",
+    "name": "Perde",
+    "emoji": "🎭",
+    "element": "karanlık",
+    "aspect": "Maske",
+    "dailyMessage": "Giydiğin maskeyi o kadar uzun süre taşıdın ki yüzün nerede bitti, maske nerede başladı belli değil.",
+    "guidance": "Bugün bir ortamda beklentilere uymak yerine, ne hissedersen onu söyle.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng010",
+    "name": "Yılan",
+    "emoji": "🐍",
+    "element": "ateş",
+    "aspect": "Dönüşüm",
+    "dailyMessage": "Deri değiştirmek acı verir. Ama eski derisini taşıyan yılan büyüyemez.",
+    "guidance": "Bırakamadığın ama sana artık yaramayan nedir? Bugün o şeyi bırakmaya karar ver.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng011",
+    "name": "Duman",
+    "emoji": "💨",
+    "element": "ateş",
+    "aspect": "Geçicilik",
+    "dailyMessage": "Her şey geçer. Acın da, sevincin de. Duman gibi — şekil alır, kaybolur.",
+    "guidance": "Şu an taşıdığın duyguya isim ver. Onu geçici olarak gör.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng012",
+    "name": "Tohum",
+    "emoji": "🌰",
+    "element": "toprak",
+    "aspect": "Potansiyel",
+    "dailyMessage": "Toprağın altındaki tohum çürümeden filiz vermez. Bu kaosun bir anlamı var.",
+    "guidance": "Şu an zor olduğunu hissettiğin şey, neyin habercisi olabilir?",
+    "rarity": "common"
+  },
+  {
+    "id": "ng013",
+    "name": "Ay",
+    "emoji": "🌙",
+    "element": "su",
+    "aspect": "Döngü",
+    "dailyMessage": "Ay her gece eksilir, her ay yeniden dolar. Döngülerine karşı savaşma.",
+    "guidance": "Bugün zorlanıyorsan bil ki bu evrenin ritmidir. Yarın farklı olacak.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng014",
+    "name": "Boşluk",
+    "emoji": "✦",
+    "element": "hava",
+    "aspect": "Yaratım",
+    "dailyMessage": "Doluyken hiçbir şey giremez içine. Boşluğunu koru — oradan yaratırsın.",
+    "guidance": "Bugün programını boşalt. Boş zamanı boşa harcama gibi görme.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng015",
+    "name": "Gece",
+    "emoji": "🌃",
+    "element": "karanlık",
+    "aspect": "Dinlenme",
+    "dailyMessage": "Gece, gündüzün düşmanı değil tamamlayıcısıdır. Karanlık olmadan ışığı bilemezsin.",
+    "guidance": "Şu an zor bir dönemdeysen, bu gecelerin de sabahı olduğunu hatırla.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng016",
+    "name": "Köprü",
+    "emoji": "🌉",
+    "element": "hava",
+    "aspect": "Geçiş",
+    "dailyMessage": "Köprüde durmak ne oraya ne buraya aittir. Geçmek için köprü kurulur.",
+    "guidance": "Bir süredir beklediğin kararı bugün ver. Yarım kalmak yorar.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng017",
+    "name": "Derinlik",
+    "emoji": "🌊",
+    "element": "su",
+    "aspect": "İçsel Genişlik",
+    "dailyMessage": "Yüzeyi dalgalı olan denizin dibi sakindir. Derine in.",
+    "guidance": "Kafanın sesi sakinleşene kadar bekle. Asıl sesi o zaman duyarsın.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng018",
+    "name": "Kaya",
+    "emoji": "🪨",
+    "element": "toprak",
+    "aspect": "Dayanıklılık",
+    "dailyMessage": "Her şey değişirken değişmeyen bir şey var içinde. O seni taşır.",
+    "guidance": "Sarsılmaz olan yanını tanı. Zor anlarda oraya dön.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng019",
+    "name": "Şimşek",
+    "emoji": "⚡",
+    "element": "ateş",
+    "aspect": "Ani Farkındalık",
+    "dailyMessage": "Gerçek, çoğu zaman bir çakan ışık gibi gelir. Beklenmedik anda, beklenmedik yerde.",
+    "guidance": "Bugün sezgine uyan. Aklın hayır dese bile içinden gelen sesi duy.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng020",
+    "name": "Girdap",
+    "emoji": "🌀",
+    "element": "su",
+    "aspect": "Çekim",
+    "dailyMessage": "Seni tekrar tekrar aynı yere çeken ne var? O çekim, çözülmemiş bir şeyi gösterir.",
+    "guidance": "Hayatında tekrar eden bir kalıp var mı? Bugün onu bir kağıda yaz.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng021",
+    "name": "İz",
+    "emoji": "◌",
+    "element": "toprak",
+    "aspect": "Miras",
+    "dailyMessage": "Her geçtiğin yerde bir iz bırakırsın. Bugün ne tür izler bıraktığını düşün.",
+    "guidance": "Senden sonra ne kalmasını istiyorsun? Bu soruyu ciddiye al.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng022",
+    "name": "Yankı",
+    "emoji": "🔊",
+    "element": "hava",
+    "aspect": "Yansıma",
+    "dailyMessage": "Söylediğin her şey geri döner. İçinden geçen düşünceler de öyle.",
+    "guidance": "Bugün kendinle nasıl konuşuyorsun? Bir yabancıya söyler misin bunu?",
+    "rarity": "common"
+  },
+  {
+    "id": "ng023",
+    "name": "Kılıç",
+    "emoji": "⚔️",
+    "element": "ateş",
+    "aspect": "Netlik",
+    "dailyMessage": "Kesmesi gereken şeyleri kesmek cesaret ister. Ama kesmeyen kılıç pas tutar.",
+    "guidance": "Hayatında tutmaya devam ettiğin ama bırakman gereken nedir?",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng024",
+    "name": "Kapı",
+    "emoji": "🚪",
+    "element": "hava",
+    "aspect": "Eşik",
+    "dailyMessage": "Her kapı hem çıkış hem de girişdir. Hangisine baktığın, nereye gittiğini belirler.",
+    "guidance": "Şu an önünde duran fırsatı gör. Kapıları başkaları açmaz.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng025",
+    "name": "Zincir",
+    "emoji": "⛓️",
+    "element": "toprak",
+    "aspect": "Özgürleşme",
+    "dailyMessage": "Taşıdığın zincirlerin çoğu gerçek değil. Yıllar önce inandığın sınırlardır.",
+    "guidance": "Yapamam dediğin şeyin neden yapamadığını bugün sorgula.",
+    "rarity": "rare"
+  }
+]
