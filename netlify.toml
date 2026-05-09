@@ -1,11 +1,10 @@
 [build]
-  command = "npm install --legacy-peer-deps && npx expo export --platform web"
+  command = "npx expo export --platform web"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "18"
   EXPO_NO_TELEMETRY = "1"
-  NPM_FLAGS = "--legacy-peer-deps"
 
 [[redirects]]
   from = "/*"
