@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   Animated,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import quotesData from '../data/quotes.json';
 import stonesData from '../data/stones.json';
-import animalsData from '../data/animals.json';
 import nagualsData from '../data/naguals.json';
 import { useTuraStore } from '../store/useStore';
 
@@ -21,20 +21,29 @@ interface HomeScreenProps {
   onNavigateToProfile?: () => void;
 }
 
-function KilimRow({ color }: { color: string }) {
+const { width: SCREEN_W } = Dimensions.get('window');
+const CARD_W = Math.min(Math.round(SCREEN_W * 0.55), 230);
+const CARD_H = Math.round(CARD_W * 1.75);
+const STACK = 7; // shadow card offset
+
+const DECKS = [
+  { title: 'Sözler',  subtitle: 'Anadolu bilgeliğinden', color: Colors.gold,   motif: '◈' },
+  { title: 'Taşlar',  subtitle: 'Kristal enerjisinden',  color: Colors.purple, motif: '◈' },
+  { title: 'Nagual',  subtitle: 'Ruh rehberliğinden',    color: Colors.teal,   motif: '◈' },
+];
+
+// ─── Kilim band ────────────────────────────────────────────────────────────────
+function KilimBand({ color }: { color: string }) {
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
-      {['◆', '▲', '◆', '▲', '◆'].map((s, i) => (
-        <Text key={i} style={{ color, fontSize: 8, opacity: 0.6 }}>{s}</Text>
+    <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 3 }}>
+      {['◆', '▲', '◆', '▼', '◆', '▲', '◆', '▼', '◆'].map((s, i) => (
+        <Text key={i} style={{ color, fontSize: 5.5, opacity: 0.5 }}>{s}</Text>
       ))}
     </View>
   );
 }
 
-function SunSymbol({ color, size = 32 }: { color: string; size?: number }) {
-  return <Text style={{ fontSize: size, color, lineHeight: size + 4 }}>☀</Text>;
-}
-
+// ─── Card content components ───────────────────────────────────────────────────
 function QuoteContent({ quote }: { quote: typeof quotesData[0] }) {
   return (
     <View style={cs.container}>
@@ -49,67 +58,81 @@ function StoneContent({ stone }: { stone: typeof stonesData[0] }) {
   return (
     <View style={cs.container}>
       <View style={[cs.medallion, { borderColor: Colors.purple + '50' }]}>
-        <View style={[cs.medallionInner, { borderColor: Colors.purple + '30' }]}>
-          <Text style={cs.stoneEmoji}>{stone.emoji}</Text>
+        <View style={[cs.inner, { borderColor: Colors.purple + '30' }]}>
+          <Text style={cs.bigEmoji}>{stone.emoji}</Text>
         </View>
       </View>
-      <Text style={[cs.name, { color: Colors.purpleLight }]}>{stone.name}</Text>
+      <Text style={[cs.itemName, { color: Colors.purpleLight }]}>{stone.name}</Text>
       <Text style={cs.meta}>{stone.chakra}</Text>
       <View style={[cs.divider, { backgroundColor: Colors.purple }]} />
       <Text style={cs.body}>{stone.dailyMessage}</Text>
-      <View style={[cs.affirmBox, { borderColor: Colors.purple + '40' }]}>
+      <View style={[cs.affirmBox, { borderColor: Colors.purple + '35' }]}>
         <Text style={[cs.affirmText, { color: Colors.purpleLight }]}>{stone.affirmation}</Text>
       </View>
     </View>
   );
 }
 
-function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
+function NagualContent({ nagual }: { nagual: typeof nagualsData[0] }) {
   return (
     <View style={cs.container}>
-      <View style={[cs.medallionOuter, { borderColor: Colors.teal + '25' }]}>
-        <View style={[cs.medallion, { borderColor: Colors.teal + '50' }]}>
-          <View style={[cs.medallionInner, { borderColor: Colors.teal + '30' }]}>
-            <Text style={cs.animalEmoji}>{animal.emoji}</Text>
-          </View>
+      <View style={[cs.medallion, { borderColor: Colors.teal + '50' }]}>
+        <View style={[cs.inner, { borderColor: Colors.teal + '30' }]}>
+          <Text style={cs.bigEmoji}>{nagual.emoji}</Text>
         </View>
       </View>
-      <Text style={[cs.name, { color: Colors.tealLight }]}>{animal.name}</Text>
-      <Text style={cs.meta}>{animal.element} · {animal.anatolianMeaning}</Text>
+      <Text style={[cs.itemName, { color: Colors.tealLight }]}>{nagual.name}</Text>
+      <Text style={cs.meta}>{nagual.element} · {nagual.aspect}</Text>
       <View style={[cs.divider, { backgroundColor: Colors.teal }]} />
-      <Text style={cs.body}>{animal.dailyMessage}</Text>
-      <View style={[cs.affirmBox, { borderColor: Colors.teal + '40' }]}>
-        <Text style={[cs.affirmText, { color: Colors.tealLight }]}>{animal.guidance}</Text>
+      <Text style={cs.body}>{nagual.dailyMessage}</Text>
+      <View style={[cs.affirmBox, { borderColor: Colors.teal + '35' }]}>
+        <Text style={[cs.affirmText, { color: Colors.tealLight }]}>{nagual.guidance}</Text>
       </View>
     </View>
   );
 }
 
-const CARDS = [
-  { title: 'Bilgenin Sözü',  subtitle: 'Anadolu bilgeliğinden', color: Colors.gold },
-  { title: 'Kristal Rehber', subtitle: 'Taşın enerjisinden',    color: Colors.purple },
-  { title: 'Ruh Hayvanın',   subtitle: 'Şamanik gelenekten',    color: Colors.teal },
-];
+// ─── Mini deck indicator ────────────────────────────────────────────────────────
+function MiniDeck({ deck, state }: { deck: typeof DECKS[0]; state: 'done' | 'active' | 'pending' }) {
+  const color = state === 'pending' ? Colors.textMuted : deck.color;
+  return (
+    <View style={[ms.wrapper, state === 'active' && { opacity: 1 }, state === 'pending' && { opacity: 0.35 }]}>
+      {/* Tiny stack behind */}
+      <View style={[ms.card, ms.shadow2, { borderColor: color + '20' }]} />
+      <View style={[ms.card, ms.shadow1, { borderColor: color + '40' }]} />
+      <View style={[ms.card, ms.front, {
+        borderColor: color,
+        backgroundColor: state === 'active' ? color + '15' : Colors.backgroundCard,
+      }]}>
+        <Text style={{ fontSize: 10, color, fontWeight: '700' }}>
+          {state === 'done' ? '✓' : deck.motif}
+        </Text>
+      </View>
+      <Text style={[ms.label, { color }]}>{deck.title}</Text>
+    </View>
+  );
+}
 
+// ─── Home screen ───────────────────────────────────────────────────────────────
 export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const insets = useSafeAreaInsets();
-  const { profile, dailyReading, generateDailyReading, updateStats, getLevelTitle } = useTuraStore();
+  const { profile, dailyReading, generateDailyReading, updateStats } = useTuraStore();
 
   const [reading, setReading] = useState(dailyReading);
-  const [step, setStep] = useState(0);
+  const [step, setStep]       = useState(0);
   const [revealed, setRevealed] = useState(false);
-  const [done, setDone] = useState(false);
+  const [done, setDone]       = useState(false);
 
   const backFade  = useRef(new Animated.Value(1)).current;
   const frontFade = useRef(new Animated.Value(0)).current;
+  const revealedRef = useRef(false);
 
   useEffect(() => {
     if (!reading) {
       const qIds = quotesData.map(q => q.id);
       const sIds = stonesData.map(s => s.id);
-      const aIds = animalsData.map(a => a.id);
       const nIds = nagualsData.map(n => n.id);
-      generateDailyReading(qIds, sIds, aIds, nIds).then(r => {
+      generateDailyReading(qIds, sIds, nIds, nIds).then(r => {
         const q = quotesData.find(x => x.id === r.quoteId)!;
         updateStats(q.id, q.source, r.stoneId, r.animalId, r.nagualId);
         setReading(r);
@@ -117,26 +140,54 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     }
   }, []);
 
-  const quote  = reading ? quotesData.find(q => q.id === reading.quoteId)  : null;
-  const stone  = reading ? stonesData.find(s => s.id === reading.stoneId)  : null;
-  const animal = reading ? animalsData.find(a => a.id === reading.animalId) : null;
+  // Shake detection
+  useEffect(() => {
+    let sub: { remove: () => void } | null = null;
+    let lx = 0, ly = 0, lz = 0, cool = false;
+    const setup = async () => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { Accelerometer } = require('expo-sensors');
+        Accelerometer.setUpdateInterval(100);
+        sub = Accelerometer.addListener(({ x, y, z }: { x: number; y: number; z: number }) => {
+          const d = Math.abs(x - lx) + Math.abs(y - ly) + Math.abs(z - lz);
+          lx = x; ly = y; lz = z;
+          if (d > 2.4 && !revealedRef.current && !cool) {
+            cool = true;
+            setTimeout(() => { cool = false; }, 800);
+            triggerReveal();
+          }
+        });
+      } catch { /* web fallback */ }
+    };
+    setup();
+    return () => { sub?.remove(); };
+  }, []);
 
-  const card = CARDS[step];
+  const quote  = reading ? quotesData.find(q => q.id === reading.quoteId)   : null;
+  const stone  = reading ? stonesData.find(s => s.id === reading.stoneId)   : null;
+  const nagual = reading ? nagualsData.find(n => n.id === reading.nagualId) : null;
 
-  const handleReveal = () => {
+  const deck = DECKS[step];
+
+  const triggerReveal = () => {
+    if (revealedRef.current) return;
+    revealedRef.current = true;
+    setRevealed(true);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    Animated.timing(backFade, { toValue: 0, duration: 280, useNativeDriver: true }).start(() => {
-      setRevealed(true);
-      Animated.timing(frontFade, { toValue: 1, duration: 420, useNativeDriver: true }).start();
-    });
+    Animated.parallel([
+      Animated.timing(backFade,  { toValue: 0, duration: 280, useNativeDriver: true }),
+      Animated.timing(frontFade, { toValue: 1, duration: 380, useNativeDriver: true }),
+    ]).start();
   };
 
   const handleNext = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    if (step < CARDS.length - 1) {
-      Animated.timing(frontFade, { toValue: 0, duration: 250, useNativeDriver: true }).start(() => {
+    if (step < DECKS.length - 1) {
+      Animated.timing(frontFade, { toValue: 0, duration: 200, useNativeDriver: true }).start(() => {
         setStep(s => s + 1);
         setRevealed(false);
+        revealedRef.current = false;
         backFade.setValue(1);
         frontFade.setValue(0);
       });
@@ -154,9 +205,10 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={Colors.background} />
 
+      {/* Header */}
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>{greeting()}</Text>
@@ -169,85 +221,136 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
         </TouchableOpacity>
       </View>
 
-      {!done && (
-        <View style={styles.dots}>
-          {CARDS.map((c, i) => (
-            <View
-              key={i}
-              style={[
-                styles.dot,
-                i < step  && { backgroundColor: Colors.textMuted, width: 6 },
-                i === step && { backgroundColor: c.color, width: 22 },
-                i > step  && { backgroundColor: Colors.divider, width: 6 },
-              ]}
-            />
-          ))}
-        </View>
-      )}
+      {/* Main area */}
+      <View style={styles.main}>
 
-      <View style={styles.cardArea}>
         {done ? (
-          <View style={styles.doneView}>
-            <SunSymbol color={Colors.gold} size={48} />
-            <Text style={styles.doneTitle}>Günlük rehberlik tamamlandı</Text>
+          /* ── Done screen ── */
+          <View style={styles.doneWrap}>
+            <Text style={{ fontSize: 40, color: Colors.gold }}>☀</Text>
+            <Text style={styles.doneTitle}>Günlük rehberlik{'\n'}tamamlandı</Text>
             <Text style={styles.doneSub}>Yarın yeni bir yolculuk başlar</Text>
             {quote && (
               <>
-                <View style={styles.doneDivider} />
+                <View style={styles.doneLine} />
                 <Text style={styles.doneQuote}>
-                  {quote.text.length > 100 ? quote.text.slice(0, 97) + '…' : quote.text}
+                  {quote.text.length > 90 ? quote.text.slice(0, 87) + '…' : quote.text}
                 </Text>
               </>
             )}
           </View>
 
-        ) : !revealed ? (
-          <Animated.View style={[styles.card, { opacity: backFade, borderColor: card.color + '35' }]}>
-            <TouchableOpacity style={styles.cardBackInner} onPress={handleReveal} activeOpacity={0.88}>
-              <KilimRow color={card.color} />
-              <View style={styles.cardBackCenter}>
-                <Text style={[styles.corner, { top: 0, left: 0 }]}>◆</Text>
-                <Text style={[styles.corner, { top: 0, right: 0 }]}>◆</Text>
-                <Text style={[styles.corner, { bottom: 0, left: 0 }]}>◆</Text>
-                <Text style={[styles.corner, { bottom: 0, right: 0 }]}>◆</Text>
-                <SunSymbol color={card.color} size={56} />
-                <Text style={[styles.cardBackTitle, { color: card.color }]}>{card.title}</Text>
-                <Text style={styles.cardBackSub}>{card.subtitle}</Text>
-                <View style={styles.tapRow}>
-                  <View style={[styles.tapLine, { backgroundColor: card.color }]} />
-                  <Text style={[styles.tapHint, { color: card.color }]}>dokun</Text>
-                  <View style={[styles.tapLine, { backgroundColor: card.color }]} />
-                </View>
-              </View>
-              <KilimRow color={card.color} />
-            </TouchableOpacity>
-          </Animated.View>
-
         ) : (
-          <Animated.View style={[styles.card, { opacity: frontFade, borderColor: card.color + '50' }]}>
-            <View style={[styles.cardFrontHeader, { borderBottomColor: card.color + '30' }]}>
-              <SunSymbol color={card.color} size={13} />
-              <Text style={[styles.cardFrontTitle, { color: card.color }]}>{card.title}</Text>
+          <>
+            {/* ── Deck stack + card ── */}
+            <View style={styles.deckOuter}>
+              {/* Shadow cards (deck effect) */}
+              <View style={[styles.shadowCard, {
+                borderColor: deck.color + '18',
+                top: 0, left: STACK * 2,
+              }]} />
+              <View style={[styles.shadowCard, {
+                borderColor: deck.color + '35',
+                top: STACK * 0.6, left: STACK,
+              }]} />
+
+              {/* Main card */}
+              <View style={[styles.card, { top: STACK, left: 0, borderColor: deck.color + '55' }]}>
+                {/* Back side */}
+                <Animated.View
+                  style={[StyleSheet.absoluteFill, { opacity: backFade }]}
+                  pointerEvents={revealed ? 'none' : 'auto'}
+                >
+                  <TouchableOpacity
+                    style={styles.backInner}
+                    onPress={triggerReveal}
+                    activeOpacity={0.85}
+                  >
+                    <View style={styles.bandRow}>
+                      <View style={[styles.bandLine, { backgroundColor: deck.color }]} />
+                      <KilimBand color={deck.color} />
+                      <View style={[styles.bandLine, { backgroundColor: deck.color }]} />
+                    </View>
+
+                    <View style={styles.backCenter}>
+                      <Text style={[styles.cStar, { top: 0, left: 0, color: deck.color }]}>✦</Text>
+                      <Text style={[styles.cStar, { top: 0, right: 0, color: deck.color }]}>✦</Text>
+                      <Text style={[styles.cStar, { bottom: 0, left: 0, color: deck.color }]}>✦</Text>
+                      <Text style={[styles.cStar, { bottom: 0, right: 0, color: deck.color }]}>✦</Text>
+                      <View style={[styles.hLine, { top: '30%', backgroundColor: deck.color }]} />
+                      <View style={[styles.hLine, { bottom: '30%', backgroundColor: deck.color }]} />
+
+                      <Text style={{ fontSize: 38, color: deck.color, lineHeight: 44 }}>☀</Text>
+                      <Text style={[styles.backTitle, { color: deck.color }]}>{deck.title}</Text>
+                      <Text style={styles.backSub}>{deck.subtitle}</Text>
+
+                      <View style={styles.tapRow}>
+                        <View style={[styles.tapLine, { backgroundColor: deck.color }]} />
+                        <Text style={[styles.tapHint, { color: deck.color }]}>salla · dokun</Text>
+                        <View style={[styles.tapLine, { backgroundColor: deck.color }]} />
+                      </View>
+                    </View>
+
+                    <View style={styles.bandRow}>
+                      <View style={[styles.bandLine, { backgroundColor: deck.color }]} />
+                      <KilimBand color={deck.color} />
+                      <View style={[styles.bandLine, { backgroundColor: deck.color }]} />
+                    </View>
+                  </TouchableOpacity>
+                </Animated.View>
+
+                {/* Front side */}
+                <Animated.View
+                  style={[StyleSheet.absoluteFill, { opacity: frontFade }]}
+                  pointerEvents={revealed ? 'auto' : 'none'}
+                >
+                  <View style={[styles.frontHeader, { borderBottomColor: deck.color + '30' }]}>
+                    <Text style={{ fontSize: 10, color: deck.color }}>☀</Text>
+                    <Text style={[styles.frontTitle, { color: deck.color }]}>{deck.title}</Text>
+                  </View>
+                  <ScrollView
+                    style={styles.scroll}
+                    contentContainerStyle={styles.scrollPad}
+                    showsVerticalScrollIndicator={false}
+                  >
+                    {step === 0 && quote  && <QuoteContent quote={quote} />}
+                    {step === 1 && stone  && <StoneContent stone={stone} />}
+                    {step === 2 && nagual && <NagualContent nagual={nagual} />}
+                  </ScrollView>
+                  <TouchableOpacity
+                    style={[styles.nextBtn, { borderColor: deck.color }]}
+                    onPress={handleNext}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={[styles.nextBtnText, { color: deck.color }]}>
+                      {step < DECKS.length - 1 ? 'Sıradaki Deste →' : 'Tamamlandı ✦'}
+                    </Text>
+                  </TouchableOpacity>
+                </Animated.View>
+              </View>
             </View>
-            <ScrollView style={styles.cardScroll} contentContainerStyle={styles.cardScrollPad} showsVerticalScrollIndicator={false}>
-              {step === 0 && quote  && <QuoteContent quote={quote} />}
-              {step === 1 && stone  && <StoneContent stone={stone} />}
-              {step === 2 && animal && <AnimalContent animal={animal} />}
-            </ScrollView>
-            <TouchableOpacity style={[styles.nextBtn, { borderColor: card.color }]} onPress={handleNext} activeOpacity={0.8}>
-              <Text style={[styles.nextBtnText, { color: card.color }]}>
-                {step < CARDS.length - 1 ? 'Sonraki →' : 'Tamamlandı'}
-              </Text>
-            </TouchableOpacity>
-          </Animated.View>
+
+            {/* ── Mini deck progress ── */}
+            <View style={styles.deckRow}>
+              {DECKS.map((d, i) => (
+                <MiniDeck
+                  key={i}
+                  deck={d}
+                  state={i < step ? 'done' : i === step ? 'active' : 'pending'}
+                />
+              ))}
+            </View>
+          </>
         )}
       </View>
     </View>
   );
 }
 
+// ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.background },
+  root: { flex: 1, backgroundColor: Colors.background },
+
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -262,13 +365,13 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   username: {
-    fontSize: Typography.size.lg,
+    fontSize: Typography.size.md,
     fontWeight: Typography.weight.semibold,
     color: Colors.textPrimary,
     marginTop: 1,
   },
   profileBtn: {
-    width: 36, height: 36, borderRadius: 18,
+    width: 34, height: 34, borderRadius: 17,
     backgroundColor: Colors.surface,
     alignItems: 'center', justifyContent: 'center',
     borderWidth: 1, borderColor: Colors.cardBorder,
@@ -278,208 +381,246 @@ const styles = StyleSheet.create({
     color: Colors.gold,
     fontWeight: Typography.weight.semibold,
   },
-  dots: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 6,
-    paddingVertical: Spacing.sm,
-  },
-  dot: { height: 6, borderRadius: 3 },
-  cardArea: {
+
+  main: {
     flex: 1,
-    paddingHorizontal: Spacing.md,
-    paddingBottom: Spacing.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: Spacing.xl,
+    gap: Spacing.xl,
+  },
+
+  // Deck stack wrapper
+  deckOuter: {
+    width: CARD_W + STACK * 2,
+    height: CARD_H + STACK,
+    position: 'relative',
+  },
+  shadowCard: {
+    position: 'absolute',
+    width: CARD_W,
+    height: CARD_H,
+    backgroundColor: Colors.backgroundCard,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
   },
   card: {
-    flex: 1,
+    position: 'absolute',
+    width: CARD_W,
+    height: CARD_H,
     backgroundColor: Colors.backgroundCard,
-    borderRadius: BorderRadius.xl,
+    borderRadius: BorderRadius.lg,
     borderWidth: 1,
     overflow: 'hidden',
   },
-  cardBackInner: {
+
+  // Card back
+  backInner: {
     flex: 1,
-    padding: Spacing.lg,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
     justifyContent: 'space-between',
   },
-  cardBackCenter: {
+  bandRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+  },
+  bandLine: { flex: 1, height: 1, opacity: 0.25 },
+  backCenter: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: Spacing.md,
+    gap: Spacing.sm,
     position: 'relative',
   },
-  corner: {
-    position: 'absolute',
-    fontSize: 12,
-    color: Colors.gold,
-    opacity: 0.35,
-  },
-  cardBackTitle: {
-    fontSize: Typography.size.xxl,
+  cStar: { position: 'absolute', fontSize: 8, opacity: 0.4 },
+  hLine: { position: 'absolute', left: 0, right: 0, height: 1, opacity: 0.1 },
+  backTitle: {
+    fontSize: Typography.size.md,
     fontWeight: Typography.weight.bold,
     letterSpacing: 2,
     textAlign: 'center',
-    marginTop: Spacing.sm,
+    marginTop: 2,
   },
-  cardBackSub: {
-    fontSize: Typography.size.sm,
+  backSub: {
+    fontSize: 10,
     color: Colors.textMuted,
-    letterSpacing: 1,
+    letterSpacing: 0.8,
   },
   tapRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.sm,
-    marginTop: Spacing.xl,
-    opacity: 0.65,
+    gap: 4,
+    marginTop: Spacing.md,
+    opacity: 0.6,
   },
   tapLine: { flex: 1, height: 1, opacity: 0.5 },
-  tapHint: {
-    fontSize: Typography.size.xs,
-    letterSpacing: 3,
-    textTransform: 'uppercase',
-  },
-  cardFrontHeader: {
+  tapHint: { fontSize: 8, letterSpacing: 2, textTransform: 'uppercase' },
+
+  // Card front
+  frontHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.xs,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
+    gap: 4,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
     borderBottomWidth: 1,
   },
-  cardFrontTitle: {
-    fontSize: Typography.size.xs,
+  frontTitle: {
+    fontSize: 9,
     fontWeight: Typography.weight.semibold,
-    letterSpacing: 2,
+    letterSpacing: 1.5,
     textTransform: 'uppercase',
   },
-  cardScroll: { flex: 1 },
-  cardScrollPad: { padding: Spacing.lg },
+  scroll: { flex: 1 },
+  scrollPad: { padding: Spacing.md },
   nextBtn: {
-    margin: Spacing.lg,
-    marginTop: 0,
-    paddingVertical: Spacing.md,
+    marginHorizontal: Spacing.md,
+    marginBottom: Spacing.sm,
+    paddingVertical: Spacing.sm,
     borderRadius: BorderRadius.round,
     borderWidth: 1,
     alignItems: 'center',
   },
   nextBtnText: {
-    fontSize: Typography.size.sm,
+    fontSize: 10,
     fontWeight: Typography.weight.semibold,
-    letterSpacing: 1.5,
+    letterSpacing: 1.2,
     textTransform: 'uppercase',
   },
-  doneView: {
-    flex: 1,
+
+  // Mini deck row
+  deckRow: {
+    flexDirection: 'row',
+    gap: Spacing.xl,
+    alignItems: 'flex-end',
+  },
+
+  // Done
+  doneWrap: {
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: Spacing.xl,
     gap: Spacing.md,
+    padding: Spacing.xl,
   },
   doneTitle: {
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,
     color: Colors.textPrimary,
     textAlign: 'center',
-    letterSpacing: 0.5,
-    marginTop: Spacing.md,
+    lineHeight: Typography.size.lg * 1.5,
+    marginTop: Spacing.sm,
   },
-  doneSub: {
-    fontSize: Typography.size.sm,
-    color: Colors.textMuted,
-    letterSpacing: 1,
-  },
-  doneDivider: {
-    width: 40, height: 1,
+  doneSub: { fontSize: Typography.size.xs, color: Colors.textMuted, letterSpacing: 0.8 },
+  doneLine: {
+    width: 28, height: 1,
     backgroundColor: Colors.gold,
     opacity: 0.3,
-    marginVertical: Spacing.md,
+    marginVertical: Spacing.sm,
   },
   doneQuote: {
-    fontSize: Typography.size.sm,
+    fontSize: Typography.size.xs,
     color: Colors.textSecondary,
     textAlign: 'center',
     fontStyle: 'italic',
-    lineHeight: Typography.size.sm * 1.8,
+    lineHeight: Typography.size.xs * 1.9,
     fontWeight: Typography.weight.light,
+    maxWidth: 260,
   },
 });
 
+// Mini deck styles
+const ms = StyleSheet.create({
+  wrapper: { alignItems: 'center', gap: 4 },
+  card: {
+    position: 'absolute',
+    width: 36, height: 54,
+    backgroundColor: Colors.backgroundCard,
+    borderRadius: 5,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  shadow2: { top: 0, left: 4 },
+  shadow1: { top: 2, left: 2 },
+  front:   { top: 4, left: 0 },
+  label: {
+    fontSize: 9,
+    letterSpacing: 0.8,
+    marginTop: 58,
+    textTransform: 'uppercase',
+    fontWeight: Typography.weight.medium,
+  },
+});
+
+// Content styles
 const cs = StyleSheet.create({
   container: { alignItems: 'center' },
   quoteText: {
-    fontSize: Typography.size.md,
+    fontSize: Typography.size.xs,
     color: Colors.textPrimary,
     textAlign: 'center',
-    lineHeight: Typography.size.md * 1.9,
+    lineHeight: Typography.size.xs * 2,
     fontStyle: 'italic',
     fontWeight: Typography.weight.light,
   },
   divider: {
-    width: 24, height: 1,
+    width: 18, height: 1,
     backgroundColor: Colors.gold,
     opacity: 0.4,
-    marginVertical: Spacing.lg,
+    marginVertical: Spacing.sm,
   },
   source: {
-    fontSize: Typography.size.sm,
-    letterSpacing: 1.5,
+    fontSize: 10,
+    letterSpacing: 1.2,
     fontWeight: Typography.weight.medium,
     textAlign: 'center',
   },
-  medallionOuter: {
-    width: 130, height: 130, borderRadius: 65,
-    borderWidth: 1,
-    alignItems: 'center', justifyContent: 'center',
-    marginBottom: Spacing.lg,
-  },
   medallion: {
-    width: 108, height: 108, borderRadius: 54,
+    width: 74, height: 74, borderRadius: 37,
     borderWidth: 1,
     alignItems: 'center', justifyContent: 'center',
+    marginBottom: Spacing.sm,
   },
-  medallionInner: {
-    width: 82, height: 82, borderRadius: 41,
+  inner: {
+    width: 54, height: 54, borderRadius: 27,
     borderWidth: 1,
     alignItems: 'center', justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255,0.02)',
   },
-  stoneEmoji:  { fontSize: 40, marginBottom: Spacing.lg },
-  animalEmoji: { fontSize: 50, marginBottom: Spacing.lg },
-  name: {
-    fontSize: Typography.size.xxl,
+  bigEmoji: { fontSize: 26 },
+  itemName: {
+    fontSize: Typography.size.sm,
     fontWeight: Typography.weight.semibold,
-    letterSpacing: 0.5,
-    marginBottom: 3,
+    letterSpacing: 0.4,
+    marginBottom: 2,
   },
   meta: {
-    fontSize: Typography.size.xs,
+    fontSize: 9,
     color: Colors.textMuted,
-    letterSpacing: 1.5,
+    letterSpacing: 1.2,
     textTransform: 'uppercase',
     textAlign: 'center',
   },
   body: {
-    fontSize: Typography.size.sm,
+    fontSize: Typography.size.xs,
     color: Colors.textSecondary,
     textAlign: 'center',
-    lineHeight: Typography.size.sm * 1.9,
+    lineHeight: Typography.size.xs * 1.9,
     fontWeight: Typography.weight.light,
-    marginBottom: Spacing.lg,
+    marginBottom: Spacing.sm,
   },
   affirmBox: {
     borderWidth: 1,
-    borderRadius: BorderRadius.md,
-    padding: Spacing.md,
+    borderRadius: BorderRadius.sm,
+    padding: Spacing.sm,
     width: '100%',
   },
   affirmText: {
-    fontSize: Typography.size.sm,
+    fontSize: Typography.size.xs,
     textAlign: 'center',
     fontStyle: 'italic',
-    lineHeight: Typography.size.sm * 1.7,
+    lineHeight: Typography.size.xs * 1.7,
     fontWeight: Typography.weight.light,
   },
 });

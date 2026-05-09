@@ -17,7 +17,8 @@ export interface DailyReading {
 
 export interface UserProfile {
   name: string;
-  birthDate?: string;
+  fullName?: string;
+  birthDate?: string; // YYYY-MM-DD
   element?: 'ateş' | 'su' | 'toprak' | 'hava';
   createdAt: string;
   streak: number;
@@ -112,11 +113,17 @@ export function useTuraStore() {
     await AsyncStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(p));
   }, []);
 
-  const createProfile = useCallback(async (name: string, element: UserProfile['element'], birthDate?: string) => {
+  const createProfile = useCallback(async (
+    name: string,
+    element: UserProfile['element'],
+    birthDate?: string,
+    fullName?: string,
+  ) => {
     const p: UserProfile = {
       name,
       element,
       birthDate,
+      fullName,
       createdAt: new Date().toISOString(),
       streak: 0,
       totalReadings: 0,
@@ -125,6 +132,11 @@ export function useTuraStore() {
     await saveProfile(p);
     setIsNewUser(false);
   }, [saveProfile]);
+
+  const updateBirthData = useCallback(async (fullName: string, birthDate: string) => {
+    if (!profile) return;
+    await saveProfile({ ...profile, fullName, birthDate });
+  }, [profile, saveProfile]);
 
   const generateDailyReading = useCallback(async (
     quoteIds: string[],
@@ -217,6 +229,7 @@ export function useTuraStore() {
     isNewUser,
     createProfile,
     saveProfile,
+    updateBirthData,
     generateDailyReading,
     updateStats,
     getTopStat,
