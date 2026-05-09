@@ -62,7 +62,6 @@ export function ArchiveScreen() {
           <Text style={styles.entryDate}>{formattedDate(item.date)}</Text>
           <Text style={styles.entryChevron}>{isExpanded ? '▲' : '▼'}</Text>
         </View>
-
         <View style={styles.entryPills}>
           {(filter === 'all' || filter === 'quote') && (
             <View style={[styles.pill, { borderColor: Colors.goldDark }]}>
@@ -93,7 +92,6 @@ export function ArchiveScreen() {
             </View>
           )}
         </View>
-
         {isExpanded && (
           <View style={styles.entryExpanded}>
             {quote && (filter === 'all' || filter === 'quote') && (
@@ -104,25 +102,19 @@ export function ArchiveScreen() {
             )}
             {stone && (filter === 'all' || filter === 'stone') && (
               <View style={styles.expandSection}>
-                <Text style={[styles.expandLabel, { color: Colors.purpleLight }]}>
-                  {stone.emoji} {stone.name}
-                </Text>
+                <Text style={[styles.expandLabel, { color: Colors.purpleLight }]}>{stone.emoji} {stone.name}</Text>
                 <Text style={styles.expandText}>{stone.dailyMessage}</Text>
               </View>
             )}
             {animal && (filter === 'all' || filter === 'animal') && (
               <View style={styles.expandSection}>
-                <Text style={[styles.expandLabel, { color: Colors.tealLight }]}>
-                  {animal.emoji} {animal.name}
-                </Text>
+                <Text style={[styles.expandLabel, { color: Colors.tealLight }]}>{animal.emoji} {animal.name}</Text>
                 <Text style={styles.expandText}>{animal.dailyMessage}</Text>
               </View>
             )}
             {nagual && (filter === 'all' || filter === 'nagual') && (
               <View style={styles.expandSection}>
-                <Text style={[styles.expandLabel, { color: Colors.emberLight }]}>
-                  {nagual.emoji} {nagual.name}
-                </Text>
+                <Text style={[styles.expandLabel, { color: Colors.emberLight }]}>{nagual.emoji} {nagual.name}</Text>
                 <Text style={styles.expandText}>{nagual.dailyMessage}</Text>
               </View>
             )}
@@ -138,7 +130,6 @@ export function ArchiveScreen() {
         <Text style={styles.title}>Arşiv</Text>
         <Text style={styles.subtitle}>{archive.length} okuma</Text>
       </View>
-
       {archive.length > 0 && (
         <View style={styles.reportCard}>
           <Text style={styles.reportTitle}>Ruhsal Harita</Text>
@@ -170,7 +161,6 @@ export function ArchiveScreen() {
           </View>
         </View>
       )}
-
       <View style={styles.filterRow}>
         {FILTERS.map(f => (
           <TouchableOpacity
@@ -184,7 +174,6 @@ export function ArchiveScreen() {
           </TouchableOpacity>
         ))}
       </View>
-
       {archive.length === 0 ? (
         <View style={styles.empty}>
           <Text style={styles.emptyText}>Henüz okuma yok.</Text>
@@ -204,154 +193,43 @@ export function ArchiveScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-  header: {
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-  },
-  title: {
-    fontSize: Typography.size.xxxl,
-    fontWeight: Typography.weight.bold,
-    color: Colors.textPrimary,
-    letterSpacing: 0.5,
-  },
-  subtitle: {
-    fontSize: Typography.size.sm,
-    color: Colors.textMuted,
-    marginTop: 2,
-  },
+  container: { flex: 1, backgroundColor: Colors.background },
+  header: { paddingHorizontal: Spacing.lg, paddingVertical: Spacing.md },
+  title: { fontSize: Typography.size.xxxl, fontWeight: Typography.weight.bold, color: Colors.textPrimary, letterSpacing: 0.5 },
+  subtitle: { fontSize: Typography.size.sm, color: Colors.textMuted, marginTop: 2 },
   reportCard: {
-    marginHorizontal: Spacing.lg,
-    marginBottom: Spacing.md,
-    backgroundColor: Colors.backgroundCard,
-    borderRadius: BorderRadius.md,
-    padding: Spacing.md,
-    borderWidth: 1,
-    borderColor: Colors.divider,
+    marginHorizontal: Spacing.lg, marginBottom: Spacing.md,
+    backgroundColor: Colors.backgroundCard, borderRadius: BorderRadius.md,
+    padding: Spacing.md, borderWidth: 1, borderColor: Colors.divider,
   },
-  reportTitle: {
-    fontSize: Typography.size.xs,
-    color: Colors.textMuted,
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-    marginBottom: Spacing.md,
-  },
-  reportRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  reportItem: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  reportLabel: {
-    fontSize: Typography.size.xs,
-    color: Colors.textMuted,
-    marginBottom: 3,
-  },
-  reportValue: {
-    fontSize: Typography.size.xs,
-    fontWeight: Typography.weight.semibold,
-    textAlign: 'center',
-  },
-  filterRow: {
-    flexDirection: 'row',
-    paddingHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
-    gap: Spacing.xs,
-  },
+  reportTitle: { fontSize: Typography.size.xs, color: Colors.textMuted, letterSpacing: 2, textTransform: 'uppercase', marginBottom: Spacing.md },
+  reportRow: { flexDirection: 'row', justifyContent: 'space-around' },
+  reportItem: { alignItems: 'center', flex: 1 },
+  reportLabel: { fontSize: Typography.size.xs, color: Colors.textMuted, marginBottom: 3 },
+  reportValue: { fontSize: Typography.size.xs, fontWeight: Typography.weight.semibold, textAlign: 'center' },
+  filterRow: { flexDirection: 'row', paddingHorizontal: Spacing.md, marginBottom: Spacing.md, gap: Spacing.xs },
   filterBtn: {
-    flex: 1,
-    paddingVertical: Spacing.sm,
-    borderRadius: BorderRadius.sm,
-    backgroundColor: Colors.backgroundSecondary,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'transparent',
+    flex: 1, paddingVertical: Spacing.sm, borderRadius: BorderRadius.sm,
+    backgroundColor: Colors.backgroundSecondary, alignItems: 'center',
+    borderWidth: 1, borderColor: 'transparent',
   },
-  filterLabel: {
-    fontSize: Typography.size.xs,
-    fontWeight: Typography.weight.medium,
-  },
-  list: {
-    paddingHorizontal: Spacing.md,
-    paddingBottom: Spacing.xxxl,
-  },
+  filterLabel: { fontSize: Typography.size.xs, fontWeight: Typography.weight.medium },
+  list: { paddingHorizontal: Spacing.md, paddingBottom: Spacing.xxxl },
   entryCard: {
-    backgroundColor: Colors.backgroundCard,
-    borderRadius: BorderRadius.md,
-    padding: Spacing.md,
-    marginBottom: Spacing.sm,
-    borderWidth: 1,
-    borderColor: Colors.divider,
+    backgroundColor: Colors.backgroundCard, borderRadius: BorderRadius.md,
+    padding: Spacing.md, marginBottom: Spacing.sm, borderWidth: 1, borderColor: Colors.divider,
   },
-  entryHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: Spacing.sm,
-  },
-  entryDate: {
-    fontSize: Typography.size.sm,
-    color: Colors.textPrimary,
-    fontWeight: Typography.weight.medium,
-  },
-  entryChevron: {
-    fontSize: 9,
-    color: Colors.textMuted,
-  },
-  entryPills: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Spacing.xs,
-  },
-  pill: {
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: 3,
-    borderRadius: BorderRadius.round,
-    borderWidth: 1,
-  },
-  pillText: {
-    fontSize: Typography.size.xs,
-  },
-  entryExpanded: {
-    marginTop: Spacing.md,
-    borderTopWidth: 1,
-    borderTopColor: Colors.divider,
-    paddingTop: Spacing.md,
-    gap: Spacing.md,
-  },
-  expandSection: {
-    gap: 5,
-  },
-  expandLabel: {
-    fontSize: Typography.size.sm,
-    fontWeight: Typography.weight.semibold,
-    letterSpacing: 0.3,
-  },
-  expandText: {
-    fontSize: Typography.size.sm,
-    color: Colors.textSecondary,
-    lineHeight: Typography.size.sm * 1.7,
-    fontStyle: 'italic',
-    fontWeight: Typography.weight.light,
-  },
-  empty: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: Spacing.sm,
-  },
-  emptyText: {
-    fontSize: Typography.size.lg,
-    color: Colors.textPrimary,
-    fontWeight: Typography.weight.medium,
-  },
-  emptySubtext: {
-    fontSize: Typography.size.sm,
-    color: Colors.textMuted,
-  },
+  entryHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: Spacing.sm },
+  entryDate: { fontSize: Typography.size.sm, color: Colors.textPrimary, fontWeight: Typography.weight.medium },
+  entryChevron: { fontSize: 9, color: Colors.textMuted },
+  entryPills: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.xs },
+  pill: { paddingHorizontal: Spacing.sm, paddingVertical: 3, borderRadius: BorderRadius.round, borderWidth: 1 },
+  pillText: { fontSize: Typography.size.xs },
+  entryExpanded: { marginTop: Spacing.md, borderTopWidth: 1, borderTopColor: Colors.divider, paddingTop: Spacing.md, gap: Spacing.md },
+  expandSection: { gap: 5 },
+  expandLabel: { fontSize: Typography.size.sm, fontWeight: Typography.weight.semibold, letterSpacing: 0.3 },
+  expandText: { fontSize: Typography.size.sm, color: Colors.textSecondary, lineHeight: Typography.size.sm * 1.7, fontStyle: 'italic', fontWeight: Typography.weight.light },
+  empty: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: Spacing.sm },
+  emptyText: { fontSize: Typography.size.lg, color: Colors.textPrimary, fontWeight: Typography.weight.medium },
+  emptySubtext: { fontSize: Typography.size.sm, color: Colors.textMuted },
 });
