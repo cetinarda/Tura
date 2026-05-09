@@ -23,27 +23,27 @@ interface HomeScreenProps {
 }
 
 const { width: SCREEN_W } = Dimensions.get('window');
-const CARD_W = SCREEN_W - 64;
-const CARD_H = CARD_W * 1.72; // tarot proportions
+// Tarot card: fixed small size, centered
+const CARD_W = Math.min(Math.round(SCREEN_W * 0.62), 260);
+const CARD_H = Math.round(CARD_W * 1.75);
 
-// ─── Kilim dekorasyon ─────────────────────────────────────────────────────────
+// ─── Decorations ──────────────────────────────────────────────────────────────
 
 function KilimBand({ color }: { color: string }) {
-  const m = ['◆', '▲', '◆', '▼', '◆', '▲', '◆', '▼', '◆', '▲', '◆'];
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 3 }}>
-      {m.map((s, i) => (
-        <Text key={i} style={{ color, fontSize: 7, opacity: 0.55 }}>{s}</Text>
+      {['◆', '▲', '◆', '▼', '◆', '▲', '◆', '▼', '◆'].map((s, i) => (
+        <Text key={i} style={{ color, fontSize: 6, opacity: 0.55 }}>{s}</Text>
       ))}
     </View>
   );
 }
 
-function SunSymbol({ color, size = 32 }: { color: string; size?: number }) {
-  return <Text style={{ fontSize: size, color, lineHeight: size + 4 }}>☀</Text>;
+function SunSymbol({ color, size = 28 }: { color: string; size?: number }) {
+  return <Text style={{ fontSize: size, color, lineHeight: size + 2 }}>☀</Text>;
 }
 
-// ─── Kart içerikleri ──────────────────────────────────────────────────────────
+// ─── Card content ─────────────────────────────────────────────────────────────
 
 function QuoteContent({ quote }: { quote: typeof quotesData[0] }) {
   return (
@@ -60,7 +60,7 @@ function StoneContent({ stone }: { stone: typeof stonesData[0] }) {
     <View style={cs.container}>
       <View style={[cs.medallion, { borderColor: Colors.purple + '50' }]}>
         <View style={[cs.medallionInner, { borderColor: Colors.purple + '30' }]}>
-          <Text style={cs.stoneEmoji}>{stone.emoji}</Text>
+          <Text style={cs.emoji}>{stone.emoji}</Text>
         </View>
       </View>
       <Text style={[cs.name, { color: Colors.purpleLight }]}>{stone.name}</Text>
@@ -80,7 +80,7 @@ function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
       <View style={[cs.medallionOuter, { borderColor: Colors.teal + '25' }]}>
         <View style={[cs.medallion, { borderColor: Colors.teal + '50' }]}>
           <View style={[cs.medallionInner, { borderColor: Colors.teal + '30' }]}>
-            <Text style={cs.animalEmoji}>{animal.emoji}</Text>
+            <Text style={cs.emoji}>{animal.emoji}</Text>
           </View>
         </View>
       </View>
@@ -95,7 +95,7 @@ function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
   );
 }
 
-// ─── Ana ekran ────────────────────────────────────────────────────────────────
+// ─── Main screen ──────────────────────────────────────────────────────────────
 
 const CARDS = [
   { title: 'Bilgenin Sözü',  subtitle: 'Anadolu bilgeliğinden', color: Colors.gold },
@@ -105,7 +105,7 @@ const CARDS = [
 
 export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const insets = useSafeAreaInsets();
-  const { profile, dailyReading, generateDailyReading, updateStats, getLevelTitle } = useTuraStore();
+  const { profile, dailyReading, generateDailyReading, updateStats } = useTuraStore();
 
   const [reading, setReading] = useState(dailyReading);
   const [step, setStep] = useState(0);
@@ -130,10 +130,10 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     }
   }, []);
 
-  // Shake detection via expo-sensors (dynamic import for web compatibility)
+  // Shake detection
   useEffect(() => {
     let subscription: { remove: () => void } | null = null;
-    let lastX = 0, lastY = 0, lastZ = 0;
+    let lx = 0, ly = 0, lz = 0;
     let cooldown = false;
 
     const setup = async () => {
@@ -142,19 +142,16 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
         const { Accelerometer } = require('expo-sensors');
         Accelerometer.setUpdateInterval(100);
         subscription = Accelerometer.addListener(({ x, y, z }: { x: number; y: number; z: number }) => {
-          const delta = Math.abs(x - lastX) + Math.abs(y - lastY) + Math.abs(z - lastZ);
-          lastX = x; lastY = y; lastZ = z;
+          const delta = Math.abs(x - lx) + Math.abs(y - ly) + Math.abs(z - lz);
+          lx = x; ly = y; lz = z;
           if (delta > 2.4 && !revealedRef.current && !cooldown) {
             cooldown = true;
             setTimeout(() => { cooldown = false; }, 800);
             triggerReveal();
           }
         });
-      } catch {
-        // expo-sensors not available (web / simulator fallback)
-      }
+      } catch { /* web / no sensor */ }
     };
-
     setup();
     return () => { subscription?.remove(); };
   }, []);
@@ -168,19 +165,19 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const triggerReveal = () => {
     if (revealedRef.current) return;
     revealedRef.current = true;
+    setRevealed(true);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    Animated.timing(backFade, { toValue: 0, duration: 280, useNativeDriver: true }).start(() => {
-      setRevealed(true);
-      Animated.timing(frontFade, { toValue: 1, duration: 420, useNativeDriver: true }).start();
-    });
+    // Both animations run in parallel — no race condition
+    Animated.parallel([
+      Animated.timing(backFade,  { toValue: 0, duration: 300, useNativeDriver: true }),
+      Animated.timing(frontFade, { toValue: 1, duration: 400, useNativeDriver: true }),
+    ]).start();
   };
-
-  const handleReveal = () => triggerReveal();
 
   const handleNext = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     if (step < CARDS.length - 1) {
-      Animated.timing(frontFade, { toValue: 0, duration: 250, useNativeDriver: true }).start(() => {
+      Animated.timing(frontFade, { toValue: 0, duration: 220, useNativeDriver: true }).start(() => {
         setStep(s => s + 1);
         setRevealed(false);
         revealedRef.current = false;
@@ -201,10 +198,10 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={Colors.background} />
 
-      {/* Başlık */}
+      {/* Header */}
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>{greeting()}</Text>
@@ -217,7 +214,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
         </TouchableOpacity>
       </View>
 
-      {/* Adım noktaları */}
+      {/* Step dots */}
       {!done && (
         <View style={styles.dots}>
           {CARDS.map((c, i) => (
@@ -225,108 +222,115 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
               key={i}
               style={[
                 styles.dot,
-                i < step   && { backgroundColor: Colors.textMuted, width: 6 },
-                i === step  && { backgroundColor: c.color, width: 22 },
-                i > step   && { backgroundColor: Colors.divider, width: 6 },
+                i < step  && { backgroundColor: Colors.textMuted, width: 5 },
+                i === step && { backgroundColor: c.color, width: 18 },
+                i > step  && { backgroundColor: Colors.divider, width: 5 },
               ]}
             />
           ))}
         </View>
       )}
 
-      {/* Kart alanı */}
+      {/* Card area */}
       <View style={styles.cardArea}>
-
         {done ? (
           <View style={styles.doneView}>
-            <SunSymbol color={Colors.gold} size={48} />
-            <Text style={styles.doneTitle}>Günlük rehberlik tamamlandı</Text>
+            <SunSymbol color={Colors.gold} size={40} />
+            <Text style={styles.doneTitle}>Günlük rehberlik{'\n'}tamamlandı</Text>
             <Text style={styles.doneSub}>Yarın yeni bir yolculuk başlar</Text>
             {quote && (
               <>
                 <View style={styles.doneDivider} />
                 <Text style={styles.doneQuote}>
-                  {quote.text.length > 100 ? quote.text.slice(0, 97) + '…' : quote.text}
+                  {quote.text.length > 90 ? quote.text.slice(0, 87) + '…' : quote.text}
                 </Text>
               </>
             )}
           </View>
-
-        ) : !revealed ? (
-          <Animated.View style={[styles.card, { opacity: backFade, borderColor: card.color + '35' }]}>
-            <TouchableOpacity style={styles.cardBackInner} onPress={handleReveal} activeOpacity={0.88}>
-              {/* Üst kilim bandı */}
-              <View style={styles.bandRow}>
-                <View style={[styles.bandLine, { backgroundColor: card.color }]} />
-                <KilimBand color={card.color} />
-                <View style={[styles.bandLine, { backgroundColor: card.color }]} />
-              </View>
-
-              <View style={styles.cardBackCenter}>
-                {/* Köşe yıldızları */}
-                <Text style={[styles.cornerStar, { top: 0, left: 0, color: card.color }]}>✦</Text>
-                <Text style={[styles.cornerStar, { top: 0, right: 0, color: card.color }]}>✦</Text>
-                <Text style={[styles.cornerStar, { bottom: 0, left: 0, color: card.color }]}>✦</Text>
-                <Text style={[styles.cornerStar, { bottom: 0, right: 0, color: card.color }]}>✦</Text>
-
-                {/* Yatay ince çizgiler */}
-                <View style={[styles.sideLineH, { top: '30%', backgroundColor: card.color }]} />
-                <View style={[styles.sideLineH, { bottom: '30%', backgroundColor: card.color }]} />
-
-                <SunSymbol color={card.color} size={52} />
-                <Text style={[styles.cardBackTitle, { color: card.color }]}>{card.title}</Text>
-                <Text style={styles.cardBackSub}>{card.subtitle}</Text>
-                <View style={styles.tapRow}>
-                  <View style={[styles.tapLine, { backgroundColor: card.color }]} />
-                  <Text style={[styles.tapHint, { color: card.color }]}>salla · dokun</Text>
-                  <View style={[styles.tapLine, { backgroundColor: card.color }]} />
-                </View>
-              </View>
-
-              {/* Alt kilim bandı */}
-              <View style={styles.bandRow}>
-                <View style={[styles.bandLine, { backgroundColor: card.color }]} />
-                <KilimBand color={card.color} />
-                <View style={[styles.bandLine, { backgroundColor: card.color }]} />
-              </View>
-            </TouchableOpacity>
-          </Animated.View>
-
         ) : (
-          <Animated.View style={[styles.card, { opacity: frontFade, borderColor: card.color + '50' }]}>
-            <View style={[styles.cardFrontHeader, { borderBottomColor: card.color + '30' }]}>
-              <SunSymbol color={card.color} size={13} />
-              <Text style={[styles.cardFrontTitle, { color: card.color }]}>{card.title}</Text>
-            </View>
-            <ScrollView
-              style={styles.cardScroll}
-              contentContainerStyle={styles.cardScrollPad}
-              showsVerticalScrollIndicator={false}
+          // Fixed-size card — back and front stacked, controlled by opacity only
+          <View style={styles.card}>
+            {/* ── Back side ── */}
+            <Animated.View
+              style={[StyleSheet.absoluteFill, { opacity: backFade }]}
+              pointerEvents={revealed ? 'none' : 'auto'}
             >
-              {step === 0 && quote  && <QuoteContent quote={quote} />}
-              {step === 1 && stone  && <StoneContent stone={stone} />}
-              {step === 2 && animal && <AnimalContent animal={animal} />}
-            </ScrollView>
-            <TouchableOpacity
-              style={[styles.nextBtn, { borderColor: card.color }]}
-              onPress={handleNext}
-              activeOpacity={0.8}
+              <TouchableOpacity
+                style={styles.cardBackInner}
+                onPress={triggerReveal}
+                activeOpacity={0.85}
+              >
+                <View style={styles.bandRow}>
+                  <View style={[styles.bandLine, { backgroundColor: card.color }]} />
+                  <KilimBand color={card.color} />
+                  <View style={[styles.bandLine, { backgroundColor: card.color }]} />
+                </View>
+
+                <View style={styles.backCenter}>
+                  <Text style={[styles.cornerStar, { top: 0, left: 0,  color: card.color }]}>✦</Text>
+                  <Text style={[styles.cornerStar, { top: 0, right: 0, color: card.color }]}>✦</Text>
+                  <Text style={[styles.cornerStar, { bottom: 0, left: 0,  color: card.color }]}>✦</Text>
+                  <Text style={[styles.cornerStar, { bottom: 0, right: 0, color: card.color }]}>✦</Text>
+                  <View style={[styles.hLine, { top: '28%', backgroundColor: card.color }]} />
+                  <View style={[styles.hLine, { bottom: '28%', backgroundColor: card.color }]} />
+
+                  <SunSymbol color={card.color} size={44} />
+                  <Text style={[styles.backTitle, { color: card.color }]}>{card.title}</Text>
+                  <Text style={styles.backSub}>{card.subtitle}</Text>
+                  <View style={styles.tapRow}>
+                    <View style={[styles.tapLine, { backgroundColor: card.color }]} />
+                    <Text style={[styles.tapHint, { color: card.color }]}>salla · dokun</Text>
+                    <View style={[styles.tapLine, { backgroundColor: card.color }]} />
+                  </View>
+                </View>
+
+                <View style={styles.bandRow}>
+                  <View style={[styles.bandLine, { backgroundColor: card.color }]} />
+                  <KilimBand color={card.color} />
+                  <View style={[styles.bandLine, { backgroundColor: card.color }]} />
+                </View>
+              </TouchableOpacity>
+            </Animated.View>
+
+            {/* ── Front side ── */}
+            <Animated.View
+              style={[StyleSheet.absoluteFill, { opacity: frontFade }]}
+              pointerEvents={revealed ? 'auto' : 'none'}
             >
-              <Text style={[styles.nextBtnText, { color: card.color }]}>
-                {step < CARDS.length - 1 ? 'Sonraki →' : 'Tamamlandı'}
-              </Text>
-            </TouchableOpacity>
-          </Animated.View>
+              <View style={[styles.frontHeader, { borderBottomColor: card.color + '30' }]}>
+                <SunSymbol color={card.color} size={11} />
+                <Text style={[styles.frontTitle, { color: card.color }]}>{card.title}</Text>
+              </View>
+              <ScrollView
+                style={styles.scroll}
+                contentContainerStyle={styles.scrollPad}
+                showsVerticalScrollIndicator={false}
+              >
+                {step === 0 && quote  && <QuoteContent quote={quote} />}
+                {step === 1 && stone  && <StoneContent stone={stone} />}
+                {step === 2 && animal && <AnimalContent animal={animal} />}
+              </ScrollView>
+              <TouchableOpacity
+                style={[styles.nextBtn, { borderColor: card.color }]}
+                onPress={handleNext}
+                activeOpacity={0.8}
+              >
+                <Text style={[styles.nextBtnText, { color: card.color }]}>
+                  {step < CARDS.length - 1 ? 'Sonraki →' : 'Tamamlandı'}
+                </Text>
+              </TouchableOpacity>
+            </Animated.View>
+          </View>
         )}
       </View>
     </View>
   );
 }
 
-// ─── Stiller ──────────────────────────────────────────────────────────────────
+// ─── Styles ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.background },
+  root: { flex: 1, backgroundColor: Colors.background },
 
   header: {
     flexDirection: 'row',
@@ -342,13 +346,13 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   username: {
-    fontSize: Typography.size.lg,
+    fontSize: Typography.size.md,
     fontWeight: Typography.weight.semibold,
     color: Colors.textPrimary,
     marginTop: 1,
   },
   profileBtn: {
-    width: 36, height: 36, borderRadius: 18,
+    width: 34, height: 34, borderRadius: 17,
     backgroundColor: Colors.surface,
     alignItems: 'center', justifyContent: 'center',
     borderWidth: 1, borderColor: Colors.cardBorder,
@@ -363,227 +367,228 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 6,
-    paddingVertical: Spacing.sm,
+    gap: 5,
+    paddingVertical: Spacing.xs,
   },
-  dot: { height: 6, borderRadius: 3 },
+  dot: { height: 5, borderRadius: 2.5 },
 
   cardArea: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: Spacing.lg,
+    paddingBottom: Spacing.xl,
   },
 
+  // Fixed tarot card
   card: {
     width: CARD_W,
     height: CARD_H,
     backgroundColor: Colors.backgroundCard,
-    borderRadius: BorderRadius.xl,
+    borderRadius: BorderRadius.lg,
     borderWidth: 1,
+    borderColor: Colors.cardBorder,
     overflow: 'hidden',
   },
 
-  // Kart sırtı
+  // Back side
   cardBackInner: {
     flex: 1,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
     justifyContent: 'space-between',
   },
   bandRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.xs,
+    gap: 4,
   },
-  bandLine: {
-    flex: 1,
-    height: 1,
-    opacity: 0.3,
-  },
-  cardBackCenter: {
+  bandLine: { flex: 1, height: 1, opacity: 0.25 },
+  backCenter: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: Spacing.md,
+    gap: Spacing.sm,
     position: 'relative',
   },
   cornerStar: {
     position: 'absolute',
-    fontSize: 11,
-    opacity: 0.45,
+    fontSize: 9,
+    opacity: 0.4,
   },
-  sideLineH: {
+  hLine: {
     position: 'absolute',
-    left: 0,
-    right: 0,
+    left: 0, right: 0,
     height: 1,
-    opacity: 0.12,
+    opacity: 0.1,
   },
-  cardBackTitle: {
-    fontSize: Typography.size.xxl,
+  backTitle: {
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.bold,
-    letterSpacing: 2,
+    letterSpacing: 1.5,
     textAlign: 'center',
-    marginTop: Spacing.sm,
+    marginTop: Spacing.xs,
   },
-  cardBackSub: {
-    fontSize: Typography.size.sm,
+  backSub: {
+    fontSize: Typography.size.xs,
     color: Colors.textMuted,
-    letterSpacing: 1,
+    letterSpacing: 0.8,
   },
   tapRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.sm,
-    marginTop: Spacing.xl,
-    opacity: 0.65,
+    gap: Spacing.xs,
+    marginTop: Spacing.lg,
+    opacity: 0.6,
   },
   tapLine: { flex: 1, height: 1, opacity: 0.5 },
   tapHint: {
-    fontSize: Typography.size.xs,
-    letterSpacing: 3,
+    fontSize: 9,
+    letterSpacing: 2.5,
     textTransform: 'uppercase',
   },
 
-  // Kart içi
-  cardFrontHeader: {
+  // Front side
+  frontHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.xs,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
+    gap: 4,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
     borderBottomWidth: 1,
   },
-  cardFrontTitle: {
-    fontSize: Typography.size.xs,
+  frontTitle: {
+    fontSize: 10,
     fontWeight: Typography.weight.semibold,
-    letterSpacing: 2,
+    letterSpacing: 1.5,
     textTransform: 'uppercase',
   },
-  cardScroll: { flex: 1 },
-  cardScrollPad: { padding: Spacing.lg },
+  scroll: { flex: 1 },
+  scrollPad: { padding: Spacing.md },
 
   nextBtn: {
-    margin: Spacing.lg,
-    marginTop: 0,
-    paddingVertical: Spacing.md,
+    marginHorizontal: Spacing.md,
+    marginBottom: Spacing.md,
+    paddingVertical: Spacing.sm,
     borderRadius: BorderRadius.round,
     borderWidth: 1,
     alignItems: 'center',
   },
   nextBtnText: {
-    fontSize: Typography.size.sm,
+    fontSize: Typography.size.xs,
     fontWeight: Typography.weight.semibold,
     letterSpacing: 1.5,
     textTransform: 'uppercase',
   },
 
-  // Tamamlandı
+  // Done
   doneView: {
     alignItems: 'center',
-    justifyContent: 'center',
     padding: Spacing.xl,
     gap: Spacing.md,
   },
   doneTitle: {
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.lg,
     fontWeight: Typography.weight.semibold,
     color: Colors.textPrimary,
     textAlign: 'center',
     letterSpacing: 0.5,
-    marginTop: Spacing.md,
+    marginTop: Spacing.sm,
+    lineHeight: Typography.size.lg * 1.5,
   },
-  doneSub: { fontSize: Typography.size.sm, color: Colors.textMuted, letterSpacing: 1 },
+  doneSub: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    letterSpacing: 0.8,
+  },
   doneDivider: {
-    width: 40, height: 1,
+    width: 32, height: 1,
     backgroundColor: Colors.gold,
     opacity: 0.3,
-    marginVertical: Spacing.md,
+    marginVertical: Spacing.sm,
   },
   doneQuote: {
-    fontSize: Typography.size.sm,
+    fontSize: Typography.size.xs,
     color: Colors.textSecondary,
     textAlign: 'center',
     fontStyle: 'italic',
-    lineHeight: Typography.size.sm * 1.8,
+    lineHeight: Typography.size.xs * 1.9,
     fontWeight: Typography.weight.light,
+    maxWidth: 260,
   },
 });
 
 const cs = StyleSheet.create({
   container: { alignItems: 'center' },
   quoteText: {
-    fontSize: Typography.size.md,
+    fontSize: Typography.size.sm,
     color: Colors.textPrimary,
     textAlign: 'center',
-    lineHeight: Typography.size.md * 1.9,
+    lineHeight: Typography.size.sm * 1.9,
     fontStyle: 'italic',
     fontWeight: Typography.weight.light,
   },
   divider: {
-    width: 24, height: 1,
+    width: 20, height: 1,
     backgroundColor: Colors.gold,
     opacity: 0.4,
-    marginVertical: Spacing.lg,
+    marginVertical: Spacing.md,
   },
   source: {
-    fontSize: Typography.size.sm,
-    letterSpacing: 1.5,
+    fontSize: Typography.size.xs,
+    letterSpacing: 1.2,
     fontWeight: Typography.weight.medium,
     textAlign: 'center',
   },
   medallionOuter: {
-    width: 120, height: 120, borderRadius: 60,
+    width: 90, height: 90, borderRadius: 45,
     borderWidth: 1,
     alignItems: 'center', justifyContent: 'center',
-    marginBottom: Spacing.md,
+    marginBottom: Spacing.sm,
   },
   medallion: {
-    width: 96, height: 96, borderRadius: 48,
+    width: 72, height: 72, borderRadius: 36,
     borderWidth: 1,
     alignItems: 'center', justifyContent: 'center',
   },
   medallionInner: {
-    width: 72, height: 72, borderRadius: 36,
+    width: 54, height: 54, borderRadius: 27,
     borderWidth: 1,
     alignItems: 'center', justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255,0.02)',
   },
-  stoneEmoji:  { fontSize: 34, marginBottom: Spacing.md },
-  animalEmoji: { fontSize: 42, marginBottom: Spacing.md },
+  emoji: { fontSize: 26, marginBottom: 2 },
   name: {
-    fontSize: Typography.size.xl,
+    fontSize: Typography.size.md,
     fontWeight: Typography.weight.semibold,
-    letterSpacing: 0.5,
-    marginBottom: 3,
+    letterSpacing: 0.4,
+    marginBottom: 2,
   },
   meta: {
-    fontSize: Typography.size.xs,
+    fontSize: 9,
     color: Colors.textMuted,
-    letterSpacing: 1.5,
+    letterSpacing: 1.2,
     textTransform: 'uppercase',
     textAlign: 'center',
   },
   body: {
-    fontSize: Typography.size.sm,
+    fontSize: Typography.size.xs,
     color: Colors.textSecondary,
     textAlign: 'center',
-    lineHeight: Typography.size.sm * 1.9,
+    lineHeight: Typography.size.xs * 1.9,
     fontWeight: Typography.weight.light,
-    marginBottom: Spacing.md,
+    marginBottom: Spacing.sm,
   },
   affirmBox: {
     borderWidth: 1,
-    borderRadius: BorderRadius.md,
-    padding: Spacing.md,
+    borderRadius: BorderRadius.sm,
+    padding: Spacing.sm,
     width: '100%',
   },
   affirmText: {
-    fontSize: Typography.size.sm,
+    fontSize: Typography.size.xs,
     textAlign: 'center',
     fontStyle: 'italic',
-    lineHeight: Typography.size.sm * 1.7,
+    lineHeight: Typography.size.xs * 1.7,
     fontWeight: Typography.weight.light,
   },
 });
