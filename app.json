@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "Mahur",
-    "slug": "mahur",
+    "name": "Sakin Hayvan Rehberi",
+    "slug": "sakin-animals",
+    "scheme": "sakin",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,18 +14,42 @@
       "backgroundColor": "#0D0B14"
     },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "life.sakin.animals",
+      "supportsTablet": true,
+      "usesAppleSignIn": true,
+      "associatedDomains": ["applinks:sakin.life"],
+      "infoPlist": {
+        "NSUserNotificationsUsageDescription": "Günlük hayvan rehberliği hatırlatması için bildirim izni."
+      }
     },
     "android": {
+      "package": "life.sakin.animals",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#2e2540"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [{ "scheme": "https", "host": "sakin.life", "pathPrefix": "/animals" }],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-apple-authentication",
+      [
+        "expo-notifications",
+        {
+          "color": "#C9A84C"
+        }
+      ]
+    ]
   }
 }

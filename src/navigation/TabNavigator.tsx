@@ -9,15 +9,17 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import { HomeScreen } from '../screens/HomeScreen';
+import { AnimalsHubScreen } from '../screens/AnimalsHubScreen';
 import { ArchiveScreen } from '../screens/ArchiveScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 
-type Tab = 'home' | 'archive' | 'profile';
+type Tab = 'home' | 'animals' | 'archive' | 'profile';
 
 const TABS: { key: Tab; label: string; symbol: string; activeColor: string }[] = [
-  { key: 'home',    label: 'Bugün',  symbol: '✦',  activeColor: Colors.gold },
-  { key: 'archive', label: 'Arşiv',  symbol: '◈',  activeColor: Colors.purple },
-  { key: 'profile', label: 'Profil', symbol: '⊙',  activeColor: Colors.teal },
+  { key: 'home',    label: 'Bugün',     symbol: '✦',  activeColor: Colors.gold },
+  { key: 'animals', label: 'Hayvanlar', symbol: '⊕',  activeColor: Colors.tealLight },
+  { key: 'archive', label: 'Arşiv',     symbol: '◈',  activeColor: Colors.purple },
+  { key: 'profile', label: 'Profil',    symbol: '⊙',  activeColor: Colors.sakinLavender },
 ];
 
 export function TabNavigator() {
@@ -28,6 +30,8 @@ export function TabNavigator() {
     switch (activeTab) {
       case 'home':
         return <HomeScreen onNavigateToProfile={() => setActiveTab('profile')} />;
+      case 'animals':
+        return <AnimalsHubScreen />;
       case 'archive':
         return <ArchiveScreen />;
       case 'profile':

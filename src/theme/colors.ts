@@ -1,54 +1,55 @@
 export const Colors = {
-  // Ana renkler — Tasavvuf estetiği: koyu gece, altın, duman
   background: '#0D0B14',
   backgroundSecondary: '#13111E',
   backgroundCard: '#1A1630',
   surface: '#221E38',
   surfaceElevated: '#2A2545',
 
-  // Altın — manevi ışık
   gold: '#C9A84C',
   goldLight: '#E8C96A',
   goldDark: '#8A6B28',
   goldGlow: 'rgba(201,168,76,0.15)',
 
-  // Mor — dönüşüm ve ruhsallık
   purple: '#7B4FA6',
   purpleLight: '#9D68CC',
   purpleDark: '#4A2870',
   purpleGlow: 'rgba(123,79,166,0.2)',
 
-  // Turkuaz — bilgelik ve arınma
   teal: '#2E9E8A',
   tealLight: '#3DBFA8',
   tealDark: '#1A6B5E',
 
-  // Ateş — tutku ve cesaret
   ember: '#C0472A',
   emberLight: '#E05A36',
   emberDark: '#7A2B18',
 
-  // Metin renkleri
   textPrimary: '#F0EAD6',
   textSecondary: '#B8B0A0',
   textMuted: '#7A7060',
   textOnGold: '#1A1200',
 
-  // Durum renkleri
   success: '#3DBFA8',
   warning: '#C9A84C',
   error: '#C0472A',
 
-  // Şeffaflıklar
   overlay: 'rgba(13,11,20,0.85)',
   overlayLight: 'rgba(13,11,20,0.5)',
   cardBorder: 'rgba(201,168,76,0.25)',
   divider: 'rgba(240,234,214,0.1)',
 
-  // Sekme renkleri
   tabQuote: '#C9A84C',
   tabStone: '#7B4FA6',
   tabAnimal: '#2E9E8A',
+
+  sakinNight: '#2E2540',
+  sakinPlum: '#4A3A6B',
+  sakinLavender: '#8A7FA8',
+  sakinMoonstone: '#C5B8D4',
+  sakinCream: '#FAF6EF',
+  sakinSand: '#F0E9DC',
+  sakinGold: '#C9A14A',
+  sakinTerra: '#C97B5F',
+  sakinMint: '#7A9B8E',
 } as const;
 
 export const Gradients = {
