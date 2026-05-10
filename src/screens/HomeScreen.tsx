@@ -8,6 +8,7 @@ import {
   Animated,
   StatusBar,
   Dimensions,
+  Image,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
@@ -15,6 +16,7 @@ import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import quotesData from '../data/quotes.json';
 import stonesData from '../data/stones.json';
 import animalsData from '../data/animals.json';
+import philosophersData from '../data/philosophers.json';
 import { useTuraStore } from '../store/useStore';
 
 interface HomeScreenProps {
@@ -24,15 +26,14 @@ interface HomeScreenProps {
 const { width: SCREEN_W } = Dimensions.get('window');
 const CARD_W = Math.min(Math.round(SCREEN_W * 0.65), 270);
 const CARD_H = Math.round(CARD_W * 1.75);
-const STACK = 7; // shadow card offset
+const STACK = 7;
 
 const DECKS = [
-  { title: 'Sözler',  subtitle: 'Anadolu bilgeliğinden', color: Colors.gold,   motif: '◈' },
-  { title: 'Taşlar',  subtitle: 'Kristal enerjisinden',  color: Colors.purple, motif: '◈' },
-  { title: 'Hayvan Rehberliği', subtitle: 'A. Nilgün Arıt\'ın rehberliğiyle', color: Colors.teal, motif: '◈' },
+  { title: 'Sözler', short: 'SÖZ',    subtitle: 'Anadolu bilgeliğinden',          color: Colors.gold,   motif: '✦' },
+  { title: 'Taşlar', short: 'TAŞ',    subtitle: 'Kristal enerjisinden',            color: Colors.purple, motif: '◈' },
+  { title: 'Hayvan', short: 'HAYVAN', subtitle: 'A. Nilgün Arıt\'in rehberliğiyle', color: Colors.teal,   motif: '⊕' },
 ];
 
-// ─── Kilim band ────────────────────────────────────────────────────────────────
 function KilimBand({ color }: { color: string }) {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 3 }}>
@@ -43,10 +44,47 @@ function KilimBand({ color }: { color: string }) {
   );
 }
 
-// ─── Card content components ───────────────────────────────────────────────────
+function FallbackImage({
+  uri,
+  fallback,
+  imgStyle,
+}: {
+  uri?: string;
+  fallback: string;
+  imgStyle: object;
+}) {
+  const [err, setErr] = useState(false);
+  if (!uri || err) {
+    return <Text style={cs.bigEmoji}>{fallback}</Text>;
+  }
+  return (
+    <Image
+      source={{ uri }}
+      style={[cs.roundImg, imgStyle]}
+      onError={() => setErr(true)}
+    />
+  );
+}
+
+function PortraitImage({ uri, color }: { uri?: string; color: string }) {
+  const [err, setErr] = useState(false);
+  if (!uri || err) {
+    return <Text style={[cs.portraitSymbol, { color }]}>✦</Text>;
+  }
+  return (
+    <Image
+      source={{ uri }}
+      style={[cs.portrait, { borderColor: color + '40' }]}
+      onError={() => setErr(true)}
+    />
+  );
+}
+
 function QuoteContent({ quote }: { quote: typeof quotesData[0] }) {
+  const philosopher = (philosophersData as Record<string, { imageUrl?: string }>)[quote.source];
   return (
     <View style={cs.container}>
+      <PortraitImage uri={philosopher?.imageUrl} color={Colors.gold} />
       <Text style={cs.quoteText}>{quote.text}</Text>
       <View style={cs.divider} />
       <Text style={[cs.source, { color: Colors.gold }]}>{quote.source}</Text>
@@ -59,11 +97,18 @@ function StoneContent({ stone }: { stone: typeof stonesData[0] }) {
     <View style={cs.container}>
       <View style={[cs.medallion, { borderColor: Colors.purple + '50' }]}>
         <View style={[cs.inner, { borderColor: Colors.purple + '30' }]}>
-          <Text style={cs.bigEmoji}>{stone.emoji}</Text>
+          <FallbackImage
+            uri={(stone as any).imageUrl}
+            fallback={stone.emoji}
+            imgStyle={cs.roundImg}
+          />
         </View>
       </View>
       <Text style={[cs.itemName, { color: Colors.purpleLight }]}>{stone.name}</Text>
       <Text style={cs.meta}>{stone.chakra}</Text>
+      {(stone as any).plant && (
+        <Text style={cs.plantTag}>✿ {(stone as any).plant}</Text>
+      )}
       <View style={[cs.divider, { backgroundColor: Colors.purple }]} />
       <Text style={cs.body}>{stone.dailyMessage}</Text>
       <View style={[cs.affirmBox, { borderColor: Colors.purple + '35' }]}>
@@ -78,7 +123,11 @@ function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
     <View style={cs.container}>
       <View style={[cs.medallion, { borderColor: Colors.teal + '50' }]}>
         <View style={[cs.inner, { borderColor: Colors.teal + '30' }]}>
-          <Text style={cs.bigEmoji}>{animal.emoji}</Text>
+          <FallbackImage
+            uri={(animal as any).imageUrl}
+            fallback={animal.emoji}
+            imgStyle={cs.roundImg}
+          />
         </View>
       </View>
       <Text style={[cs.itemName, { color: Colors.tealLight }]}>{animal.name}</Text>
@@ -92,12 +141,10 @@ function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
   );
 }
 
-// ─── Mini deck indicator ────────────────────────────────────────────────────────
 function MiniDeck({ deck, state }: { deck: typeof DECKS[0]; state: 'done' | 'active' | 'pending' }) {
   const color = state === 'pending' ? Colors.textMuted : deck.color;
   return (
     <View style={[ms.wrapper, state === 'active' && { opacity: 1 }, state === 'pending' && { opacity: 0.35 }]}>
-      {/* Tiny stack behind */}
       <View style={[ms.card, ms.shadow2, { borderColor: color + '20' }]} />
       <View style={[ms.card, ms.shadow1, { borderColor: color + '40' }]} />
       <View style={[ms.card, ms.front, {
@@ -108,12 +155,11 @@ function MiniDeck({ deck, state }: { deck: typeof DECKS[0]; state: 'done' | 'act
           {state === 'done' ? '✓' : deck.motif}
         </Text>
       </View>
-      <Text style={[ms.label, { color }]}>{deck.title}</Text>
+      <Text style={[ms.label, { color }]}>{deck.short}</Text>
     </View>
   );
 }
 
-// ─── Home screen ───────────────────────────────────────────────────────────────
 export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const insets = useSafeAreaInsets();
   const { profile, dailyReading, generateDailyReading, updateStats } = useTuraStore();
@@ -140,7 +186,6 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     }
   }, []);
 
-  // Shake detection
   useEffect(() => {
     let sub: { remove: () => void } | null = null;
     let lx = 0, ly = 0, lz = 0, cool = false;
@@ -208,7 +253,6 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={Colors.background} />
 
-      {/* Header */}
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>{greeting()}</Text>
@@ -221,11 +265,9 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
         </TouchableOpacity>
       </View>
 
-      {/* Main area */}
       <View style={styles.main}>
 
         {done ? (
-          /* ── Done screen ── */
           <View style={styles.doneWrap}>
             <Text style={{ fontSize: 40, color: Colors.gold }}>☀</Text>
             <Text style={styles.doneTitle}>Günlük rehberlik{'\n'}tamamlandı</Text>
@@ -242,9 +284,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
 
         ) : (
           <>
-            {/* ── Deck stack + card ── */}
             <View style={styles.deckOuter}>
-              {/* Shadow cards (deck effect) */}
               <View style={[styles.shadowCard, {
                 borderColor: deck.color + '18',
                 top: 0, left: STACK * 2,
@@ -254,9 +294,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                 top: STACK * 0.6, left: STACK,
               }]} />
 
-              {/* Main card */}
               <View style={[styles.card, { top: STACK, left: 0, borderColor: deck.color + '55' }]}>
-                {/* Back side */}
                 <Animated.View
                   style={[StyleSheet.absoluteFill, { opacity: backFade }]}
                   pointerEvents={revealed ? 'none' : 'auto'}
@@ -299,7 +337,6 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                   </TouchableOpacity>
                 </Animated.View>
 
-                {/* Front side */}
                 <Animated.View
                   style={[StyleSheet.absoluteFill, { opacity: frontFade }]}
                   pointerEvents={revealed ? 'auto' : 'none'}
@@ -330,7 +367,6 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
               </View>
             </View>
 
-            {/* ── Mini deck progress ── */}
             <View style={styles.deckRow}>
               {DECKS.map((d, i) => (
                 <MiniDeck
@@ -347,7 +383,6 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   );
 }
 
-// ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: Colors.background },
 
@@ -390,7 +425,6 @@ const styles = StyleSheet.create({
     gap: Spacing.xl,
   },
 
-  // Deck stack wrapper
   deckOuter: {
     width: CARD_W + STACK * 2,
     height: CARD_H + STACK,
@@ -414,7 +448,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  // Card back
   backInner: {
     flex: 1,
     paddingHorizontal: Spacing.md,
@@ -458,7 +491,6 @@ const styles = StyleSheet.create({
   tapLine: { flex: 1, height: 1, opacity: 0.5 },
   tapHint: { fontSize: 8, letterSpacing: 2, textTransform: 'uppercase' },
 
-  // Card front
   frontHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -490,14 +522,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
 
-  // Mini deck row
   deckRow: {
     flexDirection: 'row',
     gap: Spacing.xl,
     alignItems: 'flex-end',
   },
 
-  // Done
   doneWrap: {
     alignItems: 'center',
     gap: Spacing.md,
@@ -529,7 +559,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// Mini deck styles
 const ms = StyleSheet.create({
   wrapper: { alignItems: 'center', gap: 4 },
   card: {
@@ -553,9 +582,19 @@ const ms = StyleSheet.create({
   },
 });
 
-// Content styles
 const cs = StyleSheet.create({
   container: { alignItems: 'center' },
+  portrait: {
+    width: 52, height: 52,
+    borderRadius: 26,
+    marginBottom: Spacing.sm,
+    borderWidth: 1,
+  },
+  portraitSymbol: {
+    fontSize: 22,
+    marginBottom: Spacing.sm,
+    opacity: 0.7,
+  },
   quoteText: {
     fontSize: Typography.size.xs,
     color: Colors.textPrimary,
@@ -587,6 +626,11 @@ const cs = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center', justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255,0.02)',
+    overflow: 'hidden',
+  },
+  roundImg: {
+    width: 54, height: 54,
+    borderRadius: 27,
   },
   bigEmoji: { fontSize: 26 },
   itemName: {
@@ -601,6 +645,13 @@ const cs = StyleSheet.create({
     letterSpacing: 1.2,
     textTransform: 'uppercase',
     textAlign: 'center',
+  },
+  plantTag: {
+    fontSize: 9,
+    color: Colors.tealLight,
+    letterSpacing: 0.8,
+    marginTop: 2,
+    opacity: 0.8,
   },
   body: {
     fontSize: Typography.size.xs,
