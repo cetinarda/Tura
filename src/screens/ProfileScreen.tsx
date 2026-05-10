@@ -27,30 +27,29 @@ const BADGES = [
   { id: 'b001', title: 'Yol Başlangıcı', desc: 'İlk 7 okuma',   emoji: '🌙', required: 7 },
   { id: 'b002', title: 'Ateş Dervişi',   desc: '21 gün silsile', emoji: '🔥', required: 21 },
   { id: 'b003', title: 'Mesnevi Yolcusu',desc: '30 okuma',       emoji: '🌹', required: 30 },
-  { id: 'b004', title: 'Tesbih',         desc: '33 taş görüldü', emoji: '📿', required: 33 },
+  { id: 'b004', title: 'Tesbih',         desc: '33 taş görüldü', emoji: '💿', required: 33 },
   { id: 'b005', title: 'Hak Dostu',      desc: '100 okuma',      emoji: '✦',  required: 100 },
-  { id: 'b006', title: 'Işık Yolcusu',   desc: '365 okuma',      emoji: '☀️', required: 365 },
+  { id: 'b006', title: 'İşık Yolcusu',   desc: '365 okuma',      emoji: '☀️', required: 365 },
 ];
 
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
-  const { profile, isNewUser, createProfile, updateBirthData, stats, getTopStat, getLevelTitle } = useTuraStore();
+  const { profile, isNewUser, createProfile, updateBirthData, updateHDType, stats, getTopStat, getLevelTitle } = useTuraStore();
 
   const [showOnboarding, setShowOnboarding] = useState(isNewUser);
   const [name, setName] = useState('');
   const [element, setElement] = useState<typeof ELEMENTS[number]>('ateş');
   const [step, setStep] = useState(1);
 
-  // step 3 birth data
   const [fullName, setFullName] = useState('');
   const [birthDay, setBirthDay] = useState('');
   const [birthMonth, setBirthMonth] = useState('');
   const [birthYear, setBirthYear] = useState('');
 
-  // inline birth data edit (when already profiled but no birth data)
   const [showBirthForm, setShowBirthForm] = useState(false);
   const [showAnimalFinder, setShowAnimalFinder] = useState(false);
   const [showAnimalInfo, setShowAnimalInfo]   = useState(false);
+  const [showHDPicker, setShowHDPicker] = useState(false);
   const [editFullName, setEditFullName] = useState('');
   const [editDay, setEditDay] = useState('');
   const [editMonth, setEditMonth] = useState('');
@@ -76,19 +75,21 @@ export function ProfileScreen() {
     return Math.min(Math.max((totalReadings - currentAt) / (nextAt - currentAt), 0), 1);
   };
 
-  // compute analysis when birth data is present
   const analysis = useMemo(() => {
     if (!profile?.fullName || !profile?.birthDate) return null;
     try {
       const nums   = calcNumerology(profile.fullName, profile.birthDate);
       const hd     = getHDProfile(profile.birthDate);
+      if (profile.hdTypeOverride) {
+        hd.type = profile.hdTypeOverride as typeof hd.type;
+      }
       const weekly = getWeeklyReading(nums);
       const lp     = LIFE_PATH_MEANINGS[nums.lifePath];
       return { nums, hd, weekly, lp };
     } catch {
       return null;
     }
-  }, [profile?.fullName, profile?.birthDate]);
+  }, [profile?.fullName, profile?.birthDate, profile?.hdTypeOverride]);
 
   const formatBirthDate = (d: string, m: string, y: string) => {
     const dd = d.padStart(2, '0');
@@ -100,8 +101,6 @@ export function ProfileScreen() {
     parseInt(d) >= 1 && parseInt(d) <= 31 &&
     parseInt(m) >= 1 && parseInt(m) <= 12 &&
     parseInt(y) >= 1900 && parseInt(y) <= new Date().getFullYear();
-
-  // ── Onboarding ───────────────────────────────────────────────────────────────
 
   const handleOnboarding = async () => {
     if (step === 1 && name.trim().length > 0) {
@@ -128,8 +127,6 @@ export function ProfileScreen() {
     await updateBirthData(editFullName.trim(), bd);
     setShowBirthForm(false);
   };
-
-  // ── Onboarding modal ─────────────────────────────────────────────────────────
 
   if (showOnboarding || isNewUser) {
     return (
@@ -299,7 +296,7 @@ export function ProfileScreen() {
         <Text style={styles.progressText}>{totalReadings} / {level * 7} okuma</Text>
       </View>
 
-      {/* ── Haftalık Analiz ── */}
+      {/* Kişisel Harita */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Kişisel Harita</Text>
 
@@ -353,7 +350,26 @@ export function ProfileScreen() {
                     Human Design · Strateji: {analysis.hd.strategy}
                   </Text>
                 </View>
+                <TouchableOpacity onPress={() => setShowHDPicker(v => !v)} style={styles.hdEditBtn}>
+                  <Text style={[styles.hdEditText, { color: Colors.purple }]}>✎</Text>
+                </TouchableOpacity>
               </View>
+              {showHDPicker && (
+                <View style={[styles.hdPicker, { borderColor: Colors.purple + '30' }]}>
+                  <Text style={[styles.hdPickerLabel, { color: Colors.textMuted }]}>Tipini seç:</Text>
+                  {(['Jeneratör', 'Manifesting Jeneratör', 'Projektör', 'Manifestor', 'Reflektör'] as const).map(t => (
+                    <TouchableOpacity
+                      key={t}
+                      style={[styles.hdPickerItem, analysis.hd.type === t && { backgroundColor: Colors.purple + '20' }]}
+                      onPress={() => { updateHDType(t); setShowHDPicker(false); }}
+                    >
+                      <Text style={[styles.hdPickerText, { color: analysis.hd.type === t ? Colors.purpleLight : Colors.textSecondary }]}>
+                        {analysis.hd.type === t ? '◈ ' : '○ '}{t}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
               <Text style={styles.analysisDesc}>{analysis.hd.desc}</Text>
               <View style={[styles.notSelfBox, { borderColor: Colors.purple + '30' }]}>
                 <Text style={[styles.notSelfLabel, { color: Colors.purple }]}>Not-Self Tema</Text>
@@ -429,7 +445,7 @@ export function ProfileScreen() {
               onPress={handleSaveBirthData}
               disabled={editFullName.trim().length === 0 || !birthDataValid(editDay, editMonth, editYear)}
             >
-              <Text style={styles.onboardingBtnText}>Haritamı Oluştur ✦</Text>
+              <Text style={styles.onboardingBtnText}>Haritasını Oluştur ✦</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setShowBirthForm(false)} style={styles.skipBtn}>
               <Text style={styles.skipText}>İptal</Text>
@@ -538,7 +554,7 @@ export function ProfileScreen() {
           </View>
         )}
         {totalReadings === 0 && (
-          <Text style={styles.emptyHint}>İlk kartını aç, ruhsal haritanız oluşmaya başlasın.</Text>
+          <Text style={styles.emptyHint}>İlk kartını aç, ruhsal haritanız oluşmaya başlasun.</Text>
         )}
       </View>
 
@@ -754,7 +770,6 @@ const styles = StyleSheet.create({
   progressFill: { height: '100%', backgroundColor: Colors.gold, borderRadius: BorderRadius.round },
   progressText: { fontSize: Typography.size.xs, color: Colors.textMuted },
 
-  // analysis cards
   analysisCard: {
     backgroundColor: Colors.backgroundCard,
     borderRadius: BorderRadius.lg,
@@ -830,6 +845,34 @@ const styles = StyleSheet.create({
     lineHeight: Typography.size.xs * 1.7,
   },
 
+  hdEditBtn: {
+    padding: 4,
+  },
+  hdEditText: {
+    fontSize: 16,
+  },
+  hdPicker: {
+    borderWidth: 1,
+    borderRadius: BorderRadius.sm,
+    padding: Spacing.sm,
+    gap: 2,
+    marginBottom: Spacing.xs,
+  },
+  hdPickerLabel: {
+    fontSize: 10,
+    letterSpacing: 0.5,
+    marginBottom: 4,
+  },
+  hdPickerItem: {
+    paddingVertical: 6,
+    paddingHorizontal: Spacing.sm,
+    borderRadius: BorderRadius.sm,
+  },
+  hdPickerText: {
+    fontSize: Typography.size.sm,
+    letterSpacing: 0.3,
+  },
+
   unlockBtn: {
     backgroundColor: Colors.backgroundCard,
     borderRadius: BorderRadius.lg,
@@ -893,7 +936,6 @@ const styles = StyleSheet.create({
     marginTop: Spacing.md,
   },
 
-  // Animal guide section
   infoToggleBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingVertical: Spacing.sm, marginBottom: Spacing.sm,
