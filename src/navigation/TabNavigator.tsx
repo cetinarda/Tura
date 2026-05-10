@@ -4,8 +4,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
-  Animated,
   Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,10 +14,10 @@ import { ProfileScreen } from '../screens/ProfileScreen';
 
 type Tab = 'home' | 'archive' | 'profile';
 
-const TABS: { key: Tab; label: string; emoji: string; activeColor: string }[] = [
-  { key: 'home', label: 'Bugün', emoji: '🌙', activeColor: Colors.gold },
-  { key: 'archive', label: 'Arşiv', emoji: '📅', activeColor: Colors.purple },
-  { key: 'profile', label: 'Profil', emoji: '👤', activeColor: Colors.teal },
+const TABS: { key: Tab; label: string; symbol: string; activeColor: string }[] = [
+  { key: 'home',    label: 'Bugün',  symbol: '✦',  activeColor: Colors.gold },
+  { key: 'archive', label: 'Arşiv',  symbol: '◈',  activeColor: Colors.purple },
+  { key: 'profile', label: 'Profil', symbol: '⊙',  activeColor: Colors.teal },
 ];
 
 export function TabNavigator() {
@@ -43,30 +41,34 @@ export function TabNavigator() {
         <View style={styles.screen}>{renderScreen()}</View>
 
         <View style={[styles.tabBar, { paddingBottom: insets.bottom + 4 }]}>
-        {TABS.map(tab => {
-          const isActive = activeTab === tab.key;
-          return (
-            <TouchableOpacity
-              key={tab.key}
-              style={styles.tabItem}
-              onPress={() => setActiveTab(tab.key)}
-              activeOpacity={0.7}
-            >
-              <View style={[styles.tabIndicator, isActive && { backgroundColor: tab.activeColor }]} />
-              <Text style={[styles.tabEmoji, !isActive && styles.tabEmojiInactive]}>
-                {tab.emoji}
-              </Text>
-              <Text style={[
-                styles.tabLabel,
-                { color: isActive ? tab.activeColor : Colors.textMuted }
-              ]}>
-                {tab.label}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+          {TABS.map(tab => {
+            const isActive = activeTab === tab.key;
+            return (
+              <TouchableOpacity
+                key={tab.key}
+                style={styles.tabItem}
+                onPress={() => setActiveTab(tab.key)}
+                activeOpacity={0.7}
+              >
+                <View style={[styles.tabIndicator, isActive && { backgroundColor: tab.activeColor }]} />
+                <Text style={[
+                  styles.tabSymbol,
+                  { color: isActive ? tab.activeColor : Colors.textMuted },
+                  !isActive && styles.tabSymbolInactive,
+                ]}>
+                  {tab.symbol}
+                </Text>
+                <Text style={[
+                  styles.tabLabel,
+                  { color: isActive ? tab.activeColor : Colors.textMuted },
+                ]}>
+                  {tab.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
       </View>
-    </View>
     </View>
   );
 }
@@ -109,12 +111,14 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.round,
     backgroundColor: 'transparent',
   },
-  tabEmoji: {
-    fontSize: 22,
+  tabSymbol: {
+    fontSize: 18,
+    lineHeight: 24,
     marginBottom: 2,
+    fontWeight: '300',
   },
-  tabEmojiInactive: {
-    opacity: 0.5,
+  tabSymbolInactive: {
+    opacity: 0.35,
   },
   tabLabel: {
     fontSize: Typography.size.xs,
