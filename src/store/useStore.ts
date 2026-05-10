@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import type { Session } from '@supabase/supabase-js';
 
 export type ReadingType = 'quote' | 'stone' | 'animal' | 'nagual';
 
@@ -18,7 +20,7 @@ export interface DailyReading {
 export interface UserProfile {
   name: string;
   fullName?: string;
-  birthDate?: string;
+  birthDate?: string; // YYYY-MM-DD
   element?: 'ateş' | 'su' | 'toprak' | 'hava';
   hdTypeOverride?: string;
   createdAt: string;
@@ -70,9 +72,27 @@ export function useTuraStore() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isNewUser, setIsNewUser] = useState(false);
+  const [session, setSession] = useState<Session | null>(null);
+  const [authReady, setAuthReady] = useState(!isSupabaseConfigured);
 
   useEffect(() => {
     loadAll();
+    if (!isSupabaseConfigured) return;
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setAuthReady(true);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_event: unknown, s: Session | null) => {
+      setSession(s);
+    });
+    return () => { sub.subscription.unsubscribe(); };
+  }, []);
+
+  const signOut = useCallback(async () => {
+    if (isSupabaseConfigured) {
+      await supabase.auth.signOut();
+    }
+    setSession(null);
   }, []);
 
   const loadAll = async () => {
@@ -233,6 +253,10 @@ export function useTuraStore() {
     stats,
     isLoading,
     isNewUser,
+    session,
+    authReady,
+    isAuthenticated: !!session || !isSupabaseConfigured,
+    signOut,
     createProfile,
     saveProfile,
     updateBirthData,
