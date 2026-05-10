@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   Animated,
+  Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
@@ -37,10 +38,11 @@ export function TabNavigator() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.screen}>{renderScreen()}</View>
+    <View style={styles.webRoot}>
+      <View style={styles.container}>
+        <View style={styles.screen}>{renderScreen()}</View>
 
-      <View style={[styles.tabBar, { paddingBottom: insets.bottom + 4 }]}>
+        <View style={[styles.tabBar, { paddingBottom: insets.bottom + 4 }]}>
         {TABS.map(tab => {
           const isActive = activeTab === tab.key;
           return (
@@ -65,13 +67,23 @@ export function TabNavigator() {
         })}
       </View>
     </View>
+    </View>
   );
 }
 
+const MAX_W = 480;
+
 const styles = StyleSheet.create({
+  webRoot: {
+    flex: 1,
+    backgroundColor: Platform.OS === 'web' ? '#070510' : Colors.background,
+    alignItems: Platform.OS === 'web' ? 'center' : undefined,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.background,
+    width: '100%',
+    maxWidth: Platform.OS === 'web' ? MAX_W : undefined,
   },
   screen: {
     flex: 1,

@@ -16,6 +16,7 @@ import nagualsData from '../data/naguals.json';
 import { calcNumerology, LIFE_PATH_MEANINGS } from '../utils/numerology';
 import { getHDProfile } from '../utils/humanDesign';
 import { getWeeklyReading } from '../utils/weeklyReading';
+import { AnimalFinderScreen } from './AnimalFinderScreen';
 
 const ELEMENTS = ['ateş', 'su', 'toprak', 'hava'] as const;
 const ELEMENT_EMOJIS: Record<string, string> = {
@@ -48,6 +49,8 @@ export function ProfileScreen() {
 
   // inline birth data edit (when already profiled but no birth data)
   const [showBirthForm, setShowBirthForm] = useState(false);
+  const [showAnimalFinder, setShowAnimalFinder] = useState(false);
+  const [showAnimalInfo, setShowAnimalInfo]   = useState(false);
   const [editFullName, setEditFullName] = useState('');
   const [editDay, setEditDay] = useState('');
   const [editMonth, setEditMonth] = useState('');
@@ -238,6 +241,15 @@ export function ProfileScreen() {
   }
 
   if (!profile) return null;
+
+  if (showAnimalFinder) {
+    return (
+      <AnimalFinderScreen
+        onClose={() => setShowAnimalFinder(false)}
+        prefillBirthDate={profile.birthDate}
+      />
+    );
+  }
 
   return (
     <ScrollView
@@ -440,6 +452,45 @@ export function ProfileScreen() {
             </Text>
           </TouchableOpacity>
         )}
+      </View>
+
+      {/* Hayvan Rehberliği */}
+      <View style={styles.section}>
+        <TouchableOpacity
+          style={styles.infoToggleBtn}
+          onPress={() => setShowAnimalInfo(v => !v)}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.infoToggleTitle}>Hayvan Rehberliği Nedir?</Text>
+          <Text style={styles.infoToggleArrow}>{showAnimalInfo ? '▲' : '▼'}</Text>
+        </TouchableOpacity>
+
+        {showAnimalInfo && (
+          <View style={styles.animalInfoCard}>
+            <Text style={styles.animalInfoSection}>🐺 Totem Hayvan</Text>
+            <Text style={styles.animalInfoText}>
+              Her insan, doğasında bir hayvanın ruhunu taşır. Bu totem hayvan seni temsil eder; enerjin, güçlü yanların ve yürüdüğün yol onun izlerini taşır. Totem değişmez — seninle doğar, seninle gelişir.
+            </Text>
+            <View style={styles.animalInfoDivider} />
+            <Text style={styles.animalInfoSection}>🌀 Nagual — Dönemsel Rehber</Text>
+            <Text style={styles.animalInfoText}>
+              Nagual ise belirli bir dönem için yanına gelen geçici rehberdir. Bir sınav, bir dönüşüm, bir kriz anında çağrılır. Görevini tamamlayınca yerini başka bir rehbere bırakır. Günlük çekilişinde gelen hayvan, bugünkü naguelin sesini taşır.
+            </Text>
+          </View>
+        )}
+
+        <TouchableOpacity
+          style={styles.finderBtn}
+          onPress={() => setShowAnimalFinder(true)}
+          activeOpacity={0.85}
+        >
+          <Text style={styles.finderBtnEmoji}>🐾</Text>
+          <View style={styles.finderBtnText}>
+            <Text style={styles.finderBtnTitle}>Hayvan Rehberini Bul</Text>
+            <Text style={styles.finderBtnDesc}>Sorularla ya da doğum tarih/saatinle</Text>
+          </View>
+          <Text style={[styles.infoToggleArrow, { color: Colors.tealLight }]}>→</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Ruhsal Harita */}
@@ -841,6 +892,47 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginTop: Spacing.md,
   },
+
+  // Animal guide section
+  infoToggleBtn: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingVertical: Spacing.sm, marginBottom: Spacing.sm,
+    borderBottomWidth: 1, borderBottomColor: Colors.divider,
+  },
+  infoToggleTitle: {
+    fontSize: Typography.size.md, fontWeight: Typography.weight.semibold,
+    color: Colors.textPrimary,
+  },
+  infoToggleArrow: { fontSize: Typography.size.xs, color: Colors.textMuted },
+  animalInfoCard: {
+    backgroundColor: Colors.backgroundCard, borderRadius: BorderRadius.lg,
+    borderWidth: 1, borderColor: Colors.teal + '35',
+    padding: Spacing.md, marginBottom: Spacing.md, gap: Spacing.sm,
+  },
+  animalInfoSection: {
+    fontSize: Typography.size.sm, fontWeight: Typography.weight.semibold,
+    color: Colors.tealLight, letterSpacing: 0.3,
+  },
+  animalInfoText: {
+    fontSize: Typography.size.xs, color: Colors.textSecondary,
+    lineHeight: Typography.size.xs * 1.9, fontWeight: Typography.weight.light,
+  },
+  animalInfoDivider: {
+    height: 1, backgroundColor: Colors.teal + '25', marginVertical: Spacing.xs,
+  },
+  finderBtn: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
+    backgroundColor: Colors.backgroundCard, borderRadius: BorderRadius.lg,
+    borderWidth: 1, borderColor: Colors.teal + '60',
+    padding: Spacing.md,
+  },
+  finderBtnEmoji: { fontSize: 26, width: 32, textAlign: 'center' },
+  finderBtnText: { flex: 1 },
+  finderBtnTitle: {
+    fontSize: Typography.size.md, fontWeight: Typography.weight.semibold,
+    color: Colors.tealLight, marginBottom: 2,
+  },
+  finderBtnDesc: { fontSize: Typography.size.xs, color: Colors.textMuted },
 
   badgesGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
   badgeCard: {

@@ -22,7 +22,7 @@ interface HomeScreenProps {
 }
 
 const { width: SCREEN_W } = Dimensions.get('window');
-const CARD_W = Math.min(Math.round(SCREEN_W * 0.55), 230);
+const CARD_W = Math.min(Math.round(SCREEN_W * 0.65), 270);
 const CARD_H = Math.round(CARD_W * 1.75);
 const STACK = 7; // shadow card offset
 
