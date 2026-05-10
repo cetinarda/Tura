@@ -14,7 +14,7 @@ import * as Haptics from 'expo-haptics';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import quotesData from '../data/quotes.json';
 import stonesData from '../data/stones.json';
-import nagualsData from '../data/naguals.json';
+import animalsData from '../data/animals.json';
 import { useTuraStore } from '../store/useStore';
 
 interface HomeScreenProps {
@@ -29,7 +29,7 @@ const STACK = 7; // shadow card offset
 const DECKS = [
   { title: 'Sözler',  subtitle: 'Anadolu bilgeliğinden', color: Colors.gold,   motif: '◈' },
   { title: 'Taşlar',  subtitle: 'Kristal enerjisinden',  color: Colors.purple, motif: '◈' },
-  { title: 'Nagual',  subtitle: 'Ruh rehberliğinden',    color: Colors.teal,   motif: '◈' },
+  { title: 'Hayvan Rehberliği', subtitle: 'A. Nilgün Arıt\'ın rehberliğiyle', color: Colors.teal, motif: '◈' },
 ];
 
 // ─── Kilim band ────────────────────────────────────────────────────────────────
@@ -73,20 +73,20 @@ function StoneContent({ stone }: { stone: typeof stonesData[0] }) {
   );
 }
 
-function NagualContent({ nagual }: { nagual: typeof nagualsData[0] }) {
+function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
   return (
     <View style={cs.container}>
       <View style={[cs.medallion, { borderColor: Colors.teal + '50' }]}>
         <View style={[cs.inner, { borderColor: Colors.teal + '30' }]}>
-          <Text style={cs.bigEmoji}>{nagual.emoji}</Text>
+          <Text style={cs.bigEmoji}>{animal.emoji}</Text>
         </View>
       </View>
-      <Text style={[cs.itemName, { color: Colors.tealLight }]}>{nagual.name}</Text>
-      <Text style={cs.meta}>{nagual.element} · {nagual.aspect}</Text>
+      <Text style={[cs.itemName, { color: Colors.tealLight }]}>{animal.name}</Text>
+      <Text style={cs.meta}>{animal.element} · {animal.symbolism[0]}</Text>
       <View style={[cs.divider, { backgroundColor: Colors.teal }]} />
-      <Text style={cs.body}>{nagual.dailyMessage}</Text>
+      <Text style={cs.body}>{animal.dailyMessage}</Text>
       <View style={[cs.affirmBox, { borderColor: Colors.teal + '35' }]}>
-        <Text style={[cs.affirmText, { color: Colors.tealLight }]}>{nagual.guidance}</Text>
+        <Text style={[cs.affirmText, { color: Colors.tealLight }]}>{animal.guidance}</Text>
       </View>
     </View>
   );
@@ -131,8 +131,8 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     if (!reading) {
       const qIds = quotesData.map(q => q.id);
       const sIds = stonesData.map(s => s.id);
-      const nIds = nagualsData.map(n => n.id);
-      generateDailyReading(qIds, sIds, nIds, nIds).then(r => {
+      const aIds = animalsData.map(a => a.id);
+      generateDailyReading(qIds, sIds, aIds, aIds).then(r => {
         const q = quotesData.find(x => x.id === r.quoteId)!;
         updateStats(q.id, q.source, r.stoneId, r.animalId, r.nagualId);
         setReading(r);
@@ -164,9 +164,9 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     return () => { sub?.remove(); };
   }, []);
 
-  const quote  = reading ? quotesData.find(q => q.id === reading.quoteId)   : null;
-  const stone  = reading ? stonesData.find(s => s.id === reading.stoneId)   : null;
-  const nagual = reading ? nagualsData.find(n => n.id === reading.nagualId) : null;
+  const quote  = reading ? quotesData.find(q => q.id === reading.quoteId)  : null;
+  const stone  = reading ? stonesData.find(s => s.id === reading.stoneId)  : null;
+  const animal = reading ? animalsData.find(a => a.id === reading.animalId) : null;
 
   const deck = DECKS[step];
 
@@ -315,7 +315,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                   >
                     {step === 0 && quote  && <QuoteContent quote={quote} />}
                     {step === 1 && stone  && <StoneContent stone={stone} />}
-                    {step === 2 && nagual && <NagualContent nagual={nagual} />}
+                    {step === 2 && animal && <AnimalContent animal={animal} />}
                   </ScrollView>
                   <TouchableOpacity
                     style={[styles.nextBtn, { borderColor: deck.color }]}
