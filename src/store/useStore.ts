@@ -18,8 +18,9 @@ export interface DailyReading {
 export interface UserProfile {
   name: string;
   fullName?: string;
-  birthDate?: string; // YYYY-MM-DD
+  birthDate?: string;
   element?: 'ateş' | 'su' | 'toprak' | 'hava';
+  hdTypeOverride?: string;
   createdAt: string;
   streak: number;
   lastOpenDate?: string;
@@ -138,6 +139,11 @@ export function useTuraStore() {
     await saveProfile({ ...profile, fullName, birthDate });
   }, [profile, saveProfile]);
 
+  const updateHDType = useCallback(async (hdTypeOverride: string) => {
+    if (!profile) return;
+    await saveProfile({ ...profile, hdTypeOverride });
+  }, [profile, saveProfile]);
+
   const generateDailyReading = useCallback(async (
     quoteIds: string[],
     stoneIds: string[],
@@ -234,6 +240,7 @@ export function useTuraStore() {
     updateStats,
     getTopStat,
     getLevelTitle,
+    updateHDType,
     todayStr,
   };
 }
