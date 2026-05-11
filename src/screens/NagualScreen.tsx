@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import nagualsData from '../data/naguals.json';
+import animalsData from '../data/animals.json';
+import { useTuraStore } from '../store/useStore';
+import { calcLifePath } from '../utils/numerology';
+import { calcHDType } from '../utils/humanDesign';
 
 interface Props { onClose: () => void; }
 type Nagual = typeof nagualsData[0];
+type Animal = typeof animalsData[0];
 
 function getWeeklyNagual(): Nagual {
   const week = Math.floor(Date.now() / (1000 * 60 * 60 * 24 * 7));
@@ -19,11 +24,47 @@ function getDaysRemaining(): number {
   return daysToMonday;
 }
 
+function getPersonalNagual(
+  birthDate: string,
+  element: string,
+): { animal: Animal; lifePath: number; hdType: string; reason: string } | null {
+  const pool = animalsData.filter(a => a.element === element);
+  if (pool.length === 0) return null;
+
+  const lifePath = calcLifePath(birthDate);
+  const hdType = calcHDType(birthDate);
+  const week = Math.floor(Date.now() / (1000 * 60 * 60 * 24 * 7));
+
+  // Seed: life path anchors which animals in the pool resonate (modular offset),
+  // week rotates slowly so the guide changes monthly-ish but stays consistent.
+  const seed = (lifePath * 11 + week) % pool.length;
+  const animal = pool[seed];
+
+  const hdReasons: Record<string, string> = {
+    'Jeneratör': 'yanıtlama gücünü',
+    'Manifesting Jeneratör': 'çok boyutlu enerjini',
+    'Projektör': 'yönlendirme sezgini',
+    'Manifestor': 'başlatma gücünü',
+    'Reflektör': 'yansıtma bilgeliğini',
+  };
+  const hdReason = hdReasons[hdType] || 'içsel gücünü';
+
+  const reason = `${element.charAt(0).toUpperCase() + element.slice(1)} unsuru · Yaşam yolu ${lifePath} · ${hdType} tipi — bu dönemde ${hdReason} desteklemek için seninle.`;
+
+  return { animal, lifePath, hdType, reason };
+}
+
 export function NagualScreen({ onClose }: Props) {
   const insets = useSafeAreaInsets();
+  const { profile } = useTuraStore();
   const [nagual] = useState<Nagual>(() => getWeeklyNagual());
   const [showAll, setShowAll] = useState(false);
   const daysLeft = getDaysRemaining();
+
+  const personal = useMemo(() => {
+    if (!profile?.birthDate || !profile?.element) return null;
+    return getPersonalNagual(profile.birthDate, profile.element);
+  }, [profile?.birthDate, profile?.element]);
 
   return (
     <View style={styles.root}>
@@ -45,8 +86,9 @@ export function NagualScreen({ onClose }: Props) {
           </Text>
         </View>
 
+        {/* Universal weekly nagual */}
         <View style={[styles.heroCard, { borderColor: Colors.ember + '60' }]}>
-          <Text style={styles.weekTag}>BU HAFTA</Text>
+          <Text style={styles.weekTag}>BU HAFTA · EVRENSEL</Text>
           <Text style={styles.heroEmoji}>{nagual.emoji}</Text>
           <Text style={styles.heroName}>{nagual.name}</Text>
           <Text style={styles.heroAspect}>{(nagual as any).aspect}</Text>
@@ -62,6 +104,37 @@ export function NagualScreen({ onClose }: Props) {
             <Text style={styles.metaText}>{daysLeft} gün kaldı</Text>
           </View>
         </View>
+
+        {/* Personal nagual */}
+        {personal ? (
+          <View style={[styles.personalCard, { borderColor: Colors.teal + '60' }]}>
+            <Text style={styles.personalTag}>KİŞİSEL REHBERİM</Text>
+            <Text style={styles.heroEmoji}>{personal.animal.emoji}</Text>
+            <Text style={styles.heroName}>{personal.animal.name}</Text>
+            <Text style={[styles.heroAspect, { color: Colors.tealLight }]}>
+              {personal.animal.symbolism.slice(0, 2).join(' · ').toUpperCase()}
+            </Text>
+            <View style={[styles.divider, { backgroundColor: Colors.teal }]} />
+            <Text style={styles.dailyMsg}>{personal.animal.dailyMessage}</Text>
+            <View style={[styles.guideBox, { borderColor: Colors.teal + '40' }]}>
+              <Text style={[styles.guideLabel, { color: Colors.tealLight }]}>REHBERLİK</Text>
+              <Text style={styles.guideText}>{personal.animal.guidance}</Text>
+            </View>
+            <View style={[styles.reasonBox, { borderColor: Colors.teal + '25' }]}>
+              <Text style={styles.reasonText}>{personal.reason}</Text>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.lockedCard}>
+            <Text style={styles.lockedEmoji}>✦</Text>
+            <Text style={styles.lockedTitle}>Kişisel Rehberim</Text>
+            <Text style={styles.lockedText}>
+              Doğum haritana göre sana özel dönemsel bir rehber hayvan belirlemek için
+              profil bilgilerini tamamla.{'\n\n'}
+              Profil → Kişisel Harita bölümünden doğum tarihi ve unsurunu ekleyebilirsin.
+            </Text>
+          </View>
+        )}
 
         <TouchableOpacity onPress={() => setShowAll(v => !v)} style={styles.toggleAllBtn} activeOpacity={0.7}>
           <Text style={styles.toggleAllText}>
@@ -111,6 +184,14 @@ const styles = StyleSheet.create({
   metaRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
   metaText: { fontSize: 10, color: Colors.textMuted, letterSpacing: 1.5, textTransform: 'uppercase' },
   metaDot: { width: 3, height: 3, borderRadius: 1.5, backgroundColor: Colors.textMuted },
+  personalCard: { borderWidth: 1, borderRadius: BorderRadius.lg, padding: Spacing.lg, alignItems: 'center', backgroundColor: Colors.backgroundCard, marginBottom: Spacing.lg },
+  personalTag: { fontSize: 9, letterSpacing: 4, color: Colors.tealLight, marginBottom: Spacing.md },
+  reasonBox: { borderWidth: 1, borderRadius: BorderRadius.sm, padding: Spacing.md, width: '100%', borderStyle: 'dashed' },
+  reasonText: { fontSize: Typography.size.xs, color: Colors.textMuted, textAlign: 'center', lineHeight: Typography.size.xs * 1.8, fontStyle: 'italic' },
+  lockedCard: { borderWidth: 1, borderStyle: 'dashed', borderColor: Colors.cardBorder, borderRadius: BorderRadius.lg, padding: Spacing.xl, alignItems: 'center', marginBottom: Spacing.lg },
+  lockedEmoji: { fontSize: 28, color: Colors.teal, marginBottom: Spacing.sm },
+  lockedTitle: { fontSize: Typography.size.md, color: Colors.textMuted, fontWeight: Typography.weight.semibold, letterSpacing: 1, marginBottom: Spacing.sm },
+  lockedText: { fontSize: Typography.size.xs, color: Colors.textMuted, textAlign: 'center', lineHeight: Typography.size.xs * 1.85, fontStyle: 'italic' },
   toggleAllBtn: { paddingVertical: Spacing.md, alignItems: 'center' },
   toggleAllText: { fontSize: Typography.size.xs, color: Colors.textMuted, letterSpacing: 1.5 },
   allList: { gap: Spacing.sm, marginBottom: Spacing.xl },

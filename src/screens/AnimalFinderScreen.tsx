@@ -304,6 +304,10 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate }: Props) {
           <Text style={styles.introDesc}>
             Ruhunla uyumlu totem hayvanını bulmak için iki yol var.
           </Text>
+          <Text style={styles.introNote}>
+            Sakin sana bir ayna tutar — içinde zaten var olanı yansıtır ve olası olanı fısıldar.
+            Onu kalbinde uyandıracak, hissedip özümseyecek olan ise yalnızca sensin.
+          </Text>
 
           <TouchableOpacity style={[styles.modeBtn, { borderColor: Colors.teal }]} onPress={() => setMode('quiz')} activeOpacity={0.8}>
             <Text style={styles.modeBtnEmoji}>✦</Text>
@@ -474,6 +478,11 @@ const styles = StyleSheet.create({
     fontSize: Typography.size.sm, color: Colors.textMuted,
     textAlign: 'center', lineHeight: Typography.size.sm * 1.7,
     marginBottom: Spacing.sm,
+  },
+  introNote: {
+    fontSize: Typography.size.xs, color: Colors.textMuted,
+    textAlign: 'center', lineHeight: Typography.size.xs * 1.85,
+    fontStyle: 'italic', opacity: 0.7, marginBottom: Spacing.sm,
   },
   modeBtn: {
     width: '100%', flexDirection: 'row', alignItems: 'center', gap: Spacing.md,

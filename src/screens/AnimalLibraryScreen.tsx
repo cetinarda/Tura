@@ -64,7 +64,7 @@ export function AnimalLibraryScreen({ onClose }: Props) {
       </View>
 
       <View style={styles.header}>
-        <Text style={styles.title}>Hayvanlar Kitabı</Text>
+        <Text style={styles.title}>Rehber Hayvanlar</Text>
         <Text style={styles.subtitle}>
           Anadolu'dan dünyaya · {animalsData.length} hayvan rehberi
         </Text>
