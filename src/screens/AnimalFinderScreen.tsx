@@ -7,6 +7,8 @@ import {
   ScrollView,
   Animated,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
@@ -367,6 +369,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
 
       {/* ── Birth form ── */}
       {mode === 'birth' && (
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={styles.birthWrap} keyboardShouldPersistTaps="handled">
           <Text style={styles.birthTitle}>Doğum Bilgilerini Gir</Text>
           <Text style={styles.birthDesc}>
@@ -419,6 +422,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
             <Text style={styles.submitBtnTxt}>Rehberimi Bul ✦</Text>
           </TouchableOpacity>
         </ScrollView>
+        </KeyboardAvoidingView>
       )}
 
       {/* ── Result ── */}

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  ScrollView,
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
@@ -18,19 +18,11 @@ import { useTuraStore } from '../store/useStore';
 
 type Panel = 'library' | 'finder' | 'nagual' | 'myths';
 
-interface PanelDef {
-  key: Panel;
-  title: string;
-  symbol: string;
-  color: string;
-  helpKey?: string;
-}
-
-const PANELS: PanelDef[] = [
-  { key: 'library', title: 'Hayvanlar', symbol: '⊕', color: Colors.tealLight,    helpKey: 'totem' },
-  { key: 'finder',  title: 'Bul',       symbol: '✦', color: Colors.gold,         helpKey: 'rehber' },
-  { key: 'nagual',  title: 'Nagual',    symbol: '◈', color: Colors.ember,        helpKey: 'nagual' },
-  { key: 'myths',   title: 'Mitler',    symbol: '⚡', color: Colors.sakinLavender, helpKey: 'mit' },
+const PANELS = [
+  { key: 'library' as Panel, title: 'Hayvanlar', symbol: '⊕', color: Colors.tealLight,     helpKey: 'totem' },
+  { key: 'finder'  as Panel, title: 'Bul',       symbol: '✦', color: Colors.gold,          helpKey: 'rehber' },
+  { key: 'nagual'  as Panel, title: 'Nagual',    symbol: '◈', color: Colors.ember,         helpKey: 'nagual' },
+  { key: 'myths'   as Panel, title: 'Mitler',    symbol: '⚡', color: Colors.sakinLavender, helpKey: 'mit' },
 ];
 
 export function AnimalsHubScreen() {
@@ -45,19 +37,17 @@ export function AnimalsHubScreen() {
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={Colors.background} />
 
+      {/* Top: eyebrow + current panel name + help */}
       <View style={styles.headerBar}>
         <Text style={styles.eyebrow}>SAKİN · HAYVAN</Text>
         <View style={styles.titleRow}>
           <Text style={styles.title}>{active.title}</Text>
-          {active.helpKey && <HelpButton termKey={active.helpKey} />}
+          <HelpButton termKey={active.helpKey} />
         </View>
       </View>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.chipRow}
-      >
+      {/* Chip tabs — fixed height, no flex growth */}
+      <View style={styles.chipWrap}>
         {PANELS.map(p => {
           const isActive = p.key === panel;
           return (
@@ -65,10 +55,7 @@ export function AnimalsHubScreen() {
               key={p.key}
               style={[
                 styles.chip,
-                isActive && {
-                  borderColor: p.color,
-                  backgroundColor: p.color + '18',
-                },
+                isActive && { borderColor: p.color, backgroundColor: p.color + '18' },
               ]}
               onPress={() => setPanel(p.key)}
               activeOpacity={0.8}
@@ -86,10 +73,11 @@ export function AnimalsHubScreen() {
             </TouchableOpacity>
           );
         })}
-      </ScrollView>
+      </View>
 
       <View style={styles.divider} />
 
+      {/* Panel content fills remaining space */}
       <View style={styles.body}>
         {panel === 'library' && <AnimalLibraryScreen onClose={noClose} embedded />}
         {panel === 'finder'  && <AnimalFinderScreen  onClose={noClose} embedded prefillBirthDate={profile?.birthDate} />}
@@ -102,20 +90,56 @@ export function AnimalsHubScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: Colors.background },
-  headerBar: { paddingHorizontal: Spacing.lg, paddingTop: Spacing.sm, paddingBottom: Spacing.xs },
-  eyebrow: { fontSize: 9, color: Colors.sakinLavender, letterSpacing: 3, opacity: 0.7 },
-  titleRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginTop: 4 },
-  title: { fontSize: Typography.size.xl, fontWeight: Typography.weight.light, color: Colors.textPrimary, letterSpacing: 1 },
-  chipRow: { paddingHorizontal: Spacing.lg, paddingVertical: Spacing.sm, gap: Spacing.sm },
+
+  headerBar: {
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.sm,
+    paddingBottom: Spacing.xs,
+  },
+  eyebrow: {
+    fontSize: 9,
+    color: Colors.sakinLavender,
+    letterSpacing: 3,
+    opacity: 0.7,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+    marginTop: 3,
+  },
+  title: {
+    fontSize: Typography.size.xl,
+    fontWeight: Typography.weight.light,
+    color: Colors.textPrimary,
+    letterSpacing: 1,
+  },
+
+  // Chip row: fixed row, no ScrollView, chips share space equally
+  chipWrap: {
+    flexDirection: 'row',
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    gap: Spacing.xs,
+  },
   chip: {
-    flexDirection: 'row', alignItems: 'center', gap: 6,
-    paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs,
-    borderWidth: 1, borderColor: Colors.cardBorder,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+    paddingVertical: 7,
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
     borderRadius: BorderRadius.round,
     backgroundColor: Colors.backgroundCard,
   },
-  chipSymbol: { fontSize: 13 },
-  chipLabel: { fontSize: Typography.size.xs, letterSpacing: 0.8 },
-  divider: { height: 1, backgroundColor: Colors.divider, opacity: 0.5 },
+  chipSymbol: { fontSize: 12 },
+  chipLabel: {
+    fontSize: 11,
+    letterSpacing: 0.4,
+  },
+
+  divider: { height: 1, backgroundColor: Colors.divider, opacity: 0.4 },
   body: { flex: 1 },
 });

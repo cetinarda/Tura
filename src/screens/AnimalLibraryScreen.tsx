@@ -66,7 +66,7 @@ export function AnimalLibraryScreen({ onClose, embedded }: Props) {
         </View>
       )}
 
-      <View style={styles.header}>
+      <View style={[styles.header, embedded && styles.headerCompact]}>
         <Text style={styles.subtitle}>
           Anadolu'dan dünyaya · {animalsData.length} hayvan rehberi
         </Text>
@@ -166,6 +166,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
     paddingTop: Spacing.md,
     paddingBottom: Spacing.lg,
+  },
+  headerCompact: {
+    paddingTop: Spacing.xs,
+    paddingBottom: Spacing.sm,
   },
   title: {
     fontSize: Typography.size.xxl,

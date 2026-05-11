@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
@@ -155,6 +157,10 @@ export function ProfileScreen() {
 
   if (showOnboarding || isNewUser) {
     return (
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
       <View style={[styles.container, styles.onboarding, { paddingTop: insets.top }]}>
         <Text style={styles.onboardingEmoji}>☾</Text>
         <Text style={styles.onboardingTitle}>TURA'ya Hoş Geldin</Text>
@@ -259,6 +265,7 @@ export function ProfileScreen() {
           </TouchableOpacity>
         )}
       </View>
+      </KeyboardAvoidingView>
     );
   }
 
@@ -543,6 +550,7 @@ export function ProfileScreen() {
             </View>
           </>
         ) : showBirthForm ? (
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ width: '100%' }}>
           <View style={styles.birthForm}>
             <Text style={styles.birthFormTitle}>İsim ve doğum bilgilerini gir</Text>
             <TextInput
@@ -595,6 +603,7 @@ export function ProfileScreen() {
               <Text style={styles.skipText}>İptal</Text>
             </TouchableOpacity>
           </View>
+          </KeyboardAvoidingView>
         ) : (
           <TouchableOpacity
             style={styles.unlockBtn}

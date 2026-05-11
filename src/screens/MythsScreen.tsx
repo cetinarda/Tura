@@ -66,7 +66,7 @@ export function MythsScreen({ onClose, embedded }: Props) {
         </View>
       )}
 
-      <View style={styles.header}>
+      <View style={[styles.header, embedded && styles.headerCompact]}>
         <Text style={styles.subtitle}>
           Ruhun karşılaştığı sembolik güçler · {nagualsData.length} mit
         </Text>
@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
   back: { fontSize: Typography.size.sm, color: Colors.tealLight, letterSpacing: 0.5 },
   familyTag: { fontSize: 9, color: Colors.textMuted, letterSpacing: 2 },
   header: { paddingHorizontal: Spacing.lg, paddingTop: Spacing.md, paddingBottom: Spacing.lg },
+  headerCompact: { paddingTop: Spacing.xs, paddingBottom: Spacing.sm },
   title: { fontSize: Typography.size.xxl, fontWeight: Typography.weight.light, color: Colors.textPrimary, letterSpacing: 1 },
   subtitle: { fontSize: Typography.size.xs, color: Colors.textMuted, letterSpacing: 0.5, marginTop: 4 },
   searchBox: {
