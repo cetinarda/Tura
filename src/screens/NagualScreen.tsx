@@ -58,7 +58,6 @@ export function NagualScreen({ onClose }: Props) {
   const insets = useSafeAreaInsets();
   const { profile } = useTuraStore();
   const [nagual] = useState<Nagual>(() => getWeeklyNagual());
-  const [showAll, setShowAll] = useState(false);
   const daysLeft = getDaysRemaining();
 
   const personal = useMemo(() => {
@@ -136,50 +135,6 @@ export function NagualScreen({ onClose }: Props) {
           </View>
         )}
 
-        <TouchableOpacity onPress={() => setShowAll(v => !v)} style={styles.toggleAllBtn} activeOpacity={0.7}>
-          <Text style={styles.toggleAllText}>
-            {showAll ? '▲ Tüm Nagual\'leri Gizle' : `▼ Tüm Nagual\'leri Gör (${nagualsData.length})`}
-          </Text>
-        </TouchableOpacity>
-
-        {showAll && (
-          <View style={styles.allList}>
-            <View style={styles.mythIntro}>
-              <Text style={styles.mythIntroTitle}>MİTLER · SEMBOLİK GÜÇLER</Text>
-              <Text style={styles.mythIntroText}>
-                Nagual'ler hayvan değil, ruhun karşılaştığı sembolik güçlerdir.
-                Şimşek, Gölge, Girdap... her biri ayrı bir mit, ayrı bir derstir.
-              </Text>
-            </View>
-            {nagualsData.map((n, idx) => (
-              <React.Fragment key={n.id}>
-                <View style={[styles.mythCard, n.id === nagual.id && styles.mythCardActive]}>
-                  <View style={styles.mythHead}>
-                    <Text style={styles.mythNumber}>{String(idx + 1).padStart(2, '0')}</Text>
-                    <View style={styles.mythDivider} />
-                    <Text style={styles.mythElement}>{n.element.toUpperCase()}</Text>
-                  </View>
-                  <View style={styles.mythBody}>
-                    <Text style={styles.mythEmoji}>{n.emoji}</Text>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.mythName}>{n.name}</Text>
-                      <Text style={styles.mythAspect}>{(n as any).aspect}</Text>
-                    </View>
-                  </View>
-                  <Text style={styles.mythMessage}>{(n as any).dailyMessage}</Text>
-                </View>
-                {idx < nagualsData.length - 1 && (
-                  <View style={styles.mythSeparator}>
-                    <View style={styles.mythSepLine} />
-                    <Text style={styles.mythSepDot}>✦</Text>
-                    <View style={styles.mythSepLine} />
-                  </View>
-                )}
-              </React.Fragment>
-            ))}
-          </View>
-        )}
-
         <View style={{ height: insets.bottom + Spacing.xl }} />
       </ScrollView>
     </View>
@@ -216,24 +171,4 @@ const styles = StyleSheet.create({
   lockedEmoji: { fontSize: 28, color: Colors.teal, marginBottom: Spacing.sm },
   lockedTitle: { fontSize: Typography.size.md, color: Colors.textMuted, fontWeight: Typography.weight.semibold, letterSpacing: 1, marginBottom: Spacing.sm },
   lockedText: { fontSize: Typography.size.xs, color: Colors.textMuted, textAlign: 'center', lineHeight: Typography.size.xs * 1.85, fontStyle: 'italic' },
-  toggleAllBtn: { paddingVertical: Spacing.md, alignItems: 'center' },
-  toggleAllText: { fontSize: Typography.size.xs, color: Colors.textMuted, letterSpacing: 1.5 },
-  allList: { marginBottom: Spacing.xl },
-  mythIntro: { padding: Spacing.md, marginBottom: Spacing.md, borderLeftWidth: 2, borderLeftColor: Colors.ember + '60' },
-  mythIntroTitle: { fontSize: 9, letterSpacing: 3, color: Colors.emberLight, marginBottom: Spacing.xs },
-  mythIntroText: { fontSize: Typography.size.xs, color: Colors.textMuted, lineHeight: Typography.size.xs * 1.85, fontStyle: 'italic' },
-  mythCard: { padding: Spacing.md, backgroundColor: Colors.backgroundCard, borderRadius: BorderRadius.md, borderWidth: 1, borderColor: Colors.cardBorder },
-  mythCardActive: { borderColor: Colors.ember + '80', backgroundColor: Colors.ember + '12' },
-  mythHead: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginBottom: Spacing.sm },
-  mythNumber: { fontSize: 10, color: Colors.emberLight, letterSpacing: 2, fontWeight: Typography.weight.semibold },
-  mythDivider: { flex: 1, height: 1, backgroundColor: Colors.divider },
-  mythElement: { fontSize: 9, color: Colors.textMuted, letterSpacing: 2 },
-  mythBody: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md, marginBottom: Spacing.sm },
-  mythEmoji: { fontSize: 28 },
-  mythName: { fontSize: Typography.size.md, color: Colors.textPrimary, fontWeight: Typography.weight.semibold, letterSpacing: 0.5 },
-  mythAspect: { fontSize: Typography.size.xs, color: Colors.emberLight, letterSpacing: 1, marginTop: 2, textTransform: 'uppercase' },
-  mythMessage: { fontSize: Typography.size.xs, color: Colors.textSecondary, lineHeight: Typography.size.xs * 1.85, fontStyle: 'italic', fontWeight: Typography.weight.light },
-  mythSeparator: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, paddingVertical: Spacing.md },
-  mythSepLine: { flex: 1, height: 1, backgroundColor: Colors.ember + '20' },
-  mythSepDot: { fontSize: 10, color: Colors.ember + '60' },
 });

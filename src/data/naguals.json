@@ -248,5 +248,255 @@
     "dailyMessage": "Taşıdığın zincirlerin çoğu gerçek değil. Yıllar önce inandığın sınırlardır.",
     "guidance": "Yapamam dediğin şeyin neden yapamadığını bugün sorgula.",
     "rarity": "rare"
+  },
+  {
+    "id": "ng026",
+    "name": "Tufan",
+    "emoji": "🌊",
+    "element": "su",
+    "aspect": "Arınma",
+    "dailyMessage": "Bazen her şeyin yıkılması, gerçek temelin görünmesi içindir. Tufan korkutucu ama temizleyicidir.",
+    "guidance": "Hayatında yıkılan şeyleri tutmaya çalışma. Onlar gitmeli ki yenisi gelsin.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng027",
+    "name": "Volkan",
+    "emoji": "🌋",
+    "element": "ateş",
+    "aspect": "Patlama",
+    "dailyMessage": "İçinde uzun zamandır bastırdığın bir şey var. Volkan sessizliğini ne kadar uzun korursa, patlaması o kadar büyük olur.",
+    "guidance": "Bugün uzun zamandır söylemediğin şeyi söyle. Söyleme yolu sağlıklı patlamadır.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng028",
+    "name": "Yıldız",
+    "emoji": "⭐",
+    "element": "hava",
+    "aspect": "Yön",
+    "dailyMessage": "Karanlık ne kadar derin olursa olsun, içinde bir yıldız hep yanar. O sana evi gösterir.",
+    "guidance": "Yolunu kaybettiğinde hangi değerin yıldız olduğunu hatırla.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng029",
+    "name": "Toprak Ana",
+    "emoji": "🌍",
+    "element": "toprak",
+    "aspect": "Köken",
+    "dailyMessage": "Sen topraktan geldin, toprağa döneceksin. Bu arada toprak seni besler — bedavadan, sessizce.",
+    "guidance": "Bugün ayakkabısız toprağa bas. Beş dakika yeter. Annenle konuşmuş gibi olursun.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng030",
+    "name": "Rüya",
+    "emoji": "💭",
+    "element": "su",
+    "aspect": "İçsel Mesaj",
+    "dailyMessage": "Rüyalar uydurma değil — bilinçaltının mektuplarıdır. Açmazsan yine de gönderilir.",
+    "guidance": "Bu sabah hatırladığın rüyayı bir kağıda yaz. Anlamı zamanla açılır.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng031",
+    "name": "İlham",
+    "emoji": "✨",
+    "element": "hava",
+    "aspect": "Akış",
+    "dailyMessage": "İlham seni seçer, sen onu değil. Ama hazır olmazsan bir başkasına gider.",
+    "guidance": "Bugün küçük bir yaratım yap. Yazı, çizim, ses — fark etmez. Açık kal.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng032",
+    "name": "Dua",
+    "emoji": "🤲",
+    "element": "hava",
+    "aspect": "Bağlantı",
+    "dailyMessage": "Dua, isteme değil — hizalanma sanatıdır. Sesini eviren biri seni dinler.",
+    "guidance": "Bugün isteyerek değil, teşekkür ederek dua et. Fark hisset.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng033",
+    "name": "Tövbe",
+    "emoji": "🙏",
+    "element": "su",
+    "aspect": "Geri Dönüş",
+    "dailyMessage": "Yanlış yolda hızlı gitmenin bir anlamı yok. Geri dönmek zayıflık değil, bilgeliktir.",
+    "guidance": "Bugün bir yanlışı kabul et. İçten bir özür — başkasına ya da kendine.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng034",
+    "name": "Sırrın Açılması",
+    "emoji": "🗝️",
+    "element": "hava",
+    "aspect": "Vahiy",
+    "dailyMessage": "Bir sır seni daha fazla taşıyamaz. Açılma zamanı gelmiştir.",
+    "guidance": "Güvendiğin birine söylemediğin şeyi söyle. Sırrı taşıdığın yer artık ağırlık.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng035",
+    "name": "Vedalaşma",
+    "emoji": "🍃",
+    "element": "hava",
+    "aspect": "Bırakış",
+    "dailyMessage": "Her veda küçük bir ölümdür ama vedaya doğru bakarsan yeni bir doğumdur.",
+    "guidance": "Kalbinde bir şey ya da biri için 'Hoşçakal' diyemediğin biri var mı? Bugün de.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng036",
+    "name": "Yangın",
+    "emoji": "🔥",
+    "element": "ateş",
+    "aspect": "Yıkıcı Arınma",
+    "dailyMessage": "Bazen tutuştuğun şey, içinde uzun zamandır seni yakan şeydi. Yangın geçer, sen kalırsın.",
+    "guidance": "Bugün öfkene kızma — onun ne istediğini sor. Mesajını dinle.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng037",
+    "name": "Kıyı",
+    "emoji": "🏖️",
+    "element": "su",
+    "aspect": "Sınır",
+    "dailyMessage": "Kıyı, iki dünyanın buluştuğu yerdir — kara ve deniz. İçinde de böyle eşikler var.",
+    "guidance": "Bugün hangi sınırda duruyorsun? Atlamak ya da kalmak — bilinçli seç.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng038",
+    "name": "Dağ",
+    "emoji": "⛰️",
+    "element": "toprak",
+    "aspect": "Sabır",
+    "dailyMessage": "Dağ aceleyle yapılmaz, aceleyle yıkılmaz. O sadece olur — milyonlarca yılda.",
+    "guidance": "Acelen var mı? Bugün bir işi yarım hızda yap. Sonucu değil sürecini gör.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng039",
+    "name": "Ada",
+    "emoji": "🏝️",
+    "element": "su",
+    "aspect": "Yalnızlık",
+    "dailyMessage": "Bazen ada olmak — etrafı suyla çevrili, kendi başına — bir lanet değil hediyedir.",
+    "guidance": "Bugün yarım saat yalnız kal. Telefon kapalı, içe dönük. Kendine yetmenin gücünü tat.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng040",
+    "name": "Pusula",
+    "emoji": "🧭",
+    "element": "hava",
+    "aspect": "İçsel Yön",
+    "dailyMessage": "Dışarıdaki haritalar tükenir, içindeki pusula tükenmez. Sadece onu tozlanmaktan koru.",
+    "guidance": "Bugün küçük bir karar verirken zihninden değil, midesinden sor: doğru mu yanlış mı?",
+    "rarity": "common"
+  },
+  {
+    "id": "ng041",
+    "name": "Çıngırak",
+    "emoji": "🔔",
+    "element": "hava",
+    "aspect": "Uyanış",
+    "dailyMessage": "Bir çıngırak çalar — sen duymazlıktan gelirsen yine çalar, daha yüksek.",
+    "guidance": "Hayatında tekrar tekrar gelen aynı mesaj var mı? Bugün ona bak.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng042",
+    "name": "Kuyu",
+    "emoji": "🕳️",
+    "element": "su",
+    "aspect": "Derinlik",
+    "dailyMessage": "İçinde bir kuyu var — derin, karanlık, ama dibinde berrak su. Onun korkutucu olduğu yerden geç.",
+    "guidance": "Bugün hiç kimseye söylemediğin bir şeyi kendine yaz. Mektup gibi.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng043",
+    "name": "İplik",
+    "emoji": "🧵",
+    "element": "toprak",
+    "aspect": "Bağ",
+    "dailyMessage": "Her insan, görünmez ipliklerle başkalarına bağlıdır. Bazıları besler, bazıları çeker.",
+    "guidance": "Bugün seni geriye çeken bir bağı tanı. Kesmek değil — gevşetmek yeter olabilir.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng044",
+    "name": "Vahşi Bahçe",
+    "emoji": "🌿",
+    "element": "toprak",
+    "aspect": "Kontrolsüz Büyüme",
+    "dailyMessage": "Her şey düzenli olmak zorunda değil. Vahşi bahçe — bakımsız ama canlı — kendine has bir güzelliktir.",
+    "guidance": "Bugün bir alanı 'mükemmel' yapmaya çalışma. Olduğu gibi bırak.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng045",
+    "name": "Şafak",
+    "emoji": "🌅",
+    "element": "ateş",
+    "aspect": "Yeniden Başlama",
+    "dailyMessage": "En karanlık an, şafaktan hemen öncesidir. Onu görmek için biraz daha kal.",
+    "guidance": "Pes etmek istediğin bir şey mi var? Bir gün daha ver. Sadece bir gün.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng046",
+    "name": "Kar",
+    "emoji": "❄️",
+    "element": "su",
+    "aspect": "Sessizlik",
+    "dailyMessage": "Kar her şeyi örter — sesi, hızı, hataları. Beyaz örtü altında her şey yeniden başlar.",
+    "guidance": "Bugün bir saat kimseyle konuşma. Sessizliğin dolduğu yere bak.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ng047",
+    "name": "Çıplak Ayak",
+    "emoji": "👣",
+    "element": "toprak",
+    "aspect": "Temas",
+    "dailyMessage": "Ayakkabı, toprağı çok unutturdu. Bedenin doğrudan temasla şifa bulur.",
+    "guidance": "Bugün toprağa, çime ya da kuma çıplak ayakla bas. On dakika yeter.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng048",
+    "name": "Şükür",
+    "emoji": "🙌",
+    "element": "hava",
+    "aspect": "Doluluk",
+    "dailyMessage": "Şükür, sahip olduğunu görme sanatıdır. Görmediğin şeye sahip olamazsın.",
+    "guidance": "Bugün uyumadan önce üç şey için minnet duy. Küçük olsun — kalbi açar.",
+    "rarity": "common"
+  },
+  {
+    "id": "ng049",
+    "name": "Eşik",
+    "emoji": "🚪",
+    "element": "hava",
+    "aspect": "Geçiş Anı",
+    "dailyMessage": "Eşikte duranlar ne içeride ne dışarıdadır. Bu belirsizlik, dönüşümün doğum sancısıdır.",
+    "guidance": "Bir karar arifesindesin mi? Eşikte uzun süre kalma — adım at, geri gel ama hareket et.",
+    "rarity": "rare"
+  },
+  {
+    "id": "ng050",
+    "name": "Kırık Vazo",
+    "emoji": "🏺",
+    "element": "toprak",
+    "aspect": "Kintsugi",
+    "dailyMessage": "Kırılan şey değersizleşmez. Japonlar kırıkları altınla doldurur — kırık yer en güzel olur.",
+    "guidance": "Bir hatanın, bir kırıklığın utancını bugün bırak. O yarıktan ışık geçiyor.",
+    "rarity": "rare"
   }
 ]

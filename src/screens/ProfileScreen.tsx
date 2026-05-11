@@ -19,6 +19,18 @@ import { getWeeklyReading } from '../utils/weeklyReading';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { PaywallScreen } from './PaywallScreen';
 import { usePremium, clearPremium, activateMockPremium } from '../lib/premium';
+import { HelpButton } from '../components/HelpButton';
+
+function hdTypeToGlossaryKey(type: string): string {
+  switch (type) {
+    case 'Jeneratör':             return 'jeneratör';
+    case 'Manifesting Jeneratör': return 'manifestingJeneratör';
+    case 'Projektör':             return 'projektör';
+    case 'Manifestor':            return 'manifestor';
+    case 'Reflektör':             return 'reflektör';
+    default:                       return 'humanDesign';
+  }
+}
 import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermission } from '../lib/notifications';
 
 const ELEMENTS = ['ateş', 'su', 'toprak', 'hava'] as const;
@@ -410,9 +422,12 @@ export function ProfileScreen() {
                   </Text>
                 </View>
                 <View style={styles.analysisHeaderText}>
-                  <Text style={[styles.analysisTitle, { color: Colors.gold }]}>
-                    {analysis.lp.title}
-                  </Text>
+                  <View style={styles.titleRow}>
+                    <Text style={[styles.analysisTitle, { color: Colors.gold }]}>
+                      {analysis.lp.title}
+                    </Text>
+                    <HelpButton termKey="hayatYolu" />
+                  </View>
                   <Text style={styles.analysisMeta}>
                     Hayat Yolu · {analysis.lp.keyword}
                   </Text>
@@ -442,12 +457,18 @@ export function ProfileScreen() {
                   <Text style={{ fontSize: 18 }}>◈</Text>
                 </View>
                 <View style={styles.analysisHeaderText}>
-                  <Text style={[styles.analysisTitle, { color: Colors.purpleLight }]}>
-                    {analysis.hd.type}
-                  </Text>
-                  <Text style={styles.analysisMeta}>
-                    Human Design · Strateji: {analysis.hd.strategy}
-                  </Text>
+                  <View style={styles.titleRow}>
+                    <Text style={[styles.analysisTitle, { color: Colors.purpleLight }]}>
+                      {analysis.hd.type}
+                    </Text>
+                    <HelpButton termKey={hdTypeToGlossaryKey(analysis.hd.type)} />
+                  </View>
+                  <View style={styles.titleRow}>
+                    <Text style={styles.analysisMeta}>
+                      Human Design · Strateji: {analysis.hd.strategy}
+                    </Text>
+                    <HelpButton termKey="humanDesign" />
+                  </View>
                 </View>
                 {premium.isPremium && (
                   <TouchableOpacity onPress={() => setShowHDPicker(v => !v)} style={styles.hdEditBtn}>
@@ -781,6 +802,7 @@ function PremiumTeaser({
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   scrollContent: { paddingBottom: Spacing.xxxl },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, flexWrap: 'wrap' },
   devSection: { padding: Spacing.lg, paddingTop: 0, alignItems: 'center' },
   devBtn: {
     paddingVertical: Spacing.sm,

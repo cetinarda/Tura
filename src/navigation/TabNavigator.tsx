@@ -12,6 +12,7 @@ import { HomeScreen } from '../screens/HomeScreen';
 import { AnimalsHubScreen } from '../screens/AnimalsHubScreen';
 import { ArchiveScreen } from '../screens/ArchiveScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
+import { GlossaryFAB } from '../components/HelpButton';
 
 type Tab = 'home' | 'animals' | 'archive' | 'profile';
 
@@ -43,6 +44,8 @@ export function TabNavigator() {
     <View style={styles.webRoot}>
       <View style={styles.container}>
         <View style={styles.screen}>{renderScreen()}</View>
+
+        <GlossaryFAB />
 
         <View style={[styles.tabBar, { paddingBottom: insets.bottom + 4 }]}>
           {TABS.map(tab => {

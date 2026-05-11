@@ -9,13 +9,16 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
+import { HelpButton } from '../components/HelpButton';
 import { AnimalLibraryScreen } from './AnimalLibraryScreen';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { NagualScreen } from './NagualScreen';
+import { MythsScreen } from './MythsScreen';
 import { useTuraStore } from '../store/useStore';
 import animalsData from '../data/animals.json';
+import nagualsData from '../data/naguals.json';
 
-type Panel = 'hub' | 'library' | 'finder' | 'nagual';
+type Panel = 'hub' | 'library' | 'finder' | 'nagual' | 'myths';
 
 interface PanelDef {
   key: Exclude<Panel, 'hub'>;
@@ -24,6 +27,7 @@ interface PanelDef {
   description: string;
   symbol: string;
   color: string;
+  helpKey?: string;
 }
 
 const PANELS: PanelDef[] = [
@@ -34,6 +38,7 @@ const PANELS: PanelDef[] = [
     description: `${animalsData.length} hayvanın derin rehberliği — Anadolu'dan Mısır'a, Jung'tan Şamanizme.`,
     symbol: '⊕',
     color: Colors.teal,
+    helpKey: 'totem',
   },
   {
     key: 'finder',
@@ -42,6 +47,7 @@ const PANELS: PanelDef[] = [
     description: 'Kişiliğinin ve enerjinin yansıdığı totem hayvanını keşfet.',
     symbol: '✦',
     color: Colors.gold,
+    helpKey: 'rehber',
   },
   {
     key: 'nagual',
@@ -50,6 +56,16 @@ const PANELS: PanelDef[] = [
     description: 'Şu an seninle olan geçici rehberin. Her hafta değişir.',
     symbol: '◈',
     color: Colors.ember,
+    helpKey: 'nagual',
+  },
+  {
+    key: 'myths',
+    title: 'Mitler Sözlüğü',
+    subtitle: 'Sembolik güçler',
+    description: `Ruhun karşılaştığı ${nagualsData.length} sembolik güç — Gölge, Ayna, Şimşek, Eşik... her biri ayrı bir ders.`,
+    symbol: '⚡',
+    color: Colors.sakinLavender,
+    helpKey: 'mit',
   },
 ];
 
@@ -60,6 +76,7 @@ export function AnimalsHubScreen() {
 
   if (panel === 'library') return <AnimalLibraryScreen onClose={() => setPanel('hub')} />;
   if (panel === 'nagual')  return <NagualScreen onClose={() => setPanel('hub')} />;
+  if (panel === 'myths')   return <MythsScreen onClose={() => setPanel('hub')} />;
   if (panel === 'finder') {
     return (
       <AnimalFinderScreen
@@ -98,7 +115,10 @@ export function AnimalsHubScreen() {
                   <Text style={[styles.symbol, { color: p.color }]}>{p.symbol}</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.panelTitle}>{p.title}</Text>
+                  <View style={styles.panelTitleRow}>
+                    <Text style={styles.panelTitle}>{p.title}</Text>
+                    {p.helpKey && <HelpButton termKey={p.helpKey} />}
+                  </View>
                   <Text style={[styles.panelSubtitle, { color: p.color + 'CC' }]}>{p.subtitle}</Text>
                 </View>
                 <Text style={[styles.arrow, { color: p.color }]}>→</Text>
@@ -130,6 +150,7 @@ const styles = StyleSheet.create({
   symbolBox: { width: 48, height: 48, borderWidth: 1, borderRadius: 24, alignItems: 'center', justifyContent: 'center' },
   symbol: { fontSize: 22 },
   panelTitle: { fontSize: Typography.size.md, fontWeight: Typography.weight.semibold, color: Colors.textPrimary, letterSpacing: 0.5 },
+  panelTitleRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
   panelSubtitle: { fontSize: Typography.size.xs, letterSpacing: 0.5, marginTop: 2 },
   arrow: { fontSize: 20 },
   panelDesc: { fontSize: Typography.size.xs, color: Colors.textSecondary, lineHeight: Typography.size.xs * 1.8, fontWeight: Typography.weight.light, paddingLeft: 60 },
