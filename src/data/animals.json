@@ -1,42 +1,852 @@
 [
-  {"id":"a001","name":"Bozkurt","emoji":"🐺","element":"hava","symbolism":["liderlik","aile","koruma","içgüdü"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Canis_lupus_lupus.jpg&width=300","anatolianMeaning":"Türk mitolojisinin kutsal rehber hayvanı. Bozkurt, yolu kaybedenlere yol göstermiş, Türklerin atasıdır.","dailyMessage":"Bozkurt bugün seni sürüne davet ediyor. Yalnız yürümek güçlü görünse de gerçek güç birlikte hareket etmekte saklı. Kimin yanında, kimin karşısında olduğunu hissediyorsun — bu his yanıltmaz. İçgüdüne kulak ver, sürünün sesini duyursun.","guidance":"Gücenendiğin insanlarla birleş. Yalnız taşıdığın yükü paylaşmaktan korkma.","rarity":"rare"},
-  {"id":"a002","name":"Kartal","emoji":"🦅","element":"hava","symbolism":["özgürlük","vizyon","güç","yüksek bakış"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Aquila_chrysaetos_portrait.jpg&width=300","anatolianMeaning":"Anadolu'da tanrıların haberci. Kartal, yüksek perspektiften gerçeği görür.","dailyMessage":"Kartal sana mesafeli bakışı hatırlatıyor. Sorunun içinde kaybolma — yüksekten, bütün resme bak. Bugün kafanda dönen o tek konu dışında, hayatında ne var? Nereye uçmak istiyorsun? Cevap ufukta, yakına değil uzağa bak.","guidance":"Gündelik kaygılardan çık. Büyük hedefi, uzun yolu düşün.","rarity":"uncommon"},
-  {"id":"a003","name":"At","emoji":"🐴","element":"toprak","symbolism":["özgürlük","güç","seyahat","bağlılık"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Horses_at_waterhole.jpg&width=300","anatolianMeaning":"Türk kültürünün can dostu. At, bozkırda özgürlüğün ve serüvenin simgesidir.","dailyMessage":"At bugün bedenini uyandırıyor. Durmak değil, koşmak zamanı. İçindeki enerji hareket bekliyor; bastırırsan seni yorar, serbest bırakırsan seni taşır. Ayağa kalk, çık dışarı, nefes al — hareketsizlik bugün sana iyi gelmiyor.","guidance":"Bedenini dinle. Fiziksel bir eylem, içsel bir dönüşüm başlatacak.","rarity":"uncommon"},
-  {"id":"a004","name":"Turna","emoji":"🕊️","element":"hava","symbolism":["özlem","ruhsal yolculuk","hasret","sevgi"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Grus_grus_01.jpg&width=300","anatolianMeaning":"Anadolu halk şiirinde sevgiliye ulaşan haberci. Turna, âşığın özlemini Hak'ka taşır.","dailyMessage":"Turna bugün kalbinin derinindeki bir özlemi yüzeye çıkarıyor. Uzakta olan biri mi var, yoksa kendinin bir parçası mı? O hasret seni zayıflatmıyor — tam tersine, kalbin ne istediğini net gösteriyor. Özlemin yönüne yürü.","guidance":"Kalbinde biriken duyguyu ifade et. Söylenmemiş olanı söylemenin zamanı.","rarity":"uncommon"},
-  {"id":"a005","name":"Hüma Kuşu","emoji":"🦋","element":"ateş","symbolism":["talih","kutsallık","yüksek ruhsallık","şans"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Persian_Simurgh.jpg&width=300","anatolianMeaning":"Üzerine gölgesi düştüğü kişiyi mutlu eden efsanevi kuş. Hüma'nın seçtikleri kutsal sayılır.","dailyMessage":"Hüma bugün gölgesini üzerine düşürüyor. Bu nadir bir andır — bazı fırsatlar kapıya bir kez vurur. Beklediğin o an değil bu mu diye sorma; cevap zaten içinde. Sadece evet demek kalıyor.","guidance":"Karşına çıkan fırsatı küçümseme. Hazır olmayı bekleme, şimdi adım at.","rarity":"rare"},
-  {"id":"a006","name":"Anka","emoji":"🔥","element":"ateş","symbolism":["yeniden doğuş","dönüşüm","ölümsüzlük","cesaret"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Phoenix_detail_from_Aberdeen_Bestiary.jpg&width=300","anatolianMeaning":"Kendi külerinden yeniden doğan efsanevi kuş. Anka, her bitiş bir başlangıçtır der.","dailyMessage":"Anka bugün sana yanmayı göze almanın cesaretini veriyor. Bir şeyin bitmesi gerekiyor ki yenisi doğsun. Elinde tuttuğun, artık sana ait olmayan ne var? Bırakman gereken nedir? Korku değil, dönüşüm var bu ateşte.","guidance":"Bitişe direniş gösterme. Gerçek güç, külden yeniden doğmayı bilmektir.","rarity":"rare"},
-  {"id":"a007","name":"Geyik","emoji":"🦌","element":"toprak","symbolism":["zarafet","şefkat","yenilenme","sezgi"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Red_Deer_in_field.jpg&width=300","anatolianMeaning":"Şaman geleneğinde ruhsal alemin rehberi. Geyik, nazik ama güçlüdür.","dailyMessage":"Geyik bugün sana şefkatini hatırlatıyor — hem başkalarına hem de kendine. Her şeyi güçle çözmeye çalışmak zorunda değilsin. Nazik bir dokunuş bazen sert bir hamleden çok daha derin iz bırakır. Yumuşa, ama kaybolma.","guidance":"Sertliği bırak. Şefkat, bugün en güçlü silahın.","rarity":"uncommon"},
-  {"id":"a008","name":"Baykuş","emoji":"🦉","element":"hava","symbolism":["bilgelik","gizem","içgörü","karanlıkta görme"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Bubo_bubo_sibiricus.jpg&width=300","anatolianMeaning":"Kadim Anadolu'da bilgeliğin sembolü. Baykuş, görünmeyeni görür.","dailyMessage":"Baykuş bugün sana herkesin göremediğini görme gücünü hatırlatıyor. Sessiz kal, gözlemle. Aşikar görünen şeyin arkasında gerçek ne var? Başkalarının gürültüsüne kapılma — karanlıkta da görebilirsin, buna güven.","guidance":"Konuşmadan önce dinle. Gerçek, gürültünün altında.","rarity":"uncommon"},
-  {"id":"a009","name":"Aslan","emoji":"🦁","element":"ateş","symbolism":["cesaret","onur","kraliyet","güç"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Lion_waiting_in_Namibia.jpg&width=300","anatolianMeaning":"Tanrıların bekçisi. Hitit tapınaklarının koruyucusu. Güç ve onurun simgesi.","dailyMessage":"Aslan bugün sana onurunu hatırlatıyor. Küçük düşürülmeyi, hakkının yenilmesini, sessiz kalmayı kabul etme. Sesini yükselt, sınırını çiz — bunu yaparken ne kaybedersen, zaten sana ait değildi. Gerçek güç korkmadan değil, korkuya rağmen durmaktır.","guidance":"Haklarını savun. Bugün geri adım atma zamanı değil.","rarity":"rare"},
-  {"id":"a010","name":"Ayı","emoji":"🐻","element":"toprak","symbolism":["güç","iyileşme","sezgi","içe çekilme"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Brown_bear.jpg&width=300","anatolianMeaning":"Eski Anadolu şamanlarının totem hayvanı. Ayı kışın toprağa çekilerek tükenir, ilkbaharda yenilenir.","dailyMessage":"Ayı bugün seni içine çağırıyor. Dış dünyayla yoğun temas bazen ruhu tüketir. Yavaşla, mağarana çekil. Bu kaçış değil, yenilenme. Uyku, sessizlik, yalnızlık — bunlar zayıflık değil, gelecek günün tohumu.","guidance":"Sosyal enerjini koru. Bugün kendine yer aç, beslen.","rarity":"uncommon"},
-  {"id":"a011","name":"Tilki","emoji":"🦊","element":"ateş","symbolism":["zeka","uyum sağlama","çeviklik","strateji"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Fox_Vulpes_vulpes.jpg&width=300","anatolianMeaning":"Halk hikayelerinde zeki ve çevik kahraman. Tilki, aklını kullanan kazanır der.","dailyMessage":"Tilki bugün senden daha akıllıca oynamanı istiyor. Doğrudan ve sert değil, çevik ve stratejik. Ortamı oku, zamanlamayı bil. Herkes kendi gündemiyle meşgülken sen birkaç adım öteyi görüyorsun — bu avantajını kullan.","guidance":"Alışılmış yol yerine beklenmedik bir açıdan yaklaş.","rarity":"common"},
-  {"id":"a012","name":"Yunus","emoji":"🐬","element":"su","symbolism":["neşe","oyun","zeka","topluluk"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Dolphin_ka_cropped.jpg&width=300","anatolianMeaning":"Ege kıyılarında denizci koruyucusu. Yunus, hem zeki hem neşelidir; denizin ruhudur.","dailyMessage":"Yunus bugün sana hayatın ağır tarafını biraz bırakmanı söylüyor. Ne zaman en son sadece gülmek için güldün? Ne zaman amaçsızca oynadın? Zeka bazen en iyi ciddiyeti bıraktığında çalışır. Bugün yüzebilirsin — dalgalar seni taşısın.","guidance":"Hafifle. Neşe hem şiya hem güçtür.","rarity":"common"},
-  {"id":"a013","name":"Kaplumbağa","emoji":"🐢","element":"toprak","symbolism":["sabır","bilgelik","uzun ömür","istikrar"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Galapagos_tortoise_Santa_Cruz_1.jpg&width=300","anatolianMeaning":"Dünyanın taşıyıcısı. Kaplumbağa yavaş ama hiç durmaz, hedefine ulaşır.","dailyMessage":"Kaplumbağa bugün sana yavaşlamanın erdem olduğunu hatırlatıyor. Etrafındaki koşturumacaya bakıp geride kalmış gibi hissedebilirsin — yanılıyorsun. Sağlam atılan her adım, birden on adım birden atmaktan daha uzağa götürür. Kendi tempounda yürü.","guidance":"Sabır göster. Tutarlı küçük adımlar seni hedefe taşır.","rarity":"common"},
-  {"id":"a014","name":"Yılan","emoji":"🐍","element":"su","symbolism":["dönüşüm","şiya","yenilenme","bilgelik"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Vipera_berus.jpg&width=300","anatolianMeaning":"Eski Anadolu'da şiya tanrıçasının simgesi. Derini değiştirir, yenilenir.","dailyMessage":"Yılan bugün deri değiştirme zamanının geldiğini söylüyor. O eski hikaye — 'ben böyleyim', 'hep böyle oldu' — artık sana dar geliyor. Biliyorsun bunu. Bir alışkanlık, bir inanç, bir ilişki kalıbı: bırakma zamanı. Yeni deri altında hazır, bekliyor.","guidance":"Artık sana uymayan birini ya da bir şeyi bırak. Dönüşüm başlıyor.","rarity":"uncommon"},
-  {"id":"a015","name":"Kelebek","emoji":"🦋","element":"hava","symbolism":["dönüşüm","güzellik","hafiflik","değişim"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Papillon_pourpre.jpg&width=300","anatolianMeaning":"Ruhun sembolü. Kelebek, chrysalis'teki karanlıktan güzellie çıkışı temsil eder.","dailyMessage":"Kelebek bugün dönüşümün tamamlanmak üzere olduğunu müjdeliyor. O karanlık, sıkışmış dönemin içinde ne kadar dağıldığını sandın — ama aslında şekilleniyordun. Şimdi çıkma zamanı. Kanatların var, bunu unut.","guidance":"Yeni bir seni kabul et. Geriye dönüp bakma.","rarity":"uncommon"},
-  {"id":"a016","name":"Tavus","emoji":"🦚","element":"ateş","symbolism":["güzellik","özgüven","bütünlük","koruyuculuk"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Pavo_cristatus_Photograph_by_Shantanu_Kuveskar.jpg&width=300","anatolianMeaning":"Cennetteki korucu kuş. Tavus, binlerce gözüyle her yönü gözler, tehlikeyi önceden hisseder.","dailyMessage":"Tavus bugün senden kuyruğunu açmanı istiyor. Kim olduğundan utanma, saklanma. Güzelligin, özgünlüğün, renklerin — bunlar kibirlenmek için değil, bütünleşmek için. Göründüğünde başkalarına da kendileri olma izni veriyorsun.","guidance":"Görün. Yeteneklerini, varlığını saklama.","rarity":"uncommon"},
-  {"id":"a017","name":"Leylek","emoji":"🦢","element":"hava","symbolism":["uğur","yenilik","bereket","aile"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/White_stork_Ciconia_ciconia.jpg&width=300","anatolianMeaning":"Anadolu'da uğur kuşu. Leyleğin konduu eve bereket gelir. Hayırlı haberlerin taşıyıcısı.","dailyMessage":"Leylek bugün iyi haberler taşıyor. Beklenmedik yerden, beklenmedik anda — ama geliyor. Kapıyı açık tut, gözlerini aç. Bazen bereket bir mucize değil, fark edilmeyi bekleyen küçük bir dokuştur.","guidance":"İyi şeylere hazır ol ve onları fark et. Minnet kapıyı açar.","rarity":"common"},
-  {"id":"a018","name":"Şahin","emoji":"🦅","element":"ateş","symbolism":["hız","odak","kararlılık","hedef"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Falco_peregrinus_good.jpg&width=300","anatolianMeaning":"Sultanların elinde taşınan kutsal avcı. Şahin hedefi asla kaçırmaz.","dailyMessage":"Şahin bugün tek bir şeye odaklanmanı istiyor. Her yöne koşmak hiçbir yere varmak gibidir. Bugün en önemli o bir şey nedir? Ona odaklan, gözlerini ayırma. Fırsatlar hızla geçer — görünce kavra.","guidance":"Bir öncelik seç ve o tek şeye odaklan.","rarity":"uncommon"},
-  {"id":"a019","name":"Pars","emoji":"🐆","element":"toprak","symbolism":["çeviklik","güç","yalnızlık","özgüven"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Leopard_africa.jpg&width=300","anatolianMeaning":"Anadolu'nun en çevik avcısı. Pars, tek başına da güçlüdür.","dailyMessage":"Pars bugün sana kendi başınalığının bir ceza değil bir güç olduğunu hatırlatıyor. Herkesin onayına ihtiyacın yok. Yolunu biliyorsun, içgüdülerin güçlü. Sessiz, çevik ve emin adımlarla ilerle — başkalarına açıklamak zorunda değilsin.","guidance":"Başkalarının onayını bekleme. Kendi kararına güven ve hareket et.","rarity":"rare"},
-  {"id":"a020","name":"Arı","emoji":"🐝","element":"toprak","symbolism":["çalışkanlık","topluluk","yaratıcılık","bereket"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Bee_on_Sedum.jpg&width=300","anatolianMeaning":"Kutsal arının balı ilk şifacı. Arı, birlikte çalışmanın mucizesini temsil eder.","dailyMessage":"Arı bugün emek ve bereket arasındaki bağı hatırlatıyor. Ne ekersen onu biçersin, ama arı gibi sabırla, sistemli çalışırsan — küçük gibi görünen bu anların birikimi seni hayrete düşürecek. Bugün küçük bir adım at, yarın bal olacak.","guidance":"Tutarlı ve sistemli çalış. Küçük adımların gücünü küçümseme.","rarity":"common"},
-  {"id":"a021","name":"Kırlangıç","emoji":"🐦","element":"hava","symbolism":["özgürlük","yolculuk","umut","dönüş"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Hirundo_rustica_-_Radujevac.jpg&width=300","anatolianMeaning":"Baharın müjdecisi. Kırlangıcın gelişi yeni başlangıçları haber verir.","dailyMessage":"Kırlangıç bugün yeni bir dönemin kapısını aralıyor. O ağır, donmuş hissin altından kıpırdama başlıyor — fark ediyor musun? Bahar ruhsal da gelir, takvimden önce. Yeni bir şeye yer aç; eski olanı bıraktığın kadar yenisi dolacak.","guidance":"Yeni bir şeye başla. Erteleme, an hazır.","rarity":"common"},
-  {"id":"a022","name":"Güvercin","emoji":"🕊️","element":"su","symbolism":["barış","sevgi","mesaj","uyum"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Rock_dove_Columba_livia.jpg&width=300","anatolianMeaning":"Dini geleneğin haber kuşu. Güvercin, barış ve rahmetin taşıyıcısıdır.","dailyMessage":"Güvercin bugün barışın zamanı geldi diyor. Bir ilişkide, bir gerilimde, belki de kendi içinde bir çatışma sürüyor. Kazanmak için değil, huzur için uzlaş. Affetmek zayıflık değil; kendini özgür kılmaktır.","guidance":"Küskünlük ya da çatışmada ilk adımı at. Barış senden başlar.","rarity":"common"},
-  {"id":"a023","name":"Bülbül","emoji":"🎵","element":"hava","symbolism":["sevgi","şiir","hasret","güzellik"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Luscinia_megarhynchos_Marek_Szczepanek.jpg&width=300","anatolianMeaning":"Gülün aşığı. Bülbül, ayrılık acısını şarkıya dönüştürür. Divan edebiyatının simgesi.","dailyMessage":"Bülbül bugün söylemediğin şeyi söylemeni istiyor. İçinde biriken duygu, düşünce, şiir — sessiz kalmak onu çözmüyor. Bir kelime, bir cümle, bir şarkı bile olsa: ifade et. Güzellik ifadede doğar, içeride değil.","guidance":"Kendini ifade et — yazarak, konuşarak, ya da sadece sesini duyurarak.","rarity":"uncommon"},
-  {"id":"a024","name":"Kaplan","emoji":"🐯","element":"ateş","symbolism":["güç","tutku","cesaret","kontrol"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Tiger_in_Ranthambhore.jpg&width=300","anatolianMeaning":"Eski Türk töresinde güç ve koruyuculuu simgesi.","dailyMessage":"Kaplan bugün içindeki tutkunuzu uyandırıyor. Kontrollü bir güç, rastgele bir coşkudan çok daha etkilidir. Ne hissediyorsan — öfke, tutku, hırs — onu bastırma, yönlendir. Bu enerji seni taşıyabilir, eğer ona hükmedersen.","guidance":"Enerjini bir amaca yönelt. Güçlü ol ama biliçli.","rarity":"uncommon"},
-  {"id":"a025","name":"Köpek","emoji":"🐕","element":"toprak","symbolism":["sadakat","koruma","sevgi","güven"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/YellowLabradorLooking_new.jpg&width=300","anatolianMeaning":"Çobanın yol arkadaşı. Köpek, koşulsuz sadakatin ve güvenin simgesidir.","dailyMessage":"Köpek bugün sana güvenilirliğin ne kadar nadir ve değerli olduğunu hatırlatıyor. Sözünde dur, varlığını hissettir. Bazen en güçlü jest, zor günde yanında olmaktır. Kim sana güveniyor? O kişiye bugün bir işaret ver.","guidance":"Güvenilir ol. Sözünü tut, varlığınla destek ver.","rarity":"common"},
-  {"id":"a026","name":"Çita","emoji":"🐾","element":"ateş","symbolism":["hız","odak","fırsat","kararlılık"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Gepard_Kruger.jpg&width=300","anatolianMeaning":"Sultanların av ortağı. Çita, fırsatı kaçırmaz, hızla hareket eder.","dailyMessage":"Çita bugün hız istiyor. Analiz bitti, sıra eyleme geldi. Doğru anı bekliyorum diye geçen fırsatlar var — Çita sana o an şimdi diyor. Mükemmel plan yoktur, harekete geçen kazanır. Şimdi.","guidance":"Düşünmeyi bırak, hareket et. Fırsat penceresi kısa.","rarity":"uncommon"},
-  {"id":"a027","name":"Ejderha","emoji":"🐉","element":"ateş","symbolism":["dönüşüm","güç","ateş","mistisizm"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Chinese_dragon.jpg&width=300","anatolianMeaning":"Orta Asya Türk mitolojisinde yılan-ejder. Derinlerdeki gizli güçlerin sembolü.","dailyMessage":"Ejderha bugün sana derinlerdeki günü hatırlatıyor. Bastırdığın, sakladığın, 'bu kadar yeter' dediğin o potansiyel — artık yer yok altında. Korktuğun için değil, hazır olduğun için ortaya çıkma zamanı. Ateşini yak.","guidance":"Gerçek günü artık saklamana gerek yok. Ortaya çık.","rarity":"rare"},
-  {"id":"a028","name":"Karakulak","emoji":"🐱","element":"hava","symbolism":["çeviklik","gizem","bağımsızlık","sezgi"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Caracal.jpg&width=300","anatolianMeaning":"Bozkırın sessiz avcısı. Karakulak fark edilmeden hareket eder, sezgisiyle avlanır.","dailyMessage":"Karakulak bugün sessizliğin gücünü hatırlatıyor. Her şeyi açıklamak, her şeyi paylaşmak zorunda değilsin. Gözlemle, hisset, anla — sonra hareket et. Sessizlik bazen en güçlü cevapdır.","guidance":"Daha az konuş, daha çok gözlemle. Sessizliğin içinden gerçek görünür.","rarity":"uncommon"},
-  {"id":"a029","name":"Maral","emoji":"🦌","element":"toprak","symbolism":["yüelik","güzellik","onur","bolluk"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Cervus_elaphus_maral.jpg&width=300","anatolianMeaning":"Türk mitolojisinde kutsal yol gösterici. Maral, erişilemeyen güzellik ve yüceliğin simgesidir.","dailyMessage":"Maral bugün hayallerini küçümsememeni söylüyor. 'Gerçekçi ol' diyenler kendi sınırlarını seninle paylaşıyor, evrenin sınırlarını değil. Bugün büyük hayal kur, yüksek bak. Yıldızlara uzanirken bile mevsimine çok yakın durursun.","guidance":"Hedefini büyüt. Kendi sınırların kafanda.","rarity":"rare"},
-  {"id":"a030","name":"Timsah","emoji":"🐊","element":"su","symbolism":["sabır","adaptasyon","hayatta kalma","güç"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Crocodylus_niloticus.jpg&width=300","anatolianMeaning":"Suyun ve toprağın sahibi. Timsah hem bekler hem de ani güçle hareket eder.","dailyMessage":"Timsah bugün sabır ile hareketi birlikte taşıyor. Acele etmek değil, doğru anı kollamak. Şu an beklemek zorunda olduğun bir şey var — bu pasiflik değil, strateji. Doğru an geldiğinde tereddüt etme, kesin ve güçlü hareket et.","guidance":"Acele etme. Ama doğru an gelince de bekleme.","rarity":"uncommon"},
-  {"id":"a031","name":"Kartal Baykuşu","emoji":"🦅","element":"hava","symbolism":["bilgelik","güç","gece","derin sır"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Bubo_bubo_sibiricus.jpg&width=300","anatolianMeaning":"Şamanların yolculuk kuşu. Kartal Baykuşu'nu rüyanda görmek ruhsal mesaj alındığı anlamına gelir.","dailyMessage":"Kartal Baykuşu bugün bilinçdışının kapısını aralıyor. Rüyalar, sezgiler, tesadüf gibi görünen anlar — bunlar mesaj taşıyor. Aklın sesine değil, o derin içsese kulak ver. Karanlıkta bile görürsün, buna güven.","guidance":"Rüyalarını ve sezgilerini kayıt al. Bilinçdışı konuşuyor.","rarity":"rare"},
-  {"id":"a032","name":"Boğa","emoji":"🐂","element":"toprak","symbolism":["güç","istikrar","azim","bereket"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Cattle.jpg&width=300","anatolianMeaning":"Anadolu'nun en eski kutsal hayvanı. Çatalhöyük'ten beri güç ve bereketin simgesi.","dailyMessage":"Boğa bugün sana kararlılığını hatırlatıyor. Engeller gerçek, ama sen de gerçeksin. Boyun eğmeden, savrulmadan, adım adım. Duvarlar yıkılır — ama ancak sabırla ve güçle pes etmeyen biri için.","guidance":"Baskıya rağmen yoluna devam et. Pes etme.","rarity":"uncommon"},
-  {"id":"a033","name":"Karınca","emoji":"🐜","element":"toprak","symbolism":["sabır","topluluk","azim","organizasyon"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ant.jpg&width=300","anatolianMeaning":"Sabır ve azmin simgesi. Karınca taşıdığının kat kat fazlasını kaldırabilir.","dailyMessage":"Karınca bugün büyük sonuçların küçük eylemlerden doğduğunu hatırlatıyor. Devasa bir hedef seni yoruyorsa, sadece bugüne bak: Bu gün ne yapabilirsin? Sistematik ol, vazgeçme. Tünel sonunda ışık görünmese de, yön doğruysa devam et.","guidance":"Planla ve sistematik ilerle. Küçük adımların birikimi mucize yaratır.","rarity":"common"},
-  {"id":"a034","name":"Hac Leyleği","emoji":"🕊️","element":"hava","symbolism":["hac","yolculuk","manevi arınma","dönüş"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/White_stork_Ciconia_ciconia.jpg&width=300","anatolianMeaning":"Her yıl kutsal topraklara yolculuk yapan hac kuşu. Maneviyatın ve dönüşün simgesi.","dailyMessage":"Hac Leyleği bugün ruhsal bir yolculuğa çağırıyor. Bu coğrafi bir yolculuk olmak zorunda değil — içe dönüş, arınma, yüzleşme de bir hactır. Neyi bırakman gerekiyor? Nereye dönmek istiyorsun? İç sesin rehberliğine güven.","guidance":"Ruhsal pratiklerine zaman ayır. İçe dön ve arın.","rarity":"uncommon"},
-  {"id":"a035","name":"Ördek","emoji":"🦆","element":"su","symbolism":["uyum","duygusal denge","berraklık","rahatlık"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Anas_platyrhynchos_male_female_quadrat.jpg&width=300","anatolianMeaning":"Hem suda hem karada hem de havada rahat olan çok boyutlu varlık.","dailyMessage":"Ördek bugün sana esnekliğin bir güç olduğunu söylüyor. Ortam değiştikçe sen de değişebilirsin — bu kimliğini kaybetmek değil, hayatta kalmak. Farklı rollerde olmak, farklı dilleri konuşmak, farklı sularda yüzmek: hepsi sensen.","guidance":"Değişen koşulara direniş gösterme. Akışa katıl.","rarity":"common"},
-  {"id":"a036","name":"Kuzgun","emoji":"🐦‍⬛","element":"hava","symbolism":["sır","kehanet","dönüşüm","bilinç"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Common_raven_(Corvus_corax).jpg&width=300","anatolianMeaning":"Kuzey Türk şamanizminde ruhlar alemine aracı. Kuzgun gizemli gerçekleri bilir.","dailyMessage":"Kuzgun bugün uzun süredir beklediğin bir cevabin yakın olduğunu söylüyor. Semboller, tekrarlayan sayılar, rastlantısal görünen ama içini sızlatan anlar — bunları fark et. Evren seninle konuşuyor; sadece frekansını ayarla.","guidance":"Sembol ve 'tesadüf'lere dikkat et. Mesaj zaten geliyor.","rarity":"rare"},
-  {"id":"a037","name":"Ak Kelebek","emoji":"🦋","element":"hava","symbolism":["ruh","özgürlük","güzellik","değişim"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Pieris_brassicae.jpg&width=300","anatolianMeaning":"Anadolu folklorunda ölümden sonra hayatın simgesi. Ruhun dönüşümü.","dailyMessage":"Ak Kelebek bugün sana hafifliği hatırlatıyor. Taşıdığın yük kadar taşıyan sensen — bunu sorgulamak zamanı. Hangi düşünceler, korkular, beklentiler seni ağırlaştırıyor? Bugün birini bırak. Sadece birini.","guidance":"Bir ağırlığı bırak. Zihinsel ya da duygusal — sadece bir tane.","rarity":"common"},
-  {"id":"a038","name":"Deve","emoji":"🐪","element":"toprak","symbolism":["dayanıklılık","sabır","kaynak","yolculuk"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Camelus_dromedarius_Egpyt.jpg&width=300","anatolianMeaning":"İpek Yolu'nun kutlu taşıyıcısı. Deve, en zorlu koşullarda bile yolculuğunu tamamlar.","dailyMessage":"Deve bugün sana uzun yola hazır olduğunu hatırlatıyor. Zorlu bir süreçten geçiyor olabilirsin — ama içinde o enerji deposu var. Su taşır, yük taşır, çölü geçer. Bitkinlik geçici, yolculuğun değil. Devam et.","guidance":"Uzun vadeli düşün. İçindeki dayanıklılık seni götürür.","rarity":"uncommon"},
-  {"id":"a039","name":"Balık","emoji":"🐟","element":"su","symbolism":["bereket","bilinçdışı","akış","çoğalma"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Atlantic_cod.jpg&width=300","anatolianMeaning":"Bereket simgesi. Balık, bilinçdışının ve sezginin derinliklerini temsil eder.","dailyMessage":"Balık bugün sezgilerin derinliğine dalmanı istiyor. Mantık her zaman ilk adımı atmaz — bazen hissin, içgüdün, bilinçdışından gelen o belirsiz çekim doğru yolu gösterir. Suya girmekten korkma, dalgalar seni taşıyacak.","guidance":"Mantıktan önce sezgine kulak ver. İçinden gelen o sese güven.","rarity":"common"},
-  {"id":"a040","name":"Horoz","emoji":"🐓","element":"ateş","symbolism":["uyanış","yeni gün","cesaret","dürüstlük"],"imageUrl":"https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Rooster.jpg&width=300","anatolianMeaning":"Sabahın müjdecisi. Horoz, karanlığı deler ve güneşi çağırır.","dailyMessage":"Horoz bugün uyanmanın zamanı geldi diyor. Daha ne kadar erteleyeceksin, daha ne kadar bekleyeceksin? Güneş çoktan doğdu — yalnızca sen henüz kalkmadın. O hareketi yap, o kararı al, o ilk adımı at. Yeni gün seni bekliyor.","guidance":"Ertelediğin o şeyi bugün başlat. İlk adım en zoru.","rarity":"common"}
+  {
+    "id": "a001",
+    "name": "Bozkurt",
+    "emoji": "🐺",
+    "element": "hava",
+    "symbolism": [
+      "liderlik",
+      "aile",
+      "koruma",
+      "içgüdü"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Canis_lupus_lupus.jpg&width=300",
+    "anatolianMeaning": "Türk mitolojisinin kutsal rehber hayvanı. Bozkurt, yolu kaybedenlere yol göstermiş, Türklerin atasıdır.",
+    "dailyMessage": "Bozkurt bugün seni sürüne davet ediyor. Yalnız yürümek güçlü görünse de gerçek güç birlikte hareket etmekte saklı. Kimin yanında, kimin karşısında olduğunu hissediyorsun — bu his yanıltmaz. İçgüdüne kulak ver, sürünün sesini duyursun.",
+    "guidance": "Güvendiğin insanlarla birleş. Yalnız taşıdığın yükü paylaşmaktan korkma.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a002",
+    "name": "Kartal",
+    "emoji": "🦅",
+    "element": "hava",
+    "symbolism": [
+      "özgürlük",
+      "vizyon",
+      "güç",
+      "yüksek bakış"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Aquila_chrysaetos_portrait.jpg&width=300",
+    "anatolianMeaning": "Anadolu'da tanrıların habercisi. Kartal, yüksek perspektiften gerçeği görür.",
+    "dailyMessage": "Kartal sana mesafeli bakışı hatırlatıyor. Sorunun içinde kaybolma — yüksekten, bütün resme bak. Bugün kafanda dönen o tek konu dışında, hayatında ne var? Nereye uçmak istiyorsun? Cevap ufukta, yakına değil uzağa bak.",
+    "guidance": "Gündelik kaygılardan çık. Büyük hedefi, uzun yolu düşün.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a003",
+    "name": "At",
+    "emoji": "🐴",
+    "element": "toprak",
+    "symbolism": [
+      "özgürlük",
+      "güç",
+      "seyahat",
+      "bağlılık"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Horses_at_waterhole.jpg&width=300",
+    "anatolianMeaning": "Türk kültürünün can dostu. At, bozkırda özgürlüğün ve serüvenin simgesidir.",
+    "dailyMessage": "At bugün bedenini uyandırıyor. Durmak değil, koşmak zamanı. İçindeki enerji hareket bekliyor; bastırırsan seni yorar, serbest bırakırsan seni taşır. Ayağa kalk, çık dışarı, nefes al — hareketsizlik bugün sana iyi gelmiyor.",
+    "guidance": "Bedenini dinle. Fiziksel bir eylem, içsel bir dönüşüm başlatacak.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a004",
+    "name": "Turna",
+    "emoji": "🕊️",
+    "element": "hava",
+    "symbolism": [
+      "özlem",
+      "ruhsal yolculuk",
+      "hasret",
+      "sevgi"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Grus_grus_01.jpg&width=300",
+    "anatolianMeaning": "Anadolu halk şiirinde sevgiliye ulaşan haberci. Turna, âşığın özlemini Hak'ka taşır.",
+    "dailyMessage": "Turna bugün kalbinin derinindeki bir özlemi yüzeye çıkarıyor. Uzakta olan biri mi var, yoksa kendinin bir parçası mı? O hasret seni zayıflatmıyor — tam tersine, kalbin ne istediğini net gösteriyor. Özlemin yönüne yürü.",
+    "guidance": "Kalbinde biriken duyguyu ifade et. Söylenmemiş olanı söylemenin zamanı.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a005",
+    "name": "Hüma Kuşu",
+    "emoji": "🦋",
+    "element": "ateş",
+    "symbolism": [
+      "talih",
+      "kutsallık",
+      "yüksek ruhsallık",
+      "şans"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Persian_Simurgh.jpg&width=300",
+    "anatolianMeaning": "Üzerine gölgesi düştüğü kişiyi mutlu eden efsanevi kuş. Hüma'nın seçtikleri kutsal sayılır.",
+    "dailyMessage": "Hüma bugün gölgesini üzerine düşürüyor. Bu nadir bir andır — bazı fırsatlar kapıya bir kez vurur. Beklediğin o an değil bu mu diye sorma; cevap zaten içinde. Sadece evet demek kalıyor.",
+    "guidance": "Karşına çıkan fırsatı küçümseme. Hazır olmayı bekleme, şimdi adım at.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a006",
+    "name": "Anka",
+    "emoji": "🔥",
+    "element": "ateş",
+    "symbolism": [
+      "yeniden doğuş",
+      "dönüşüm",
+      "ölümsüzlük",
+      "cesaret"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Phoenix_detail_from_Aberdeen_Bestiary.jpg&width=300",
+    "anatolianMeaning": "Kendi küllerinden yeniden doğan efsanevi kuş. Anka, her bitiş bir başlangıçtır der.",
+    "dailyMessage": "Anka bugün sana yanmayı göze almanın cesaretini veriyor. Bir şeyin bitmesi gerekiyor ki yenisi doğsun. Elinde tuttuğun, artık sana ait olmayan ne var? Bırakman gereken nedir? Korku değil, dönüşüm var bu ateşte.",
+    "guidance": "Bitişe direniş gösterme. Gerçek güç, külden yeniden doğmayı bilmektir.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a007",
+    "name": "Geyik",
+    "emoji": "🦌",
+    "element": "toprak",
+    "symbolism": [
+      "zarafet",
+      "şefkat",
+      "yenilenme",
+      "sezgi"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Red_Deer_in_field.jpg&width=300",
+    "anatolianMeaning": "Şaman geleneğinde ruhsal alemin rehberi. Geyik, nazik ama güçlüdür.",
+    "dailyMessage": "Geyik bugün sana şefkatini hatırlatıyor — hem başkalarına hem de kendine. Her şeyi güçle çözmeye çalışmak zorunda değilsin. Nazik bir dokunuş bazen sert bir hamleden çok daha derin iz bırakır. Yumuşa, ama kaybolma.",
+    "guidance": "Sertliği bırak. Şefkat, bugün en güçlü silahın.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a008",
+    "name": "Baykuş",
+    "emoji": "🦉",
+    "element": "hava",
+    "symbolism": [
+      "bilgelik",
+      "gizem",
+      "içgörü",
+      "karanlıkta görme"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Bubo_bubo_sibiricus.jpg&width=300",
+    "anatolianMeaning": "Kadim Anadolu'da bilgeliğin sembolü. Baykuş, görünmeyeni görür.",
+    "dailyMessage": "Baykuş bugün sana herkesin göremediğini görme gücünü hatırlatıyor. Sessiz kal, gözlemle. Aşikar görünen şeyin arkasında gerçek ne var? Başkalarının gürültüsüne kapılma — karanlıkta da görebilirsin, buna güven.",
+    "guidance": "Konuşmadan önce dinle. Gerçek, gürültünün altında.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a009",
+    "name": "Aslan",
+    "emoji": "🦁",
+    "element": "ateş",
+    "symbolism": [
+      "cesaret",
+      "onur",
+      "kraliyet",
+      "güç"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Lion_waiting_in_Namibia.jpg&width=300",
+    "anatolianMeaning": "Tanrıların bekçisi. Hitit tapınaklarının koruyucusu. Güç ve onurun simgesi.",
+    "dailyMessage": "Aslan bugün sana onurunu hatırlatıyor. Küçük düşürülmeyi, hakkının yenilmesini, sessiz kalmayı kabul etme. Sesini yükselt, sınırını çiz — bunu yaparken ne kaybedersen, zaten sana ait değildi. Gerçek güç korkmadan değil, korkuya rağmen durmaktır.",
+    "guidance": "Haklarını savun. Bugün geri adım atma zamanı değil.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a010",
+    "name": "Ayı",
+    "emoji": "🐻",
+    "element": "toprak",
+    "symbolism": [
+      "güç",
+      "iyileşme",
+      "sezgi",
+      "içe çekilme"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Brown_bear.jpg&width=300",
+    "anatolianMeaning": "Eski Anadolu şamanlarının totem hayvanı. Ayı kışın toprağa çekilerek tükenir, ilkbaharda yenilenir.",
+    "dailyMessage": "Ayı bugün seni içine çağırıyor. Dış dünyayla yoğun temas bazen ruhu tüketir. Yavaşla, mağarana çekil. Bu kaçış değil, yenilenme. Uyku, sessizlik, yalnızlık — bunlar zayıflık değil, gelecek gücün tohumu.",
+    "guidance": "Sosyal enerjini koru. Bugün kendine yer aç, beslen.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a011",
+    "name": "Tilki",
+    "emoji": "🦊",
+    "element": "ateş",
+    "symbolism": [
+      "zeka",
+      "uyum sağlama",
+      "çeviklik",
+      "strateji"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Fox_Vulpes_vulpes.jpg&width=300",
+    "anatolianMeaning": "Halk hikayelerinde zeki ve çevik kahraman. Tilki, aklını kullanan kazanır der.",
+    "dailyMessage": "Tilki bugün senden daha akıllıca oynamanı istiyor. Doğrudan ve sert değil, çevik ve stratejik. Ortamı oku, zamanlamayı bil. Herkes kendi gündemiyle meşgulken sen birkaç adım öteyi görüyorsun — bu avantajını kullan.",
+    "guidance": "Alışılmış yol yerine beklenmedik bir açıdan yaklaş.",
+    "rarity": "common"
+  },
+  {
+    "id": "a012",
+    "name": "Yunus",
+    "emoji": "🐬",
+    "element": "su",
+    "symbolism": [
+      "neşe",
+      "oyun",
+      "zeka",
+      "topluluk"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Dolphin_ka_cropped.jpg&width=300",
+    "anatolianMeaning": "Ege kıyılarında denizci koruyucusu. Yunus, hem zeki hem neşelidir; denizin ruhudur.",
+    "dailyMessage": "Yunus bugün sana hayatın ağır tarafını biraz bırakmanı söylüyor. Ne zaman en son sadece gülmek için güldün? Ne zaman amaçsızca oynadın? Zeka bazen en iyi ciddiyeti bıraktığında çalışır. Bugün yüzebilirsin — dalgalar seni taşısın.",
+    "guidance": "Hafifle. Neşe hem şifa hem güçtür.",
+    "rarity": "common"
+  },
+  {
+    "id": "a013",
+    "name": "Kaplumbağa",
+    "emoji": "🐢",
+    "element": "toprak",
+    "symbolism": [
+      "sabır",
+      "bilgelik",
+      "uzun ömür",
+      "istikrar"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Galapagos_tortoise_Santa_Cruz_1.jpg&width=300",
+    "anatolianMeaning": "Dünyanın taşıyıcısı. Kaplumbağa yavaş ama hiç durmaz, hedefine ulaşır.",
+    "dailyMessage": "Kaplumbağa bugün sana yavaşlamanın erdem olduğunu hatırlatıyor. Etrafındaki koşturmacaya bakıp geriye kalmış gibi hissedebilirsin — yanılıyorsun. Sağlam atılan her adım, birden on adım birden atmaktan daha uzağa götürür. Kendi tempounda yürü.",
+    "guidance": "Sabır göster. Tutarlı küçük adımlar seni hedefe taşır.",
+    "rarity": "common"
+  },
+  {
+    "id": "a014",
+    "name": "Yılan",
+    "emoji": "🐍",
+    "element": "su",
+    "symbolism": [
+      "dönüşüm",
+      "şifa",
+      "yenilenme",
+      "bilgelik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Vipera_berus.jpg&width=300",
+    "anatolianMeaning": "Eski Anadolu'da şifa tanrıçasının simgesi. Derini değiştirir, yenilenir.",
+    "dailyMessage": "Yılan bugün deri değiştirme zamanının geldiğini söylüyor. O eski hikaye — 'ben böyleyim', 'hep böyle oldu' — artık sana dar geliyor. Biliyorsun bunu. Bir alışkanlık, bir inanç, bir ilişki kalıbı: bırakma zamanı. Yeni deri altında hazır, bekliyor.",
+    "guidance": "Artık sana uymayan birini ya da bir şeyi bırak. Dönüşüm başlıyor.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a015",
+    "name": "Kelebek",
+    "emoji": "🦋",
+    "element": "hava",
+    "symbolism": [
+      "dönüşüm",
+      "güzellik",
+      "hafiflik",
+      "değişim"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Papillon_pourpre.jpg&width=300",
+    "anatolianMeaning": "Ruhun sembolü. Kelebek, chrysalis'teki karanlıktan güzelliğe çıkışı temsil eder.",
+    "dailyMessage": "Kelebek bugün dönüşümün tamamlanmak üzere olduğunu müjdeliyor. O karanlık, sıkışmış dönemin içinde ne kadar dağıldığını sandın — ama aslında şekilleniyordun. Şimdi çıkma zamanı. Kanatların var, bunu unut.",
+    "guidance": "Yeni bir seni kabul et. Geriye dönüp bakma.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a016",
+    "name": "Tavus",
+    "emoji": "🦚",
+    "element": "ateş",
+    "symbolism": [
+      "güzellik",
+      "özgüven",
+      "bütünlük",
+      "koruyuculuk"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Pavo_cristatus_Photograph_by_Shantanu_Kuveskar.jpg&width=300",
+    "anatolianMeaning": "Cennetteki korucu kuş. Tavus, binlerce gözüyle her yönü gözler, tehlikeyi önceden hisseder.",
+    "dailyMessage": "Tavus bugün senden kuyruğunu açmanı istiyor. Kim olduğundan utanma, saklanma. Güzelliğin, özgünlüğün, renklerin — bunlar kibirlenmek için değil, bütünleşmek için. Göründüğünde başkalarına da kendileri olma izni veriyorsun.",
+    "guidance": "Görün. Yeteneklerini, varlığını saklama.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a017",
+    "name": "Leylek",
+    "emoji": "🦢",
+    "element": "hava",
+    "symbolism": [
+      "uğur",
+      "yenilik",
+      "bereket",
+      "aile"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/White_stork_Ciconia_ciconia.jpg&width=300",
+    "anatolianMeaning": "Anadolu'da uğur kuşu. Leyleğin konduğu eve bereket gelir. Hayırlı haberlerin taşıyıcısı.",
+    "dailyMessage": "Leylek bugün iyi haberler taşıyor. Beklenmedik yerden, beklenmedik anda — ama geliyor. Kapıyı açık tut, gözlerini aç. Bazen bereket bir mucize değil, fark edilmeyi bekleyen küçük bir dokunuştur.",
+    "guidance": "İyi şeylere hazır ol ve onları fark et. Minnet kapıyı açar.",
+    "rarity": "common"
+  },
+  {
+    "id": "a018",
+    "name": "Şahin",
+    "emoji": "🦅",
+    "element": "ateş",
+    "symbolism": [
+      "hız",
+      "odak",
+      "kararlılık",
+      "hedef"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Falco_peregrinus_good.jpg&width=300",
+    "anatolianMeaning": "Sultanların elinde taşınan kutsal avcı. Şahin hedefi asla kaçırmaz.",
+    "dailyMessage": "Şahin bugün tek bir şeye odaklanmanı istiyor. Her yöne koşmak hiçbir yere varmak gibidir. Bugün en önemli o bir şey nedir? Ona odaklan, gözlerini ayırma. Fırsatlar hızla geçer — görünce kavra.",
+    "guidance": "Bir öncelik seç ve o tek şeye odaklan.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a019",
+    "name": "Pars",
+    "emoji": "🐆",
+    "element": "toprak",
+    "symbolism": [
+      "çeviklik",
+      "güç",
+      "yalnızlık",
+      "özgüven"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Leopard_africa.jpg&width=300",
+    "anatolianMeaning": "Anadolu'nun en çevik avcısı. Pars, tek başına da güçlüdür.",
+    "dailyMessage": "Pars bugün sana kendi başınalığının bir ceza değil bir güç olduğunu hatırlatıyor. Herkesin onayına ihtiyacın yok. Yolunu biliyorsun, içgüdülerin güçlü. Sessiz, çevik ve emin adımlarla ilerle — başkalarına açıklamak zorunda değilsin.",
+    "guidance": "Başkalarının onayını bekleme. Kendi kararına güven ve hareket et.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a020",
+    "name": "Arı",
+    "emoji": "🐝",
+    "element": "toprak",
+    "symbolism": [
+      "çalışkanlık",
+      "topluluk",
+      "yaratıcılık",
+      "bereket"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Bee_on_Sedum.jpg&width=300",
+    "anatolianMeaning": "Kutsal arının balı ilk şifacı. Arı, birlikte çalışmanın mucizesini temsil eder.",
+    "dailyMessage": "Arı bugün emek ve bereket arasındaki bağı hatırlatıyor. Ne ekersen onu biçersin, ama arı gibi sabırla, sistemli çalışırsan — küçük gibi görünen bu anların birikimi seni hayrete düşürecek. Bugün küçük bir adım at, yarın bal olacak.",
+    "guidance": "Tutarlı ve sistemli çalış. Küçük adımların gücünü küçümseme.",
+    "rarity": "common"
+  },
+  {
+    "id": "a021",
+    "name": "Kırlangıç",
+    "emoji": "🐦",
+    "element": "hava",
+    "symbolism": [
+      "özgürlük",
+      "yolculuk",
+      "umut",
+      "dönüş"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Hirundo_rustica_-_Radujevac.jpg&width=300",
+    "anatolianMeaning": "Baharın müjdecisi. Kırlangıcın gelişi yeni başlangıçları haber verir.",
+    "dailyMessage": "Kırlangıç bugün yeni bir dönemin kapısını aralıyor. O ağır, donmuş hissin altından kıpırdama başlıyor — fark ediyor musun? Bahar ruhsal da gelir, takvimden önce. Yeni bir şeye yer aç; eski olanı bıraktığın kadar yenisi dolacak.",
+    "guidance": "Yeni bir şeye başla. Erteleme, an hazır.",
+    "rarity": "common"
+  },
+  {
+    "id": "a022",
+    "name": "Güvercin",
+    "emoji": "🕊️",
+    "element": "su",
+    "symbolism": [
+      "barış",
+      "sevgi",
+      "mesaj",
+      "uyum"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Rock_dove_Columba_livia.jpg&width=300",
+    "anatolianMeaning": "Dini geleneğin haber kuşu. Güvercin, barış ve rahmetin taşıyıcısıdır.",
+    "dailyMessage": "Güvercin bugün barışın zamanı geldi diyor. Bir ilişkide, bir gerilimde, belki de kendi içinde bir çatışma sürüyor. Kazanmak için değil, huzur için uzlaş. Affetmek zayıflık değil; kendini özgür kılmaktır.",
+    "guidance": "Küskünlük ya da çatışmada ilk adımı at. Barış senden başlar.",
+    "rarity": "common"
+  },
+  {
+    "id": "a023",
+    "name": "Bülbül",
+    "emoji": "🎵",
+    "element": "hava",
+    "symbolism": [
+      "sevgi",
+      "şiir",
+      "hasret",
+      "güzellik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Luscinia_megarhynchos_Marek_Szczepanek.jpg&width=300",
+    "anatolianMeaning": "Gülün aşığı. Bülbül, ayrılık acısını şarkıya dönüştürür. Divan edebiyatının simgesi.",
+    "dailyMessage": "Bülbül bugün söylemediğin şeyi söylemeni istiyor. İçinde biriken duygu, düşünce, şiir — sessiz kalmak onu çözmüyor. Bir kelime, bir cümle, bir şarkı bile olsa: ifade et. Güzellik ifadede doğar, içeride değil.",
+    "guidance": "Kendini ifade et — yazarak, konuşarak, ya da sadece sesini duyurarak.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a024",
+    "name": "Kaplan",
+    "emoji": "🐯",
+    "element": "ateş",
+    "symbolism": [
+      "güç",
+      "tutku",
+      "cesaret",
+      "kontrol"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Tiger_in_Ranthambhore.jpg&width=300",
+    "anatolianMeaning": "Eski Türk töresinde güç ve koruyuculuğun simgesi.",
+    "dailyMessage": "Kaplan bugün içindeki tutkuyu uyandırıyor. Kontrollü bir güç, rastgele bir coşkudan çok daha etkilidir. Ne hissediyorsan — öfke, tutku, hırs — onu bastırma, yönlendir. Bu enerji seni taşıyabilir, eğer ona hükmedersen.",
+    "guidance": "Enerjini bir amaca yöelt. Güçlü ol ama bilinçli.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a025",
+    "name": "Köpek",
+    "emoji": "🐕",
+    "element": "toprak",
+    "symbolism": [
+      "sadakat",
+      "koruma",
+      "sevgi",
+      "güven"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/YellowLabradorLooking_new.jpg&width=300",
+    "anatolianMeaning": "Çobanın yol arkadaşı. Köpek, koşulsuz sadakatin ve güvenin simgesidir.",
+    "dailyMessage": "Köpek bugün sana güvenilirliğin ne kadar nadir ve değerli olduğunu hatırlatıyor. Sözünde dur, varlığını hissettir. Bazen en güçlü jest, zor günde yanında olmaktır. Kim sana güveniyor? O kişiye bugün bir işaret ver.",
+    "guidance": "Güvenilir ol. Sözünü tut, varlığınla destek ver.",
+    "rarity": "common"
+  },
+  {
+    "id": "a026",
+    "name": "Çita",
+    "emoji": "🐾",
+    "element": "ateş",
+    "symbolism": [
+      "hız",
+      "odak",
+      "fırsat",
+      "kararlılık"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Gepard_Kruger.jpg&width=300",
+    "anatolianMeaning": "Sultanların av ortağı. Çita, fırsatı kaçırmaz, hızla hareket eder.",
+    "dailyMessage": "Çita bugün hız istiyor. Analiz bitti, sıra eyleme geldi. Doğru anı bekliyorum diye geçen fırsatlar var — Çita sana o an şimdi diyor. Mükemmel plan yoktur, harekete geçen kazanır. Şimdi.",
+    "guidance": "Düşünmeyi bırak, hareket et. Fırsat penceresi kısa.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a027",
+    "name": "Ejderha",
+    "emoji": "🐉",
+    "element": "ateş",
+    "symbolism": [
+      "dönüşüm",
+      "güç",
+      "ateş",
+      "mistisizm"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Chinese_dragon.jpg&width=300",
+    "anatolianMeaning": "Orta Asya Türk mitolojisinde yılan-ejder. Derinlerdeki gizli güçlerin sembolü.",
+    "dailyMessage": "Ejderha bugün sana derinlerdeki gücünü hatırlatıyor. Bastırdığın, sakladığın, 'bu kadar yeter' dediğin o potansiyel — artık yer yok altında. Korktuğun için değil, hazır olduğun için ortaya çıkma zamanı. Ateşini yak.",
+    "guidance": "Gerçek gücünü artık saklamana gerek yok. Ortaya çık.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a028",
+    "name": "Karakulak",
+    "emoji": "🐱",
+    "element": "hava",
+    "symbolism": [
+      "çeviklik",
+      "gizem",
+      "bağımsızlık",
+      "sezgi"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Caracal.jpg&width=300",
+    "anatolianMeaning": "Bozkırın sessiz avcısı. Karakulak fark edilmeden hareket eder, sezgisiyle avlanır.",
+    "dailyMessage": "Karakulak bugün sessizliğin gücünü hatırlatıyor. Her şeyi açıklamak, her şeyi paylaşmak zorunda değilsin. Gözlemle, hisset, anla — sonra hareket et. Sessizlik bazen en güçlü cevaptır.",
+    "guidance": "Daha az konuş, daha çok gözlemle. Sessizliğin içinden gerçek görünür.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a029",
+    "name": "Maral",
+    "emoji": "🦌",
+    "element": "toprak",
+    "symbolism": [
+      "yücelik",
+      "güzellik",
+      "onur",
+      "bolluk"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Cervus_elaphus_maral.jpg&width=300",
+    "anatolianMeaning": "Türk mitolojisinde kutsal yol gösterici. Maral, erişilemeyen güzellik ve yüceliğin simgesidir.",
+    "dailyMessage": "Maral bugün hayallerini küçümsememeni söylüyor. 'Gerçekçi ol' diyenler kendi sınırlarını seninle paylaşıyor, evrenin sınırlarını değil. Bugün büyük hayal kur, yüksek bak. Yıldızlara uzanırken bile mevsimine çok yakın durursun.",
+    "guidance": "Hedefini büyüt. Kendi sınırların kafanda.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a030",
+    "name": "Timsah",
+    "emoji": "🐊",
+    "element": "su",
+    "symbolism": [
+      "sabır",
+      "adaptasyon",
+      "hayatta kalma",
+      "güç"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Crocodylus_niloticus.jpg&width=300",
+    "anatolianMeaning": "Suyun ve toprağın sahibi. Timsah hem bekler hem de ani güçle hareket eder.",
+    "dailyMessage": "Timsah bugün sabır ile hareketi birlikte taşıyor. Acele etmek değil, doğru anı kollamak. Şu an beklemek zorunda olduğun bir şey var — bu pasiflik değil, strateji. Doğru an geldiğinde tereddüt etme, kesin ve güçlü hareket et.",
+    "guidance": "Acele etme. Ama doğru an gelince de bekleme.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a031",
+    "name": "Kartal Baykuşu",
+    "emoji": "🦅",
+    "element": "hava",
+    "symbolism": [
+      "bilgelik",
+      "güç",
+      "gece",
+      "derin sır"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Bubo_bubo_sibiricus.jpg&width=300",
+    "anatolianMeaning": "Şamanların yolculuk kuşu. Kartal Baykuş'u rüyanda görmek ruhsal mesaj alındığı anlamına gelir.",
+    "dailyMessage": "Kartal Baykuşu bugün bilinçdışının kapısını aralıyor. Rüyalar, sezgiler, tesadüf gibi görünen anlar — bunlar mesaj taşıyor. Aklın sesine değil, o derin içsese kulak ver. Karanlıkta bile görürsün, buna güven.",
+    "guidance": "Rüyalarını ve sezgilerini kayıt al. Bilinçdışı konuşuyor.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a032",
+    "name": "Boğa",
+    "emoji": "🐂",
+    "element": "toprak",
+    "symbolism": [
+      "güç",
+      "istikrar",
+      "azim",
+      "bereket"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Cattle.jpg&width=300",
+    "anatolianMeaning": "Anadolu'nun en eski kutsal hayvanı. Çatalhöyük'ten beri güç ve bereketin simgesi.",
+    "dailyMessage": "Boğa bugün sana kararlılığını hatırlatıyor. Engeller gerçek, ama sen de gerçeksin. Boyun eğmeden, savrulmadan, adım adım. Duvarlar yıkılır — ama ancak sabırla ve güçle pes etmeyen biri için.",
+    "guidance": "Baskıya rağmen yoluna devam et. Pes etme.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a033",
+    "name": "Karınca",
+    "emoji": "🐜",
+    "element": "toprak",
+    "symbolism": [
+      "sabır",
+      "topluluk",
+      "azim",
+      "organizasyon"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ant.jpg&width=300",
+    "anatolianMeaning": "Sabır ve azmin simgesi. Karınca taşıdığının kat kat fazlasını kaldırabilir.",
+    "dailyMessage": "Karınca bugün büyük sonuçların küçük eylemlerden doğduğunu hatırlatıyor. Devasa bir hedef seni yoruyorsa, sadece bugüne bak: Bu gün ne yapabilirsin? Sistematik ol, vazgeçme. Tünel sonunda ışık görünmese de, yön doğruysa devam et.",
+    "guidance": "Planla ve sistematik ilerle. Küçük adımların birikimi mucize yaratır.",
+    "rarity": "common"
+  },
+  {
+    "id": "a034",
+    "name": "Hac Leyleği",
+    "emoji": "🕊️",
+    "element": "hava",
+    "symbolism": [
+      "hac",
+      "yolculuk",
+      "manevi arınma",
+      "dönüş"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/White_stork_Ciconia_ciconia.jpg&width=300",
+    "anatolianMeaning": "Her yıl kutsal topraklara yolculuk yapan hac kuşu. Maneviyatın ve dönüşün simgesi.",
+    "dailyMessage": "Hac Leyleği bugün ruhsal bir yolculuğa çağırıyor. Bu coğrafi bir yolculuk olmak zorunda değil — içe dönüş, arınma, yüzleşme de bir hactır. Neyi bırakman gerekiyor? Nereye dönmek istiyorsun? İç sesin rehberliğine güven.",
+    "guidance": "Ruhsal pratiklerine zaman ayır. İçe dön ve arın.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a035",
+    "name": "Ördek",
+    "emoji": "🦆",
+    "element": "su",
+    "symbolism": [
+      "uyum",
+      "duygusal denge",
+      "berraklık",
+      "rahatlık"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Anas_platyrhynchos_male_female_quadrat.jpg&width=300",
+    "anatolianMeaning": "Hem suda hem karada hem de havada rahat olan çok boyutlu varlık.",
+    "dailyMessage": "Ördek bugün sana esnekliğin bir güç olduğunu söylüyor. Ortam değiştikçe sen de değişebilirsin — bu kimliğini kaybetmek değil, hayatta kalmak. Farklı rollerde olmak, farklı dilleri konuşmak, farklı sularda yüzmek: hepsi sensen.",
+    "guidance": "Değişen koşullara direniş gösterme. Akışa katıl.",
+    "rarity": "common"
+  },
+  {
+    "id": "a036",
+    "name": "Kuzgun",
+    "emoji": "🐦‍⬛",
+    "element": "hava",
+    "symbolism": [
+      "sır",
+      "kehanet",
+      "dönüşüm",
+      "bilinç"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Common_raven_(Corvus_corax).jpg&width=300",
+    "anatolianMeaning": "Kuzey Türk şamanizminde ruhlar alemine aracı. Kuzgun gizemli gerçekleri bilir.",
+    "dailyMessage": "Kuzgun bugün uzun süredir beklediğin bir cevabın yakın olduğunu söylüyor. Semboller, tekrarlayan sayılar, rastlantısal görünen ama içini sızlatan anlar — bunları fark et. Evren seninle konuşuyor; sadece frekansını ayarla.",
+    "guidance": "Sembol ve 'tesadüf'lere dikkat et. Mesaj zaten geliyor.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a037",
+    "name": "Ak Kelebek",
+    "emoji": "🦋",
+    "element": "hava",
+    "symbolism": [
+      "ruh",
+      "özgürlük",
+      "güzellik",
+      "değişim"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Pieris_brassicae.jpg&width=300",
+    "anatolianMeaning": "Anadolu folklorunda ölümden sonra hayatın simgesi. Ruhun dönüşümü.",
+    "dailyMessage": "Ak Kelebek bugün sana hafifliği hatırlatıyor. Taşıdığın yük kadar taşıyan sensen — bunu sorgulamak zamanı. Hangi düşünceler, korkular, beklentiler seni ağırlaştırıyor? Bugün birini bırak. Sadece birini.",
+    "guidance": "Bir ağırlığı bırak. Zihinsel ya da duygusal — sadece bir tane.",
+    "rarity": "common"
+  },
+  {
+    "id": "a038",
+    "name": "Deve",
+    "emoji": "🐪",
+    "element": "toprak",
+    "symbolism": [
+      "dayanıklılık",
+      "sabır",
+      "kaynak",
+      "yolculuk"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Camelus_dromedarius_Egpyt.jpg&width=300",
+    "anatolianMeaning": "İpek Yolu'nun kutlu taşıyıcısı. Deve, en zorlu koşullarda bile yolculuğunu tamamlar.",
+    "dailyMessage": "Deve bugün sana uzun yola hazır olduğunu hatırlatıyor. Zorlu bir süreçten geçiyor olabilirsin — ama içinde o enerji deposu var. Su taşır, yük taşır, çölü geçer. Bitkinlik geçici, yolculuğun değil. Devam et.",
+    "guidance": "Uzun vadeli düşün. İçindeki dayanıklılık seni götürür.",
+    "rarity": "uncommon"
+  },
+  {
+    "id": "a039",
+    "name": "Balık",
+    "emoji": "🐟",
+    "element": "su",
+    "symbolism": [
+      "bereket",
+      "bilinçdışı",
+      "akış",
+      "çoğalma"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Atlantic_cod.jpg&width=300",
+    "anatolianMeaning": "Bereket simgesi. Balık, bilinçdışının ve sezginin derinliklerini temsil eder.",
+    "dailyMessage": "Balık bugün sezgilerin derinliğine dalmanı istiyor. Mantık her zaman ilk adımı atmaz — bazen hissin, içgüdün, bilinçdışından gelen o belirsiz çekim doğru yolu gösterir. Suya girmekten korkma, dalgalar seni taşıyacak.",
+    "guidance": "Mantıktan önce sezgine kulak ver. İçinden gelen o sese güven.",
+    "rarity": "common"
+  },
+  {
+    "id": "a040",
+    "name": "Horoz",
+    "emoji": "🐓",
+    "element": "ateş",
+    "symbolism": [
+      "uyanış",
+      "yeni gün",
+      "cesaret",
+      "dürüstlük"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Rooster.jpg&width=300",
+    "anatolianMeaning": "Sabahın müjdecisi. Horoz, karanlığı deler ve güneşi çağırır.",
+    "dailyMessage": "Horoz bugün uyanmanın zamanı geldi diyor. Daha ne kadar erteleyeceksin, daha ne kadar bekleyeceksin? Güneş çoktan doğdu — yalnızca sen henüz kalkmadın. O hareketi yap, o kararı al, o ilk adımı at. Yeni gün seni bekliyor.",
+    "guidance": "Ertelediğin o şeyi bugün başlat. İlk adım en zoru.",
+    "rarity": "common"
+  },
+  {
+    "id": "a041",
+    "name": "Tavşan",
+    "emoji": "🐇",
+    "element": "su",
+    "symbolism": [
+      "doğurganlık",
+      "ay döngüsü",
+      "hızlı zeka",
+      "kaçınma"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Oryctolagus_cuniculus_Tasmania_2.jpg&width=300",
+    "anatolianMeaning": "Ay'ın hayvanı. Anadolu masallarında zekasıyla tilkiyi bile yenebilen hızlı kahraman. Bereketin sembolü.",
+    "dailyMessage": "Tavşan bugün hızlı düşünmeni söylüyor. Bir fırsat geçici — kıvrak bir hamleyle yakala. Ama korkudan kaçma; sezgiyle hareket et. Ay'ın değişen yüzü gibi senin de bir döngünden çıkıp diğerine geçtiğin bir gün bugün.",
+    "guidance": "Düşünmeden hareket etme, ama düşünmekte de durma. Hız ve sezgi birlikte.",
+    "rarity": "common"
+  },
+  {
+    "id": "a042",
+    "name": "Akrep",
+    "emoji": "🦂",
+    "element": "toprak",
+    "symbolism": [
+      "dönüşüm",
+      "savunma",
+      "tutku",
+      "ölüm-yenidoğum"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Centruroides_vittatus.jpg&width=300",
+    "anatolianMeaning": "Çölün ve gecenin hayvanı. Anadolu'da hem korku hem büyü sembolü — sokması ölümcül ama gücü dönüştürücü. Astrolojinin en derin burcu.",
+    "dailyMessage": "Akrep bugün sınırlarını koruma gücünü hatırlatıyor. Birisi seni ısırmaya kalkışırsa zehrini esirgeme — ama bunu öfkeden değil, savunmadan yap. Derinlerde bir dönüşüm pişiyor; süreç görünmez ama gerçek.",
+    "guidance": "Sınırını çiz, esnetme. Derinden gelene güven, yüzeydeki gürültüye değil.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a043",
+    "name": "Kurbağa",
+    "emoji": "🐸",
+    "element": "su",
+    "symbolism": [
+      "dönüşüm",
+      "yağmur",
+      "temizlenme",
+      "geçiş"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Atelopus_zeteki1.jpg&width=300",
+    "anatolianMeaning": "Yağmur ve bereket habercisi. Yumurtadan iribaşa, iribaştan kurbağaya — büyük dönüşümün sembolü. Anadolu köy inanışında 'kurbağa öttü, yağmur geldi.'",
+    "dailyMessage": "Kurbağa bugün eski formundan çıkmanı söylüyor. Sudan karaya, suskunluktan sese, tek tek değişiyorsun. İçindeki temizleyici yağmuru çağır — kurumuş yerleri ıslat. Şarkı söyleme zamanı.",
+    "guidance": "Eski bir alışkanlığı bırak, yenisini ses çıkararak duyur.",
+    "rarity": "common"
+  },
+  {
+    "id": "a044",
+    "name": "Karga",
+    "emoji": "🐦‍⬛",
+    "element": "hava",
+    "symbolism": [
+      "zeka",
+      "haberci",
+      "mistik",
+      "uyum"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Corvus_corone_2_(Marek_Szczepanek).jpg&width=300",
+    "anatolianMeaning": "Türk halk geleneğinde sürü hâlinde yaşayan zeki kuş. Bilgi taşıyıcısı, alet kullanan akıl. Atalardan haber getiren kara haberci.",
+    "dailyMessage": "Karga bugün zekanı kullanmanı söylüyor. Önündeki problem güçle değil, ustalıkla çözülür. Çevrendeki kalabalığa kulak ver — kolektif akıl bireysel zekadan üstündür. Bir araç yap, bir yöntem keşfet.",
+    "guidance": "Tek başına çözmeye çalışma. Akıllı bir aracı veya yardımı kabul et.",
+    "rarity": "common"
+  },
+  {
+    "id": "a045",
+    "name": "Sincap",
+    "emoji": "🐿️",
+    "element": "hava",
+    "symbolism": [
+      "birikim",
+      "hazırlık",
+      "neşe",
+      "çeviklik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Sciurus_vulgaris_qtl1.jpg&width=300",
+    "anatolianMeaning": "Anadolu ormanlarının küçük bilgesi. Geleceği planlayan, kış için hazırlanan ama bunu neşeyle yapan hayvan. Çocukların sevimli kahramanı.",
+    "dailyMessage": "Sincap bugün geleceğin için bir şeyler saklamanı söylüyor. Para, enerji, ilişki — ne olursa olsun yarın için bir kısmını ayır. Ama bunu kaygıdan değil, neşeli bir alışkanlıktan yap. Hazırlıklı olmak kasvet değildir.",
+    "guidance": "Bugün küçük bir tasarruf, küçük bir hazırlık yap. Geleceğin sana teşekkür edecek.",
+    "rarity": "common"
+  },
+  {
+    "id": "a046",
+    "name": "Yarasa",
+    "emoji": "🦇",
+    "element": "hava",
+    "symbolism": [
+      "geçiş",
+      "sezgi",
+      "korku-yüzleşme",
+      "yeniden doğum"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Common_pipistrelle_(Pipistrellus_pipistrellus)_(8389169597).jpg&width=300",
+    "anatolianMeaning": "Mağaranın bekçisi, gecenin sezgisi. Anadolu halk inancında uğursuz sayılır ama gerçekte ata ruhların ve geçişin habercisidir. Ses dalgasıyla görme — fiziksel olmayanla iletişim.",
+    "dailyMessage": "Yarasa bugün korkunla yüzleşmeni söylüyor. Karanlık bir alana inmeden bilgelik gelmez. Görmediğini duyabilirsin — sesi, titreşimi, hisleri dinle. Bir geçiş eşiğindesin; eski sen ölüyor, yenisi doğuyor.",
+    "guidance": "Korktuğun şeyin tam ortasına bir adım at. Karanlık göründüğünden küçük.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a047",
+    "name": "Yengeç",
+    "emoji": "🦀",
+    "element": "su",
+    "symbolism": [
+      "sınır",
+      "ev",
+      "duygu",
+      "geri çekilme"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/CallinectesSapidusOregon.JPG&width=300",
+    "anatolianMeaning": "Sahil ve nehir kıyısının savunucusu. Yengeç evini sırtında taşır — duygusal güvenliğin sembolü. Ay döngüsüne en bağlı hayvanlardan.",
+    "dailyMessage": "Yengeç bugün sınırlarını koruma hakkını hatırlatıyor. Geri çekilmek zayıflık değil — kabuğuna girerek toparlanmak meşru. Pençeleri olan biri olduğunu unutma; tutması gerektiği zaman tutar, bırakması gerektiği zaman bırakır.",
+    "guidance": "Bir hayır de, bir kapı kapat. Korumak senin görevin.",
+    "rarity": "common"
+  },
+  {
+    "id": "a048",
+    "name": "Fil",
+    "emoji": "🐘",
+    "element": "toprak",
+    "symbolism": [
+      "bellek",
+      "bilgelik",
+      "şefkat",
+      "güç"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/African_Bush_Elephant.jpg&width=300",
+    "anatolianMeaning": "Anadolu doğal yaşamında olmasa da Mevlana ve Sufi geleneğinde sık geçen büyük bilge. 'Filin karanlıkta hissedilmesi' hikayesi — herkes farklı bir parçasından tanır.",
+    "dailyMessage": "Fil bugün uzun belleğinin gücünü kullanmanı söylüyor. Geçmişten ders al ama ona takılma. Affedebilirsin ama unutma — bu farkındalık, kin değil. Büyük varlığını öğrenip sonra yavaşça hareket et; her adımın ağırlığı vardır.",
+    "guidance": "Geçmişten bir dersi bugüne taşı. Aceleyle değil, ağırlığınla hareket et.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a049",
+    "name": "Vaşak",
+    "emoji": "🐈‍⬛",
+    "element": "toprak",
+    "symbolism": [
+      "sır saklama",
+      "keskin görü",
+      "yalnızlık",
+      "kadim bilgi"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Lynx_lynx2.jpg&width=300",
+    "anatolianMeaning": "Anadolu ormanlarının saklı sırrı. Vaşak görür ama görünmez — sırların ve gizli bilgilerin koruyucusu. Avcılığı sessizliğiyle yapar.",
+    "dailyMessage": "Vaşak bugün sezgine ve sırlarına güvenmeni söylüyor. Her bildiğini söylemek zorunda değilsin. Görünmeden gözlemleyen güçtür — kalabalığın görmediği şeyi görüyorsun. Yalnızlığını yorgunlukla değil, keskinlikle taşı.",
+    "guidance": "Bir sırrı sakla. Bir gözlemi paylaşma. Bilen sus, susan derin görür.",
+    "rarity": "rare"
+  },
+  {
+    "id": "a050",
+    "name": "Örümcek",
+    "emoji": "🕷️",
+    "element": "hava",
+    "symbolism": [
+      "dokuma",
+      "kader",
+      "yaratım",
+      "sabır"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/European_garden_spider_(Araneus_diadematus).jpg&width=300",
+    "anatolianMeaning": "Hz. Muhammed'i mağarada ağıyla koruyan örümcek — İslam'da kutsal sayılır. Kader ipliklerini dokuyan, yaratıcı sabrın sembolü.",
+    "dailyMessage": "Örümcek bugün kendi ağını dokumanı söylüyor. Hayatının ipliklerini sen seçiyorsun, sen örüyorsun — kimse senin için yapmaz. Sabırla, ipi ipe ekleyerek. Bir tek iplik kopsa ağ çöker mi? Hayır — onarılır. Yaratıcılığın senin sığınağındır.",
+    "guidance": "Bugün küçük ama anlamlı bir şey yarat. İplikler birikecek, ağ kurulacak.",
+    "rarity": "common"
+  }
 ]
