@@ -137,10 +137,10 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
     short: 'Doğanın dört temel niteliği: Ateş, Su, Toprak, Hava.',
     long:
       'Unsurlar, antik dünyanın dört temel yapı taşıdır. Her unsur belirli bir mizacı ve enerjiyi temsil eder:\n\n' +
-      '🔥 ATEŞ — Tutku, irade, dönüşüm, eylem\n' +
-      '💧 SU — Duygu, sezgi, akış, derinlik\n' +
-      '🌿 TOPRAK — Beden, sabır, gerçeklik, kök\n' +
-      '🌬️ HAVA — Akıl, iletişim, fikir, hareket\n\n' +
+      '△ ATEŞ — Tutku, irade, dönüşüm, eylem\n' +
+      '▽ SU — Duygu, sezgi, akış, derinlik\n' +
+      '⊕ TOPRAK — Beden, sabır, gerçeklik, kök\n' +
+      '○ HAVA — Akıl, iletişim, fikir, hareket\n\n' +
       'Doğduğun mevsim ve yıldız hareketleri sana baskın bir unsur verir. Bu unsuru tanımak, kendi doğasının ritmiyle uyum kurmayı sağlar.',
   },
   arketip: {

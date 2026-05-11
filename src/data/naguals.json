@@ -2,7 +2,7 @@
   {
     "id": "ng001",
     "name": "Gölge",
-    "emoji": "🌑",
+    "emoji": "●",
     "element": "karanlık",
     "aspect": "Bilinçdışı",
     "dailyMessage": "Bugün görmek istemediğin şeye bak. Gölgende saklanan her şey bir öğretmen taşır.",
@@ -12,7 +12,7 @@
   {
     "id": "ng002",
     "name": "Ayna",
-    "emoji": "🪞",
+    "emoji": "◇",
     "element": "su",
     "aspect": "Yansıma",
     "dailyMessage": "Seni rahatsız eden her insan, sende bir şeyi yansıtır. Dışarıda aradığını içinde bul.",
@@ -22,7 +22,7 @@
   {
     "id": "ng003",
     "name": "Köz",
-    "emoji": "🔥",
+    "emoji": "⊙",
     "element": "ateş",
     "aspect": "Gizli Enerji",
     "dailyMessage": "Söndü sandığın ateş külün altında yaşıyor. Küçük bir üfürüm kor olmaya yeter.",
@@ -32,7 +32,7 @@
   {
     "id": "ng004",
     "name": "Uçurum",
-    "emoji": "🌊",
+    "emoji": "▽",
     "element": "toprak",
     "aspect": "Derinlik",
     "dailyMessage": "Düşmekten korktuğun yer, büyümenin başladığı noktadır.",
@@ -42,7 +42,7 @@
   {
     "id": "ng005",
     "name": "Sis",
-    "emoji": "🌫️",
+    "emoji": "≋",
     "element": "hava",
     "aspect": "Belirsizlik",
     "dailyMessage": "Her şeyin net olmadığı anlarda bile yürüyebilirsin. Sis dağılır, ama sen zaten yoldasın.",
@@ -52,7 +52,7 @@
   {
     "id": "ng006",
     "name": "Kök",
-    "emoji": "🌱",
+    "emoji": "⊥",
     "element": "toprak",
     "aspect": "Temel",
     "dailyMessage": "Görünmez olan her şey en önemli olandır. Kökler toprak altında güç toplar.",
@@ -62,7 +62,7 @@
   {
     "id": "ng007",
     "name": "Suskunluk",
-    "emoji": "◯",
+    "emoji": "○",
     "element": "hava",
     "aspect": "Boşluk",
     "dailyMessage": "En derin sesler kelimesiz gelir. Bugün sadece sessizliği dinle.",
@@ -72,7 +72,7 @@
   {
     "id": "ng008",
     "name": "Labirent",
-    "emoji": "🌀",
+    "emoji": "◌",
     "element": "toprak",
     "aspect": "İç Yolculuk",
     "dailyMessage": "Her çıkmaz sokak yanlış değildir. Seni kendine götüren yolun bir parçasıdır.",
@@ -82,7 +82,7 @@
   {
     "id": "ng009",
     "name": "Perde",
-    "emoji": "🎭",
+    "emoji": "▤",
     "element": "karanlık",
     "aspect": "Maske",
     "dailyMessage": "Giydiğin maskeyi o kadar uzun süre taşıdın ki yüzün nerede bitti, maske nerede başladı belli değil.",
@@ -92,7 +92,7 @@
   {
     "id": "ng010",
     "name": "Yılan",
-    "emoji": "🐍",
+    "emoji": "∽",
     "element": "ateş",
     "aspect": "Dönüşüm",
     "dailyMessage": "Deri değiştirmek acı verir. Ama eski derisini taşıyan yılan büyüyemez.",
@@ -102,7 +102,7 @@
   {
     "id": "ng011",
     "name": "Duman",
-    "emoji": "💨",
+    "emoji": "≈",
     "element": "ateş",
     "aspect": "Geçicilik",
     "dailyMessage": "Her şey geçer. Acın da, sevincin de. Duman gibi — şekil alır, kaybolur.",
@@ -112,7 +112,7 @@
   {
     "id": "ng012",
     "name": "Tohum",
-    "emoji": "🌰",
+    "emoji": "◍",
     "element": "toprak",
     "aspect": "Potansiyel",
     "dailyMessage": "Toprağın altındaki tohum çürümeden filiz vermez. Bu kaosun bir anlamı var.",
@@ -122,7 +122,7 @@
   {
     "id": "ng013",
     "name": "Ay",
-    "emoji": "🌙",
+    "emoji": "☾",
     "element": "su",
     "aspect": "Döngü",
     "dailyMessage": "Ay her gece eksilir, her ay yeniden dolar. Döngülerine karşı savaşma.",
@@ -132,7 +132,7 @@
   {
     "id": "ng014",
     "name": "Boşluk",
-    "emoji": "✦",
+    "emoji": "✧",
     "element": "hava",
     "aspect": "Yaratım",
     "dailyMessage": "Doluyken hiçbir şey giremez içine. Boşluğunu koru — oradan yaratırsın.",
@@ -142,7 +142,7 @@
   {
     "id": "ng015",
     "name": "Gece",
-    "emoji": "🌃",
+    "emoji": "◐",
     "element": "karanlık",
     "aspect": "Dinlenme",
     "dailyMessage": "Gece, gündüzün düşmanı değil tamamlayıcısıdır. Karanlık olmadan ışığı bilemezsin.",
@@ -152,7 +152,7 @@
   {
     "id": "ng016",
     "name": "Köprü",
-    "emoji": "🌉",
+    "emoji": "⌒",
     "element": "hava",
     "aspect": "Geçiş",
     "dailyMessage": "Köprüde durmak ne oraya ne buraya aittir. Geçmek için köprü kurulur.",
@@ -162,7 +162,7 @@
   {
     "id": "ng017",
     "name": "Derinlik",
-    "emoji": "🌊",
+    "emoji": "◊",
     "element": "su",
     "aspect": "İçsel Genişlik",
     "dailyMessage": "Yüzeyi dalgalı olan denizin dibi sakindir. Derine in.",
@@ -172,7 +172,7 @@
   {
     "id": "ng018",
     "name": "Kaya",
-    "emoji": "🪨",
+    "emoji": "■",
     "element": "toprak",
     "aspect": "Dayanıklılık",
     "dailyMessage": "Her şey değişirken değişmeyen bir şey var içinde. O seni taşır.",
@@ -182,7 +182,7 @@
   {
     "id": "ng019",
     "name": "Şimşek",
-    "emoji": "⚡",
+    "emoji": "↯",
     "element": "ateş",
     "aspect": "Ani Farkındalık",
     "dailyMessage": "Gerçek, çoğu zaman bir çakan ışık gibi gelir. Beklenmedik anda, beklenmedik yerde.",
@@ -192,7 +192,7 @@
   {
     "id": "ng020",
     "name": "Girdap",
-    "emoji": "🌀",
+    "emoji": "◎",
     "element": "su",
     "aspect": "Çekim",
     "dailyMessage": "Seni tekrar tekrar aynı yere çeken ne var? O çekim, çözülmemiş bir şeyi gösterir.",
@@ -202,7 +202,7 @@
   {
     "id": "ng021",
     "name": "İz",
-    "emoji": "◌",
+    "emoji": "∴",
     "element": "toprak",
     "aspect": "Miras",
     "dailyMessage": "Her geçtiğin yerde bir iz bırakırsın. Bugün ne tür izler bıraktığını düşün.",
@@ -212,7 +212,7 @@
   {
     "id": "ng022",
     "name": "Yankı",
-    "emoji": "🔊",
+    "emoji": "⟲",
     "element": "hava",
     "aspect": "Yansıma",
     "dailyMessage": "Söylediğin her şey geri döner. İçinden geçen düşünceler de öyle.",
@@ -222,7 +222,7 @@
   {
     "id": "ng023",
     "name": "Kılıç",
-    "emoji": "⚔️",
+    "emoji": "✚",
     "element": "ateş",
     "aspect": "Netlik",
     "dailyMessage": "Kesmesi gereken şeyleri kesmek cesaret ister. Ama kesmeyen kılıç pas tutar.",
@@ -232,7 +232,7 @@
   {
     "id": "ng024",
     "name": "Kapı",
-    "emoji": "🚪",
+    "emoji": "⊓",
     "element": "hava",
     "aspect": "Eşik",
     "dailyMessage": "Her kapı hem çıkış hem de girişdir. Hangisine baktığın, nereye gittiğini belirler.",
@@ -242,7 +242,7 @@
   {
     "id": "ng025",
     "name": "Zincir",
-    "emoji": "⛓️",
+    "emoji": "⌬",
     "element": "toprak",
     "aspect": "Özgürleşme",
     "dailyMessage": "Taşıdığın zincirlerin çoğu gerçek değil. Yıllar önce inandığın sınırlardır.",
@@ -252,7 +252,7 @@
   {
     "id": "ng026",
     "name": "Tufan",
-    "emoji": "🌊",
+    "emoji": "⌇",
     "element": "su",
     "aspect": "Arınma",
     "dailyMessage": "Bazen her şeyin yıkılması, gerçek temelin görünmesi içindir. Tufan korkutucu ama temizleyicidir.",
@@ -262,7 +262,7 @@
   {
     "id": "ng027",
     "name": "Volkan",
-    "emoji": "🌋",
+    "emoji": "▲",
     "element": "ateş",
     "aspect": "Patlama",
     "dailyMessage": "İçinde uzun zamandır bastırdığın bir şey var. Volkan sessizliğini ne kadar uzun korursa, patlaması o kadar büyük olur.",
@@ -272,7 +272,7 @@
   {
     "id": "ng028",
     "name": "Yıldız",
-    "emoji": "⭐",
+    "emoji": "☆",
     "element": "hava",
     "aspect": "Yön",
     "dailyMessage": "Karanlık ne kadar derin olursa olsun, içinde bir yıldız hep yanar. O sana evi gösterir.",
@@ -282,7 +282,7 @@
   {
     "id": "ng029",
     "name": "Toprak Ana",
-    "emoji": "🌍",
+    "emoji": "⊕",
     "element": "toprak",
     "aspect": "Köken",
     "dailyMessage": "Sen topraktan geldin, toprağa döneceksin. Bu arada toprak seni besler — bedavadan, sessizce.",
@@ -292,7 +292,7 @@
   {
     "id": "ng030",
     "name": "Rüya",
-    "emoji": "💭",
+    "emoji": "☁",
     "element": "su",
     "aspect": "İçsel Mesaj",
     "dailyMessage": "Rüyalar uydurma değil — bilinçaltının mektuplarıdır. Açmazsan yine de gönderilir.",
@@ -302,7 +302,7 @@
   {
     "id": "ng031",
     "name": "İlham",
-    "emoji": "✨",
+    "emoji": "✺",
     "element": "hava",
     "aspect": "Akış",
     "dailyMessage": "İlham seni seçer, sen onu değil. Ama hazır olmazsan bir başkasına gider.",
@@ -312,7 +312,7 @@
   {
     "id": "ng032",
     "name": "Dua",
-    "emoji": "🤲",
+    "emoji": "✶",
     "element": "hava",
     "aspect": "Bağlantı",
     "dailyMessage": "Dua, isteme değil — hizalanma sanatıdır. Sesini eviren biri seni dinler.",
@@ -322,7 +322,7 @@
   {
     "id": "ng033",
     "name": "Tövbe",
-    "emoji": "🙏",
+    "emoji": "⊖",
     "element": "su",
     "aspect": "Geri Dönüş",
     "dailyMessage": "Yanlış yolda hızlı gitmenin bir anlamı yok. Geri dönmek zayıflık değil, bilgeliktir.",
@@ -332,7 +332,7 @@
   {
     "id": "ng034",
     "name": "Sırrın Açılması",
-    "emoji": "🗝️",
+    "emoji": "⌘",
     "element": "hava",
     "aspect": "Vahiy",
     "dailyMessage": "Bir sır seni daha fazla taşıyamaz. Açılma zamanı gelmiştir.",
@@ -342,7 +342,7 @@
   {
     "id": "ng035",
     "name": "Vedalaşma",
-    "emoji": "🍃",
+    "emoji": "❀",
     "element": "hava",
     "aspect": "Bırakış",
     "dailyMessage": "Her veda küçük bir ölümdür ama vedaya doğru bakarsan yeni bir doğumdur.",
@@ -352,7 +352,7 @@
   {
     "id": "ng036",
     "name": "Yangın",
-    "emoji": "🔥",
+    "emoji": "✷",
     "element": "ateş",
     "aspect": "Yıkıcı Arınma",
     "dailyMessage": "Bazen tutuştuğun şey, içinde uzun zamandır seni yakan şeydi. Yangın geçer, sen kalırsın.",
@@ -362,7 +362,7 @@
   {
     "id": "ng037",
     "name": "Kıyı",
-    "emoji": "🏖️",
+    "emoji": "⌣",
     "element": "su",
     "aspect": "Sınır",
     "dailyMessage": "Kıyı, iki dünyanın buluştuğu yerdir — kara ve deniz. İçinde de böyle eşikler var.",
@@ -372,7 +372,7 @@
   {
     "id": "ng038",
     "name": "Dağ",
-    "emoji": "⛰️",
+    "emoji": "△",
     "element": "toprak",
     "aspect": "Sabır",
     "dailyMessage": "Dağ aceleyle yapılmaz, aceleyle yıkılmaz. O sadece olur — milyonlarca yılda.",
@@ -382,7 +382,7 @@
   {
     "id": "ng039",
     "name": "Ada",
-    "emoji": "🏝️",
+    "emoji": "◖",
     "element": "su",
     "aspect": "Yalnızlık",
     "dailyMessage": "Bazen ada olmak — etrafı suyla çevrili, kendi başına — bir lanet değil hediyedir.",
@@ -392,7 +392,7 @@
   {
     "id": "ng040",
     "name": "Pusula",
-    "emoji": "🧭",
+    "emoji": "⌖",
     "element": "hava",
     "aspect": "İçsel Yön",
     "dailyMessage": "Dışarıdaki haritalar tükenir, içindeki pusula tükenmez. Sadece onu tozlanmaktan koru.",
@@ -402,7 +402,7 @@
   {
     "id": "ng041",
     "name": "Çıngırak",
-    "emoji": "🔔",
+    "emoji": "◓",
     "element": "hava",
     "aspect": "Uyanış",
     "dailyMessage": "Bir çıngırak çalar — sen duymazlıktan gelirsen yine çalar, daha yüksek.",
@@ -412,7 +412,7 @@
   {
     "id": "ng042",
     "name": "Kuyu",
-    "emoji": "🕳️",
+    "emoji": "⌽",
     "element": "su",
     "aspect": "Derinlik",
     "dailyMessage": "İçinde bir kuyu var — derin, karanlık, ama dibinde berrak su. Onun korkutucu olduğu yerden geç.",
@@ -422,7 +422,7 @@
   {
     "id": "ng043",
     "name": "İplik",
-    "emoji": "🧵",
+    "emoji": "∼",
     "element": "toprak",
     "aspect": "Bağ",
     "dailyMessage": "Her insan, görünmez ipliklerle başkalarına bağlıdır. Bazıları besler, bazıları çeker.",
@@ -432,7 +432,7 @@
   {
     "id": "ng044",
     "name": "Vahşi Bahçe",
-    "emoji": "🌿",
+    "emoji": "❋",
     "element": "toprak",
     "aspect": "Kontrolsüz Büyüme",
     "dailyMessage": "Her şey düzenli olmak zorunda değil. Vahşi bahçe — bakımsız ama canlı — kendine has bir güzelliktir.",
@@ -442,7 +442,7 @@
   {
     "id": "ng045",
     "name": "Şafak",
-    "emoji": "🌅",
+    "emoji": "☀",
     "element": "ateş",
     "aspect": "Yeniden Başlama",
     "dailyMessage": "En karanlık an, şafaktan hemen öncesidir. Onu görmek için biraz daha kal.",
@@ -452,7 +452,7 @@
   {
     "id": "ng046",
     "name": "Kar",
-    "emoji": "❄️",
+    "emoji": "✻",
     "element": "su",
     "aspect": "Sessizlik",
     "dailyMessage": "Kar her şeyi örter — sesi, hızı, hataları. Beyaz örtü altında her şey yeniden başlar.",
@@ -462,7 +462,7 @@
   {
     "id": "ng047",
     "name": "Çıplak Ayak",
-    "emoji": "👣",
+    "emoji": "⌥",
     "element": "toprak",
     "aspect": "Temas",
     "dailyMessage": "Ayakkabı, toprağı çok unutturdu. Bedenin doğrudan temasla şifa bulur.",
@@ -472,7 +472,7 @@
   {
     "id": "ng048",
     "name": "Şükür",
-    "emoji": "🙌",
+    "emoji": "✤",
     "element": "hava",
     "aspect": "Doluluk",
     "dailyMessage": "Şükür, sahip olduğunu görme sanatıdır. Görmediğin şeye sahip olamazsın.",
@@ -482,7 +482,7 @@
   {
     "id": "ng049",
     "name": "Eşik",
-    "emoji": "🚪",
+    "emoji": "⊏",
     "element": "hava",
     "aspect": "Geçiş Anı",
     "dailyMessage": "Eşikte duranlar ne içeride ne dışarıdadır. Bu belirsizlik, dönüşümün doğum sancısıdır.",
@@ -492,7 +492,7 @@
   {
     "id": "ng050",
     "name": "Kırık Vazo",
-    "emoji": "🏺",
+    "emoji": "◬",
     "element": "toprak",
     "aspect": "Kintsugi",
     "dailyMessage": "Kırılan şey değersizleşmez. Japonlar kırıkları altınla doldurur — kırık yer en güzel olur.",

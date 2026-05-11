@@ -20,6 +20,7 @@ import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { PaywallScreen } from './PaywallScreen';
 import { usePremium, clearPremium, activateMockPremium } from '../lib/premium';
 import { HelpButton } from '../components/HelpButton';
+import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermission } from '../lib/notifications';
 
 function hdTypeToGlossaryKey(type: string): string {
   switch (type) {
@@ -31,20 +32,19 @@ function hdTypeToGlossaryKey(type: string): string {
     default:                       return 'humanDesign';
   }
 }
-import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermission } from '../lib/notifications';
 
 const ELEMENTS = ['ateş', 'su', 'toprak', 'hava'] as const;
 const ELEMENT_EMOJIS: Record<string, string> = {
-  ateş: '🔥', su: '💧', toprak: '🌿', hava: '🌬️'
+  ateş: '△', su: '▽', toprak: '⊕', hava: '○'
 };
 
 const BADGES = [
-  { id: 'b001', title: 'Yol Başlangıcı', desc: 'İlk 7 okuma',   emoji: '🌙', required: 7 },
-  { id: 'b002', title: 'Ateş Dervişi',   desc: '21 gün silsile', emoji: '🔥', required: 21 },
-  { id: 'b003', title: 'Mesnevi Yolcusu',desc: '30 okuma',       emoji: '🌹', required: 30 },
-  { id: 'b004', title: 'Tesbih',         desc: '33 taş görüldü', emoji: '📿', required: 33 },
+  { id: 'b001', title: 'Yol Başlangıcı', desc: 'İlk 7 okuma',   emoji: '☾', required: 7 },
+  { id: 'b002', title: 'Ateş Dervişi',   desc: '21 gün silsile', emoji: '△', required: 21 },
+  { id: 'b003', title: 'Mesnevi Yolcusu',desc: '30 okuma',       emoji: '❀', required: 30 },
+  { id: 'b004', title: 'Tesbih',         desc: '33 taş görüldü', emoji: '◌', required: 33 },
   { id: 'b005', title: 'Hak Dostu',      desc: '100 okuma',      emoji: '✦',  required: 100 },
-  { id: 'b006', title: 'ışık Yolcusu',   desc: '365 okuma',      emoji: '☀️', required: 365 },
+  { id: 'b006', title: 'ışık Yolcusu',   desc: '365 okuma',      emoji: '☀', required: 365 },
 ];
 
 export function ProfileScreen() {
@@ -156,7 +156,7 @@ export function ProfileScreen() {
   if (showOnboarding || isNewUser) {
     return (
       <View style={[styles.container, styles.onboarding, { paddingTop: insets.top }]}>
-        <Text style={styles.onboardingEmoji}>🌙</Text>
+        <Text style={styles.onboardingEmoji}>☾</Text>
         <Text style={styles.onboardingTitle}>TURA'ya Hoş Geldin</Text>
         <Text style={styles.onboardingSubtitle}>
           Anadolu'nun kadim geleneğinden günlük rehberlik
@@ -321,7 +321,7 @@ export function ProfileScreen() {
           <Text style={styles.statLabel}>Toplam Okuma</Text>
         </View>
         <View style={[styles.statBox, styles.statBoxCenter]}>
-          <Text style={[styles.statValue, { color: Colors.ember }]}>🔥 {streak}</Text>
+          <Text style={[styles.statValue, { color: Colors.ember }]}>△ {streak}</Text>
           <Text style={styles.statLabel}>Gün Silsile</Text>
         </View>
         <View style={styles.statBox}>
@@ -627,12 +627,12 @@ export function ProfileScreen() {
 
         {showAnimalInfo && (
           <View style={styles.animalInfoCard}>
-            <Text style={styles.animalInfoSection}>🐺 Totem Hayvan</Text>
+            <Text style={styles.animalInfoSection}>⊕ Totem Hayvan</Text>
             <Text style={styles.animalInfoText}>
               Her insan, doğasında bir hayvanın ruhunu taşır. Bu totem hayvan seni temsil eder; enerjin, gülüç yanların ve yürüdüğün yol onun izlerini taşır. Totem değişmez — seninle doğar, seninle gelişir.
             </Text>
             <View style={styles.animalInfoDivider} />
-            <Text style={styles.animalInfoSection}>🌀 Nagual — Dönemsel Rehber</Text>
+            <Text style={styles.animalInfoSection}>◎ Nagual — Dönemsel Rehber</Text>
             <Text style={styles.animalInfoText}>
               Nagual ise belirli bir dönem için yanına gelen geçici rehberdir. Bir sınav, bir dönüşüm, bir kriz anında çağrılır. Görevini tamamlayınca yerini başka bir rehbere bırakır. Günlük çekilişinde gelen hayvan, bugünkü naguelin sesini taşır.
             </Text>
@@ -644,7 +644,7 @@ export function ProfileScreen() {
           onPress={() => premium.isPremium ? setShowAnimalFinder(true) : setShowPaywall(true)}
           activeOpacity={0.85}
         >
-          <Text style={styles.finderBtnEmoji}>🐾</Text>
+          <Text style={styles.finderBtnEmoji}>✦</Text>
           <View style={styles.finderBtnText}>
             <Text style={styles.finderBtnTitle}>Hayvan Rehberini Bul</Text>
             <Text style={styles.finderBtnDesc}>
@@ -663,7 +663,7 @@ export function ProfileScreen() {
 
         {topSource && (
           <View style={[styles.spiritCard, { borderColor: Colors.gold }]}>
-            <Text style={styles.spiritEmoji}>📜</Text>
+            <Text style={styles.spiritEmoji}>⌘</Text>
             <View style={styles.spiritInfo}>
               <Text style={styles.spiritLabel}>En Çok Rehber Şair</Text>
               <Text style={[styles.spiritValue, { color: Colors.gold }]}>{topSource}</Text>
@@ -749,7 +749,7 @@ export function ProfileScreen() {
                 ]}
               >
                 <Text style={[styles.badgeEmoji, !earned && { opacity: 0.4 }]}>
-                  {earned ? badge.emoji : '🔒'}
+                  {earned ? badge.emoji : '⊘'}
                 </Text>
                 <Text style={[styles.badgeTitle, { color: earned ? Colors.gold : Colors.textMuted }]}>
                   {badge.title}

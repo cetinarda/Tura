@@ -30,7 +30,7 @@ interface AnimalResult {
 const QUESTIONS: Question[] = [
   {
     q: 'Doğada hangi ortam seni çağırıyor?',
-    emoji: '🌿',
+    emoji: '⊕',
     options: [
       { text: 'Dağlar ve açık gökyüzü', element: 'hava',
         weights: [{ trait: 'özgürlük', value: 2 }, { trait: 'vizyon', value: 2 }, { trait: 'yüksek bakış', value: 2 }] },
@@ -44,7 +44,7 @@ const QUESTIONS: Question[] = [
   },
   {
     q: 'Zor bir durumla karşılaştığında tepkin ne?',
-    emoji: '⚡',
+    emoji: '↯',
     options: [
       { text: 'Dur, gözlemle, strateji kur',
         weights: [{ trait: 'bilgelik', value: 3 }, { trait: 'sezgi', value: 2 }, { trait: 'strateji', value: 2 }] },
@@ -58,7 +58,7 @@ const QUESTIONS: Question[] = [
   },
   {
     q: 'Seni en iyi anlatan sözcük hangisi?',
-    emoji: '✨',
+    emoji: '✺',
     options: [
       { text: 'Özgür',
         weights: [{ trait: 'özgürlük', value: 3 }, { trait: 'bağımsızlık', value: 3 }] },
@@ -72,7 +72,7 @@ const QUESTIONS: Question[] = [
   },
   {
     q: 'Bir grupta hangi rolü üstlenirsin?',
-    emoji: '🌙',
+    emoji: '☾',
     options: [
       { text: 'Öncü ve yol açan',
         weights: [{ trait: 'liderlik', value: 3 }, { trait: 'cesaret', value: 2 }, { trait: 'vizyon', value: 2 }] },
@@ -86,7 +86,7 @@ const QUESTIONS: Question[] = [
   },
   {
     q: 'En büyük gücün nedir?',
-    emoji: '🔥',
+    emoji: '△',
     options: [
       { text: 'İçgüdülerim ve sezgim',
         weights: [{ trait: 'sezgi', value: 3 }, { trait: 'içgüdü', value: 3 }] },
@@ -301,7 +301,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate }: Props) {
       {/* ── Intro ── */}
       {mode === 'intro' && (
         <View style={styles.introWrap}>
-          <Text style={styles.introEmoji}>🐾</Text>
+          <Text style={styles.introEmoji}>✦</Text>
           <Text style={styles.introTitle}>Rehber Hayvanını Keşfet</Text>
           <Text style={styles.introDesc}>
             Ruhunla uyumlu totem hayvanını bulmak için iki yol var.
