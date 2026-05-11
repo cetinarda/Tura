@@ -35,6 +35,8 @@ export function HelpButton({ termKey, size = 'sm' }: Props) {
         style={[styles.btn, { width: dim, height: dim, borderRadius: dim / 2 }]}
         hitSlop={10}
         activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityLabel={`${entry.term} terimi hakkında bilgi`}
       >
         <Text style={[styles.btnText, { fontSize }]}>?</Text>
       </TouchableOpacity>

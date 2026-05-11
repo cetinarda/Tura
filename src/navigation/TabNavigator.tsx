@@ -56,6 +56,9 @@ export function TabNavigator() {
                 style={styles.tabItem}
                 onPress={() => setActiveTab(tab.key)}
                 activeOpacity={0.7}
+                accessibilityRole="tab"
+                accessibilityLabel={tab.label}
+                accessibilityState={{ selected: isActive }}
               >
                 <View style={[styles.tabIndicator, isActive && { backgroundColor: tab.activeColor }]} />
                 <Text style={[
