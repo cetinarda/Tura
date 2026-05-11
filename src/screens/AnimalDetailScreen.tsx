@@ -3,6 +3,8 @@ import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet } from 'rea
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import { getAnimalLore } from '../data/animalLore';
+import { getRelatedMyth, getElementPractice } from '../utils/animalRelations';
+import { MythDetail } from './MythsScreen';
 
 type Animal = {
   id: string;
@@ -23,6 +25,14 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
   const insets = useSafeAreaInsets();
   const lore = getAnimalLore(animal.id);
   const [imgErr, setImgErr] = useState(false);
+  const [openMyth, setOpenMyth] = useState<ReturnType<typeof getRelatedMyth>>(null);
+
+  const relatedMyth = getRelatedMyth(animal.id, animal.element);
+  const practice = getElementPractice(animal.element);
+
+  if (openMyth) {
+    return <MythDetail myth={openMyth} onClose={() => setOpenMyth(null)} />;
+  }
 
   return (
     <View style={styles.root}>
@@ -117,6 +127,36 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
           </View>
         )}
 
+        <Section title="Bu Hafta Pratik" color={Colors.tealLight}>
+          <View style={[styles.practiceBox, { borderColor: Colors.teal + '40' }]}>
+            <Text style={styles.practiceMark}>✦</Text>
+            <Text style={styles.practiceText}>{practice}</Text>
+          </View>
+        </Section>
+
+        {relatedMyth && (
+          <Section title="İlgili Mit" color={Colors.sakinLavender}>
+            <TouchableOpacity
+              style={[styles.relatedMyth, { borderColor: Colors.sakinLavender + '50' }]}
+              onPress={() => setOpenMyth(relatedMyth)}
+              activeOpacity={0.8}
+            >
+              <View style={[styles.relatedSymbol, { borderColor: Colors.sakinLavender + '60' }]}>
+                <Text style={styles.relatedSymbolText}>{relatedMyth.emoji}</Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.relatedName}>{relatedMyth.name}</Text>
+                <Text style={styles.relatedAspect}>
+                  {(relatedMyth as any).aspect?.toUpperCase()}
+                </Text>
+                <Text style={styles.relatedHint}>
+                  Bu hayvanla rezonans kuran sembolik güç →
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </Section>
+        )}
+
         <View style={styles.footer}>
           <Text style={styles.footerText}>SAKİN AİLESİ ✦</Text>
         </View>
@@ -168,4 +208,54 @@ const styles = StyleSheet.create({
   missingText: { fontSize: Typography.size.xs, color: Colors.textMuted, textAlign: 'center', lineHeight: Typography.size.xs * 1.8, fontStyle: 'italic' },
   footer: { paddingVertical: Spacing.xl, alignItems: 'center' },
   footerText: { fontSize: 9, color: Colors.textMuted, letterSpacing: 4 },
+  practiceBox: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+    borderWidth: 1,
+    borderRadius: BorderRadius.sm,
+    padding: Spacing.md,
+    backgroundColor: Colors.teal + '08',
+  },
+  practiceMark: { fontSize: 14, color: Colors.tealLight, marginTop: 2 },
+  practiceText: {
+    flex: 1,
+    fontSize: Typography.size.sm,
+    color: Colors.textPrimary,
+    lineHeight: Typography.size.sm * 1.7,
+    fontWeight: Typography.weight.light,
+  },
+  relatedMyth: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.md,
+    padding: Spacing.md,
+    borderWidth: 1,
+    borderRadius: BorderRadius.md,
+    backgroundColor: Colors.sakinLavender + '08',
+  },
+  relatedSymbol: {
+    width: 44, height: 44, borderRadius: 22,
+    borderWidth: 1,
+    alignItems: 'center', justifyContent: 'center',
+    backgroundColor: Colors.sakinLavender + '12',
+  },
+  relatedSymbolText: { fontSize: 20 },
+  relatedName: {
+    fontSize: Typography.size.md,
+    color: Colors.textPrimary,
+    fontWeight: Typography.weight.semibold,
+    letterSpacing: 0.3,
+  },
+  relatedAspect: {
+    fontSize: 9,
+    color: Colors.sakinLavender,
+    letterSpacing: 1.5,
+    marginTop: 2,
+  },
+  relatedHint: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    fontStyle: 'italic',
+    marginTop: 4,
+  },
 });

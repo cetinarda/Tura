@@ -221,9 +221,10 @@ function findAnimalByBirth(day: number, month: number, year: number, hour?: numb
 interface Props {
   onClose: () => void;
   prefillBirthDate?: string; // YYYY-MM-DD
+  embedded?: boolean;
 }
 
-export function AnimalFinderScreen({ onClose, prefillBirthDate }: Props) {
+export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Props) {
   const insets = useSafeAreaInsets();
   const [mode, setMode]         = useState<Mode>('intro');
   const [qIndex, setQIndex]     = useState(0);
@@ -285,18 +286,24 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate }: Props) {
   const progress = qIndex / QUESTIONS.length;
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top }]}>
+    <View style={[styles.root, { paddingTop: embedded ? 0 : insets.top }]}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={mode === 'intro' || mode === 'result' ? onClose : () => { setMode('intro'); setQIndex(0); setPicks([]); setChosen(null); }}
-          style={styles.closeBtn} activeOpacity={0.7}
-        >
-          <Text style={styles.closeTxt}>{mode === 'intro' || mode === 'result' ? '✕' : '←'}</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Hayvan Rehberini Bul</Text>
-        <View style={{ width: 32 }} />
-      </View>
+      {(!embedded || mode !== 'intro') && (
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={
+              embedded
+                ? () => { setMode('intro'); setQIndex(0); setPicks([]); setChosen(null); }
+                : (mode === 'intro' || mode === 'result' ? onClose : () => { setMode('intro'); setQIndex(0); setPicks([]); setChosen(null); })
+            }
+            style={styles.closeBtn} activeOpacity={0.7}
+          >
+            <Text style={styles.closeTxt}>{embedded ? '←' : (mode === 'intro' || mode === 'result' ? '✕' : '←')}</Text>
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Hayvan Rehberini Bul</Text>
+          <View style={{ width: 32 }} />
+        </View>
+      )}
 
       {/* ── Intro ── */}
       {mode === 'intro' && (
@@ -450,8 +457,12 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate }: Props) {
 
           <Text style={styles.anatolianTxt}>{result.animal.anatolianMeaning}</Text>
 
-          <TouchableOpacity style={styles.doneBtn} onPress={onClose} activeOpacity={0.8}>
-            <Text style={styles.doneBtnTxt}>Kapat ✦</Text>
+          <TouchableOpacity
+            style={styles.doneBtn}
+            onPress={embedded ? () => { setMode('intro'); setResult(null); setQIndex(0); setPicks([]); setChosen(null); } : onClose}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.doneBtnTxt}>{embedded ? 'Yeniden Keşfet ✦' : 'Kapat ✦'}</Text>
           </TouchableOpacity>
         </Animated.ScrollView>
       )}

@@ -8,7 +8,7 @@ import { useTuraStore } from '../store/useStore';
 import { calcLifePath } from '../utils/numerology';
 import { calcHDType } from '../utils/humanDesign';
 
-interface Props { onClose: () => void; }
+interface Props { onClose: () => void; embedded?: boolean; }
 type Nagual = typeof nagualsData[0];
 type Animal = typeof animalsData[0];
 
@@ -54,7 +54,7 @@ function getPersonalNagual(
   return { animal, lifePath, hdType, reason };
 }
 
-export function NagualScreen({ onClose }: Props) {
+export function NagualScreen({ onClose, embedded }: Props) {
   const insets = useSafeAreaInsets();
   const { profile } = useTuraStore();
   const [nagual] = useState<Nagual>(() => getWeeklyNagual());
@@ -67,12 +67,14 @@ export function NagualScreen({ onClose }: Props) {
 
   return (
     <View style={styles.root}>
-      <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
-        <TouchableOpacity onPress={onClose} hitSlop={12}>
-          <Text style={styles.back}>← Geri</Text>
-        </TouchableOpacity>
-        <Text style={styles.familyTag}>SAKİN · NAGUAL</Text>
-      </View>
+      {!embedded && (
+        <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
+          <TouchableOpacity onPress={onClose} hitSlop={12}>
+            <Text style={styles.back}>← Geri</Text>
+          </TouchableOpacity>
+          <Text style={styles.familyTag}>SAKİN · NAGUAL</Text>
+        </View>
+      )}
 
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.intro}>

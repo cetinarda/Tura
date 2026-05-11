@@ -13,9 +13,10 @@ import nagualsData from '../data/naguals.json';
 
 interface Props {
   onClose: () => void;
+  embedded?: boolean;
 }
 
-type Myth = typeof nagualsData[0];
+export type Myth = typeof nagualsData[0];
 
 const ELEMENT_COLORS: Record<string, string> = {
   ateş: Colors.ember,
@@ -25,7 +26,7 @@ const ELEMENT_COLORS: Record<string, string> = {
   karanlık: Colors.purple,
 };
 
-export function MythsScreen({ onClose }: Props) {
+export function MythsScreen({ onClose, embedded }: Props) {
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<Myth | null>(null);
@@ -56,15 +57,16 @@ export function MythsScreen({ onClose }: Props) {
 
   return (
     <View style={styles.root}>
-      <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
-        <TouchableOpacity onPress={onClose} hitSlop={12}>
-          <Text style={styles.back}>← Geri</Text>
-        </TouchableOpacity>
-        <Text style={styles.familyTag}>SAKİN · MİT</Text>
-      </View>
+      {!embedded && (
+        <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
+          <TouchableOpacity onPress={onClose} hitSlop={12}>
+            <Text style={styles.back}>← Geri</Text>
+          </TouchableOpacity>
+          <Text style={styles.familyTag}>SAKİN · MİT</Text>
+        </View>
+      )}
 
       <View style={styles.header}>
-        <Text style={styles.title}>Mitler Sözlüğü</Text>
         <Text style={styles.subtitle}>
           Ruhun karşılaştığı sembolik güçler · {nagualsData.length} mit
         </Text>
@@ -156,7 +158,7 @@ export function MythsScreen({ onClose }: Props) {
   );
 }
 
-function MythDetail({ myth, onClose }: { myth: Myth; onClose: () => void }) {
+export function MythDetail({ myth, onClose }: { myth: Myth; onClose: () => void }) {
   const insets = useSafeAreaInsets();
   const color = ELEMENT_COLORS[myth.element] || Colors.teal;
 

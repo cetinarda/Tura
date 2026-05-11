@@ -15,11 +15,12 @@ import { AnimalDetailScreen } from './AnimalDetailScreen';
 
 interface Props {
   onClose: () => void;
+  embedded?: boolean;
 }
 
 type Animal = typeof animalsData[0];
 
-export function AnimalLibraryScreen({ onClose }: Props) {
+export function AnimalLibraryScreen({ onClose, embedded }: Props) {
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<Animal | null>(null);
@@ -56,15 +57,16 @@ export function AnimalLibraryScreen({ onClose }: Props) {
 
   return (
     <View style={styles.root}>
-      <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
-        <TouchableOpacity onPress={onClose} hitSlop={12}>
-          <Text style={styles.back}>← Geri</Text>
-        </TouchableOpacity>
-        <Text style={styles.familyTag}>SAKİN · HAYVAN</Text>
-      </View>
+      {!embedded && (
+        <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
+          <TouchableOpacity onPress={onClose} hitSlop={12}>
+            <Text style={styles.back}>← Geri</Text>
+          </TouchableOpacity>
+          <Text style={styles.familyTag}>SAKİN · HAYVAN</Text>
+        </View>
+      )}
 
       <View style={styles.header}>
-        <Text style={styles.title}>Rehber Hayvanlar</Text>
         <Text style={styles.subtitle}>
           Anadolu'dan dünyaya · {animalsData.length} hayvan rehberi
         </Text>
