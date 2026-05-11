@@ -154,7 +154,7 @@ function findAnimalByQuiz(picks: Option[]): AnimalResult {
   };
 }
 
-function findAnimalByBirth(day: number, month: number, year: number, hour?: number): AnimalResult {
+function findAnimalByBirth(day: number, month: number, year: number, hour?: number, city?: string): AnimalResult {
   const traits: Record<string, number> = {};
   const elements: Record<string, number> = {};
 
@@ -210,6 +210,7 @@ function findAnimalByBirth(day: number, month: number, year: number, hour?: numb
   const reason = [
     `${seasonName.charAt(0).toUpperCase() + seasonName.slice(1)} doğumundan gelen ${seasonEl[month]} enerjisi`,
     hourLabel ? `${hourLabel} saatinin ${HOUR_RANGES.find(r => hourLabel === r.label)?.traits[0] || ''} gücü` : '',
+    city && city.trim() ? `${city.trim()} toprağının izi` : '',
   ].filter(Boolean).join(' · ');
 
   return { animal: scoreAnimals(traits, elements), reason };
@@ -236,6 +237,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate }: Props) {
   const [bMonth, setBMonth] = useState(prefill[1] ? String(parseInt(prefill[1])) : '');
   const [bYear,  setBYear]  = useState(prefill[0] ?? '');
   const [bHour,  setBHour]  = useState('');
+  const [bCity,  setBCity]  = useState('');
 
   const cardFade   = useRef(new Animated.Value(1)).current;
   const resultFade = useRef(new Animated.Value(0)).current;
@@ -269,7 +271,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate }: Props) {
     if (!birthValid) return;
     const d = parseInt(bDay), m = parseInt(bMonth), y = parseInt(bYear);
     const h = bHour.trim() !== '' ? Math.min(Math.max(parseInt(bHour), 0), 23) : undefined;
-    showResult(findAnimalByBirth(d, m, y, h));
+    showResult(findAnimalByBirth(d, m, y, h, bCity));
   };
 
   const showResult = (r: AnimalResult) => {
@@ -374,7 +376,20 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate }: Props) {
               placeholder="Yıl" placeholderTextColor={Colors.textMuted} keyboardType="number-pad" maxLength={4} />
           </View>
 
-          <Text style={styles.birthLabel}>Doğum Saati <Text style={styles.birthLabelOpt}>(isteğe bağlı)</Text></Text>
+          <Text style={styles.birthLabel}>Doğum Şehri <Text style={styles.birthLabelOpt}>(isteğe bağlı)</Text></Text>
+          <TextInput
+            style={[styles.dateInput, { textAlign: 'left' }]}
+            value={bCity}
+            onChangeText={setBCity}
+            placeholder="Örn. İstanbul, Konya, Diyarbakır..."
+            placeholderTextColor={Colors.textMuted}
+            autoCapitalize="words"
+          />
+          <Text style={styles.birthHint}>
+            Doğduğun yerin enerjisi yorumuna derinlik katar.
+          </Text>
+
+          <Text style={[styles.birthLabel, { marginTop: Spacing.md }]}>Doğum Saati <Text style={styles.birthLabelOpt}>(isteğe bağlı)</Text></Text>
           <TextInput
             style={styles.dateInput}
             value={bHour}
