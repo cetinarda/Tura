@@ -416,7 +416,24 @@ export function ProfileScreen() {
 
       {/* ── Kişisel Harita ── */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Kişisel Harita</Text>
+        <View style={styles.sectionTitleRow}>
+          <Text style={[styles.sectionTitle, { marginBottom: 0 }]}>Kişisel Harita</Text>
+          {analysis && !showBirthForm && (
+            <TouchableOpacity
+              onPress={() => {
+                const parts = profile.birthDate?.split('-') ?? [];
+                setEditFullName(profile.fullName || '');
+                setEditDay(parts[2] ? String(parseInt(parts[2])) : '');
+                setEditMonth(parts[1] ? String(parseInt(parts[1])) : '');
+                setEditYear(parts[0] ?? '');
+                setShowBirthForm(true);
+              }}
+              style={styles.editBirthBtn}
+            >
+              <Text style={styles.editBirthText}>✎ Düzenle</Text>
+            </TouchableOpacity>
+          )}
+        </View>
 
         {analysis ? (
           <>
@@ -477,11 +494,9 @@ export function ProfileScreen() {
                     <HelpButton termKey="humanDesign" />
                   </View>
                 </View>
-                {premium.isPremium && (
-                  <TouchableOpacity onPress={() => setShowHDPicker(v => !v)} style={styles.hdEditBtn}>
-                    <Text style={[styles.hdEditText, { color: Colors.purple }]}>✎</Text>
-                  </TouchableOpacity>
-                )}
+                <TouchableOpacity onPress={() => setShowHDPicker(v => !v)} style={styles.hdEditBtn}>
+                  <Text style={[styles.hdEditText, { color: Colors.purple }]}>✎</Text>
+                </TouchableOpacity>
               </View>
               {showHDPicker && (
                 <View style={[styles.hdPicker, { borderColor: Colors.purple + '30' }]}>
@@ -497,6 +512,10 @@ export function ProfileScreen() {
                       </Text>
                     </TouchableOpacity>
                   ))}
+                  <Text style={styles.hdDisclaimer}>
+                    ⚠ Hesaplama tahminidir — gerçek HD doğum saati ve efemeris gerektirir.
+                    Tipini biliyorsan yukarıdan seçebilirsin.
+                  </Text>
                 </View>
               )}
               {premium.isPremium ? (
@@ -994,6 +1013,34 @@ const styles = StyleSheet.create({
     color: Colors.textPrimary,
     letterSpacing: 0.5,
     marginBottom: Spacing.md,
+  },
+  sectionTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: Spacing.md,
+  },
+  editBirthBtn: {
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: Colors.teal + '50',
+    borderRadius: BorderRadius.round,
+  },
+  editBirthText: {
+    fontSize: Typography.size.xs,
+    color: Colors.tealLight,
+    letterSpacing: 0.5,
+  },
+  hdDisclaimer: {
+    fontSize: 10,
+    color: Colors.textMuted,
+    fontStyle: 'italic',
+    lineHeight: 15,
+    marginTop: Spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: Colors.divider,
+    paddingTop: Spacing.sm,
   },
   sectionMeta: { fontSize: Typography.size.xs, color: Colors.textMuted },
   progressBar: {
