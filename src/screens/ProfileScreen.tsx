@@ -17,6 +17,9 @@ import { calcNumerology, LIFE_PATH_MEANINGS } from '../utils/numerology';
 import { getHDProfile } from '../utils/humanDesign';
 import { getWeeklyReading } from '../utils/weeklyReading';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
+import { PaywallScreen } from './PaywallScreen';
+import { usePremium, clearPremium } from '../lib/premium';
+import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermission } from '../lib/notifications';
 
 const ELEMENTS = ['ateş', 'su', 'toprak', 'hava'] as const;
 const ELEMENT_EMOJIS: Record<string, string> = {
@@ -27,25 +30,30 @@ const BADGES = [
   { id: 'b001', title: 'Yol Başlangıcı', desc: 'İlk 7 okuma',   emoji: '🌙', required: 7 },
   { id: 'b002', title: 'Ateş Dervişi',   desc: '21 gün silsile', emoji: '🔥', required: 21 },
   { id: 'b003', title: 'Mesnevi Yolcusu',desc: '30 okuma',       emoji: '🌹', required: 30 },
-  { id: 'b004', title: 'Tesbih',         desc: '33 taş görüldü', emoji: '💿', required: 33 },
+  { id: 'b004', title: 'Tesbih',         desc: '33 taş görüldü', emoji: '📿', required: 33 },
   { id: 'b005', title: 'Hak Dostu',      desc: '100 okuma',      emoji: '✦',  required: 100 },
-  { id: 'b006', title: 'İşık Yolcusu',   desc: '365 okuma',      emoji: '☀️', required: 365 },
+  { id: 'b006', title: 'ışık Yolcusu',   desc: '365 okuma',      emoji: '☀️', required: 365 },
 ];
 
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
-  const { profile, isNewUser, createProfile, updateBirthData, updateHDType, stats, getTopStat, getLevelTitle } = useTuraStore();
+  const { profile, isNewUser, createProfile, updateBirthData, updateHDType, stats, getTopStat, getLevelTitle, session, signOut } = useTuraStore();
+  const premium = usePremium();
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [remindersOn, setRemindersOn] = useState(false);
 
   const [showOnboarding, setShowOnboarding] = useState(isNewUser);
   const [name, setName] = useState('');
   const [element, setElement] = useState<typeof ELEMENTS[number]>('ateş');
   const [step, setStep] = useState(1);
 
+  // step 3 birth data
   const [fullName, setFullName] = useState('');
   const [birthDay, setBirthDay] = useState('');
   const [birthMonth, setBirthMonth] = useState('');
   const [birthYear, setBirthYear] = useState('');
 
+  // inline birth data edit (when already profiled but no birth data)
   const [showBirthForm, setShowBirthForm] = useState(false);
   const [showAnimalFinder, setShowAnimalFinder] = useState(false);
   const [showAnimalInfo, setShowAnimalInfo]   = useState(false);
@@ -75,6 +83,7 @@ export function ProfileScreen() {
     return Math.min(Math.max((totalReadings - currentAt) / (nextAt - currentAt), 0), 1);
   };
 
+  // compute analysis when birth data is present
   const analysis = useMemo(() => {
     if (!profile?.fullName || !profile?.birthDate) return null;
     try {
@@ -102,6 +111,8 @@ export function ProfileScreen() {
     parseInt(m) >= 1 && parseInt(m) <= 12 &&
     parseInt(y) >= 1900 && parseInt(y) <= new Date().getFullYear();
 
+  // ── Onboarding ────────────────────────────────────────────────────────────────────────
+
   const handleOnboarding = async () => {
     if (step === 1 && name.trim().length > 0) {
       setStep(2);
@@ -127,6 +138,8 @@ export function ProfileScreen() {
     await updateBirthData(editFullName.trim(), bd);
     setShowBirthForm(false);
   };
+
+  // ── Onboarding modal ─────────────────────────────────────────────────────────────────
 
   if (showOnboarding || isNewUser) {
     return (
@@ -248,6 +261,27 @@ export function ProfileScreen() {
     );
   }
 
+  if (showPaywall) {
+    return (
+      <PaywallScreen
+        onClose={() => setShowPaywall(false)}
+        onActivated={() => { premium.refresh(); setShowPaywall(false); }}
+      />
+    );
+  }
+
+  const toggleReminders = async (val: boolean) => {
+    if (val) {
+      const granted = await requestNotificationPermission();
+      if (!granted) return;
+      await scheduleDailyReminder(8, 0);
+      setRemindersOn(true);
+    } else {
+      await cancelDailyReminder();
+      setRemindersOn(false);
+    }
+  };
+
   return (
     <ScrollView
       style={[styles.container, { paddingTop: insets.top }]}
@@ -296,7 +330,72 @@ export function ProfileScreen() {
         <Text style={styles.progressText}>{totalReadings} / {level * 7} okuma</Text>
       </View>
 
-      {/* Kişisel Harita */}
+      {/* Hesap & Bildirimler */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Hesap</Text>
+        <View style={styles.accountCard}>
+          <View style={styles.accountRow}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.accountLabel}>
+                {premium.isPremium ? 'Üstad ✦' : 'Üretsiz Yolcu'}
+              </Text>
+              <Text style={styles.accountSub}>
+                {premium.isPremium
+                  ? premium.expiresAt
+                    ? `Yenileme: ${new Date(premium.expiresAt).toLocaleDateString('tr-TR')}`
+                    : 'Süresiz'
+                  : 'Derin analiz için Üstad olun'}
+              </Text>
+            </View>
+            {!premium.isPremium && (
+              <TouchableOpacity style={styles.upgradeBtn} onPress={() => setShowPaywall(true)}>
+                <Text style={styles.upgradeBtnText}>Üstad Ol ✦</Text>
+              </TouchableOpacity>
+            )}
+            {premium.isPremium && (
+              <TouchableOpacity
+                style={styles.linkBtn}
+                onPress={async () => { await clearPremium(); premium.refresh(); }}
+              >
+                <Text style={styles.linkBtnText}>İptal</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+
+          <View style={styles.accountDivider} />
+
+          <TouchableOpacity
+            style={styles.accountRow}
+            onPress={() => toggleReminders(!remindersOn)}
+            activeOpacity={0.7}
+          >
+            <View style={{ flex: 1 }}>
+              <Text style={styles.accountLabel}>Günlük Hatırlatma</Text>
+              <Text style={styles.accountSub}>Her sabah 08:00'de rehberin gelsin</Text>
+            </View>
+            <View style={[styles.toggle, remindersOn && styles.toggleOn]}>
+              <View style={[styles.toggleDot, remindersOn && styles.toggleDotOn]} />
+            </View>
+          </TouchableOpacity>
+
+          {session && (
+            <>
+              <View style={styles.accountDivider} />
+              <View style={styles.accountRow}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.accountLabel}>{session.user.email || 'Hesap'}</Text>
+                  <Text style={styles.accountSub}>Veriler buluta yedekleniyor</Text>
+                </View>
+                <TouchableOpacity style={styles.linkBtn} onPress={signOut}>
+                  <Text style={styles.linkBtnText}>Çıkış</Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          )}
+        </View>
+      </View>
+
+      {/* ── Kişisel Harita ── */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Kişisel Harita</Text>
 
@@ -350,9 +449,11 @@ export function ProfileScreen() {
                     Human Design · Strateji: {analysis.hd.strategy}
                   </Text>
                 </View>
-                <TouchableOpacity onPress={() => setShowHDPicker(v => !v)} style={styles.hdEditBtn}>
-                  <Text style={[styles.hdEditText, { color: Colors.purple }]}>✎</Text>
-                </TouchableOpacity>
+                {premium.isPremium && (
+                  <TouchableOpacity onPress={() => setShowHDPicker(v => !v)} style={styles.hdEditBtn}>
+                    <Text style={[styles.hdEditText, { color: Colors.purple }]}>✎</Text>
+                  </TouchableOpacity>
+                )}
               </View>
               {showHDPicker && (
                 <View style={[styles.hdPicker, { borderColor: Colors.purple + '30' }]}>
@@ -370,11 +471,21 @@ export function ProfileScreen() {
                   ))}
                 </View>
               )}
-              <Text style={styles.analysisDesc}>{analysis.hd.desc}</Text>
-              <View style={[styles.notSelfBox, { borderColor: Colors.purple + '30' }]}>
-                <Text style={[styles.notSelfLabel, { color: Colors.purple }]}>Not-Self Tema</Text>
-                <Text style={styles.notSelfText}>{analysis.hd.notSelf}</Text>
-              </View>
+              {premium.isPremium ? (
+                <>
+                  <Text style={styles.analysisDesc}>{analysis.hd.desc}</Text>
+                  <View style={[styles.notSelfBox, { borderColor: Colors.purple + '30' }]}>
+                    <Text style={[styles.notSelfLabel, { color: Colors.purple }]}>Not-Self Tema</Text>
+                    <Text style={styles.notSelfText}>{analysis.hd.notSelf}</Text>
+                  </View>
+                </>
+              ) : (
+                <PremiumTeaser
+                  hint="Stratejin, otoriteni ve not-self temanı detaylı oku"
+                  color={Colors.purple}
+                  onUnlock={() => setShowPaywall(true)}
+                />
+              )}
             </View>
 
             {/* Weekly Reading */}
@@ -385,17 +496,29 @@ export function ProfileScreen() {
                 </View>
                 <View style={styles.analysisHeaderText}>
                   <Text style={[styles.analysisTitle, { color: Colors.tealLight }]}>
-                    {analysis.weekly.theme}
+                    {premium.isPremium ? analysis.weekly.theme : 'Haftalık Rehberlik'}
                   </Text>
                   <Text style={styles.analysisMeta}>
-                    Haftalık Rehberlik · {analysis.weekly.weekNumber}. hafta
+                    {premium.isPremium
+                      ? `Haftalık Rehberlik · ${analysis.weekly.weekNumber}. hafta`
+                      : 'Bu haftaya özel okuma'}
                   </Text>
                 </View>
               </View>
-              <Text style={styles.analysisDesc}>{analysis.weekly.message}</Text>
-              <Text style={[styles.analysisMeta, { marginTop: Spacing.xs }]}>
-                Kişisel yıl: {analysis.weekly.personalYear}
-              </Text>
+              {premium.isPremium ? (
+                <>
+                  <Text style={styles.analysisDesc}>{analysis.weekly.message}</Text>
+                  <Text style={[styles.analysisMeta, { marginTop: Spacing.xs }]}>
+                    Kişisel yıl: {analysis.weekly.personalYear}
+                  </Text>
+                </>
+              ) : (
+                <PremiumTeaser
+                  hint="52 haftalık döngünde nereye geldiğini öğren"
+                  color={Colors.teal}
+                  onUnlock={() => setShowPaywall(true)}
+                />
+              )}
             </View>
           </>
         ) : showBirthForm ? (
@@ -445,7 +568,7 @@ export function ProfileScreen() {
               onPress={handleSaveBirthData}
               disabled={editFullName.trim().length === 0 || !birthDataValid(editDay, editMonth, editYear)}
             >
-              <Text style={styles.onboardingBtnText}>Haritasını Oluştur ✦</Text>
+              <Text style={styles.onboardingBtnText}>Haritamı Oluştur ✦</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setShowBirthForm(false)} style={styles.skipBtn}>
               <Text style={styles.skipText}>İptal</Text>
@@ -485,7 +608,7 @@ export function ProfileScreen() {
           <View style={styles.animalInfoCard}>
             <Text style={styles.animalInfoSection}>🐺 Totem Hayvan</Text>
             <Text style={styles.animalInfoText}>
-              Her insan, doğasında bir hayvanın ruhunu taşır. Bu totem hayvan seni temsil eder; enerjin, güçlü yanların ve yürüdüğün yol onun izlerini taşır. Totem değişmez — seninle doğar, seninle gelişir.
+              Her insan, doğasında bir hayvanın ruhunu taşır. Bu totem hayvan seni temsil eder; enerjin, gülüç yanların ve yürüdüğün yol onun izlerini taşır. Totem değişmez — seninle doğar, seninle gelişir.
             </Text>
             <View style={styles.animalInfoDivider} />
             <Text style={styles.animalInfoSection}>🌀 Nagual — Dönemsel Rehber</Text>
@@ -497,15 +620,19 @@ export function ProfileScreen() {
 
         <TouchableOpacity
           style={styles.finderBtn}
-          onPress={() => setShowAnimalFinder(true)}
+          onPress={() => premium.isPremium ? setShowAnimalFinder(true) : setShowPaywall(true)}
           activeOpacity={0.85}
         >
           <Text style={styles.finderBtnEmoji}>🐾</Text>
           <View style={styles.finderBtnText}>
             <Text style={styles.finderBtnTitle}>Hayvan Rehberini Bul</Text>
-            <Text style={styles.finderBtnDesc}>Sorularla ya da doğum tarih/saatinle</Text>
+            <Text style={styles.finderBtnDesc}>
+              {premium.isPremium ? 'Sorularla ya da doğum tarih/saatinle' : 'Üstad özelliği ✦'}
+            </Text>
           </View>
-          <Text style={[styles.infoToggleArrow, { color: Colors.tealLight }]}>→</Text>
+          <Text style={[styles.infoToggleArrow, { color: Colors.tealLight }]}>
+            {premium.isPremium ? '→' : '✦'}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -549,13 +676,41 @@ export function ProfileScreen() {
             <View style={styles.spiritInfo}>
               <Text style={styles.spiritLabel}>Nagual Rehberin</Text>
               <Text style={[styles.spiritValue, { color: Colors.emberLight }]}>{topNagual.name}</Text>
-              <Text style={styles.spiritCount}>{(stats.nagualCounts || {})[topNagual.id] || 0} kez çağrıldı · {topNagual.aspect}</Text>
+              <Text style={styles.spiritCount}>{(stats.nagualCounts || {})[topNagual.id] || 0} kez çağrıldı · {(topNagual as any).aspect}</Text>
             </View>
           </View>
         )}
         {totalReadings === 0 && (
-          <Text style={styles.emptyHint}>İlk kartını aç, ruhsal haritanız oluşmaya başlasun.</Text>
+          <Text style={styles.emptyHint}>İlk kartını aç, ruhsal haritanız oluşmaya başlasın.</Text>
         )}
+      </View>
+
+      {/* Sakin Ailesi */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Sakin Ailesi</Text>
+        <Text style={styles.familyIntro}>
+          Tek hesap. Tek abonelik. Birçok kapı.
+        </Text>
+        <View style={styles.familyGrid}>
+          {[
+            { name: 'Sakin Master',   symbol: '✦', desc: 'Sabah niyeti · Nefes · Çakra',     status: 'soon' },
+            { name: 'Sakin Kristal',  symbol: '◈', desc: 'Taşların dilini öğren',             status: 'soon' },
+            { name: 'Human Design',   symbol: '⊕', desc: 'Tasarımını tanı',                   status: 'soon' },
+            { name: 'Tarot',          symbol: '⊙', desc: 'Sembolün rehberliği',               status: 'soon' },
+            { name: 'Numeroloji',     symbol: '◎', desc: 'Sayıların ardındaki sen',           status: 'soon' },
+          ].map(app => (
+            <View key={app.name} style={styles.familyCard}>
+              <Text style={styles.familySymbol}>{app.symbol}</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.familyName}>{app.name}</Text>
+                <Text style={styles.familyDesc}>{app.desc}</Text>
+              </View>
+              <View style={styles.familyBadge}>
+                <Text style={styles.familyBadgeText}>YAKINDA</Text>
+              </View>
+            </View>
+          ))}
+        </View>
       </View>
 
       {/* Rozetler */}
@@ -585,6 +740,22 @@ export function ProfileScreen() {
         </View>
       </View>
     </ScrollView>
+  );
+}
+
+function PremiumTeaser({
+  hint, color, onUnlock,
+}: { hint: string; color: string; onUnlock: () => void }) {
+  return (
+    <TouchableOpacity
+      style={[styles.teaserBox, { borderColor: color + '40', backgroundColor: color + '10' }]}
+      onPress={onUnlock}
+      activeOpacity={0.85}
+    >
+      <Text style={[styles.teaserLock, { color }]}>✦</Text>
+      <Text style={styles.teaserHint}>{hint}</Text>
+      <Text style={[styles.teaserCTA, { color }]}>Üstad Ol →</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -845,12 +1016,8 @@ const styles = StyleSheet.create({
     lineHeight: Typography.size.xs * 1.7,
   },
 
-  hdEditBtn: {
-    padding: 4,
-  },
-  hdEditText: {
-    fontSize: 16,
-  },
+  hdEditBtn: { padding: 4 },
+  hdEditText: { fontSize: 16 },
   hdPicker: {
     borderWidth: 1,
     borderRadius: BorderRadius.sm,
@@ -995,4 +1162,135 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   badgeDesc: { fontSize: 10, color: Colors.textMuted, textAlign: 'center' },
+
+  accountCard: {
+    backgroundColor: Colors.backgroundCard,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
+    overflow: 'hidden',
+  },
+  accountRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.md,
+    gap: Spacing.md,
+  },
+  accountLabel: {
+    fontSize: Typography.size.sm,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textPrimary,
+  },
+  accountSub: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    marginTop: 2,
+  },
+  accountDivider: { height: 1, backgroundColor: Colors.divider, marginHorizontal: Spacing.md },
+  upgradeBtn: {
+    backgroundColor: Colors.gold,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+    borderRadius: BorderRadius.round,
+  },
+  upgradeBtnText: {
+    fontSize: Typography.size.xs,
+    fontWeight: Typography.weight.bold,
+    color: '#1A1208',
+    letterSpacing: 0.5,
+  },
+  linkBtn: { paddingHorizontal: Spacing.sm, paddingVertical: Spacing.xs },
+  linkBtnText: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    letterSpacing: 0.5,
+  },
+  toggle: {
+    width: 40, height: 22,
+    borderRadius: 11,
+    backgroundColor: Colors.divider,
+    padding: 2,
+    justifyContent: 'center',
+  },
+  toggleOn: { backgroundColor: Colors.gold },
+  toggleDot: {
+    width: 18, height: 18,
+    borderRadius: 9,
+    backgroundColor: Colors.background,
+  },
+  toggleDotOn: { transform: [{ translateX: 18 }] },
+
+  teaserBox: {
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderRadius: BorderRadius.sm,
+    padding: Spacing.md,
+    alignItems: 'center',
+    marginTop: Spacing.xs,
+  },
+  teaserLock: { fontSize: 20, marginBottom: 4 },
+  teaserHint: {
+    fontSize: Typography.size.xs,
+    color: Colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: Typography.size.xs * 1.6,
+    marginBottom: Spacing.sm,
+  },
+  teaserCTA: {
+    fontSize: Typography.size.xs,
+    fontWeight: Typography.weight.semibold,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+
+  familyIntro: {
+    fontSize: Typography.size.xs,
+    color: Colors.sakinLavender,
+    letterSpacing: 1.5,
+    fontStyle: 'italic',
+    marginTop: -Spacing.sm,
+    marginBottom: Spacing.md,
+  },
+  familyGrid: { gap: Spacing.sm },
+  familyCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.md,
+    padding: Spacing.md,
+    backgroundColor: Colors.backgroundCard,
+    borderWidth: 1,
+    borderColor: Colors.sakinLavender + '25',
+    borderRadius: BorderRadius.md,
+  },
+  familySymbol: {
+    fontSize: 20,
+    color: Colors.sakinLavender,
+    width: 28,
+    textAlign: 'center',
+  },
+  familyName: {
+    fontSize: Typography.size.sm,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.textPrimary,
+    letterSpacing: 0.3,
+  },
+  familyDesc: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    marginTop: 2,
+  },
+  familyBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderWidth: 1,
+    borderColor: Colors.sakinLavender + '50',
+    borderRadius: BorderRadius.round,
+  },
+  familyBadgeText: {
+    fontSize: 9,
+    color: Colors.sakinLavender,
+    letterSpacing: 1.5,
+    fontWeight: Typography.weight.semibold,
+  },
 });
