@@ -18,7 +18,7 @@ import { getHDProfile } from '../utils/humanDesign';
 import { getWeeklyReading } from '../utils/weeklyReading';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { PaywallScreen } from './PaywallScreen';
-import { usePremium, clearPremium } from '../lib/premium';
+import { usePremium, clearPremium, activateMockPremium } from '../lib/premium';
 import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermission } from '../lib/notifications';
 
 const ELEMENTS = ['ateş', 'su', 'toprak', 'hava'] as const;
@@ -739,6 +739,25 @@ export function ProfileScreen() {
           })}
         </View>
       </View>
+
+      {/* ── DEV ── */}
+      <View style={styles.devSection}>
+        <TouchableOpacity
+          style={styles.devBtn}
+          onPress={async () => {
+            if (premium.isPremium) {
+              await clearPremium();
+            } else {
+              await activateMockPremium('yearly');
+            }
+            premium.refresh();
+          }}
+        >
+          <Text style={styles.devBtnText}>
+            {premium.isPremium ? '⚙ DEV · Premium Kapat' : '⚙ DEV · Premium Aç'}
+          </Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -762,6 +781,21 @@ function PremiumTeaser({
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   scrollContent: { paddingBottom: Spacing.xxxl },
+  devSection: { padding: Spacing.lg, paddingTop: 0, alignItems: 'center' },
+  devBtn: {
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.lg,
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
+    borderRadius: BorderRadius.sm,
+    borderStyle: 'dashed',
+    opacity: 0.4,
+  },
+  devBtnText: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    letterSpacing: 1,
+  },
   onboarding: {
     alignItems: 'center',
     justifyContent: 'center',
