@@ -18,6 +18,7 @@ import stonesData from '../data/stones.json';
 import animalsData from '../data/animals.json';
 import philosophersData from '../data/philosophers.json';
 import { useTuraStore } from '../store/useStore';
+import { AnimalDetailScreen } from './AnimalDetailScreen';
 
 interface HomeScreenProps {
   onNavigateToProfile?: () => void;
@@ -29,11 +30,12 @@ const CARD_H = Math.round(CARD_W * 1.75);
 const STACK = 7;
 
 const DECKS = [
-  { title: 'Sözler', short: 'SÖZ',    subtitle: 'Anadolu bilgeliğinden',          color: Colors.gold,   motif: '✦' },
-  { title: 'Taşlar', short: 'TAŞ',    subtitle: 'Kristal enerjisinden',            color: Colors.purple, motif: '◈' },
-  { title: 'Hayvan', short: 'HAYVAN', subtitle: 'A. Nilgün Arıt\'in rehberliğiyle', color: Colors.teal,   motif: '⊕' },
+  { title: 'Hayvan', short: 'HAYVAN', subtitle: 'Ruhunun yoldaşını dinle',  color: Colors.teal,   motif: '⊕' },
+  { title: 'Taşlar', short: 'TAŞ',    subtitle: 'Kristal enerjisinden',     color: Colors.purple, motif: '◈' },
+  { title: 'Sözler', short: 'SÖZ',    subtitle: 'Anadolu bilgeliğinden',    color: Colors.gold,   motif: '✦' },
 ];
 
+// ─── Kilim band ────────────────────────────────────────────────────────────────
 function KilimBand({ color }: { color: string }) {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 3 }}>
@@ -44,6 +46,7 @@ function KilimBand({ color }: { color: string }) {
   );
 }
 
+// ─── Graceful image with emoji/symbol fallback ────────────────────────────────
 function FallbackImage({
   uri,
   fallback,
@@ -80,6 +83,7 @@ function PortraitImage({ uri, color }: { uri?: string; color: string }) {
   );
 }
 
+// ─── Card content components ───────────────────────────────────────────────────
 function QuoteContent({ quote }: { quote: typeof quotesData[0] }) {
   const philosopher = (philosophersData as Record<string, { imageUrl?: string }>)[quote.source];
   return (
@@ -118,7 +122,7 @@ function StoneContent({ stone }: { stone: typeof stonesData[0] }) {
   );
 }
 
-function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
+function AnimalContent({ animal, onOpenDetail }: { animal: typeof animalsData[0]; onOpenDetail: () => void }) {
   return (
     <View style={cs.container}>
       <View style={[cs.medallion, { borderColor: Colors.teal + '50' }]}>
@@ -130,17 +134,27 @@ function AnimalContent({ animal }: { animal: typeof animalsData[0] }) {
           />
         </View>
       </View>
-      <Text style={[cs.itemName, { color: Colors.tealLight }]}>{animal.name}</Text>
+      <TouchableOpacity onPress={onOpenDetail} activeOpacity={0.7}>
+        <Text style={[cs.itemName, { color: Colors.tealLight }]}>
+          {animal.name}  <Text style={cs.openHint}>→</Text>
+        </Text>
+      </TouchableOpacity>
       <Text style={cs.meta}>{animal.element} · {animal.symbolism[0]}</Text>
       <View style={[cs.divider, { backgroundColor: Colors.teal }]} />
       <Text style={cs.body}>{animal.dailyMessage}</Text>
       <View style={[cs.affirmBox, { borderColor: Colors.teal + '35' }]}>
         <Text style={[cs.affirmText, { color: Colors.tealLight }]}>{animal.guidance}</Text>
       </View>
+      <TouchableOpacity onPress={onOpenDetail} style={cs.detailBtn} activeOpacity={0.8}>
+        <Text style={[cs.detailBtnText, { color: Colors.tealLight }]}>
+          {animal.name}'ın derin rehberliği →
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
+// ─── Mini deck indicator ────────────────────────────────────────────────────────
 function MiniDeck({ deck, state }: { deck: typeof DECKS[0]; state: 'done' | 'active' | 'pending' }) {
   const color = state === 'pending' ? Colors.textMuted : deck.color;
   return (
@@ -160,6 +174,7 @@ function MiniDeck({ deck, state }: { deck: typeof DECKS[0]; state: 'done' | 'act
   );
 }
 
+// ─── Home screen ───────────────────────────────────────────────────────────────
 export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const insets = useSafeAreaInsets();
   const { profile, dailyReading, generateDailyReading, updateStats } = useTuraStore();
@@ -168,6 +183,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const [step, setStep]       = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [done, setDone]       = useState(false);
+  const [showAnimalDetail, setShowAnimalDetail] = useState(false);
 
   const backFade  = useRef(new Animated.Value(1)).current;
   const frontFade = useRef(new Animated.Value(0)).current;
@@ -186,6 +202,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     }
   }, []);
 
+  // Shake detection
   useEffect(() => {
     let sub: { remove: () => void } | null = null;
     let lx = 0, ly = 0, lz = 0, cool = false;
@@ -249,10 +266,15 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     return 'İyi akşamlar';
   };
 
+  if (showAnimalDetail && animal) {
+    return <AnimalDetailScreen animal={animal as any} onClose={() => setShowAnimalDetail(false)} />;
+  }
+
   return (
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={Colors.background} />
 
+      {/* Header */}
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>{greeting()}</Text>
@@ -265,9 +287,11 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
         </TouchableOpacity>
       </View>
 
+      {/* Main area */}
       <View style={styles.main}>
 
         {done ? (
+          /* ── Done screen ── */
           <View style={styles.doneWrap}>
             <Text style={{ fontSize: 40, color: Colors.gold }}>☀</Text>
             <Text style={styles.doneTitle}>Günlük rehberlik{'\n'}tamamlandı</Text>
@@ -284,7 +308,9 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
 
         ) : (
           <>
+            {/* ── Deck stack + card ── */}
             <View style={styles.deckOuter}>
+              {/* Shadow cards (deck effect) */}
               <View style={[styles.shadowCard, {
                 borderColor: deck.color + '18',
                 top: 0, left: STACK * 2,
@@ -294,7 +320,9 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                 top: STACK * 0.6, left: STACK,
               }]} />
 
+              {/* Main card */}
               <View style={[styles.card, { top: STACK, left: 0, borderColor: deck.color + '55' }]}>
+                {/* Back side */}
                 <Animated.View
                   style={[StyleSheet.absoluteFill, { opacity: backFade }]}
                   pointerEvents={revealed ? 'none' : 'auto'}
@@ -337,6 +365,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                   </TouchableOpacity>
                 </Animated.View>
 
+                {/* Front side */}
                 <Animated.View
                   style={[StyleSheet.absoluteFill, { opacity: frontFade }]}
                   pointerEvents={revealed ? 'auto' : 'none'}
@@ -350,9 +379,9 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                     contentContainerStyle={styles.scrollPad}
                     showsVerticalScrollIndicator={false}
                   >
-                    {step === 0 && quote  && <QuoteContent quote={quote} />}
+                    {step === 0 && animal && <AnimalContent animal={animal} onOpenDetail={() => setShowAnimalDetail(true)} />}
                     {step === 1 && stone  && <StoneContent stone={stone} />}
-                    {step === 2 && animal && <AnimalContent animal={animal} />}
+                    {step === 2 && quote  && <QuoteContent quote={quote} />}
                   </ScrollView>
                   <TouchableOpacity
                     style={[styles.nextBtn, { borderColor: deck.color }]}
@@ -367,6 +396,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
               </View>
             </View>
 
+            {/* ── Mini deck progress ── */}
             <View style={styles.deckRow}>
               {DECKS.map((d, i) => (
                 <MiniDeck
@@ -383,6 +413,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   );
 }
 
+// ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: Colors.background },
 
@@ -559,6 +590,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// Mini deck styles
 const ms = StyleSheet.create({
   wrapper: { alignItems: 'center', gap: 4 },
   card: {
@@ -582,6 +614,7 @@ const ms = StyleSheet.create({
   },
 });
 
+// Content styles
 const cs = StyleSheet.create({
   container: { alignItems: 'center' },
   portrait: {
@@ -673,5 +706,24 @@ const cs = StyleSheet.create({
     fontStyle: 'italic',
     lineHeight: Typography.size.xs * 1.7,
     fontWeight: Typography.weight.light,
+  },
+  openHint: {
+    fontSize: 10,
+    color: Colors.tealLight,
+    opacity: 0.6,
+  },
+  detailBtn: {
+    marginTop: Spacing.sm,
+    paddingVertical: 6,
+    paddingHorizontal: Spacing.md,
+    borderWidth: 1,
+    borderColor: Colors.teal + '40',
+    borderRadius: BorderRadius.round,
+  },
+  detailBtnText: {
+    fontSize: 10,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    fontWeight: Typography.weight.semibold,
   },
 });
