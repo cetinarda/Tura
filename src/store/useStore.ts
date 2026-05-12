@@ -142,12 +142,18 @@ export function useTuraStore() {
     element: UserProfile['element'],
     birthDate?: string,
     fullName?: string,
+    birthHour?: number,
+    birthMinute?: number,
+    birthCity?: string,
   ) => {
     const p: UserProfile = {
       name,
       element,
       birthDate,
       fullName,
+      birthHour,
+      birthMinute,
+      birthCity,
       createdAt: new Date().toISOString(),
       streak: 0,
       totalReadings: 0,

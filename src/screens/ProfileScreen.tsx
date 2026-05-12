@@ -67,6 +67,9 @@ export function ProfileScreen() {
   const [birthDay, setBirthDay] = useState('');
   const [birthMonth, setBirthMonth] = useState('');
   const [birthYear, setBirthYear] = useState('');
+  const [birthHour, setBirthHour] = useState('');
+  const [birthMinuteOb, setBirthMinuteOb] = useState('');
+  const [birthCity, setBirthCity] = useState('');
 
   // inline birth data edit (when already profiled but no birth data)
   const [showBirthForm, setShowBirthForm] = useState(false);
@@ -145,7 +148,14 @@ export function ProfileScreen() {
       const bd = birthDataValid(birthDay, birthMonth, birthYear)
         ? formatBirthDate(birthDay, birthMonth, birthYear)
         : undefined;
-      await createProfile(name.trim(), element, bd, fullName.trim() || undefined);
+      const h  = parseInt(birthHour);
+      const mi = parseInt(birthMinuteOb);
+      await createProfile(
+        name.trim(), element, bd, fullName.trim() || undefined,
+        !isNaN(h)  && h  >= 0 && h  <= 23 ? h  : undefined,
+        !isNaN(mi) && mi >= 0 && mi <= 59  ? mi : undefined,
+        birthCity.trim() || undefined,
+      );
       setShowOnboarding(false);
     }
   };
@@ -175,113 +185,158 @@ export function ProfileScreen() {
   if (showOnboarding || isNewUser) {
     return (
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor: Colors.background }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-      <View style={[styles.container, styles.onboarding, { paddingTop: insets.top }]}>
-        <Text style={styles.onboardingEmoji}>☾</Text>
-        <Text style={styles.onboardingTitle}>TURA'ya Hoş Geldin</Text>
-        <Text style={styles.onboardingSubtitle}>
-          Anadolu'nun kadim geleneğinden günlük rehberlik
-        </Text>
-
-        {step === 1 && (
-          <>
-            <Text style={styles.onboardingQuestion}>Adın nedir, yolcu?</Text>
-            <TextInput
-              style={styles.nameInput}
-              value={name}
-              onChangeText={setName}
-              placeholder="Adını yaz..."
-              placeholderTextColor={Colors.textMuted}
-              autoFocus
-            />
-          </>
-        )}
-
-        {step === 2 && (
-          <>
-            <Text style={styles.onboardingQuestion}>Hangi unsura yakın hissediyorsun?</Text>
-            <View style={styles.elementsGrid}>
-              {ELEMENTS.map(el => (
-                <TouchableOpacity
-                  key={el}
-                  style={[styles.elementBtn, element === el && styles.elementBtnActive]}
-                  onPress={() => setElement(el)}
-                >
-                  <Text style={styles.elementEmoji}>{ELEMENT_EMOJIS[el]}</Text>
-                  <Text style={[styles.elementName, { color: element === el ? Colors.gold : Colors.textSecondary }]}>
-                    {el.charAt(0).toUpperCase() + el.slice(1)}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </>
-        )}
-
-        {step === 3 && (
-          <>
-            <Text style={styles.onboardingQuestion}>Derin analiz için</Text>
-            <Text style={styles.onboardingHint}>
-              İsim analizi, numaroloji ve kişisel harita oluşturmak için.{'\n'}
-              İstersen atlayabilirsin.
-            </Text>
-            <TextInput
-              style={styles.nameInput}
-              value={fullName}
-              onChangeText={setFullName}
-              placeholder="İsim Soyisim..."
-              placeholderTextColor={Colors.textMuted}
-              autoCapitalize="words"
-            />
-            <View style={styles.dateRow}>
-              <TextInput
-                style={[styles.dateInput, { flex: 1 }]}
-                value={birthDay}
-                onChangeText={setBirthDay}
-                placeholder="Gün"
-                placeholderTextColor={Colors.textMuted}
-                keyboardType="number-pad"
-                maxLength={2}
-              />
-              <TextInput
-                style={[styles.dateInput, { flex: 1 }]}
-                value={birthMonth}
-                onChangeText={setBirthMonth}
-                placeholder="Ay"
-                placeholderTextColor={Colors.textMuted}
-                keyboardType="number-pad"
-                maxLength={2}
-              />
-              <TextInput
-                style={[styles.dateInput, { flex: 2 }]}
-                value={birthYear}
-                onChangeText={setBirthYear}
-                placeholder="Yıl"
-                placeholderTextColor={Colors.textMuted}
-                keyboardType="number-pad"
-                maxLength={4}
-              />
-            </View>
-          </>
-        )}
-
-        <TouchableOpacity
-          style={[styles.onboardingBtn, { opacity: step === 1 && name.trim().length === 0 ? 0.4 : 1 }]}
-          onPress={handleOnboarding}
-          disabled={step === 1 && name.trim().length === 0}
+        {/* Scrollable content */}
+        <ScrollView
+          style={{ flex: 1, paddingTop: insets.top }}
+          contentContainerStyle={styles.onboardingScroll}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.onboardingBtnText}>
-            {step === 1 ? 'Devam Et →' : step === 2 ? 'Devam Et →' : 'Yola Çık ✦'}
+          <Text style={styles.onboardingEmoji}>☾</Text>
+          <Text style={styles.onboardingTitle}>TURA'ya Hoş Geldin</Text>
+          <Text style={styles.onboardingSubtitle}>
+            Anadolu'nun kadim geleneğinden günlük rehberlik
           </Text>
-        </TouchableOpacity>
 
-        {step === 3 && (
-          <TouchableOpacity onPress={handleSkipBirth} style={styles.skipBtn}>
-            <Text style={styles.skipText}>Şimdi değil, atla</Text>
+          {step === 1 && (
+            <>
+              <Text style={styles.onboardingQuestion}>Adın nedir, yolcu?</Text>
+              <TextInput
+                style={styles.nameInput}
+                value={name}
+                onChangeText={setName}
+                placeholder="Adını yaz..."
+                placeholderTextColor={Colors.textMuted}
+                autoFocus
+              />
+            </>
+          )}
+
+          {step === 2 && (
+            <>
+              <Text style={styles.onboardingQuestion}>Hangi unsura yakın hissediyorsun?</Text>
+              <View style={styles.elementsGrid}>
+                {ELEMENTS.map(el => (
+                  <TouchableOpacity
+                    key={el}
+                    style={[styles.elementBtn, element === el && styles.elementBtnActive]}
+                    onPress={() => setElement(el)}
+                  >
+                    <Text style={styles.elementEmoji}>{ELEMENT_EMOJIS[el]}</Text>
+                    <Text style={[styles.elementName, { color: element === el ? Colors.gold : Colors.textSecondary }]}>
+                      {el.charAt(0).toUpperCase() + el.slice(1)}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </>
+          )}
+
+          {step === 3 && (
+            <>
+              <Text style={styles.onboardingQuestion}>Kişisel harita için</Text>
+              <Text style={styles.onboardingHint}>
+                Numaroloji, Human Design ve element analizi.{'\n'}
+                Daha fazla bilgi = daha güçlü tahmin.
+              </Text>
+              <TextInput
+                style={styles.nameInput}
+                value={fullName}
+                onChangeText={setFullName}
+                placeholder="İsim Soyisim..."
+                placeholderTextColor={Colors.textMuted}
+                autoCapitalize="words"
+              />
+              <Text style={styles.obFieldLabel}>Doğum Tarihi</Text>
+              <View style={styles.dateRow}>
+                <TextInput
+                  style={[styles.dateInput, { flex: 1 }]}
+                  value={birthDay}
+                  onChangeText={setBirthDay}
+                  placeholder="Gün"
+                  placeholderTextColor={Colors.textMuted}
+                  keyboardType="number-pad"
+                  maxLength={2}
+                />
+                <TextInput
+                  style={[styles.dateInput, { flex: 1 }]}
+                  value={birthMonth}
+                  onChangeText={setBirthMonth}
+                  placeholder="Ay"
+                  placeholderTextColor={Colors.textMuted}
+                  keyboardType="number-pad"
+                  maxLength={2}
+                />
+                <TextInput
+                  style={[styles.dateInput, { flex: 2 }]}
+                  value={birthYear}
+                  onChangeText={setBirthYear}
+                  placeholder="Yıl"
+                  placeholderTextColor={Colors.textMuted}
+                  keyboardType="number-pad"
+                  maxLength={4}
+                />
+              </View>
+              <Text style={styles.obFieldLabel}>
+                Doğum Saati <Text style={styles.obFieldOpt}>(opsiyonel · HD için)</Text>
+              </Text>
+              <View style={styles.dateRow}>
+                <TextInput
+                  style={[styles.dateInput, { flex: 1 }]}
+                  value={birthHour}
+                  onChangeText={setBirthHour}
+                  placeholder="Saat"
+                  placeholderTextColor={Colors.textMuted}
+                  keyboardType="number-pad"
+                  maxLength={2}
+                />
+                <Text style={styles.obTimeSep}>:</Text>
+                <TextInput
+                  style={[styles.dateInput, { flex: 1 }]}
+                  value={birthMinuteOb}
+                  onChangeText={setBirthMinuteOb}
+                  placeholder="Dk"
+                  placeholderTextColor={Colors.textMuted}
+                  keyboardType="number-pad"
+                  maxLength={2}
+                />
+                <View style={{ flex: 2 }} />
+              </View>
+              <Text style={styles.obFieldLabel}>
+                Doğum Şehri <Text style={styles.obFieldOpt}>(opsiyonel)</Text>
+              </Text>
+              <TextInput
+                style={[styles.nameInput, { marginBottom: Spacing.xl }]}
+                value={birthCity}
+                onChangeText={setBirthCity}
+                placeholder="İstanbul, Ankara..."
+                placeholderTextColor={Colors.textMuted}
+                autoCapitalize="words"
+              />
+            </>
+          )}
+        </ScrollView>
+
+        {/* Pinned CTA at bottom */}
+        <View style={[styles.onboardingFooter, { paddingBottom: insets.bottom + Spacing.md }]}>
+          <TouchableOpacity
+            style={[styles.onboardingBtn, { opacity: step === 1 && name.trim().length === 0 ? 0.4 : 1 }]}
+            onPress={handleOnboarding}
+            disabled={step === 1 && name.trim().length === 0}
+          >
+            <Text style={styles.onboardingBtnText}>
+              {step < 3 ? 'Devam Et →' : 'Yola Çık ✦'}
+            </Text>
           </TouchableOpacity>
-        )}
-      </View>
+          {step === 3 && (
+            <TouchableOpacity onPress={handleSkipBirth} style={styles.skipBtn}>
+              <Text style={styles.skipText}>Şimdi değil, atla</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -957,9 +1012,23 @@ const styles = StyleSheet.create({
   },
   onboarding: {
     alignItems: 'center',
-    justifyContent: 'center',
     padding: Spacing.xl,
     gap: Spacing.md,
+  },
+  onboardingScroll: {
+    alignItems: 'center',
+    paddingHorizontal: Spacing.xl,
+    paddingTop: Spacing.xl,
+    paddingBottom: Spacing.md,
+    gap: Spacing.md,
+  },
+  onboardingFooter: {
+    paddingHorizontal: Spacing.xl,
+    paddingTop: Spacing.sm,
+    gap: Spacing.xs,
+    backgroundColor: Colors.background,
+    borderTopWidth: 1,
+    borderTopColor: Colors.divider,
   },
   onboardingEmoji: { fontSize: 56, marginBottom: Spacing.sm },
   onboardingTitle: {
@@ -998,10 +1067,29 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: 'center',
   },
+  obFieldLabel: {
+    alignSelf: 'flex-start',
+    fontSize: Typography.size.xs,
+    color: Colors.textSecondary,
+    letterSpacing: 0.5,
+    marginBottom: 4,
+    marginTop: Spacing.sm,
+  },
+  obFieldOpt: {
+    color: Colors.textMuted,
+    fontStyle: 'italic',
+  },
+  obTimeSep: {
+    fontSize: Typography.size.lg,
+    color: Colors.textMuted,
+    alignSelf: 'center',
+    marginTop: 2,
+  },
   dateRow: {
     flexDirection: 'row',
     gap: Spacing.sm,
     width: '100%',
+    alignItems: 'center',
   },
   dateInput: {
     borderWidth: 1,
