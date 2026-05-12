@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  ScrollView,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
@@ -13,16 +12,14 @@ import { HelpButton } from '../components/HelpButton';
 import { AnimalLibraryScreen } from './AnimalLibraryScreen';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { NagualScreen } from './NagualScreen';
-import { MythsScreen } from './MythsScreen';
 import { useTuraStore } from '../store/useStore';
 
-type Panel = 'library' | 'finder' | 'nagual' | 'myths';
+type Panel = 'library' | 'finder' | 'nagual';
 
 const PANELS = [
-  { key: 'library' as Panel, title: 'Hayvanlar', symbol: '⊕', color: Colors.tealLight,     helpKey: 'totem' },
-  { key: 'finder'  as Panel, title: 'Bul',       symbol: '✦', color: Colors.gold,          helpKey: 'rehber' },
-  { key: 'nagual'  as Panel, title: 'Nagual',    symbol: '◈', color: Colors.ember,         helpKey: 'nagual' },
-  { key: 'myths'   as Panel, title: 'Mitler',    symbol: '⚡', color: Colors.sakinLavender, helpKey: 'mit' },
+  { key: 'library' as Panel, title: 'Hayvanlar', symbol: '⊕', color: Colors.tealLight, helpKey: 'totem' },
+  { key: 'finder'  as Panel, title: 'Bul',       symbol: '✦', color: Colors.gold,      helpKey: 'rehber' },
+  { key: 'nagual'  as Panel, title: 'Nagual',    symbol: '◈', color: Colors.ember,     helpKey: 'nagual' },
 ];
 
 export function AnimalsHubScreen() {
@@ -82,7 +79,6 @@ export function AnimalsHubScreen() {
         {panel === 'library' && <AnimalLibraryScreen onClose={noClose} embedded />}
         {panel === 'finder'  && <AnimalFinderScreen  onClose={noClose} embedded prefillBirthDate={profile?.birthDate} />}
         {panel === 'nagual'  && <NagualScreen        onClose={noClose} embedded />}
-        {panel === 'myths'   && <MythsScreen         onClose={noClose} embedded />}
       </View>
     </View>
   );

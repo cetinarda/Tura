@@ -14,7 +14,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import quotesData from '../data/quotes.json';
-import stonesData from '../data/stones.json';
 import animalsData from '../data/animals.json';
 import philosophersData from '../data/philosophers.json';
 import { useTuraStore } from '../store/useStore';
@@ -30,9 +29,8 @@ const CARD_H = Math.round(CARD_W * 1.75);
 const STACK = 7;
 
 const DECKS = [
-  { title: 'Hayvan', short: 'HAYVAN', subtitle: 'Ruhunun yoldaşını dinle',  color: Colors.teal,   motif: '⊕' },
-  { title: 'Taşlar', short: 'TAŞ',    subtitle: 'Kristal enerjisinden',     color: Colors.purple, motif: '◈' },
-  { title: 'Sözler', short: 'SÖZ',    subtitle: 'Anadolu bilgeliğinden',    color: Colors.gold,   motif: '✦' },
+  { title: 'Hayvan', short: 'HAYVAN', subtitle: 'Ruhunun yoldaşını dinle', color: Colors.teal, motif: '⊕' },
+  { title: 'Sözler', short: 'SÖZ',   subtitle: 'Anadolu bilgeliğinden',   color: Colors.gold, motif: '✦' },
 ];
 
 // ─── Kilim band ────────────────────────────────────────────────────────────────
@@ -96,31 +94,6 @@ function QuoteContent({ quote }: { quote: typeof quotesData[0] }) {
   );
 }
 
-function StoneContent({ stone }: { stone: typeof stonesData[0] }) {
-  return (
-    <View style={cs.container}>
-      <View style={[cs.medallion, { borderColor: Colors.purple + '50' }]}>
-        <View style={[cs.inner, { borderColor: Colors.purple + '30' }]}>
-          <FallbackImage
-            uri={(stone as any).imageUrl}
-            fallback={stone.emoji}
-            imgStyle={cs.roundImg}
-          />
-        </View>
-      </View>
-      <Text style={[cs.itemName, { color: Colors.purpleLight }]}>{stone.name}</Text>
-      <Text style={cs.meta}>{stone.chakra}</Text>
-      {(stone as any).plant && (
-        <Text style={cs.plantTag}>✿ {(stone as any).plant}</Text>
-      )}
-      <View style={[cs.divider, { backgroundColor: Colors.purple }]} />
-      <Text style={cs.body}>{stone.dailyMessage}</Text>
-      <View style={[cs.affirmBox, { borderColor: Colors.purple + '35' }]}>
-        <Text style={[cs.affirmText, { color: Colors.purpleLight }]}>{stone.affirmation}</Text>
-      </View>
-    </View>
-  );
-}
 
 function AnimalContent({ animal, onOpenDetail }: { animal: typeof animalsData[0]; onOpenDetail: () => void }) {
   return (
@@ -192,11 +165,10 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   useEffect(() => {
     if (!reading) {
       const qIds = quotesData.map(q => q.id);
-      const sIds = stonesData.map(s => s.id);
       const aIds = animalsData.map(a => a.id);
-      generateDailyReading(qIds, sIds, aIds, aIds).then(r => {
+      generateDailyReading(qIds, aIds, aIds, aIds).then(r => {
         const q = quotesData.find(x => x.id === r.quoteId)!;
-        updateStats(q.id, q.source, r.stoneId, r.animalId, r.nagualId);
+        updateStats(q.id, q.source, r.animalId, r.animalId, r.nagualId);
         setReading(r);
       });
     }
@@ -227,7 +199,6 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   }, []);
 
   const quote  = reading ? quotesData.find(q => q.id === reading.quoteId)  : null;
-  const stone  = reading ? stonesData.find(s => s.id === reading.stoneId)  : null;
   const animal = reading ? animalsData.find(a => a.id === reading.animalId) : null;
 
   const deck = DECKS[step];
@@ -380,8 +351,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                     showsVerticalScrollIndicator={false}
                   >
                     {step === 0 && animal && <AnimalContent animal={animal} onOpenDetail={() => setShowAnimalDetail(true)} />}
-                    {step === 1 && stone  && <StoneContent stone={stone} />}
-                    {step === 2 && quote  && <QuoteContent quote={quote} />}
+                    {step === 1 && quote  && <QuoteContent quote={quote} />}
                   </ScrollView>
                   <TouchableOpacity
                     style={[styles.nextBtn, { borderColor: deck.color }]}

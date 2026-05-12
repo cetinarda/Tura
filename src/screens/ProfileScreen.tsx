@@ -8,6 +8,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Linking,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
@@ -824,25 +825,47 @@ export function ProfileScreen() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Sakin Ailesi</Text>
         <Text style={styles.familyIntro}>
-          Tek hesap. Tek abonelik. Birçok kapı.
+          Tek ekosistem. Tek abonelik. Birçok kapı.
         </Text>
+
+        {/* sakin.life master link */}
+        <TouchableOpacity
+          style={styles.familyMaster}
+          onPress={() => Linking.openURL('https://sakin.life')}
+          activeOpacity={0.75}
+        >
+          <Text style={styles.familyMasterSymbol}>✦</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.familyMasterName}>sakin.life</Text>
+            <Text style={styles.familyMasterDesc}>Ana merkez — tüm uygulamalara giriş</Text>
+          </View>
+          <Text style={styles.familyMasterArrow}>→</Text>
+        </TouchableOpacity>
+
         <View style={styles.familyGrid}>
           {[
-            { name: 'Sakin Master',   symbol: '✦', desc: 'Sabah niyeti · Nefes · Çakra',     status: 'soon' },
-            { name: 'Sakin Kristal',  symbol: '◈', desc: 'Taşların dilini öğren',             status: 'soon' },
-            { name: 'Human Design',   symbol: '⊕', desc: 'Tasarımını tanı',                   status: 'soon' },
-            { name: 'Tarot',          symbol: '⊙', desc: 'Sembolün rehberliği',               status: 'soon' },
-            { name: 'Numeroloji',     symbol: '◎', desc: 'Sayıların ardındaki sen',           status: 'soon' },
+            { name: 'Hayvan Rehberliği', symbol: '⊕', desc: 'Bu uygulama',                       active: true  },
+            { name: 'Taş Rehberliği',    symbol: '◈', desc: 'Kristallerin dili',                  active: false },
+            { name: 'Bitki Rehberliği',  symbol: '✿', desc: 'Bitkisel bilgelik',                  active: false },
+            { name: 'Mitler ve İmgeler', symbol: '⚡', desc: 'Arketip ve sembol',                  active: false },
+            { name: 'Human Design',      symbol: '◉', desc: 'Tasarımını tanı',                    active: false },
+            { name: 'Numeroloji',        symbol: '◎', desc: 'Sayıların ardındaki sen',            active: false },
           ].map(app => (
-            <View key={app.name} style={styles.familyCard}>
-              <Text style={styles.familySymbol}>{app.symbol}</Text>
+            <View key={app.name} style={[styles.familyCard, app.active && styles.familyCardActive]}>
+              <Text style={[styles.familySymbol, app.active && { color: Colors.teal }]}>{app.symbol}</Text>
               <View style={{ flex: 1 }}>
-                <Text style={styles.familyName}>{app.name}</Text>
+                <Text style={[styles.familyName, app.active && { color: Colors.tealLight }]}>{app.name}</Text>
                 <Text style={styles.familyDesc}>{app.desc}</Text>
               </View>
-              <View style={styles.familyBadge}>
-                <Text style={styles.familyBadgeText}>YAKINDA</Text>
-              </View>
+              {app.active ? (
+                <View style={[styles.familyBadge, { borderColor: Colors.teal + '60' }]}>
+                  <Text style={[styles.familyBadgeText, { color: Colors.teal }]}>AKTİF</Text>
+                </View>
+              ) : (
+                <View style={styles.familyBadge}>
+                  <Text style={styles.familyBadgeText}>YAKINDA</Text>
+                </View>
+              )}
             </View>
           ))}
         </View>
@@ -1486,6 +1509,39 @@ const styles = StyleSheet.create({
     marginTop: -Spacing.sm,
     marginBottom: Spacing.md,
   },
+  familyMaster: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.md,
+    padding: Spacing.md,
+    backgroundColor: Colors.sakinLavender + '12',
+    borderWidth: 1,
+    borderColor: Colors.sakinLavender + '55',
+    borderRadius: BorderRadius.md,
+    marginBottom: Spacing.sm,
+  },
+  familyMasterSymbol: {
+    fontSize: 22,
+    color: Colors.sakinLavender,
+    width: 28,
+    textAlign: 'center',
+  },
+  familyMasterName: {
+    fontSize: Typography.size.sm,
+    fontWeight: Typography.weight.semibold,
+    color: Colors.sakinLavender,
+    letterSpacing: 1,
+  },
+  familyMasterDesc: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    marginTop: 2,
+  },
+  familyMasterArrow: {
+    fontSize: Typography.size.md,
+    color: Colors.sakinLavender,
+    opacity: 0.7,
+  },
   familyGrid: { gap: Spacing.sm },
   familyCard: {
     flexDirection: 'row',
@@ -1496,6 +1552,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.sakinLavender + '25',
     borderRadius: BorderRadius.md,
+  },
+  familyCardActive: {
+    borderColor: Colors.teal + '40',
+    backgroundColor: Colors.teal + '08',
   },
   familySymbol: {
     fontSize: 20,
