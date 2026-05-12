@@ -16,7 +16,7 @@ import stonesData from '../data/stones.json';
 import animalsData from '../data/animals.json';
 import nagualsData from '../data/naguals.json';
 import { calcNumerology, LIFE_PATH_MEANINGS } from '../utils/numerology';
-import { getHDProfile } from '../utils/humanDesign';
+import { getHDProfile, GATE_NAMES } from '../utils/humanDesign';
 import { getWeeklyReading } from '../utils/weeklyReading';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { PaywallScreen } from './PaywallScreen';
@@ -76,6 +76,9 @@ export function ProfileScreen() {
   const [editDay, setEditDay] = useState('');
   const [editMonth, setEditMonth] = useState('');
   const [editYear, setEditYear] = useState('');
+  const [editHour, setEditHour] = useState('');
+  const [editMinute, setEditMinute] = useState('');
+  const [editCity, setEditCity] = useState('');
 
   const topStoneId  = getTopStat(stats.stoneCounts);
   const topAnimalId = getTopStat(stats.animalCounts);
@@ -102,7 +105,12 @@ export function ProfileScreen() {
     if (!profile?.fullName || !profile?.birthDate) return null;
     try {
       const nums   = calcNumerology(profile.fullName, profile.birthDate);
-      const hd     = getHDProfile(profile.birthDate);
+      const hd     = getHDProfile(
+        profile.birthDate,
+        profile.birthHour,
+        profile.birthMinute,
+        profile.hdTypeOverride,
+      );
       if (profile.hdTypeOverride) {
         hd.type = profile.hdTypeOverride as typeof hd.type;
       }
@@ -149,7 +157,15 @@ export function ProfileScreen() {
   const handleSaveBirthData = async () => {
     if (!birthDataValid(editDay, editMonth, editYear)) return;
     const bd = formatBirthDate(editDay, editMonth, editYear);
-    await updateBirthData(editFullName.trim(), bd);
+    const h = parseInt(editHour);
+    const mi = parseInt(editMinute);
+    await updateBirthData(
+      editFullName.trim(),
+      bd,
+      !isNaN(h) && h >= 0 && h <= 23 ? h : undefined,
+      !isNaN(mi) && mi >= 0 && mi <= 59 ? mi : undefined,
+      editCity.trim() || undefined,
+    );
     setShowBirthForm(false);
   };
 
@@ -426,6 +442,9 @@ export function ProfileScreen() {
                 setEditDay(parts[2] ? String(parseInt(parts[2])) : '');
                 setEditMonth(parts[1] ? String(parseInt(parts[1])) : '');
                 setEditYear(parts[0] ?? '');
+                setEditHour(profile.birthHour !== undefined ? String(profile.birthHour) : '');
+                setEditMinute(profile.birthMinute !== undefined ? String(profile.birthMinute).padStart(2, '0') : '');
+                setEditCity(profile.birthCity || '');
                 setShowBirthForm(true);
               }}
               style={styles.editBirthBtn}
@@ -490,6 +509,7 @@ export function ProfileScreen() {
                   <View style={styles.titleRow}>
                     <Text style={styles.analysisMeta}>
                       Human Design · Strateji: {analysis.hd.strategy}
+                      {!analysis.hd.confident && !profile.hdTypeOverride ? ' (tahmini)' : ''}
                     </Text>
                     <HelpButton termKey="humanDesign" />
                   </View>
@@ -518,6 +538,32 @@ export function ProfileScreen() {
                   </Text>
                 </View>
               )}
+              {/* Real gates — always accurate regardless of type confidence */}
+              <View style={[styles.gatesBox, { borderColor: Colors.purple + '30' }]}>
+                <Text style={styles.gatesTitle}>Güneş Kapıları</Text>
+                <View style={styles.gatesRow}>
+                  <View style={styles.gateCell}>
+                    <Text style={[styles.gateNum, { color: Colors.purpleLight }]}>
+                      {analysis.hd.gates.consciousSun}.{analysis.hd.gates.consciousSunLine}
+                    </Text>
+                    <Text style={styles.gateLabel}>Bilinçli Güneş</Text>
+                    <Text style={styles.gateName}>{GATE_NAMES[analysis.hd.gates.consciousSun]}</Text>
+                  </View>
+                  <View style={styles.gateCell}>
+                    <Text style={[styles.gateNum, { color: Colors.tealLight }]}>
+                      {analysis.hd.gates.designSun}.{analysis.hd.gates.designSunLine}
+                    </Text>
+                    <Text style={styles.gateLabel}>Tasarım Güneşi</Text>
+                    <Text style={styles.gateName}>{GATE_NAMES[analysis.hd.gates.designSun]}</Text>
+                  </View>
+                </View>
+                {!analysis.hd.confident && !profile.hdTypeOverride && (
+                  <Text style={styles.gatesNote}>
+                    Tip tahmini · Kesin sonuç için doğum saatini ekle ve ✎ ile kendin seç
+                  </Text>
+                )}
+              </View>
+
               {premium.isPremium ? (
                 <>
                   <Text style={styles.analysisDesc}>{analysis.hd.desc}</Text>
@@ -571,15 +617,21 @@ export function ProfileScreen() {
         ) : showBirthForm ? (
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ width: '100%' }}>
           <View style={styles.birthForm}>
-            <Text style={styles.birthFormTitle}>İsim ve doğum bilgilerini gir</Text>
+            <Text style={styles.birthFormTitle}>Doğum Haritası Bilgileri</Text>
+            <Text style={styles.birthFormHint}>
+              Saat ve şehir bilgisi Human Design hesabı için gereklidir.
+            </Text>
+
             <TextInput
               style={styles.nameInput}
               value={editFullName}
               onChangeText={setEditFullName}
-              placeholder="İsim Soyisim..."
+              placeholder="İsim Soyisim (numaroloji için)"
               placeholderTextColor={Colors.textMuted}
               autoCapitalize="words"
             />
+
+            <Text style={styles.formLabel}>Doğum Tarihi</Text>
             <View style={styles.dateRow}>
               <TextInput
                 style={[styles.dateInput, { flex: 1 }]}
@@ -609,6 +661,40 @@ export function ProfileScreen() {
                 maxLength={4}
               />
             </View>
+
+            <Text style={styles.formLabel}>Doğum Saati <Text style={styles.formLabelOpt}>(HD için önemli)</Text></Text>
+            <View style={styles.dateRow}>
+              <TextInput
+                style={[styles.dateInput, { flex: 1 }]}
+                value={editHour}
+                onChangeText={setEditHour}
+                placeholder="Saat (0-23)"
+                placeholderTextColor={Colors.textMuted}
+                keyboardType="number-pad"
+                maxLength={2}
+              />
+              <TextInput
+                style={[styles.dateInput, { flex: 1 }]}
+                value={editMinute}
+                onChangeText={setEditMinute}
+                placeholder="Dakika"
+                placeholderTextColor={Colors.textMuted}
+                keyboardType="number-pad"
+                maxLength={2}
+              />
+            </View>
+
+            <Text style={styles.formLabel}>Doğum Şehri <Text style={styles.formLabelOpt}>(saat dilimi için)</Text></Text>
+            <TextInput
+              style={styles.nameInput}
+              value={editCity}
+              onChangeText={setEditCity}
+              placeholder="İstanbul, Ankara, Londra..."
+              placeholderTextColor={Colors.textMuted}
+              autoCapitalize="words"
+              autoCorrect={false}
+            />
+
             <TouchableOpacity
               style={[styles.onboardingBtn, {
                 opacity: editFullName.trim().length > 0 && birthDataValid(editDay, editMonth, editYear) ? 1 : 0.4
@@ -1031,6 +1117,42 @@ const styles = StyleSheet.create({
     fontSize: Typography.size.xs,
     color: Colors.tealLight,
     letterSpacing: 0.5,
+  },
+  gatesBox: {
+    borderWidth: 1, borderRadius: BorderRadius.sm,
+    padding: Spacing.md, marginTop: Spacing.sm,
+    backgroundColor: Colors.purple + '08',
+  },
+  gatesTitle: {
+    fontSize: 9, color: Colors.purple, letterSpacing: 2,
+    textTransform: 'uppercase', marginBottom: Spacing.sm,
+  },
+  gatesRow: { flexDirection: 'row', gap: Spacing.md },
+  gateCell: { flex: 1, alignItems: 'center', gap: 2 },
+  gateNum: {
+    fontSize: Typography.size.lg,
+    fontWeight: Typography.weight.semibold,
+    letterSpacing: 1,
+  },
+  gateLabel: { fontSize: 9, color: Colors.textMuted, letterSpacing: 1 },
+  gateName: {
+    fontSize: Typography.size.xs, color: Colors.textSecondary,
+    fontStyle: 'italic', textAlign: 'center',
+  },
+  gatesNote: {
+    fontSize: 10, color: Colors.textMuted, fontStyle: 'italic',
+    marginTop: Spacing.sm, textAlign: 'center', lineHeight: 14,
+  },
+  formLabel: {
+    fontSize: Typography.size.xs, color: Colors.textMuted,
+    letterSpacing: 0.5, marginBottom: 4, marginTop: Spacing.sm,
+  },
+  formLabelOpt: {
+    fontSize: Typography.size.xs, color: Colors.textMuted, fontStyle: 'italic',
+  },
+  birthFormHint: {
+    fontSize: Typography.size.xs, color: Colors.textMuted, fontStyle: 'italic',
+    marginBottom: Spacing.sm, lineHeight: Typography.size.xs * 1.6,
   },
   hdDisclaimer: {
     fontSize: 10,

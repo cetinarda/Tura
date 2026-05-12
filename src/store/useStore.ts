@@ -20,7 +20,10 @@ export interface DailyReading {
 export interface UserProfile {
   name: string;
   fullName?: string;
-  birthDate?: string; // YYYY-MM-DD
+  birthDate?: string;   // YYYY-MM-DD
+  birthHour?: number;   // 0-23
+  birthMinute?: number; // 0-59
+  birthCity?: string;
   element?: 'ateş' | 'su' | 'toprak' | 'hava';
   hdTypeOverride?: string;
   createdAt: string;
@@ -154,9 +157,15 @@ export function useTuraStore() {
     setIsNewUser(false);
   }, [saveProfile]);
 
-  const updateBirthData = useCallback(async (fullName: string, birthDate: string) => {
+  const updateBirthData = useCallback(async (
+    fullName: string,
+    birthDate: string,
+    birthHour?: number,
+    birthMinute?: number,
+    birthCity?: string,
+  ) => {
     if (!profile) return;
-    await saveProfile({ ...profile, fullName, birthDate });
+    await saveProfile({ ...profile, fullName, birthDate, birthHour, birthMinute, birthCity });
   }, [profile, saveProfile]);
 
   const updateHDType = useCallback(async (hdTypeOverride: string) => {
