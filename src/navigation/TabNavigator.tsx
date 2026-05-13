@@ -47,7 +47,11 @@ export function TabNavigator() {
 
         <GlossaryFAB />
 
-        <View style={[styles.tabBar, { paddingBottom: insets.bottom + 4 }]}>
+        <View style={[
+          styles.tabBar,
+          { paddingBottom: insets.bottom + 4 },
+          Platform.OS === 'web' && styles.tabBarWeb,
+        ]}>
           {TABS.map(tab => {
             const isActive = activeTab === tab.key;
             return (
@@ -90,15 +94,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Platform.OS === 'web' ? '#070510' : Colors.background,
     alignItems: Platform.OS === 'web' ? 'center' : undefined,
+    ...(Platform.OS === 'web' ? { height: '100vh' as any, overflow: 'hidden' as any } : {}),
   },
   container: {
     flex: 1,
     backgroundColor: Colors.background,
     width: '100%',
     maxWidth: Platform.OS === 'web' ? MAX_W : undefined,
+    ...(Platform.OS === 'web' ? { overflow: 'hidden' as any } : {}),
   },
   screen: {
     flex: 1,
+    overflow: 'hidden' as any,
   },
   tabBar: {
     flexDirection: 'row',
@@ -106,6 +113,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: Colors.divider,
     paddingTop: Spacing.sm,
+  },
+  tabBarWeb: {
+    position: 'sticky' as any,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
   },
   tabItem: {
     flex: 1,
