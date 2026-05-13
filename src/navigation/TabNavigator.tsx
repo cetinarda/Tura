@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
+  useWindowDimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
@@ -23,9 +24,15 @@ const TABS: { key: Tab; label: string; symbol: string; activeColor: string }[] =
   { key: 'profile', label: 'Profil',    symbol: '⊙',  activeColor: Colors.sakinLavender },
 ];
 
+const TAB_BAR_H = 56; // approximate tab bar height for padding calculation
+const MAX_W = 480;
+
 export function TabNavigator() {
   const [activeTab, setActiveTab] = useState<Tab>('home');
   const insets = useSafeAreaInsets();
+  const { height: winH } = useWindowDimensions();
+
+  const tabBarHeight = TAB_BAR_H + insets.bottom + 4;
 
   const renderScreen = () => {
     switch (activeTab) {
@@ -42,16 +49,17 @@ export function TabNavigator() {
 
   return (
     <View style={styles.webRoot}>
-      <View style={styles.container}>
-        <View style={styles.screen}>{renderScreen()}</View>
+      <View style={[styles.container, Platform.OS === 'web' && { height: winH }]}>
+
+        {/* Screen area — fills space above tab bar */}
+        <View style={styles.screen}>
+          {renderScreen()}
+        </View>
 
         <GlossaryFAB />
 
-        <View style={[
-          styles.tabBar,
-          { paddingBottom: insets.bottom + 4 },
-          Platform.OS === 'web' && styles.tabBarWeb,
-        ]}>
+        {/* Tab bar — always at bottom, never scrolls */}
+        <View style={[styles.tabBar, { paddingBottom: insets.bottom + 4 }]}>
           {TABS.map(tab => {
             const isActive = activeTab === tab.key;
             return (
@@ -82,29 +90,30 @@ export function TabNavigator() {
             );
           })}
         </View>
+
       </View>
     </View>
   );
 }
-
-const MAX_W = 480;
 
 const styles = StyleSheet.create({
   webRoot: {
     flex: 1,
     backgroundColor: Platform.OS === 'web' ? '#070510' : Colors.background,
     alignItems: Platform.OS === 'web' ? 'center' : undefined,
-    ...(Platform.OS === 'web' ? { height: '100vh' as any, overflow: 'hidden' as any } : {}),
   },
   container: {
     flex: 1,
     backgroundColor: Colors.background,
     width: '100%',
     maxWidth: Platform.OS === 'web' ? MAX_W : undefined,
-    ...(Platform.OS === 'web' ? { overflow: 'hidden' as any } : {}),
+    // flexDirection column is default; screen (flex:1) takes all space, tabBar sits below
   },
   screen: {
     flex: 1,
+    // minHeight:0 is the CSS flex fix: prevents flex children from overflowing
+    // their container when content is taller than available space
+    minHeight: 0,
     overflow: 'hidden' as any,
   },
   tabBar: {
@@ -113,13 +122,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: Colors.divider,
     paddingTop: Spacing.sm,
-  },
-  tabBarWeb: {
-    position: 'sticky' as any,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
+    // flexShrink:0 ensures tab bar never shrinks/disappears under pressure from screen content
+    flexShrink: 0,
   },
   tabItem: {
     flex: 1,
