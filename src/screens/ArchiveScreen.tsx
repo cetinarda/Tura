@@ -192,6 +192,7 @@ export function ArchiveScreen() {
         </View>
       ) : (
         <FlatList
+          style={{ flex: 1 }}
           data={archive}
           keyExtractor={item => item.date}
           renderItem={renderEntry}

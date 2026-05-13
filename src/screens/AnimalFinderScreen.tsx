@@ -370,7 +370,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
       {/* ── Birth form ── */}
       {mode === 'birth' && (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <ScrollView contentContainerStyle={styles.birthWrap} keyboardShouldPersistTaps="handled">
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.birthWrap} keyboardShouldPersistTaps="handled">
           <Text style={styles.birthTitle}>Doğum Bilgilerini Gir</Text>
           <Text style={styles.birthDesc}>
             Doğum anının mevsimi, yılı ve saati — hepsi senin totem hayvanını şekillendiriyor.
@@ -428,7 +428,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
       {/* ── Result ── */}
       {mode === 'result' && result && (
         <Animated.ScrollView
-          style={{ opacity: resultFade }}
+          style={{ flex: 1, opacity: resultFade }}
           contentContainerStyle={styles.resultScroll}
           showsVerticalScrollIndicator={false}
         >

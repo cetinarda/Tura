@@ -91,6 +91,7 @@ export function AnimalLibraryScreen({ onClose, embedded }: Props) {
       </View>
 
       <ScrollView
+        style={{ flex: 1 }}
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
       >

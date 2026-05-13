@@ -76,7 +76,7 @@ export function NagualScreen({ onClose, embedded }: Props) {
         </View>
       )}
 
-      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.intro}>
           <Text style={styles.introTitle}>Nagual — Dönemsel Rehber</Text>
           <Text style={styles.introText}>
