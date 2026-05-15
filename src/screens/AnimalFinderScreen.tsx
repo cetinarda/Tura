@@ -16,6 +16,7 @@ import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../th
 import animalsData from '../data/animals.json';
 import { useLocalizedAnimals } from '../i18n/localize';
 import { useI18n } from '../i18n/useI18n';
+import { en } from '../i18n/en';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -145,7 +146,7 @@ function scoreAnimals(traits: Record<string, number>, elements: Record<string, n
   return best;
 }
 
-function findAnimalByQuiz(picks: Option[]): AnimalResult {
+function findAnimalByQuiz(picks: Option[], lang: 'tr' | 'en' = 'tr'): AnimalResult {
   const traits: Record<string, number> = {};
   const elements: Record<string, number> = {};
   for (const p of picks) {
@@ -154,11 +155,11 @@ function findAnimalByQuiz(picks: Option[]): AnimalResult {
   }
   return {
     animal: scoreAnimals(traits, elements),
-    reason: 'Cevaplarındaki enerji örüntüsü',
+    reason: lang === 'en' ? 'Energy pattern in your answers' : 'Cevaplarındaki enerji örüntüsü',
   };
 }
 
-function findAnimalByBirth(day: number, month: number, year: number, hour?: number, city?: string): AnimalResult {
+function findAnimalByBirth(day: number, month: number, year: number, hour?: number, city?: string, lang: 'tr' | 'en' = 'tr'): AnimalResult {
   const traits: Record<string, number> = {};
   const elements: Record<string, number> = {};
 
@@ -211,6 +212,21 @@ function findAnimalByBirth(day: number, month: number, year: number, hour?: numb
 
   const SEASON_NAMES: Record<string, string> = { hava:'ilkbahar', ateş:'yaz', toprak:'sonbahar', su:'kış' };
   const seasonName = SEASON_NAMES[seasonEl[month]];
+
+  if (lang === 'en') {
+    const EL_EN: Record<string, string> = { hava: 'air', ateş: 'fire', toprak: 'earth', su: 'water' };
+    const SEASON_EN: Record<string, string> = { hava: 'Spring', ateş: 'Summer', toprak: 'Autumn', su: 'Winter' };
+    const HOUR_EN: Record<string, string> = { gece: 'night', sabah: 'morning', öğlen: 'midday', akşam: 'evening' };
+    const elEn = EL_EN[seasonEl[month]] || seasonEl[month];
+    const seasonEn = SEASON_EN[seasonEl[month]] || seasonName;
+    const reason = [
+      `${seasonEn} birth carrying ${elEn} energy`,
+      hourLabel ? `the energy of ${HOUR_EN[hourLabel] || hourLabel}` : '',
+      city && city.trim() ? `the mark of ${city.trim()}` : '',
+    ].filter(Boolean).join(' · ');
+    return { animal: scoreAnimals(traits, elements), reason };
+  }
+
   const reason = [
     `${seasonName.charAt(0).toUpperCase() + seasonName.slice(1)} doğumundan gelen ${seasonEl[month]} enerjisi`,
     hourLabel ? `${hourLabel} saatinin ${HOUR_RANGES.find(r => hourLabel === r.label)?.traits[0] || ''} gücü` : '',
@@ -230,7 +246,7 @@ interface Props {
 
 export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Props) {
   const insets = useSafeAreaInsets();
-  const { lang } = useI18n();
+  const { t, lang } = useI18n();
   const localAnimals = useLocalizedAnimals();
   const [mode, setMode]         = useState<Mode>('intro');
   const [qIndex, setQIndex]     = useState(0);
@@ -271,7 +287,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
         });
       } else {
         Animated.timing(cardFade, { toValue: 0, duration: 280, useNativeDriver: true }).start(() => {
-          showResult(findAnimalByQuiz(newPicks));
+          showResult(findAnimalByQuiz(newPicks, lang));
         });
       }
     }, 350);
@@ -282,7 +298,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
     if (!birthValid) return;
     const d = parseInt(bDay), m = parseInt(bMonth), y = parseInt(bYear);
     const h = bHour.trim() !== '' ? Math.min(Math.max(parseInt(bHour), 0), 23) : undefined;
-    showResult(findAnimalByBirth(d, m, y, h, bCity));
+    showResult(findAnimalByBirth(d, m, y, h, bCity, lang));
   };
 
   const showResult = (r: AnimalResult) => {
@@ -291,6 +307,15 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     Animated.timing(resultFade, { toValue: 1, duration: 500, useNativeDriver: true }).start();
   };
+
+  const getDisplayQ = (i: number) => {
+    if (lang === 'en') {
+      const eq = en.animalFinder.quiz.questions[i];
+      return { q: eq.q, options: eq.options as readonly string[] };
+    }
+    return { q: QUESTIONS[i].q, options: QUESTIONS[i].options.map((o: Option) => o.text) };
+  };
+  const currentQDisplay = getDisplayQ(qIndex);
 
   const currentQ = QUESTIONS[qIndex];
   const progress = qIndex / QUESTIONS.length;
@@ -310,7 +335,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
           >
             <Text style={styles.closeTxt}>{embedded ? '←' : (mode === 'intro' || mode === 'result' ? '✕' : '←')}</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Hayvan Rehberini Bul</Text>
+          <Text style={styles.headerTitle}>{t('animalFinder.headerTitle')}</Text>
           <View style={{ width: 32 }} />
         </View>
       )}
@@ -319,28 +344,27 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
       {mode === 'intro' && (
         <View style={styles.introWrap}>
           <Text style={styles.introEmoji}>✦</Text>
-          <Text style={styles.introTitle}>Rehber Hayvanını Keşfet</Text>
+          <Text style={styles.introTitle}>{t('animalFinder.intro.title')}</Text>
           <Text style={styles.introDesc}>
-            Ruhunla uyumlu totem hayvanını bulmak için iki yol var.
+            {t('animalFinder.intro.desc')}
           </Text>
           <Text style={styles.introNote}>
-            Sakin sana bir ayna tutar — içinde zaten var olanı yansıtır ve olası olanı fısıldar.
-            Onu kalbinde uyandıracak, hissedip özümseyecek olan ise yalnızca sensin.
+            {t('animalFinder.intro.note')}
           </Text>
 
           <TouchableOpacity style={[styles.modeBtn, { borderColor: Colors.teal }]} onPress={() => setMode('quiz')} activeOpacity={0.8}>
             <Text style={styles.modeBtnEmoji}>✦</Text>
             <View style={styles.modeBtnText}>
-              <Text style={[styles.modeBtnTitle, { color: Colors.tealLight }]}>Sorularla Keşfet</Text>
-              <Text style={styles.modeBtnDesc}>7 soru, karakterine göre eşleşir</Text>
+              <Text style={[styles.modeBtnTitle, { color: Colors.tealLight }]}>{t('animalFinder.intro.quizBtn.title')}</Text>
+              <Text style={styles.modeBtnDesc}>{t('animalFinder.intro.quizBtn.desc')}</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={[styles.modeBtn, { borderColor: Colors.gold }]} onPress={() => setMode('birth')} activeOpacity={0.8}>
             <Text style={styles.modeBtnEmoji}>☀</Text>
             <View style={styles.modeBtnText}>
-              <Text style={[styles.modeBtnTitle, { color: Colors.gold }]}>Doğum Bilgilerimle Bul</Text>
-              <Text style={styles.modeBtnDesc}>Tarih ve saate göre natal totem</Text>
+              <Text style={[styles.modeBtnTitle, { color: Colors.gold }]}>{t('animalFinder.intro.birthBtn.title')}</Text>
+              <Text style={styles.modeBtnDesc}>{t('animalFinder.intro.birthBtn.desc')}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -357,9 +381,9 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
           </View>
           <Animated.View style={[styles.qCard, { opacity: cardFade }]}>
             <Text style={styles.qEmoji}>{currentQ.emoji}</Text>
-            <Text style={styles.qText}>{currentQ.q}</Text>
+            <Text style={styles.qText}>{currentQDisplay.q}</Text>
             <View style={styles.optionsWrap}>
-              {currentQ.options.map((opt, i) => (
+              {QUESTIONS[qIndex].options.map((opt, i) => (
                 <TouchableOpacity
                   key={i}
                   style={[styles.optBtn, chosen === i && styles.optBtnChosen, chosen !== null && chosen !== i && styles.optBtnDimmed]}
@@ -367,7 +391,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
                   activeOpacity={0.75}
                   disabled={chosen !== null}
                 >
-                  <Text style={[styles.optTxt, chosen === i && { color: Colors.tealLight }]}>{opt.text}</Text>
+                  <Text style={[styles.optTxt, chosen === i && { color: Colors.tealLight }]}>{currentQDisplay.options[i]}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -379,46 +403,46 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
       {mode === 'birth' && (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.birthWrap} keyboardShouldPersistTaps="handled">
-          <Text style={styles.birthTitle}>Doğum Bilgilerini Gir</Text>
+          <Text style={styles.birthTitle}>{t('animalFinder.birth.title')}</Text>
           <Text style={styles.birthDesc}>
-            Doğum anının mevsimi, yılı ve saati — hepsi senin totem hayvanını şekillendiriyor.
+            {t('animalFinder.birth.desc')}
           </Text>
 
-          <Text style={styles.birthLabel}>Doğum Tarihi</Text>
+          <Text style={styles.birthLabel}>{t('animalFinder.birth.dateLabel')}</Text>
           <View style={styles.dateRow}>
             <TextInput style={[styles.dateInput, { flex: 1 }]} value={bDay} onChangeText={setBDay}
-              placeholder="Gün" placeholderTextColor={Colors.textMuted} keyboardType="number-pad" maxLength={2} />
+              placeholder={t('animalFinder.birth.dayPlaceholder')} placeholderTextColor={Colors.textMuted} keyboardType="number-pad" maxLength={2} />
             <TextInput style={[styles.dateInput, { flex: 1 }]} value={bMonth} onChangeText={setBMonth}
-              placeholder="Ay" placeholderTextColor={Colors.textMuted} keyboardType="number-pad" maxLength={2} />
+              placeholder={t('animalFinder.birth.monthPlaceholder')} placeholderTextColor={Colors.textMuted} keyboardType="number-pad" maxLength={2} />
             <TextInput style={[styles.dateInput, { flex: 2 }]} value={bYear} onChangeText={setBYear}
-              placeholder="Yıl" placeholderTextColor={Colors.textMuted} keyboardType="number-pad" maxLength={4} />
+              placeholder={t('animalFinder.birth.yearPlaceholder')} placeholderTextColor={Colors.textMuted} keyboardType="number-pad" maxLength={4} />
           </View>
 
-          <Text style={styles.birthLabel}>Doğum Şehri <Text style={styles.birthLabelOpt}>(isteğe bağlı)</Text></Text>
+          <Text style={styles.birthLabel}>{t('animalFinder.birth.cityLabel')} <Text style={styles.birthLabelOpt}>{t('animalFinder.birth.cityOptional')}</Text></Text>
           <TextInput
             style={[styles.dateInput, { textAlign: 'left' }]}
             value={bCity}
             onChangeText={setBCity}
-            placeholder="Örn. İstanbul, Konya, Diyarbakır..."
+            placeholder={t('animalFinder.birth.cityPlaceholder')}
             placeholderTextColor={Colors.textMuted}
             autoCapitalize="words"
           />
           <Text style={styles.birthHint}>
-            Doğduğun yerin enerjisi yorumuna derinlik katar.
+            {t('animalFinder.birth.cityHint')}
           </Text>
 
-          <Text style={[styles.birthLabel, { marginTop: Spacing.md }]}>Doğum Saati <Text style={styles.birthLabelOpt}>(isteğe bağlı)</Text></Text>
+          <Text style={[styles.birthLabel, { marginTop: Spacing.md }]}>{t('animalFinder.birth.hourLabel')} <Text style={styles.birthLabelOpt}>{t('animalFinder.birth.hourOptional')}</Text></Text>
           <TextInput
             style={styles.dateInput}
             value={bHour}
             onChangeText={setBHour}
-            placeholder="Saat (0–23)"
+            placeholder={t('animalFinder.birth.hourPlaceholder')}
             placeholderTextColor={Colors.textMuted}
             keyboardType="number-pad"
             maxLength={2}
           />
           <Text style={styles.birthHint}>
-            Saat bilmiyorsan boş bırak — yine de güçlü bir eşleşme yapılır.
+            {t('animalFinder.birth.hourHint')}
           </Text>
 
           <TouchableOpacity
@@ -427,7 +451,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
             disabled={!birthValid}
             activeOpacity={0.8}
           >
-            <Text style={styles.submitBtnTxt}>Rehberimi Bul ✦</Text>
+            <Text style={styles.submitBtnTxt}>{t('animalFinder.birth.submitBtn')}</Text>
           </TouchableOpacity>
         </ScrollView>
         </KeyboardAvoidingView>
@@ -440,7 +464,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
           contentContainerStyle={styles.resultScroll}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.resultLabel}>Rehber Hayvanın</Text>
+          <Text style={styles.resultLabel}>{t('animalFinder.result.label')}</Text>
           {result.reason ? (
             <Text style={styles.resultReason}>{result.reason}</Text>
           ) : null}
@@ -474,7 +498,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
             onPress={embedded ? () => { setMode('intro'); setResult(null); setQIndex(0); setPicks([]); setChosen(null); } : onClose}
             activeOpacity={0.8}
           >
-            <Text style={styles.doneBtnTxt}>{embedded ? 'Yeniden Keşfet ✦' : 'Kapat ✦'}</Text>
+            <Text style={styles.doneBtnTxt}>{embedded ? t('animalFinder.result.rediscoverBtn') : t('animalFinder.result.closeBtn')}</Text>
           </TouchableOpacity>
         </Animated.ScrollView>
       )}

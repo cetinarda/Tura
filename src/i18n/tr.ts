@@ -399,6 +399,66 @@ export const tr = {
     elementNotSet: 'Unsur seçilmedi',
   },
 
+  // ─── Myths screen ─────────────────────────────────────────────────────────────
+  myths: {
+    back: '← Geri',
+    familyTag: 'SAKİN · MİT',
+    subtitle: "Ruhun karşılaştığı sembolik güçler · {count} mit",
+    searchPlaceholder: "İsim, sembol veya unsur ile ara...",
+    noResults: "Arama sonucu yok.",
+    filterAll: "Tümü",
+    msgSection: "MESAJ",
+    guidanceSection: "REHBERLİK",
+  },
+
+  // ─── Auth screen ──────────────────────────────────────────────────────────────
+  auth: {
+    subtitle: "Anadolu'nun kadim geleneğinden\ngünlük rehberlik",
+    orLabel: "ya da",
+    emailPlaceholder: "E-posta",
+    passwordPlaceholder: "Şifre",
+    signinBtn: "Giriş Yap",
+    signupBtn: "Hesap Oluştur",
+    toSignup: "Hesabın yok mu? Oluştur",
+    toSignin: "Hesabın var mı? Giriş yap",
+    offlineBtn: "Hesapsız devam et",
+    offlineHint: "Verilerin sadece bu cihazda kalır",
+    errorNotConfigured: "Sunucu yapılandırılmamış. Şimdilik çevrimdışı devam et.",
+    errorInvalidInput: "Geçerli e-posta ve en az 6 karakter şifre gerekli.",
+    errorGeneric: "Bir şeyler ters gitti.",
+    errorNotConfiguredShort: "Sunucu yapılandırılmamış.",
+    errorAppleFailed: "Apple girişi tamamlanamadı.",
+    errorAppleError: "Apple ile giriş başarısız.",
+    infoEmailSent: "Onay e-postası gönderildi. Kutunu kontrol et.",
+    errInvalidLogin: "E-posta veya şifre hatalı.",
+    errAlreadyRegistered: "Bu e-posta zaten kayıtlı.",
+    errNotConfirmed: "Önce e-postaını onayla.",
+    errNetwork: "İnternet bağlantısı yok.",
+  },
+
+  // ─── Paywall screen ───────────────────────────────────────────────────────────
+  paywall: {
+    eyebrow: "SAKİN AİLESİ",
+    mikroTitle: "Hayvan Rehberi ✦",
+    premiumTitle: "Sakin Premium",
+    mikroSub: "Hayvan rehberliğinin derinine in",
+    premiumSub: "Bir hesap. Tüm Sakin app'leri.",
+    mikroPlan: "Mikro",
+    premiumPlan: "Premium",
+    mikroCadence: "ay · sadece Hayvan",
+    premiumCadence: "ay · tüm aile",
+    mostPopular: "EN POPÜLER",
+    iosPrice: "Fiyatlar App Store üzerinden gösterilir.",
+    androidPrice: "Fiyatlar Play Store üzerinden gösterilir.",
+    ctaBtn: "Üstad Ol ✦",
+    restoreBtn: "Aboneliği Geri Yükle",
+    legal: "Abonelik otomatik yenilenir. Hesap ayarlarından iptal edebilirsin. Kullanım şartları ve gizlilik politikası geçerlidir.",
+    errorPurchase: "Satın alma tamamlanamadı.",
+    errorPurchaseTitle: "Hata",
+    infoRestore: "Aboneliği geri yükleme servisi yakında.",
+    infoRestoreTitle: "Bilgi",
+  },
+
   // ─── Elements ─────────────────────────────────────────────────────────────────
   elements: {
     fire: 'ateş',

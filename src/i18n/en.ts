@@ -399,6 +399,66 @@ export const en = {
     elementNotSet: 'No element selected',
   },
 
+  // ─── Myths screen ─────────────────────────────────────────────────────────────
+  myths: {
+    back: '← Back',
+    familyTag: 'SAKIN · MYTH',
+    subtitle: "Symbolic forces the soul encounters · {count} myths",
+    searchPlaceholder: "Search by name, symbol or element...",
+    noResults: "No results found.",
+    filterAll: "All",
+    msgSection: "MESSAGE",
+    guidanceSection: "GUIDANCE",
+  },
+
+  // ─── Auth screen ──────────────────────────────────────────────────────────────
+  auth: {
+    subtitle: "Daily guidance from the ancient\nAnatolian tradition",
+    orLabel: "or",
+    emailPlaceholder: "Email",
+    passwordPlaceholder: "Password",
+    signinBtn: "Sign In",
+    signupBtn: "Create Account",
+    toSignup: "No account? Create one",
+    toSignin: "Already have an account? Sign in",
+    offlineBtn: "Continue without account",
+    offlineHint: "Your data stays on this device only",
+    errorNotConfigured: "Server not configured. Continue offline for now.",
+    errorInvalidInput: "Valid email and a password of at least 6 characters required.",
+    errorGeneric: "Something went wrong.",
+    errorNotConfiguredShort: "Server not configured.",
+    errorAppleFailed: "Apple sign-in could not be completed.",
+    errorAppleError: "Apple sign-in failed.",
+    infoEmailSent: "Confirmation email sent. Check your inbox.",
+    errInvalidLogin: "Incorrect email or password.",
+    errAlreadyRegistered: "This email is already registered.",
+    errNotConfirmed: "Please confirm your email first.",
+    errNetwork: "No internet connection.",
+  },
+
+  // ─── Paywall screen ───────────────────────────────────────────────────────────
+  paywall: {
+    eyebrow: "SAKIN FAMILY",
+    mikroTitle: "Animal Guide ✦",
+    premiumTitle: "Sakin Premium",
+    mikroSub: "Go deeper into animal guidance",
+    premiumSub: "One account. All Sakin apps.",
+    mikroPlan: "Micro",
+    premiumPlan: "Premium",
+    mikroCadence: "mo · Animal only",
+    premiumCadence: "mo · all apps",
+    mostPopular: "MOST POPULAR",
+    iosPrice: "Prices shown via the App Store.",
+    androidPrice: "Prices shown via the Play Store.",
+    ctaBtn: "Become Master ✦",
+    restoreBtn: "Restore Subscription",
+    legal: "Subscription renews automatically. Cancel anytime in account settings. Terms of use and privacy policy apply.",
+    errorPurchase: "Purchase could not be completed.",
+    errorPurchaseTitle: "Error",
+    infoRestore: "Restore subscription service coming soon.",
+    infoRestoreTitle: "Info",
+  },
+
   // ─── Elements ─────────────────────────────────────────────────────────────────
   elements: {
     fire: 'fire',

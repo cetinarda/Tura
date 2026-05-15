@@ -14,6 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { useI18n } from '../i18n/useI18n';
 
 type Mode = 'signin' | 'signup';
 
@@ -23,6 +24,7 @@ interface Props {
 
 export function AuthScreen({ onContinueOffline }: Props) {
   const insets = useSafeAreaInsets();
+  const { t } = useI18n();
   const [mode, setMode] = useState<Mode>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,13 +32,21 @@ export function AuthScreen({ onContinueOffline }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
 
+  const localizeError = (msg: string): string => {
+    if (/invalid login/i.test(msg)) return t('auth.errInvalidLogin' as any);
+    if (/already registered/i.test(msg)) return t('auth.errAlreadyRegistered' as any);
+    if (/email/i.test(msg) && /not confirmed/i.test(msg)) return t('auth.errNotConfirmed' as any);
+    if (/network/i.test(msg)) return t('auth.errNetwork' as any);
+    return msg;
+  };
+
   const handleEmail = async () => {
     if (!isSupabaseConfigured) {
-      setError('Sunucu yapılandırılmamış. Şimdilik çevrimdışı devam et.');
+      setError(t('auth.errorNotConfigured' as any));
       return;
     }
     if (!email.trim() || password.length < 6) {
-      setError('Geçerli e-posta ve en az 6 karakter şifre gerekli.');
+      setError(t('auth.errorInvalidInput' as any));
       return;
     }
     setError(null); setInfo(null); setLoading(true);
@@ -45,16 +55,16 @@ export function AuthScreen({ onContinueOffline }: Props) {
         const { error: e } = await supabase.auth.signInWithPassword({
           email: email.trim(), password,
         });
-        if (e) setError(turkishifyError(e.message));
+        if (e) setError(localizeError(e.message));
       } else {
         const { error: e } = await supabase.auth.signUp({
           email: email.trim(), password,
         });
-        if (e) setError(turkishifyError(e.message));
-        else setInfo('Onay e-postası gönderildi. Kutunu kontrol et.');
+        if (e) setError(localizeError(e.message));
+        else setInfo(t('auth.infoEmailSent' as any));
       }
     } catch {
-      setError('Bir şeyler ters gitti.');
+      setError(t('auth.errorGeneric' as any));
     } finally {
       setLoading(false);
     }
@@ -62,7 +72,7 @@ export function AuthScreen({ onContinueOffline }: Props) {
 
   const handleApple = async () => {
     if (!isSupabaseConfigured) {
-      setError('Sunucu yapılandırılmamış.');
+      setError(t('auth.errorNotConfiguredShort' as any));
       return;
     }
     try {
@@ -73,17 +83,17 @@ export function AuthScreen({ onContinueOffline }: Props) {
         ],
       });
       if (!credential.identityToken) {
-        setError('Apple girişi tamamlanamadı.');
+        setError(t('auth.errorAppleFailed' as any));
         return;
       }
       const { error: e } = await supabase.auth.signInWithIdToken({
         provider: 'apple',
         token: credential.identityToken,
       });
-      if (e) setError(turkishifyError(e.message));
+      if (e) setError(localizeError(e.message));
     } catch (err: unknown) {
       if ((err as { code?: string })?.code !== 'ERR_REQUEST_CANCELED') {
-        setError('Apple ile giriş başarısız.');
+        setError(t('auth.errorAppleError' as any));
       }
     }
   };
@@ -97,7 +107,7 @@ export function AuthScreen({ onContinueOffline }: Props) {
       <Text style={styles.symbol}>✦</Text>
       <Text style={styles.title}>TURA</Text>
       <Text style={styles.subtitle}>
-        Anadolu'nun kadim geleneğinden{'\n'}günlük rehberlik
+        {t('auth.subtitle' as any)}
       </Text>
 
       <View style={styles.divider} />
@@ -116,13 +126,13 @@ export function AuthScreen({ onContinueOffline }: Props) {
         />
       )}
 
-      <Text style={styles.orLabel}>ya da</Text>
+      <Text style={styles.orLabel}>{t('auth.orLabel' as any)}</Text>
 
       <TextInput
         style={styles.input}
         value={email}
         onChangeText={setEmail}
-        placeholder="E-posta"
+        placeholder={t('auth.emailPlaceholder' as any)}
         placeholderTextColor={Colors.textMuted}
         keyboardType="email-address"
         autoCapitalize="none"
@@ -132,7 +142,7 @@ export function AuthScreen({ onContinueOffline }: Props) {
         style={styles.input}
         value={password}
         onChangeText={setPassword}
-        placeholder="Şifre"
+        placeholder={t('auth.passwordPlaceholder' as any)}
         placeholderTextColor={Colors.textMuted}
         secureTextEntry
         autoCapitalize="none"
@@ -149,7 +159,7 @@ export function AuthScreen({ onContinueOffline }: Props) {
         {loading
           ? <ActivityIndicator color="#1A1208" />
           : <Text style={styles.primaryBtnText}>
-              {mode === 'signin' ? 'Giriş Yap' : 'Hesap Oluştur'}
+              {mode === 'signin' ? t('auth.signinBtn' as any) : t('auth.signupBtn' as any)}
             </Text>
         }
       </TouchableOpacity>
@@ -159,28 +169,21 @@ export function AuthScreen({ onContinueOffline }: Props) {
         style={styles.switchBtn}
       >
         <Text style={styles.switchText}>
-          {mode === 'signin' ? 'Hesabın yok mu? Oluştur' : 'Hesabın var mı? Giriş yap'}
+          {mode === 'signin' ? t('auth.toSignup' as any) : t('auth.toSignin' as any)}
         </Text>
       </TouchableOpacity>
 
       <View style={styles.bottomSection}>
         <View style={styles.dividerThin} />
         <TouchableOpacity onPress={onContinueOffline} style={styles.offlineBtn}>
-          <Text style={styles.offlineText}>Hesapsız devam et</Text>
-          <Text style={styles.offlineHint}>Verilerin sadece bu cihazda kalır</Text>
+          <Text style={styles.offlineText}>{t('auth.offlineBtn' as any)}</Text>
+          <Text style={styles.offlineHint}>{t('auth.offlineHint' as any)}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
 
-function turkishifyError(msg: string): string {
-  if (/invalid login/i.test(msg)) return 'E-posta veya şifre hatalı.';
-  if (/already registered/i.test(msg)) return 'Bu e-posta zaten kayıtlı.';
-  if (/email/i.test(msg) && /not confirmed/i.test(msg)) return 'Önce e-postaını onayla.';
-  if (/network/i.test(msg)) return 'İnternet bağlantısı yok.';
-  return msg;
-}
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: Colors.background },

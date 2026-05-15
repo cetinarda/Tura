@@ -11,32 +11,33 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import { activateMockPremium } from '../lib/premium';
+import { useI18n } from '../i18n/useI18n';
 
 interface Props {
   onClose: () => void;
   onActivated: () => void;
 }
 
-const MIKRO_FEATURES = [
-  { icon: '⊕', title: 'Tüm Hayvan Rehberliği', desc: 'Derin sayfalar: mitoloji, Jung, gelenekler, gölge' },
-  { icon: '◈', title: 'Kişisel Harita',         desc: 'Numeroloji, Human Design, haftalık okuma' },
-  { icon: '✦', title: 'Sınırsız Arşiv',         desc: 'Tüm geçmiş okumalarin · yıllık özet' },
-  { icon: '⊙', title: 'Reklamsız',              desc: 'Sessiz meclis. Hiç bir kesinti yok' },
-];
-
-const PREMIUM_FEATURES = [
-  { icon: '✦', title: 'Tüm Sakin Ailesi', desc: 'Hayvan + Kristal + Söz + Human Design + Tarot + Numeroloji' },
-  { icon: '⊕', title: 'Family Sharing',    desc: '5 aile üyesine kadar paylaş' },
-  { icon: '◈', title: 'Doğum Haritası',    desc: 'Detaylı PDF rapor — hediye' },
-  { icon: '◎', title: 'Erken Erişim',      desc: "Yeni Sakin app'lerine ilk sen gir" },
-];
-
 type Plan = 'mikro' | 'premium';
 
 export function PaywallScreen({ onClose, onActivated }: Props) {
   const insets = useSafeAreaInsets();
+  const { t, lang } = useI18n();
   const [plan, setPlan] = useState<Plan>('mikro');
   const [busy, setBusy] = useState(false);
+
+  const MIKRO_FEATURES = [
+    { icon: '⊕', title: lang === 'en' ? 'Full Animal Guidance' : 'Tüm Hayvan Rehberliği', desc: lang === 'en' ? 'Deep pages: mythology, Jung, traditions, shadow' : 'Derin sayfalar: mitoloji, Jung, gelenekler, gölge' },
+    { icon: '◈', title: lang === 'en' ? 'Personal Map' : 'Kişisel Harita', desc: lang === 'en' ? 'Numerology, Human Design, weekly reading' : 'Numeroloji, Human Design, haftalık okuma' },
+    { icon: '✦', title: lang === 'en' ? 'Unlimited Archive' : 'Sınırsız Arşiv', desc: lang === 'en' ? 'All past readings · annual summary' : 'Tüm geçmiş okumaların · yıllık özet' },
+    { icon: '⊙', title: lang === 'en' ? 'Ad-free' : 'Reklamsız', desc: lang === 'en' ? 'Silent space. No interruptions.' : 'Sessiz meclis. Hiç bir kesinti yok' },
+  ];
+  const PREMIUM_FEATURES = [
+    { icon: '✦', title: lang === 'en' ? 'Full Sakin Family' : 'Tüm Sakin Ailesi', desc: lang === 'en' ? 'Animal + Crystal + Words + Human Design + Tarot + Numerology' : 'Hayvan + Kristal + Söz + Human Design + Tarot + Numeroloji' },
+    { icon: '⊕', title: 'Family Sharing', desc: lang === 'en' ? 'Share with up to 5 family members' : '5 aile üyesine kadar paylaş' },
+    { icon: '◈', title: lang === 'en' ? 'Birth Chart' : 'Doğum Haritası', desc: lang === 'en' ? 'Detailed PDF report — as a gift' : 'Detaylı PDF rapor — hediye' },
+    { icon: '◎', title: lang === 'en' ? 'Early Access' : 'Erken Erişim', desc: lang === 'en' ? 'Be the first into new Sakin apps' : "Yeni Sakin app'lerine ilk sen gir" },
+  ];
 
   const handlePurchase = async () => {
     setBusy(true);
@@ -44,7 +45,7 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
       await activateMockPremium(plan === 'mikro' ? 'monthly' : 'yearly');
       onActivated();
     } catch {
-      Alert.alert('Hata', 'Satın alma tamamlanamadı.');
+      Alert.alert(t('paywall.errorPurchaseTitle' as any), t('paywall.errorPurchase' as any));
     } finally {
       setBusy(false);
     }
@@ -53,7 +54,7 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
   const features = plan === 'mikro' ? MIKRO_FEATURES : PREMIUM_FEATURES;
 
   const handleRestore = async () => {
-    Alert.alert('Bilgi', 'Aboneliği geri yükleme servisi yakında.');
+    Alert.alert(t('paywall.infoRestoreTitle' as any), t('paywall.infoRestore' as any));
   };
 
   return (
@@ -68,40 +69,38 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
         </TouchableOpacity>
 
         <View style={styles.hero}>
-          <Text style={styles.familyEyebrow}>SAKİN AİLESİ</Text>
+          <Text style={styles.familyEyebrow}>{t('paywall.eyebrow' as any)}</Text>
           <Text style={styles.heroSymbol}>✦</Text>
           <Text style={styles.heroTitle}>
-            {plan === 'mikro' ? 'Hayvan Rehberi ✦' : 'Sakin Premium'}
+            {plan === 'mikro' ? t('paywall.mikroTitle' as any) : t('paywall.premiumTitle' as any)}
           </Text>
           <Text style={styles.heroSub}>
-            {plan === 'mikro'
-              ? 'Hayvan rehberliğinin derinine in'
-              : "Bir hesap. Tüm Sakin app'leri."}
+            {plan === 'mikro' ? t('paywall.mikroSub' as any) : t('paywall.premiumSub' as any)}
           </Text>
         </View>
 
         <View style={styles.plansRow}>
           <PlanCard
             active={plan === 'mikro'}
-            label="Mikro"
+            label={t('paywall.mikroPlan' as any)}
             price="24 ₺"
-            cadence="ay · sadece Hayvan"
+            cadence={t('paywall.mikroCadence' as any)}
             onPress={() => setPlan('mikro')}
           />
           <PlanCard
             active={plan === 'premium'}
-            label="Premium"
+            label={t('paywall.premiumPlan' as any)}
             price="89 ₺"
-            cadence="ay · tüm aile"
-            badge="EN POPUİLER"
+            cadence={t('paywall.premiumCadence' as any)}
+            badge={t('paywall.mostPopular' as any)}
             onPress={() => setPlan('premium')}
           />
         </View>
 
         <Text style={styles.priceHint}>
           {Platform.OS === 'ios'
-            ? 'Fiyatlar App Store üzerinden gösterilir.'
-            : 'Fiyatlar Play Store üzerinden gösterilir.'}
+            ? t('paywall.iosPrice' as any)
+            : t('paywall.androidPrice' as any)}
         </Text>
 
         <View style={styles.features}>
@@ -124,16 +123,15 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
           disabled={busy}
           activeOpacity={0.85}
         >
-          <Text style={styles.ctaText}>Üstad Ol ✦</Text>
+          <Text style={styles.ctaText}>{t('paywall.ctaBtn' as any)}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handleRestore} style={styles.restoreBtn}>
-          <Text style={styles.restoreText}>Aboneliği Geri Yükle</Text>
+          <Text style={styles.restoreText}>{t('paywall.restoreBtn' as any)}</Text>
         </TouchableOpacity>
 
         <Text style={styles.legal}>
-          Abonelik otomatik yenilenir. Hesap ayarlarından iptal edebilirsin.
-          Kullanım şartları ve gizlilik politikası geçerlidir.
+          {t('paywall.legal' as any)}
         </Text>
       </ScrollView>
     </View>

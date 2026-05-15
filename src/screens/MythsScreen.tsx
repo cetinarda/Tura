@@ -10,6 +10,8 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
 import nagualsData from '../data/naguals.json';
+import { useI18n } from '../i18n/useI18n';
+import { useLocalizedNaguals } from '../i18n/localize';
 
 interface Props {
   onClose: () => void;
@@ -19,22 +21,24 @@ interface Props {
 export type Myth = typeof nagualsData[0];
 
 const ELEMENT_COLORS: Record<string, string> = {
-  ateş: Colors.ember,
-  su: Colors.tealLight,
-  toprak: Colors.gold,
-  hava: Colors.sakinLavender,
-  karanlık: Colors.purple,
+  ateş: Colors.ember,    fire: Colors.ember,
+  su: Colors.tealLight,  water: Colors.tealLight,
+  toprak: Colors.gold,   earth: Colors.gold,
+  hava: Colors.sakinLavender, air: Colors.sakinLavender,
+  karanlık: Colors.purple, dark: Colors.purple,
 };
 
 export function MythsScreen({ onClose, embedded }: Props) {
   const insets = useSafeAreaInsets();
+  const { t } = useI18n();
+  const localNaguals = useLocalizedNaguals();
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<Myth | null>(null);
   const [elementFilter, setElementFilter] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    let list = nagualsData as Myth[];
+    let list = localNaguals as Myth[];
     if (elementFilter) list = list.filter(m => m.element === elementFilter);
     if (q) {
       list = list.filter(m =>
@@ -44,12 +48,12 @@ export function MythsScreen({ onClose, embedded }: Props) {
       );
     }
     return list;
-  }, [query, elementFilter]);
+  }, [query, elementFilter, localNaguals]);
 
   const elements = useMemo(() => {
-    const set = new Set(nagualsData.map(m => m.element));
-    return Array.from(set);
-  }, []);
+    const set = new Set(localNaguals.map((m: any) => m.element));
+    return Array.from(set) as string[];
+  }, [localNaguals]);
 
   if (selected) {
     return <MythDetail myth={selected} onClose={() => setSelected(null)} />;
@@ -60,15 +64,15 @@ export function MythsScreen({ onClose, embedded }: Props) {
       {!embedded && (
         <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
           <TouchableOpacity onPress={onClose} hitSlop={12}>
-            <Text style={styles.back}>← Geri</Text>
+            <Text style={styles.back}>{t('myths.back' as any)}</Text>
           </TouchableOpacity>
-          <Text style={styles.familyTag}>SAKİN · MİT</Text>
+          <Text style={styles.familyTag}>{t('myths.familyTag' as any)}</Text>
         </View>
       )}
 
       <View style={[styles.header, embedded && styles.headerCompact]}>
         <Text style={styles.subtitle}>
-          Ruhun karşılaştığı sembolik güçler · {nagualsData.length} mit
+          {(t('myths.subtitle' as any) as string).replace('{count}', String(nagualsData.length))}
         </Text>
       </View>
 
@@ -78,7 +82,7 @@ export function MythsScreen({ onClose, embedded }: Props) {
           style={styles.searchInput}
           value={query}
           onChangeText={setQuery}
-          placeholder="İsim, sembol veya unsur ile ara..."
+          placeholder={t('myths.searchPlaceholder' as any)}
           placeholderTextColor={Colors.textMuted}
           autoCapitalize="none"
           autoCorrect={false}
@@ -100,7 +104,7 @@ export function MythsScreen({ onClose, embedded }: Props) {
           onPress={() => setElementFilter(null)}
         >
           <Text style={[styles.filterChipText, !elementFilter && styles.filterChipTextActive]}>
-            Tümü
+            {t('myths.filterAll' as any)}
           </Text>
         </TouchableOpacity>
         {elements.map(el => (
@@ -127,7 +131,7 @@ export function MythsScreen({ onClose, embedded }: Props) {
         showsVerticalScrollIndicator={false}
       >
         {filtered.length === 0 && (
-          <Text style={styles.empty}>Arama sonucu yok.</Text>
+          <Text style={styles.empty}>{t('myths.noResults' as any)}</Text>
         )}
         {filtered.map(m => {
           const color = ELEMENT_COLORS[m.element] || Colors.teal;
@@ -160,6 +164,7 @@ export function MythsScreen({ onClose, embedded }: Props) {
 
 export function MythDetail({ myth, onClose }: { myth: Myth; onClose: () => void }) {
   const insets = useSafeAreaInsets();
+  const { t } = useI18n();
   const color = ELEMENT_COLORS[myth.element] || Colors.teal;
 
   return (
@@ -170,9 +175,9 @@ export function MythDetail({ myth, onClose }: { myth: Myth; onClose: () => void 
       >
         <View style={styles.topBar}>
           <TouchableOpacity onPress={onClose} hitSlop={12}>
-            <Text style={[styles.back, { color }]}>← Geri</Text>
+            <Text style={[styles.back, { color }]}>{t('myths.back' as any)}</Text>
           </TouchableOpacity>
-          <Text style={styles.familyTag}>SAKİN · MİT</Text>
+          <Text style={styles.familyTag}>{t('myths.familyTag' as any)}</Text>
         </View>
 
         <View style={styles.hero}>
@@ -189,7 +194,7 @@ export function MythDetail({ myth, onClose }: { myth: Myth; onClose: () => void 
         <View style={styles.section}>
           <View style={styles.sectionHead}>
             <View style={[styles.sectionDot, { backgroundColor: color }]} />
-            <Text style={[styles.sectionTitle, { color }]}>MESAJ</Text>
+            <Text style={[styles.sectionTitle, { color }]}>{t('myths.msgSection' as any)}</Text>
           </View>
           <Text style={styles.body}>{(myth as any).dailyMessage}</Text>
         </View>
@@ -197,7 +202,7 @@ export function MythDetail({ myth, onClose }: { myth: Myth; onClose: () => void 
         <View style={styles.section}>
           <View style={styles.sectionHead}>
             <View style={[styles.sectionDot, { backgroundColor: color }]} />
-            <Text style={[styles.sectionTitle, { color }]}>REHBERLİK</Text>
+            <Text style={[styles.sectionTitle, { color }]}>{t('myths.guidanceSection' as any)}</Text>
           </View>
           <View style={[styles.guidanceBox, { borderColor: color + '40' }]}>
             <Text style={styles.body}>{(myth as any).guidance}</Text>
