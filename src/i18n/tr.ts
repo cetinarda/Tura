@@ -391,6 +391,11 @@ export const tr = {
       enablePremium: '⚙ DEV · Premium Aç',
       disablePremium: '⚙ DEV · Premium Kapat',
     },
+    // Language
+    language: {
+      title: 'Dil',
+      note: 'Seçilen dilde arayüz ve içerik görüntülenir.',
+    },
     elementNotSet: 'Unsur seçilmedi',
   },
 

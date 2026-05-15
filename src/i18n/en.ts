@@ -391,6 +391,11 @@ export const en = {
       enablePremium: '⚙ DEV · Enable Premium',
       disablePremium: '⚙ DEV · Disable Premium',
     },
+    // Language
+    language: {
+      title: 'Language',
+      note: 'Interface and content are shown in your chosen language.',
+    },
     elementNotSet: 'No element selected',
   },
 

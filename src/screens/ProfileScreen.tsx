@@ -52,10 +52,26 @@ const BADGES = [
   { id: 'b006', title: 'ışık Yolcusu',   desc: '365 okuma',      emoji: '☀', required: 365 },
 ];
 
+const HD_TYPE_EN: Record<string, string> = {
+  'Jeneratör': 'Generator',
+  'Manifesting Jeneratör': 'Manifesting Generator',
+  'Projektör': 'Projector',
+  'Manifestor': 'Manifestor',
+  'Reflektör': 'Reflector',
+};
+
+const HD_STRATEGY_EN: Record<string, string> = {
+  'Yanıt vermek': 'Respond',
+  'Yanıt ver, sonra harekete geç': 'Respond, then Act',
+  'Davetleri beklemek': 'Wait for Invitation',
+  'Bildirmek': 'Inform',
+  '28 gün beklemek': 'Wait 28 Days',
+};
+
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const { profile, isNewUser, createProfile, updateBirthData, updateHDType, stats, getTopStat, getLevelTitle, session, signOut, setLanguage, language } = useTuraStore();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const premium = usePremium();
   const [showPaywall, setShowPaywall] = useState(false);
   const [remindersOn, setRemindersOn] = useState(false);
@@ -103,7 +119,18 @@ export function ProfileScreen() {
   const totalReadings = profile?.totalReadings || 0;
   const streak        = profile?.streak || 0;
   const level         = profile?.level || 1;
-  const levelTitle    = getLevelTitle(level);
+  const levelTitle = lang === 'en'
+    ? ['Seeker','Disciple','Dervish','Enlightened','Saint','Elder','Pole Star'][Math.min(level - 1, 6)]
+    : getLevelTitle(level);
+  const nextLevelTitle = lang === 'en'
+    ? ['Seeker','Disciple','Dervish','Enlightened','Saint','Elder','Pole Star'][Math.min(level, 6)]
+    : getLevelTitle(level + 1);
+
+  const getLevelTitleLocal = (lvl: number) => {
+    const enTitles = ['Seeker', 'Disciple', 'Dervish', 'Enlightened', 'Saint', 'Elder', 'Pole Star'];
+    if (lang === 'en') return enTitles[Math.min(lvl - 1, enTitles.length - 1)];
+    return getLevelTitle(lvl);
+  };
 
   const levelProgress = () => {
     const nextAt    = level * 7;
@@ -393,27 +420,10 @@ export function ProfileScreen() {
             <Text style={styles.avatarEmoji}>{ELEMENT_EMOJIS[profile.element || 'ateş']}</Text>
           </View>
         </View>
-        <View style={styles.heroNameRow}>
-          <Text style={styles.heroName}>{profile.name}</Text>
-          {/* Language toggle */}
-          <View style={styles.langRow}>
-            <TouchableOpacity
-              style={[styles.langBtn, language === 'tr' && styles.langBtnActive]}
-              onPress={() => setLanguage('tr')}
-            >
-              <Text style={[styles.langBtnText, language === 'tr' && styles.langBtnTextActive]}>TR</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.langBtn, language === 'en' && styles.langBtnActive]}
-              onPress={() => setLanguage('en')}
-            >
-              <Text style={[styles.langBtnText, language === 'en' && styles.langBtnTextActive]}>EN</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <Text style={styles.heroName}>{profile.name}</Text>
         <Text style={styles.heroLevel}>{levelTitle}</Text>
         <Text style={styles.heroElement}>
-          {ELEMENT_EMOJIS[profile.element || 'ateş']} {profile.element || 'Unsur seçilmedi'}
+          {ELEMENT_EMOJIS[profile.element || 'ateş']} {profile.element || t('profile.elementNotSet')}
         </Text>
       </View>
 
@@ -436,13 +446,15 @@ export function ProfileScreen() {
       {/* Level progress */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Seviye İlerlemesi</Text>
-          <Text style={styles.sectionMeta}>{levelTitle} → {getLevelTitle(level + 1)}</Text>
+          <Text style={styles.sectionTitle}>{t('profile.levelProgress')}</Text>
+          <Text style={styles.sectionMeta}>{levelTitle} → {nextLevelTitle}</Text>
         </View>
         <View style={styles.progressBar}>
           <View style={[styles.progressFill, { width: `${levelProgress() * 100}%` }]} />
         </View>
-        <Text style={styles.progressText}>{totalReadings} / {level * 7} okuma</Text>
+        <Text style={styles.progressText}>
+          {t('profile.readingsProgress').replace('{current}', String(totalReadings)).replace('{next}', String(level * 7))}
+        </Text>
       </View>
 
       {/* Hesap & Bildirimler */}
@@ -452,19 +464,19 @@ export function ProfileScreen() {
           <View style={styles.accountRow}>
             <View style={{ flex: 1 }}>
               <Text style={styles.accountLabel}>
-                {premium.isPremium ? 'Üstad ✦' : 'Üretsiz Yolcu'}
+                {premium.isPremium ? t('profile.account.premiumLabel') : t('profile.account.freeLabel')}
               </Text>
               <Text style={styles.accountSub}>
                 {premium.isPremium
                   ? premium.expiresAt
-                    ? `Yenileme: ${new Date(premium.expiresAt).toLocaleDateString('tr-TR')}`
-                    : 'Süresiz'
-                  : 'Derin analiz için Üstad olun'}
+                    ? t('profile.account.premiumRenewal').replace('{date}', new Date(premium.expiresAt).toLocaleDateString(lang === 'en' ? 'en-GB' : 'tr-TR'))
+                    : t('profile.account.premiumLifetime')
+                  : t('profile.account.freeCta')}
               </Text>
             </View>
             {!premium.isPremium && (
               <TouchableOpacity style={styles.upgradeBtn} onPress={() => setShowPaywall(true)}>
-                <Text style={styles.upgradeBtnText}>Üstad Ol ✦</Text>
+                <Text style={styles.upgradeBtnText}>{t('profile.account.upgradeBtn')}</Text>
               </TouchableOpacity>
             )}
             {premium.isPremium && (
@@ -472,7 +484,7 @@ export function ProfileScreen() {
                 style={styles.linkBtn}
                 onPress={async () => { await clearPremium(); premium.refresh(); }}
               >
-                <Text style={styles.linkBtnText}>İptal</Text>
+                <Text style={styles.linkBtnText}>{t('profile.account.cancelBtn')}</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -485,8 +497,8 @@ export function ProfileScreen() {
             activeOpacity={0.7}
           >
             <View style={{ flex: 1 }}>
-              <Text style={styles.accountLabel}>Günlük Hatırlatma</Text>
-              <Text style={styles.accountSub}>Her sabah 08:00'de rehberin gelsin</Text>
+              <Text style={styles.accountLabel}>{t('profile.account.remindersLabel')}</Text>
+              <Text style={styles.accountSub}>{t('profile.account.remindersSub')}</Text>
             </View>
             <View style={[styles.toggle, remindersOn && styles.toggleOn]}>
               <View style={[styles.toggleDot, remindersOn && styles.toggleDotOn]} />
@@ -499,7 +511,7 @@ export function ProfileScreen() {
               <View style={styles.accountRow}>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.accountLabel}>{session.user.email || 'Hesap'}</Text>
-                  <Text style={styles.accountSub}>Veriler buluta yedekleniyor</Text>
+                  <Text style={styles.accountSub}>{t('profile.account.cloudBackup')}</Text>
                 </View>
                 <TouchableOpacity style={styles.linkBtn} onPress={signOut}>
                   <Text style={styles.linkBtnText}>{t('profile.account.signOutBtn')}</Text>
@@ -513,7 +525,7 @@ export function ProfileScreen() {
       {/* ── Kişisel Harita ── */}
       <View style={styles.section}>
         <View style={styles.sectionTitleRow}>
-          <Text style={[styles.sectionTitle, { marginBottom: 0 }]}>Kişisel Harita</Text>
+          <Text style={[styles.sectionTitle, { marginBottom: 0 }]}>{t('profile.personalMap.title')}</Text>
           {analysis && !showBirthForm && (
             <TouchableOpacity
               onPress={() => {
@@ -529,7 +541,7 @@ export function ProfileScreen() {
               }}
               style={styles.editBirthBtn}
             >
-              <Text style={styles.editBirthText}>✎ Düzenle</Text>
+              <Text style={styles.editBirthText}>{t('profile.personalMap.editBtn')}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -552,7 +564,7 @@ export function ProfileScreen() {
                     <HelpButton termKey="hayatYolu" />
                   </View>
                   <Text style={styles.analysisMeta}>
-                    Hayat Yolu · {analysis.lp.keyword}
+                    {`${t('profile.personalMap.lifePath')} · ${analysis.lp.keyword}`}
                   </Text>
                 </View>
               </View>
@@ -560,15 +572,15 @@ export function ProfileScreen() {
               <View style={styles.subNums}>
                 <View style={styles.subNum}>
                   <Text style={[styles.subNumVal, { color: Colors.goldLight }]}>{analysis.nums.expression}</Text>
-                  <Text style={styles.subNumLabel}>İfade</Text>
+                  <Text style={styles.subNumLabel}>{t('profile.personalMap.expression')}</Text>
                 </View>
                 <View style={styles.subNum}>
                   <Text style={[styles.subNumVal, { color: Colors.goldLight }]}>{analysis.nums.soulUrge}</Text>
-                  <Text style={styles.subNumLabel}>Ruh İsteği</Text>
+                  <Text style={styles.subNumLabel}>{t('profile.personalMap.soulUrge')}</Text>
                 </View>
                 <View style={styles.subNum}>
                   <Text style={[styles.subNumVal, { color: Colors.goldLight }]}>{analysis.nums.personality}</Text>
-                  <Text style={styles.subNumLabel}>Kişilik</Text>
+                  <Text style={styles.subNumLabel}>{t('profile.personalMap.personality')}</Text>
                 </View>
               </View>
             </View>
@@ -582,14 +594,14 @@ export function ProfileScreen() {
                 <View style={styles.analysisHeaderText}>
                   <View style={styles.titleRow}>
                     <Text style={[styles.analysisTitle, { color: Colors.purpleLight }]}>
-                      {analysis.hd.type}
+                      {lang === 'en' ? (HD_TYPE_EN[analysis.hd.type] ?? analysis.hd.type) : analysis.hd.type}
                     </Text>
                     <HelpButton termKey={hdTypeToGlossaryKey(analysis.hd.type)} />
                   </View>
                   <View style={styles.titleRow}>
                     <Text style={styles.analysisMeta}>
-                      Human Design · Strateji: {analysis.hd.strategy}
-                      {!analysis.hd.confident && !profile.hdTypeOverride ? ' (tahmini)' : ''}
+                      {`${t('profile.personalMap.humanDesign')} · ${t('profile.personalMap.strategy')}: ${lang === 'en' ? (HD_STRATEGY_EN[analysis.hd.strategy] ?? analysis.hd.strategy) : analysis.hd.strategy}`}
+                      {!analysis.hd.confident && !profile.hdTypeOverride ? ` ${t('profile.personalMap.estimated')}` : ''}
                     </Text>
                     <HelpButton termKey="humanDesign" />
                   </View>
@@ -600,27 +612,26 @@ export function ProfileScreen() {
               </View>
               {showHDPicker && (
                 <View style={[styles.hdPicker, { borderColor: Colors.purple + '30' }]}>
-                  <Text style={[styles.hdPickerLabel, { color: Colors.textMuted }]}>Tipini seç:</Text>
-                  {(['Jeneratör', 'Manifesting Jeneratör', 'Projektör', 'Manifestor', 'Reflektör'] as const).map(t => (
+                  <Text style={[styles.hdPickerLabel, { color: Colors.textMuted }]}>{t('profile.personalMap.hdTypeSelectHint')}</Text>
+                  {(['Jeneratör', 'Manifesting Jeneratör', 'Projektör', 'Manifestor', 'Reflektör'] as const).map(hdType => (
                     <TouchableOpacity
-                      key={t}
-                      style={[styles.hdPickerItem, analysis.hd.type === t && { backgroundColor: Colors.purple + '20' }]}
-                      onPress={() => { updateHDType(t); setShowHDPicker(false); }}
+                      key={hdType}
+                      style={[styles.hdPickerItem, analysis.hd.type === hdType && { backgroundColor: Colors.purple + '20' }]}
+                      onPress={() => { updateHDType(hdType); setShowHDPicker(false); }}
                     >
-                      <Text style={[styles.hdPickerText, { color: analysis.hd.type === t ? Colors.purpleLight : Colors.textSecondary }]}>
-                        {analysis.hd.type === t ? '◈ ' : '○ '}{t}
+                      <Text style={[styles.hdPickerText, { color: analysis.hd.type === hdType ? Colors.purpleLight : Colors.textSecondary }]}>
+                        {analysis.hd.type === hdType ? '◈ ' : '○ '}{lang === 'en' ? (HD_TYPE_EN[hdType] ?? hdType) : hdType}
                       </Text>
                     </TouchableOpacity>
                   ))}
                   <Text style={styles.hdDisclaimer}>
-                    ⚠ Hesaplama tahminidir — gerçek HD doğum saati ve efemeris gerektirir.
-                    Tipini biliyorsan yukarıdan seçebilirsin.
+                    {t('profile.personalMap.hdDisclaimer')}
                   </Text>
                 </View>
               )}
               {/* Real gates — always accurate regardless of type confidence */}
               <View style={[styles.gatesBox, { borderColor: Colors.purple + '30' }]}>
-                <Text style={styles.gatesTitle}>Güneş Kapıları</Text>
+                <Text style={styles.gatesTitle}>{t('profile.personalMap.sunGates')}</Text>
                 <View style={styles.gatesRow}>
                   <View style={styles.gateCell}>
                     <Text style={[styles.gateNum, { color: Colors.purpleLight }]}>
