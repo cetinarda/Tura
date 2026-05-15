@@ -92,7 +92,7 @@ function QuoteContent({ quote }: { quote: typeof quotesData[0] }) {
 }
 
 
-function AnimalContent({ animal, onOpenDetail }: { animal: typeof animalsData[0]; onOpenDetail: () => void }) {
+function AnimalContent({ animal, onOpenDetail, detailBtnLabel }: { animal: typeof animalsData[0]; onOpenDetail: () => void; detailBtnLabel: string }) {
   return (
     <View style={cs.container}>
       <View style={[cs.medallion, { borderColor: Colors.teal + '50' }]}>
@@ -117,7 +117,7 @@ function AnimalContent({ animal, onOpenDetail }: { animal: typeof animalsData[0]
       </View>
       <TouchableOpacity onPress={onOpenDetail} style={cs.detailBtn} activeOpacity={0.8}>
         <Text style={[cs.detailBtnText, { color: Colors.tealLight }]}>
-          {animal.name}{t('home.detailBtn')}
+          {animal.name}{detailBtnLabel}
         </Text>
       </TouchableOpacity>
     </View>
@@ -125,7 +125,8 @@ function AnimalContent({ animal, onOpenDetail }: { animal: typeof animalsData[0]
 }
 
 // ─── Mini deck indicator ────────────────────────────────────────────────────────
-function MiniDeck({ deck, state }: { deck: typeof DECKS[0]; state: 'done' | 'active' | 'pending' }) {
+type DeckItem = { title: string; short: string; subtitle: string; color: string; motif: string };
+function MiniDeck({ deck, state }: { deck: DeckItem; state: 'done' | 'active' | 'pending' }) {
   const color = state === 'pending' ? Colors.textMuted : deck.color;
   return (
     <View style={[ms.wrapper, state === 'active' && { opacity: 1 }, state === 'pending' && { opacity: 0.35 }]}>
@@ -353,7 +354,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                     contentContainerStyle={styles.scrollPad}
                     showsVerticalScrollIndicator={false}
                   >
-                    {step === 0 && animal && <AnimalContent animal={animal} onOpenDetail={() => setShowAnimalDetail(true)} />}
+                    {step === 0 && animal && <AnimalContent animal={animal} onOpenDetail={() => setShowAnimalDetail(true)} detailBtnLabel={t('home.detailBtn')} />}
                     {step === 1 && quote  && <QuoteContent quote={quote} />}
                   </ScrollView>
                   <TouchableOpacity
