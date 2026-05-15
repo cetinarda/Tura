@@ -939,8 +939,8 @@ export function ProfileScreen() {
         <View style={styles.familyGrid}>
           {[
             { name: t('profile.sakinFamily.apps.animalGuidance'), symbol: '⊕', desc: t('profile.sakinFamily.appDescs.animalGuidance'), active: true,  onPress: undefined },
-            { name: t('profile.sakinFamily.apps.myths'),          symbol: '⚡', desc: t('profile.sakinFamily.appDescs.myths'),          active: true,  onPress: () => setShowMythsScreen(true) },
-            { name: t('profile.sakinFamily.apps.humanDesign'),    symbol: '◉', desc: t('profile.sakinFamily.appDescs.humanDesign'),    active: true,  onPress: () => Linking.openURL('https://sakin.life') },
+            { name: t('profile.sakinFamily.apps.myths'),          symbol: '⚡', desc: t('profile.sakinFamily.appDescs.myths'),          active: true,  onPress: () => Linking.openURL('https://sakinmitler.netlify.app/') },
+            { name: t('profile.sakinFamily.apps.humanDesign'),    symbol: '◉', desc: t('profile.sakinFamily.appDescs.humanDesign'),    active: true,  onPress: () => Linking.openURL('https://sakindesign.netlify.app/') },
             { name: t('profile.sakinFamily.apps.stoneGuidance'),  symbol: '◈', desc: t('profile.sakinFamily.appDescs.stoneGuidance'),  active: false, onPress: undefined },
             { name: t('profile.sakinFamily.apps.plantGuidance'),  symbol: '✿', desc: t('profile.sakinFamily.appDescs.plantGuidance'),  active: false, onPress: undefined },
             { name: t('profile.sakinFamily.apps.numerology'),     symbol: '◎', desc: t('profile.sakinFamily.appDescs.numerology'),     active: false, onPress: undefined },
