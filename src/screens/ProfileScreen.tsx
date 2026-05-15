@@ -21,6 +21,7 @@ import { calcNumerology, LIFE_PATH_MEANINGS } from '../utils/numerology';
 import { getHDProfile, GATE_NAMES } from '../utils/humanDesign';
 import { getWeeklyReading } from '../utils/weeklyReading';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
+import { MythsScreen } from './MythsScreen';
 import { PaywallScreen } from './PaywallScreen';
 import { usePremium, clearPremium, activateMockPremium } from '../lib/premium';
 import { HelpButton } from '../components/HelpButton';
@@ -93,6 +94,7 @@ export function ProfileScreen() {
   // inline birth data edit (when already profiled but no birth data)
   const [showBirthForm, setShowBirthForm] = useState(false);
   const [showAnimalFinder, setShowAnimalFinder] = useState(false);
+  const [showMythsScreen, setShowMythsScreen] = useState(false);
   const [showAnimalInfo, setShowAnimalInfo]   = useState(false);
   const [showHDPicker, setShowHDPicker] = useState(false);
   const [editFullName, setEditFullName] = useState('');
@@ -383,6 +385,10 @@ export function ProfileScreen() {
         prefillBirthDate={profile.birthDate}
       />
     );
+  }
+
+  if (showMythsScreen) {
+    return <MythsScreen onClose={() => setShowMythsScreen(false)} />;
   }
 
   if (showPaywall) {
@@ -932,14 +938,20 @@ export function ProfileScreen() {
 
         <View style={styles.familyGrid}>
           {[
-            { name: t('profile.sakinFamily.apps.animalGuidance'), symbol: '⊕', desc: t('profile.sakinFamily.appDescs.animalGuidance'), active: true  },
-            { name: t('profile.sakinFamily.apps.stoneGuidance'),  symbol: '◈', desc: t('profile.sakinFamily.appDescs.stoneGuidance'),  active: false },
-            { name: t('profile.sakinFamily.apps.plantGuidance'),  symbol: '✿', desc: t('profile.sakinFamily.appDescs.plantGuidance'),  active: false },
-            { name: t('profile.sakinFamily.apps.myths'),          symbol: '⚡', desc: t('profile.sakinFamily.appDescs.myths'),          active: false },
-            { name: t('profile.sakinFamily.apps.humanDesign'),    symbol: '◉', desc: t('profile.sakinFamily.appDescs.humanDesign'),    active: false },
-            { name: t('profile.sakinFamily.apps.numerology'),     symbol: '◎', desc: t('profile.sakinFamily.appDescs.numerology'),     active: false },
+            { name: t('profile.sakinFamily.apps.animalGuidance'), symbol: '⊕', desc: t('profile.sakinFamily.appDescs.animalGuidance'), active: true,  onPress: undefined },
+            { name: t('profile.sakinFamily.apps.myths'),          symbol: '⚡', desc: t('profile.sakinFamily.appDescs.myths'),          active: true,  onPress: () => setShowMythsScreen(true) },
+            { name: t('profile.sakinFamily.apps.humanDesign'),    symbol: '◉', desc: t('profile.sakinFamily.appDescs.humanDesign'),    active: true,  onPress: () => Linking.openURL('https://sakin.life') },
+            { name: t('profile.sakinFamily.apps.stoneGuidance'),  symbol: '◈', desc: t('profile.sakinFamily.appDescs.stoneGuidance'),  active: false, onPress: undefined },
+            { name: t('profile.sakinFamily.apps.plantGuidance'),  symbol: '✿', desc: t('profile.sakinFamily.appDescs.plantGuidance'),  active: false, onPress: undefined },
+            { name: t('profile.sakinFamily.apps.numerology'),     symbol: '◎', desc: t('profile.sakinFamily.appDescs.numerology'),     active: false, onPress: undefined },
           ].map(app => (
-            <View key={app.name} style={[styles.familyCard, app.active && styles.familyCardActive]}>
+            <TouchableOpacity
+              key={app.name}
+              style={[styles.familyCard, app.active && styles.familyCardActive]}
+              onPress={app.onPress}
+              activeOpacity={app.onPress ? 0.7 : 1}
+              disabled={!app.onPress && !app.active}
+            >
               <Text style={[styles.familySymbol, app.active && { color: Colors.teal }]}>{app.symbol}</Text>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.familyName, app.active && { color: Colors.tealLight }]}>{app.name}</Text>
@@ -947,14 +959,16 @@ export function ProfileScreen() {
               </View>
               {app.active ? (
                 <View style={[styles.familyBadge, { borderColor: Colors.teal + '60' }]}>
-                  <Text style={[styles.familyBadgeText, { color: Colors.teal }]}>{t('profile.sakinFamily.active')}</Text>
+                  <Text style={[styles.familyBadgeText, { color: Colors.teal }]}>
+                    {app.onPress ? '→' : t('profile.sakinFamily.active')}
+                  </Text>
                 </View>
               ) : (
                 <View style={styles.familyBadge}>
                   <Text style={styles.familyBadgeText}>{t('profile.sakinFamily.comingSoon')}</Text>
                 </View>
               )}
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </View>
