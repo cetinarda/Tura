@@ -242,7 +242,7 @@ export function ProfileScreen() {
                 style={styles.nameInput}
                 value={name}
                 onChangeText={setName}
-                placeholder="Adını yaz..."
+                placeholder={t('profile.onboarding.step1Placeholder')}
                 placeholderTextColor={Colors.textMuted}
                 autoFocus
               />
@@ -273,24 +273,23 @@ export function ProfileScreen() {
             <>
               <Text style={styles.onboardingQuestion}>{t('profile.onboarding.step3Question')}</Text>
               <Text style={styles.onboardingHint}>
-                Numaroloji, Human Design ve element analizi.{'\n'}
-                Daha fazla bilgi = daha güçlü tahmin.
+                {t('profile.onboarding.step3Hint')}
               </Text>
               <TextInput
                 style={styles.nameInput}
                 value={fullName}
                 onChangeText={setFullName}
-                placeholder="İsim Soyisim..."
+                placeholder={t('profile.onboarding.fullNamePlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 autoCapitalize="words"
               />
-              <Text style={styles.obFieldLabel}>Doğum Tarihi</Text>
+              <Text style={styles.obFieldLabel}>{t('profile.onboarding.birthDateLabel')}</Text>
               <View style={styles.dateRow}>
                 <TextInput
                   style={[styles.dateInput, { flex: 1 }]}
                   value={birthDay}
                   onChangeText={setBirthDay}
-                  placeholder="Gün"
+                  placeholder={t('profile.onboarding.dayPlaceholder')}
                   placeholderTextColor={Colors.textMuted}
                   keyboardType="number-pad"
                   maxLength={2}
@@ -299,7 +298,7 @@ export function ProfileScreen() {
                   style={[styles.dateInput, { flex: 1 }]}
                   value={birthMonth}
                   onChangeText={setBirthMonth}
-                  placeholder="Ay"
+                  placeholder={t('profile.onboarding.monthPlaceholder')}
                   placeholderTextColor={Colors.textMuted}
                   keyboardType="number-pad"
                   maxLength={2}
@@ -308,21 +307,21 @@ export function ProfileScreen() {
                   style={[styles.dateInput, { flex: 2 }]}
                   value={birthYear}
                   onChangeText={setBirthYear}
-                  placeholder="Yıl"
+                  placeholder={t('profile.onboarding.yearPlaceholder')}
                   placeholderTextColor={Colors.textMuted}
                   keyboardType="number-pad"
                   maxLength={4}
                 />
               </View>
               <Text style={styles.obFieldLabel}>
-                Doğum Saati <Text style={styles.obFieldOpt}>(opsiyonel · HD için)</Text>
+                {t('profile.onboarding.birthHourLabel')} <Text style={styles.obFieldOpt}>{t('profile.onboarding.hourOptional')}</Text>
               </Text>
               <View style={styles.dateRow}>
                 <TextInput
                   style={[styles.dateInput, { flex: 1 }]}
                   value={birthHour}
                   onChangeText={setBirthHour}
-                  placeholder="Saat"
+                  placeholder={t('profile.onboarding.hourPlaceholder')}
                   placeholderTextColor={Colors.textMuted}
                   keyboardType="number-pad"
                   maxLength={2}
@@ -332,7 +331,7 @@ export function ProfileScreen() {
                   style={[styles.dateInput, { flex: 1 }]}
                   value={birthMinuteOb}
                   onChangeText={setBirthMinuteOb}
-                  placeholder="Dk"
+                  placeholder={t('profile.onboarding.minutePlaceholder')}
                   placeholderTextColor={Colors.textMuted}
                   keyboardType="number-pad"
                   maxLength={2}
@@ -340,13 +339,13 @@ export function ProfileScreen() {
                 <View style={{ flex: 2 }} />
               </View>
               <Text style={styles.obFieldLabel}>
-                Doğum Şehri <Text style={styles.obFieldOpt}>(opsiyonel)</Text>
+                {t('profile.onboarding.birthCityLabel')} <Text style={styles.obFieldOpt}>{t('profile.onboarding.cityOptional')}</Text>
               </Text>
               <TextInput
                 style={[styles.nameInput, { marginBottom: Spacing.xl }]}
                 value={birthCity}
                 onChangeText={setBirthCity}
-                placeholder="İstanbul, Ankara..."
+                placeholder={t('profile.onboarding.cityPlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 autoCapitalize="words"
               />
@@ -637,20 +636,20 @@ export function ProfileScreen() {
                     <Text style={[styles.gateNum, { color: Colors.purpleLight }]}>
                       {analysis.hd.gates.consciousSun}.{analysis.hd.gates.consciousSunLine}
                     </Text>
-                    <Text style={styles.gateLabel}>Bilinçli Güneş</Text>
+                    <Text style={styles.gateLabel}>{t('profile.personalMap.consciousSun')}</Text>
                     <Text style={styles.gateName}>{GATE_NAMES[analysis.hd.gates.consciousSun]}</Text>
                   </View>
                   <View style={styles.gateCell}>
                     <Text style={[styles.gateNum, { color: Colors.tealLight }]}>
                       {analysis.hd.gates.designSun}.{analysis.hd.gates.designSunLine}
                     </Text>
-                    <Text style={styles.gateLabel}>Tasarım Güneşi</Text>
+                    <Text style={styles.gateLabel}>{t('profile.personalMap.designSun')}</Text>
                     <Text style={styles.gateName}>{GATE_NAMES[analysis.hd.gates.designSun]}</Text>
                   </View>
                 </View>
                 {!analysis.hd.confident && !profile.hdTypeOverride && (
                   <Text style={styles.gatesNote}>
-                    Tip tahmini · Kesin sonuç için doğum saatini ekle ve ✎ ile kendin seç
+                    {t('profile.personalMap.gatesNote')}
                   </Text>
                 )}
               </View>
@@ -659,13 +658,13 @@ export function ProfileScreen() {
                 <>
                   <Text style={styles.analysisDesc}>{analysis.hd.desc}</Text>
                   <View style={[styles.notSelfBox, { borderColor: Colors.purple + '30' }]}>
-                    <Text style={[styles.notSelfLabel, { color: Colors.purple }]}>Not-Self Tema</Text>
+                    <Text style={[styles.notSelfLabel, { color: Colors.purple }]}>{t('profile.personalMap.notSelf')}</Text>
                     <Text style={styles.notSelfText}>{analysis.hd.notSelf}</Text>
                   </View>
                 </>
               ) : (
                 <PremiumTeaser
-                  hint="Stratejin, otoriteni ve not-self temanı detaylı oku"
+                  hint={t('profile.premium.hdTeaser')}
                   color={Colors.purple}
                   onUnlock={() => setShowPaywall(true)}
                 />
@@ -680,12 +679,12 @@ export function ProfileScreen() {
                 </View>
                 <View style={styles.analysisHeaderText}>
                   <Text style={[styles.analysisTitle, { color: Colors.tealLight }]}>
-                    {premium.isPremium ? analysis.weekly.theme : 'Haftalık Rehberlik'}
+                    {premium.isPremium ? analysis.weekly.theme : t('profile.personalMap.weeklyReading')}
                   </Text>
                   <Text style={styles.analysisMeta}>
                     {premium.isPremium
-                      ? `Haftalık Rehberlik · ${analysis.weekly.weekNumber}. hafta`
-                      : 'Bu haftaya özel okuma'}
+                      ? t('profile.personalMap.weeklyMeta').replace('{week}', String(analysis.weekly.weekNumber))
+                      : t('profile.personalMap.weeklyThisWeek')}
                   </Text>
                 </View>
               </View>
@@ -693,12 +692,12 @@ export function ProfileScreen() {
                 <>
                   <Text style={styles.analysisDesc}>{analysis.weekly.message}</Text>
                   <Text style={[styles.analysisMeta, { marginTop: Spacing.xs }]}>
-                    Kişisel yıl: {analysis.weekly.personalYear}
+                    {t('profile.personalMap.personalYear').replace('{year}', String(analysis.weekly.personalYear))}
                   </Text>
                 </>
               ) : (
                 <PremiumTeaser
-                  hint="52 haftalık döngünde nereye geldiğini öğren"
+                  hint={t('profile.premium.weeklyTeaser')}
                   color={Colors.teal}
                   onUnlock={() => setShowPaywall(true)}
                 />
@@ -708,27 +707,27 @@ export function ProfileScreen() {
         ) : showBirthForm ? (
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ width: '100%' }}>
           <View style={styles.birthForm}>
-            <Text style={styles.birthFormTitle}>Doğum Haritası Bilgileri</Text>
+            <Text style={styles.birthFormTitle}>{t('profile.personalMap.birthForm.title')}</Text>
             <Text style={styles.birthFormHint}>
-              Saat ve şehir bilgisi Human Design hesabı için gereklidir.
+              {t('profile.personalMap.birthForm.hint')}
             </Text>
 
             <TextInput
               style={styles.nameInput}
               value={editFullName}
               onChangeText={setEditFullName}
-              placeholder="İsim Soyisim (numaroloji için)"
+              placeholder={t('profile.personalMap.birthForm.fullNamePlaceholder')}
               placeholderTextColor={Colors.textMuted}
               autoCapitalize="words"
             />
 
-            <Text style={styles.formLabel}>Doğum Tarihi</Text>
+            <Text style={styles.formLabel}>{t('profile.personalMap.birthForm.dateLabel')}</Text>
             <View style={styles.dateRow}>
               <TextInput
                 style={[styles.dateInput, { flex: 1 }]}
                 value={editDay}
                 onChangeText={setEditDay}
-                placeholder="Gün"
+                placeholder={t('profile.personalMap.birthForm.dayPlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 keyboardType="number-pad"
                 maxLength={2}
@@ -737,7 +736,7 @@ export function ProfileScreen() {
                 style={[styles.dateInput, { flex: 1 }]}
                 value={editMonth}
                 onChangeText={setEditMonth}
-                placeholder="Ay"
+                placeholder={t('profile.personalMap.birthForm.monthPlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 keyboardType="number-pad"
                 maxLength={2}
@@ -746,20 +745,20 @@ export function ProfileScreen() {
                 style={[styles.dateInput, { flex: 2 }]}
                 value={editYear}
                 onChangeText={setEditYear}
-                placeholder="Yıl"
+                placeholder={t('profile.personalMap.birthForm.yearPlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 keyboardType="number-pad"
                 maxLength={4}
               />
             </View>
 
-            <Text style={styles.formLabel}>Doğum Saati <Text style={styles.formLabelOpt}>(HD için önemli)</Text></Text>
+            <Text style={styles.formLabel}>{t('profile.personalMap.birthForm.hourLabel')} <Text style={styles.formLabelOpt}>{t('profile.personalMap.birthForm.hourOptional')}</Text></Text>
             <View style={styles.dateRow}>
               <TextInput
                 style={[styles.dateInput, { flex: 1 }]}
                 value={editHour}
                 onChangeText={setEditHour}
-                placeholder="Saat (0-23)"
+                placeholder={t('profile.personalMap.birthForm.hourPlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 keyboardType="number-pad"
                 maxLength={2}
@@ -768,19 +767,19 @@ export function ProfileScreen() {
                 style={[styles.dateInput, { flex: 1 }]}
                 value={editMinute}
                 onChangeText={setEditMinute}
-                placeholder="Dakika"
+                placeholder={t('profile.personalMap.birthForm.minutePlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 keyboardType="number-pad"
                 maxLength={2}
               />
             </View>
 
-            <Text style={styles.formLabel}>Doğum Şehri <Text style={styles.formLabelOpt}>(saat dilimi için)</Text></Text>
+            <Text style={styles.formLabel}>{t('profile.personalMap.birthForm.cityLabel')} <Text style={styles.formLabelOpt}>{t('profile.personalMap.birthForm.cityOptional')}</Text></Text>
             <TextInput
               style={styles.nameInput}
               value={editCity}
               onChangeText={setEditCity}
-              placeholder="İstanbul, Ankara, Londra..."
+              placeholder={t('profile.personalMap.birthForm.cityPlaceholder')}
               placeholderTextColor={Colors.textMuted}
               autoCapitalize="words"
               autoCorrect={false}
@@ -793,10 +792,10 @@ export function ProfileScreen() {
               onPress={handleSaveBirthData}
               disabled={editFullName.trim().length === 0 || !birthDataValid(editDay, editMonth, editYear)}
             >
-              <Text style={styles.onboardingBtnText}>Haritamı Oluştur ✦</Text>
+              <Text style={styles.onboardingBtnText}>{t('profile.personalMap.birthForm.saveBtn')}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setShowBirthForm(false)} style={styles.skipBtn}>
-              <Text style={styles.skipText}>İptal</Text>
+              <Text style={styles.skipText}>{t('profile.personalMap.birthForm.cancelBtn')}</Text>
             </TouchableOpacity>
           </View>
           </KeyboardAvoidingView>
@@ -810,10 +809,9 @@ export function ProfileScreen() {
             }}
           >
             <Text style={styles.unlockIcon}>✦</Text>
-            <Text style={styles.unlockTitle}>Kişisel Haritanı Aç</Text>
+            <Text style={styles.unlockTitle}>{t('profile.personalMap.unlock.title')}</Text>
             <Text style={styles.unlockDesc}>
-              İsim soyisim ve doğum tarihini gir.{'\n'}
-              Numaroloji, Human Design ve haftalık analiz.
+              {t('profile.personalMap.unlock.desc')}
             </Text>
           </TouchableOpacity>
         )}
@@ -826,20 +824,20 @@ export function ProfileScreen() {
           onPress={() => setShowAnimalInfo(v => !v)}
           activeOpacity={0.7}
         >
-          <Text style={styles.infoToggleTitle}>Hayvan Rehberliği Nedir?</Text>
+          <Text style={styles.infoToggleTitle}>{t('profile.animalGuidance.sectionTitle')}</Text>
           <Text style={styles.infoToggleArrow}>{showAnimalInfo ? '▲' : '▼'}</Text>
         </TouchableOpacity>
 
         {showAnimalInfo && (
           <View style={styles.animalInfoCard}>
-            <Text style={styles.animalInfoSection}>⊕ Totem Hayvan</Text>
+            <Text style={styles.animalInfoSection}>{t('profile.animalGuidance.totemTitle')}</Text>
             <Text style={styles.animalInfoText}>
-              Her insan, doğasında bir hayvanın ruhunu taşır. Bu totem hayvan seni temsil eder; enerjin, gülüç yanların ve yürüdüğün yol onun izlerini taşır. Totem değişmez — seninle doğar, seninle gelişir.
+              {t('profile.animalGuidance.totemText')}
             </Text>
             <View style={styles.animalInfoDivider} />
-            <Text style={styles.animalInfoSection}>◎ Nagual — Dönemsel Rehber</Text>
+            <Text style={styles.animalInfoSection}>{t('profile.animalGuidance.nagualTitle')}</Text>
             <Text style={styles.animalInfoText}>
-              Nagual ise belirli bir dönem için yanına gelen geçici rehberdir. Bir sınav, bir dönüşüm, bir kriz anında çağrılır. Görevini tamamlayınca yerini başka bir rehbere bırakır. Günlük çekilişinde gelen hayvan, bugünkü naguelin sesini taşır.
+              {t('profile.animalGuidance.nagualText')}
             </Text>
           </View>
         )}
@@ -851,9 +849,9 @@ export function ProfileScreen() {
         >
           <Text style={styles.finderBtnEmoji}>✦</Text>
           <View style={styles.finderBtnText}>
-            <Text style={styles.finderBtnTitle}>Hayvan Rehberini Bul</Text>
+            <Text style={styles.finderBtnTitle}>{t('profile.animalGuidance.finderTitle')}</Text>
             <Text style={styles.finderBtnDesc}>
-              {premium.isPremium ? 'Sorularla ya da doğum tarih/saatinle' : 'Üstad özelliği ✦'}
+              {premium.isPremium ? t('profile.animalGuidance.finderDescPremium') : t('profile.animalGuidance.finderDescFree')}
             </Text>
           </View>
           <Text style={[styles.infoToggleArrow, { color: Colors.tealLight }]}>
@@ -864,15 +862,15 @@ export function ProfileScreen() {
 
       {/* Ruhsal Harita */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Ruhsal Harita</Text>
+        <Text style={styles.sectionTitle}>{t('profile.spiritualMap.title')}</Text>
 
         {topSource && (
           <View style={[styles.spiritCard, { borderColor: Colors.gold }]}>
             <Text style={styles.spiritEmoji}>⌘</Text>
             <View style={styles.spiritInfo}>
-              <Text style={styles.spiritLabel}>En Çok Rehber Şair</Text>
+              <Text style={styles.spiritLabel}>{t('profile.spiritualMap.topGuide')}</Text>
               <Text style={[styles.spiritValue, { color: Colors.gold }]}>{topSource}</Text>
-              <Text style={styles.spiritCount}>{stats.sourceCounts[topSource] || 0} kez eşlik etti</Text>
+              <Text style={styles.spiritCount}>{t('profile.spiritualMap.companionCount').replace('{n}', String(stats.sourceCounts[topSource] || 0))}</Text>
             </View>
           </View>
         )}
@@ -880,9 +878,9 @@ export function ProfileScreen() {
           <View style={[styles.spiritCard, { borderColor: Colors.purple }]}>
             <Text style={styles.spiritEmoji}>{topStone.emoji}</Text>
             <View style={styles.spiritInfo}>
-              <Text style={styles.spiritLabel}>Koruyucu Taşın</Text>
+              <Text style={styles.spiritLabel}>{t('profile.spiritualMap.topStone')}</Text>
               <Text style={[styles.spiritValue, { color: Colors.purpleLight }]}>{topStone.name}</Text>
-              <Text style={styles.spiritCount}>{stats.stoneCounts[topStone.id] || 0} kez geldi · {topStone.chakra}</Text>
+              <Text style={styles.spiritCount}>{t('profile.spiritualMap.stoneCount').replace('{n}', String(stats.stoneCounts[topStone.id] || 0)).replace('{chakra}', topStone.chakra)}</Text>
             </View>
           </View>
         )}
@@ -890,9 +888,9 @@ export function ProfileScreen() {
           <View style={[styles.spiritCard, { borderColor: Colors.teal }]}>
             <Text style={styles.spiritEmoji}>{topAnimal.emoji}</Text>
             <View style={styles.spiritInfo}>
-              <Text style={styles.spiritLabel}>Totem Hayvanın</Text>
+              <Text style={styles.spiritLabel}>{t('profile.spiritualMap.topAnimal')}</Text>
               <Text style={[styles.spiritValue, { color: Colors.tealLight }]}>{topAnimal.name}</Text>
-              <Text style={styles.spiritCount}>{stats.animalCounts[topAnimal.id] || 0} kez eşlik etti</Text>
+              <Text style={styles.spiritCount}>{t('profile.spiritualMap.companionCount').replace('{n}', String(stats.animalCounts[topAnimal.id] || 0))}</Text>
             </View>
           </View>
         )}
@@ -900,14 +898,14 @@ export function ProfileScreen() {
           <View style={[styles.spiritCard, { borderColor: Colors.ember }]}>
             <Text style={styles.spiritEmoji}>{topNagual.emoji}</Text>
             <View style={styles.spiritInfo}>
-              <Text style={styles.spiritLabel}>Nagual Rehberin</Text>
+              <Text style={styles.spiritLabel}>{t('profile.spiritualMap.topNagual')}</Text>
               <Text style={[styles.spiritValue, { color: Colors.emberLight }]}>{topNagual.name}</Text>
-              <Text style={styles.spiritCount}>{(stats.nagualCounts || {})[topNagual.id] || 0} kez çağrıldı · {(topNagual as any).aspect}</Text>
+              <Text style={styles.spiritCount}>{t('profile.spiritualMap.nagualCount').replace('{n}', String((stats.nagualCounts || {})[topNagual.id] || 0)).replace('{aspect}', (topNagual as any).aspect)}</Text>
             </View>
           </View>
         )}
         {totalReadings === 0 && (
-          <Text style={styles.emptyHint}>İlk kartını aç, ruhsal haritanız oluşmaya başlasın.</Text>
+          <Text style={styles.emptyHint}>{t('profile.spiritualMap.emptyHint')}</Text>
         )}
       </View>
 
@@ -927,19 +925,19 @@ export function ProfileScreen() {
           <Text style={styles.familyMasterSymbol}>✦</Text>
           <View style={{ flex: 1 }}>
             <Text style={styles.familyMasterName}>sakin.life</Text>
-            <Text style={styles.familyMasterDesc}>Ana merkez — tüm uygulamalara giriş</Text>
+            <Text style={styles.familyMasterDesc}>{t('profile.sakinFamily.masterDesc')}</Text>
           </View>
           <Text style={styles.familyMasterArrow}>→</Text>
         </TouchableOpacity>
 
         <View style={styles.familyGrid}>
           {[
-            { name: 'Hayvan Rehberliği', symbol: '⊕', desc: 'Bu uygulama',                       active: true  },
-            { name: 'Taş Rehberliği',    symbol: '◈', desc: 'Kristallerin dili',                  active: false },
-            { name: 'Bitki Rehberliği',  symbol: '✿', desc: 'Bitkisel bilgelik',                  active: false },
-            { name: 'Mitler ve İmgeler', symbol: '⚡', desc: 'Arketip ve sembol',                  active: false },
-            { name: 'Human Design',      symbol: '◉', desc: 'Tasarımını tanı',                    active: false },
-            { name: 'Numeroloji',        symbol: '◎', desc: 'Sayıların ardındaki sen',            active: false },
+            { name: t('profile.sakinFamily.apps.animalGuidance'), symbol: '⊕', desc: t('profile.sakinFamily.appDescs.animalGuidance'), active: true  },
+            { name: t('profile.sakinFamily.apps.stoneGuidance'),  symbol: '◈', desc: t('profile.sakinFamily.appDescs.stoneGuidance'),  active: false },
+            { name: t('profile.sakinFamily.apps.plantGuidance'),  symbol: '✿', desc: t('profile.sakinFamily.appDescs.plantGuidance'),  active: false },
+            { name: t('profile.sakinFamily.apps.myths'),          symbol: '⚡', desc: t('profile.sakinFamily.appDescs.myths'),          active: false },
+            { name: t('profile.sakinFamily.apps.humanDesign'),    symbol: '◉', desc: t('profile.sakinFamily.appDescs.humanDesign'),    active: false },
+            { name: t('profile.sakinFamily.apps.numerology'),     symbol: '◎', desc: t('profile.sakinFamily.appDescs.numerology'),     active: false },
           ].map(app => (
             <View key={app.name} style={[styles.familyCard, app.active && styles.familyCardActive]}>
               <Text style={[styles.familySymbol, app.active && { color: Colors.teal }]}>{app.symbol}</Text>
@@ -963,7 +961,7 @@ export function ProfileScreen() {
 
       {/* Rozetler */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Rozetler</Text>
+        <Text style={styles.sectionTitle}>{t('profile.badges.title')}</Text>
         <View style={styles.badgesGrid}>
           {BADGES.map(badge => {
             const earned = totalReadings >= badge.required || streak >= badge.required;
@@ -979,13 +977,35 @@ export function ProfileScreen() {
                   {earned ? badge.emoji : '⊘'}
                 </Text>
                 <Text style={[styles.badgeTitle, { color: earned ? Colors.gold : Colors.textMuted }]}>
-                  {badge.title}
+                  {t(('profile.badges.list.' + badge.id + '.title') as any)}
                 </Text>
-                <Text style={styles.badgeDesc}>{badge.desc}</Text>
+                <Text style={styles.badgeDesc}>{t(('profile.badges.list.' + badge.id + '.desc') as any)}</Text>
               </View>
             );
           })}
         </View>
+      </View>
+
+      {/* Language */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t('profile.language.title' as any)}</Text>
+        <View style={styles.langBigRow}>
+          <TouchableOpacity
+            style={[styles.langBigBtn, language === 'tr' && styles.langBigBtnActive]}
+            onPress={() => setLanguage('tr')}
+            activeOpacity={0.75}
+          >
+            <Text style={[styles.langBigBtnText, language === 'tr' && styles.langBigBtnTextActive]}>Türkçe</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.langBigBtn, language === 'en' && styles.langBigBtnActive]}
+            onPress={() => setLanguage('en')}
+            activeOpacity={0.75}
+          >
+            <Text style={[styles.langBigBtnText, language === 'en' && styles.langBigBtnTextActive]}>English</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.langNote}>{t('profile.language.note' as any)}</Text>
       </View>
 
       {/* ── DEV ── */}
@@ -1002,7 +1022,7 @@ export function ProfileScreen() {
           }}
         >
           <Text style={styles.devBtnText}>
-            {premium.isPremium ? '⚙ DEV · Premium Kapat' : '⚙ DEV · Premium Aç'}
+            {premium.isPremium ? t('profile.dev.disablePremium') : t('profile.dev.enablePremium')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -1741,5 +1761,39 @@ const styles = StyleSheet.create({
   },
   langBtnTextActive: {
     color: Colors.gold,
+  },
+
+  langBigRow: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+    marginBottom: Spacing.sm,
+  },
+  langBigBtn: {
+    flex: 1,
+    paddingVertical: Spacing.md,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
+    backgroundColor: Colors.backgroundCard,
+    alignItems: 'center',
+  },
+  langBigBtnActive: {
+    borderColor: Colors.gold,
+    backgroundColor: Colors.goldGlow,
+  },
+  langBigBtnText: {
+    fontSize: Typography.size.md,
+    color: Colors.textMuted,
+    letterSpacing: 0.5,
+  },
+  langBigBtnTextActive: {
+    color: Colors.gold,
+    fontWeight: Typography.weight.semibold,
+  },
+  langNote: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    fontStyle: 'italic',
+    marginTop: 4,
   },
 });
