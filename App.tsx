@@ -7,6 +7,7 @@ import { AuthScreen } from './src/screens/AuthScreen';
 import { useTuraStore } from './src/store/useStore';
 import { Colors } from './src/theme/colors';
 import { isSupabaseConfigured } from './src/lib/supabase';
+import { LanguageProvider } from './src/i18n/LanguageContext';
 
 function Root() {
   const { authReady, isAuthenticated } = useTuraStore();
@@ -32,7 +33,9 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <Root />
+        <LanguageProvider>
+          <Root />
+        </LanguageProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useLanguage, type Lang } from '../i18n/LanguageContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
@@ -63,10 +64,8 @@ function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-export type Lang = 'tr' | 'en';
-
 export function useTuraStore() {
-  const [language, setLanguageState] = useState<Lang>('tr');
+  const { language, setLanguage } = useLanguage();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [dailyReading, setDailyReading] = useState<DailyReading | null>(null);
   const [archive, setArchive] = useState<ArchiveEntry[]>([]);
@@ -83,9 +82,6 @@ export function useTuraStore() {
   const [authReady, setAuthReady] = useState(!isSupabaseConfigured);
 
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEYS.LANGUAGE).then(v => {
-      if (v === 'en' || v === 'tr') setLanguageState(v);
-    });
     loadAll();
     if (!isSupabaseConfigured) return;
     supabase.auth.getSession().then(({ data }) => {
@@ -256,11 +252,6 @@ export function useTuraStore() {
     setStats(newStats);
     await AsyncStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(newStats));
   }, [stats]);
-
-  const setLanguage = useCallback(async (lang: Lang) => {
-    setLanguageState(lang);
-    await AsyncStorage.setItem(STORAGE_KEYS.LANGUAGE, lang);
-  }, []);
 
   const getTopStat = useCallback((counts: Record<string, number>): string | null => {
     const entries = Object.entries(counts);
