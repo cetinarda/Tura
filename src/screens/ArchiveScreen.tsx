@@ -18,17 +18,17 @@ import nagualsData from '../data/naguals.json';
 
 type FilterType = 'all' | 'quote' | 'stone' | 'animal' | 'nagual';
 
-const FILTERS: { key: FilterType; label: string; color: string }[] = [
-  { key: 'all', label: 'Tümü', color: Colors.gold },
-  { key: 'quote', label: 'Mesaj', color: Colors.gold },
-  { key: 'stone', label: 'Taş', color: Colors.purple },
-  { key: 'animal', label: 'Hayvan', color: Colors.teal },
-  { key: 'nagual', label: 'Nagual', color: Colors.ember },
+const FILTERS: { key: FilterType; color: string }[] = [
+  { key: 'all',    color: Colors.gold },
+  { key: 'quote',  color: Colors.gold },
+  { key: 'stone',  color: Colors.purple },
+  { key: 'animal', color: Colors.teal },
+  { key: 'nagual', color: Colors.ember },
 ];
 
 export function ArchiveScreen() {
   const insets = useSafeAreaInsets();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { archive, stats, getTopStat } = useTuraStore();
   const [filter, setFilter] = useState<FilterType>('all');
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -44,7 +44,8 @@ export function ArchiveScreen() {
 
   const formattedDate = (dateStr: string) => {
     const d = new Date(dateStr);
-    return d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+    const locale = lang === 'en' ? 'en-US' : 'tr-TR';
+    return d.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' });
   };
 
   const renderEntry = ({ item }: { item: typeof archive[0] }) => {
@@ -147,25 +148,25 @@ export function ArchiveScreen() {
           <View style={styles.reportRow}>
             {topSource && (
               <View style={styles.reportItem}>
-                <Text style={styles.reportLabel}>Rehber</Text>
+                <Text style={styles.reportLabel}>{t('archive.reportLabels.guide')}</Text>
                 <Text style={[styles.reportValue, { color: Colors.gold }]}>{topSource}</Text>
               </View>
             )}
             {topStone && (
               <View style={styles.reportItem}>
-                <Text style={styles.reportLabel}>Taş</Text>
+                <Text style={styles.reportLabel}>{t('archive.reportLabels.stone')}</Text>
                 <Text style={[styles.reportValue, { color: Colors.purpleLight }]}>{topStone.name}</Text>
               </View>
             )}
             {topAnimal && (
               <View style={styles.reportItem}>
-                <Text style={styles.reportLabel}>Hayvan</Text>
+                <Text style={styles.reportLabel}>{t('archive.reportLabels.animal')}</Text>
                 <Text style={[styles.reportValue, { color: Colors.tealLight }]}>{topAnimal.name}</Text>
               </View>
             )}
             {topNagual && (
               <View style={styles.reportItem}>
-                <Text style={styles.reportLabel}>Nagual</Text>
+                <Text style={styles.reportLabel}>{t('archive.reportLabels.nagual')}</Text>
                 <Text style={[styles.reportValue, { color: Colors.emberLight }]}>{topNagual.name}</Text>
               </View>
             )}
@@ -181,7 +182,7 @@ export function ArchiveScreen() {
             onPress={() => setFilter(f.key)}
           >
             <Text style={[styles.filterLabel, { color: filter === f.key ? f.color : Colors.textMuted }]}>
-              {f.label}
+              {t(('archive.filters.' + f.key) as any)}
             </Text>
           </TouchableOpacity>
         ))}
@@ -189,8 +190,8 @@ export function ArchiveScreen() {
 
       {archive.length === 0 ? (
         <View style={styles.empty}>
-          <Text style={styles.emptyText}>Henüz okuma yok.</Text>
-          <Text style={styles.emptySubtext}>Ana ekrandan kartını aç.</Text>
+          <Text style={styles.emptyText}>{t('archive.empty.title')}</Text>
+          <Text style={styles.emptySubtext}>{t('archive.empty.subtitle')}</Text>
         </View>
       ) : (
         <FlatList
