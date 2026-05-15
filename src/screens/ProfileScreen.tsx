@@ -24,6 +24,7 @@ import { PaywallScreen } from './PaywallScreen';
 import { usePremium, clearPremium, activateMockPremium } from '../lib/premium';
 import { HelpButton } from '../components/HelpButton';
 import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermission } from '../lib/notifications';
+import { useI18n } from '../i18n/useI18n';
 
 function hdTypeToGlossaryKey(type: string): string {
   switch (type) {
@@ -52,7 +53,8 @@ const BADGES = [
 
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
-  const { profile, isNewUser, createProfile, updateBirthData, updateHDType, stats, getTopStat, getLevelTitle, session, signOut } = useTuraStore();
+  const { profile, isNewUser, createProfile, updateBirthData, updateHDType, stats, getTopStat, getLevelTitle, session, signOut, setLanguage, language } = useTuraStore();
+  const { t } = useI18n();
   const premium = usePremium();
   const [showPaywall, setShowPaywall] = useState(false);
   const [remindersOn, setRemindersOn] = useState(false);
@@ -196,14 +198,14 @@ export function ProfileScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <Text style={styles.onboardingEmoji}>☾</Text>
-          <Text style={styles.onboardingTitle}>TURA'ya Hoş Geldin</Text>
+          <Text style={styles.onboardingTitle}>{t('profile.onboarding.title')}</Text>
           <Text style={styles.onboardingSubtitle}>
-            Anadolu'nun kadim geleneğinden günlük rehberlik
+            {t('profile.onboarding.subtitle')}
           </Text>
 
           {step === 1 && (
             <>
-              <Text style={styles.onboardingQuestion}>Adın nedir, yolcu?</Text>
+              <Text style={styles.onboardingQuestion}>{t('profile.onboarding.step1Question')}</Text>
               <TextInput
                 style={styles.nameInput}
                 value={name}
@@ -217,7 +219,7 @@ export function ProfileScreen() {
 
           {step === 2 && (
             <>
-              <Text style={styles.onboardingQuestion}>Hangi unsura yakın hissediyorsun?</Text>
+              <Text style={styles.onboardingQuestion}>{t('profile.onboarding.step2Question')}</Text>
               <View style={styles.elementsGrid}>
                 {ELEMENTS.map(el => (
                   <TouchableOpacity
@@ -237,7 +239,7 @@ export function ProfileScreen() {
 
           {step === 3 && (
             <>
-              <Text style={styles.onboardingQuestion}>Kişisel harita için</Text>
+              <Text style={styles.onboardingQuestion}>{t('profile.onboarding.step3Question')}</Text>
               <Text style={styles.onboardingHint}>
                 Numaroloji, Human Design ve element analizi.{'\n'}
                 Daha fazla bilgi = daha güçlü tahmin.
@@ -328,12 +330,12 @@ export function ProfileScreen() {
             disabled={step === 1 && name.trim().length === 0}
           >
             <Text style={styles.onboardingBtnText}>
-              {step < 3 ? 'Devam Et →' : 'Yola Çık ✦'}
+              {step < 3 ? t('profile.onboarding.continueBtn') : t('profile.onboarding.startBtn')}
             </Text>
           </TouchableOpacity>
           {step === 3 && (
             <TouchableOpacity onPress={handleSkipBirth} style={styles.skipBtn}>
-              <Text style={styles.skipText}>Şimdi değil, atla</Text>
+              <Text style={styles.skipText}>{t('profile.onboarding.skipBtn')}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -386,7 +388,24 @@ export function ProfileScreen() {
             <Text style={styles.avatarEmoji}>{ELEMENT_EMOJIS[profile.element || 'ateş']}</Text>
           </View>
         </View>
-        <Text style={styles.heroName}>{profile.name}</Text>
+        <View style={styles.heroNameRow}>
+          <Text style={styles.heroName}>{profile.name}</Text>
+          {/* Language toggle */}
+          <View style={styles.langRow}>
+            <TouchableOpacity
+              style={[styles.langBtn, language === 'tr' && styles.langBtnActive]}
+              onPress={() => setLanguage('tr')}
+            >
+              <Text style={[styles.langBtnText, language === 'tr' && styles.langBtnTextActive]}>TR</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.langBtn, language === 'en' && styles.langBtnActive]}
+              onPress={() => setLanguage('en')}
+            >
+              <Text style={[styles.langBtnText, language === 'en' && styles.langBtnTextActive]}>EN</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <Text style={styles.heroLevel}>{levelTitle}</Text>
         <Text style={styles.heroElement}>
           {ELEMENT_EMOJIS[profile.element || 'ateş']} {profile.element || 'Unsur seçilmedi'}
@@ -397,15 +416,15 @@ export function ProfileScreen() {
       <View style={styles.statsRow}>
         <View style={styles.statBox}>
           <Text style={styles.statValue}>{totalReadings}</Text>
-          <Text style={styles.statLabel}>Toplam Okuma</Text>
+          <Text style={styles.statLabel}>{t('profile.stats.totalReadings')}</Text>
         </View>
         <View style={[styles.statBox, styles.statBoxCenter]}>
           <Text style={[styles.statValue, { color: Colors.ember }]}>△ {streak}</Text>
-          <Text style={styles.statLabel}>Gün Silsile</Text>
+          <Text style={styles.statLabel}>{t('profile.stats.streak')}</Text>
         </View>
         <View style={styles.statBox}>
           <Text style={styles.statValue}>{level}</Text>
-          <Text style={styles.statLabel}>Seviye</Text>
+          <Text style={styles.statLabel}>{t('profile.stats.level')}</Text>
         </View>
       </View>
 
@@ -423,7 +442,7 @@ export function ProfileScreen() {
 
       {/* Hesap & Bildirimler */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Hesap</Text>
+        <Text style={styles.sectionTitle}>{t('profile.account.title')}</Text>
         <View style={styles.accountCard}>
           <View style={styles.accountRow}>
             <View style={{ flex: 1 }}>
@@ -478,7 +497,7 @@ export function ProfileScreen() {
                   <Text style={styles.accountSub}>Veriler buluta yedekleniyor</Text>
                 </View>
                 <TouchableOpacity style={styles.linkBtn} onPress={signOut}>
-                  <Text style={styles.linkBtnText}>Çıkış</Text>
+                  <Text style={styles.linkBtnText}>{t('profile.account.signOutBtn')}</Text>
                 </TouchableOpacity>
               </View>
             </>
@@ -878,9 +897,9 @@ export function ProfileScreen() {
 
       {/* Sakin Ailesi */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Sakin Ailesi</Text>
+        <Text style={styles.sectionTitle}>{t('profile.sakinFamily.title')}</Text>
         <Text style={styles.familyIntro}>
-          Tek ekosistem. Tek abonelik. Birçok kapı.
+          {t('profile.sakinFamily.intro')}
         </Text>
 
         {/* sakin.life master link */}
@@ -914,11 +933,11 @@ export function ProfileScreen() {
               </View>
               {app.active ? (
                 <View style={[styles.familyBadge, { borderColor: Colors.teal + '60' }]}>
-                  <Text style={[styles.familyBadgeText, { color: Colors.teal }]}>AKTİF</Text>
+                  <Text style={[styles.familyBadgeText, { color: Colors.teal }]}>{t('profile.sakinFamily.active')}</Text>
                 </View>
               ) : (
                 <View style={styles.familyBadge}>
-                  <Text style={styles.familyBadgeText}>YAKINDA</Text>
+                  <Text style={styles.familyBadgeText}>{t('profile.sakinFamily.comingSoon')}</Text>
                 </View>
               )}
             </View>
@@ -1674,5 +1693,37 @@ const styles = StyleSheet.create({
     color: Colors.sakinLavender,
     letterSpacing: 1.5,
     fontWeight: Typography.weight.semibold,
+  },
+
+  heroNameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  langRow: {
+    flexDirection: 'row',
+    gap: 4,
+    alignItems: 'center',
+  },
+  langBtn: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
+    backgroundColor: Colors.backgroundSecondary,
+  },
+  langBtnActive: {
+    borderColor: Colors.gold,
+    backgroundColor: Colors.gold + '18',
+  },
+  langBtnText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: Colors.textMuted,
+    letterSpacing: 1,
+  },
+  langBtnTextActive: {
+    color: Colors.gold,
   },
 });
