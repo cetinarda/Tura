@@ -854,23 +854,33 @@
     "name": "Kuğu",
     "emoji": "🦢",
     "element": "su",
-    "symbolism": ["dönüşüm", "saflık", "ruh yolculuğu", "zarafet"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Cygnus_olor_Visualization.jpg&width=300",
-    "anatolianMeaning": "Altay ve Sibir şamanizminde kuğu, ruhun bedenler arasında yaptığı yolculuğun simgesidir; şamanlar kuğu kostümü giyerek öte aleme geçerdi. Kelt geleneğinde ise ruhun en saf halini temsil eder ve tanrısal varlıklar kuğu kılığına bürünür.",
-    "dailyMessage": "Kuğu bugün seni dönüşümün eşiğinde karşılıyor. Çirkin ördek yavrusu masalı sadece bir masal değil — senin hikâyen. İçinde taşıdığın ağır kabuk, aslında kanadının kılıfıdır. Bugün bir şeyi bırak: seni geri tutan eski bir inanç, bir alışkanlık ya da bir ilişki biçimi.",
-    "guidance": "Bırakmakta zorlandığın bir şeyi bugün fark et ve ona teşekkür ederek uğurla.",
-    "rarity": "uncommon"
+    "symbolism": [
+      "dönüşüm",
+      "saflık",
+      "incelik",
+      "ruh yolculuğu"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Mute_swan_Vrhnika.jpg&width=300",
+    "anatolianMeaning": "Türk ve Altay şamanizminde kuğu, şamanın gökyüzüne yaptığı yolculuğun kutsal aracıdır. Kelt, Norse ve Yunan geleneklerinde dönüşümün ve saflığın simgesidir.",
+    "dailyMessage": "Kuğu bugün seni dışarıdan değil, içeriden dönüşmeye davet ediyor. Görünüşünün altındaki gerçek güzelliği fark etme zamanı. Hangi kabuğu kırmaya hazırsın?",
+    "guidance": "Kendini olduğundan farklı gösterme — gerçek zarafet, özgünlükten gelir.",
+    "rarity": "rare"
   },
   {
     "id": "a052",
     "name": "Kondor",
     "emoji": "🦅",
     "element": "hava",
-    "symbolism": ["üst dünya", "ata ruhları", "yaşam-ölüm köprüsü", "yüce bakış"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Condor_california_american.jpg&width=300",
-    "anatolianMeaning": "And şamanizminde Kondor, gökle yerin arasındaki köprüdür; ata ruhlarını taşır ve ölümlülerin dileklerini üst dünyaya ulaştırır. Kuzey Amerika'nın pek çok yerli geleneğinde ise büyük ölçeğiyle yaratılışın ve döngünün kutsal tanığı sayılır.",
-    "dailyMessage": "Kondor bugün seni en yüce bakış açısından sesleniyor. Yüksek uç — oradan bak: hayatının hangi döngüsü kapanıyor, hangisi açılıyor? Ata ruhların ve geçmişteki bilgelerin enerjisi seni taşıyor. Kaybettiğini sandığın bir şey aslında seni daha hafif yapıyor.",
-    "guidance": "Atalarından, geçmişten ya da geride bıraktığın bir deneyimden bir ders çıkar ve yüksek sesle ya da içinden söyle.",
+    "symbolism": [
+      "üst dünya",
+      "ata ruhları",
+      "ölüm köprüsü",
+      "özgürlük"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Condor_California_Gymnogyps_californianus.jpg&width=300",
+    "anatolianMeaning": "And şamanizminin en kutsal kuşu. Kondor, yaşayanlar ve atalar arasındaki köprüdür; Güney Amerika'dan Kuzey Amerika'ya uzanan geleneklerde Üst Dünya'nın habercisidir.",
+    "dailyMessage": "Kondor bugün seni yüksek perspektife çağırıyor. Kaybettiğin ya da geride bıraktığın bir şey var — ama Kondor'un gözünden bakınca, o kayıp bir sona değil, bir geçişe işaret ediyor. Atalarından gelen güç seninle.",
+    "guidance": "Geride bıraktıklarına veda et — onlar seni bırakmıyor, sadece farklı bir biçimde yanında oluyorlar.",
     "rarity": "legendary"
   },
   {
@@ -878,71 +888,101 @@
     "name": "Somon",
     "emoji": "🐟",
     "element": "su",
-    "symbolism": ["köke dönüş", "bilgelik", "azim", "içgüdüsel yön"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Oncorhynchus_keta.jpg&width=300",
-    "anatolianMeaning": "Kelt mitolojisinde somon, tüm bilgeliği içinde taşıyan kutsal balıktır; efsanevi kahraman Fionn mac Cumhaill onun etini yiyerek evrensel bilgiye ulaşır. Norse ve Sibir geleneklerinde ise somonu kökenine döndüren içgüdü, ruhsal yolun simgesi olarak anılır.",
-    "dailyMessage": "Somon bugün seni köküne çağırıyor. Akıntıya karşı yüzmek bitkinleştirici görünebilir ama asıl yön içgüdünde saklı. Bugün nereden geldiğini, ne için var olduğunu hatırla — bu köke dönüş seni besleyecek. Azim bir inat değil, sevginin hareketi.",
-    "guidance": "Seni yorsa da vazgeçme; kökenine, değerlerine ya da uzun soluklu bir hedefine geri dön.",
+    "symbolism": [
+      "köke dönüş",
+      "bilgelik",
+      "azim",
+      "içgüdüsel yön"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Pacific_salmon.jpg&width=300",
+    "anatolianMeaning": "Kelt ve Norse geleneklerinde somon, bilgeliğin ta kendisidir — bilgeliğin pınarında yüzen kutsal balık. Sibirya ve Kuzey Amerika şamanizminde ise köke dönüşün ve azmin simgesidir.",
+    "dailyMessage": "Somon bugün sana zorlu yolun değerini hatırlatıyor. Akıntıya karşı yüzüyor olabilirsin — ama bu yorgunluk seni doğduğun yere, gerçek benliğine götürüyor. Nereden geldiğini unutma.",
+    "guidance": "Yorucu olan yol genellikle doğru yoldur — içgüdüne güven, devam et.",
     "rarity": "uncommon"
   },
   {
     "id": "a054",
     "name": "Sinek Kuşu",
-    "emoji": "🐦",
+    "emoji": "🌺",
     "element": "ateş",
-    "symbolism": ["neşe", "hafiflik", "savaşçı ruhu", "anlın tadı"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Hummingbird_in_Ecuador.jpg&width=300",
-    "anatolianMeaning": "Aztek mitolojisinde savaş tanrısı Huitzilopochtli sinek kuşu kılığında tasvir edilir; düşen savaşçıların ruhlarının sinek kuşuna dönüştüğüne inanılır. And kültürlerinde ise neşe, hafiflik ve anın dolgunluğunu simgeler — küçük ama sonsuz enerjili bir varlık.",
-    "dailyMessage": "Sinek kuşu bugün sana anlın içinde ne kadar güç saklı olduğunu gösteriyor. Küçük bir zevki atlama. Rengi gör, kokuyu iç, müziği duy — anlık temas seni besler. Hayat büyük kararlardan değil, küçük saf anların birikiminden oluşuyor.",
-    "guidance": "Bugün çok küçük ama gerçek bir zevke zaman ayır: bir çiçek, bir şarkı, bir yudum.",
-    "rarity": "common"
+    "symbolism": [
+      "neşe",
+      "hafiflik",
+      "savaşçı ruhu",
+      "an'da yaşam"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Rufous_Hummingbird.jpg&width=300",
+    "anatolianMeaning": "Aztek geleneğinde düşen savaşçıların sinek kuşuna dönüştüğüne inanılırdı — bu küçük kuş, büyük cesaretin simgesidir. And şamanizminde ise aşkın ve neşenin habercisidir.",
+    "dailyMessage": "Sinek Kuşu bugün sana hatırlatıyor: küçük olmak zayıflık değildir. Kanatlarını dakikada yüzlerce kez çırpıyor, yine de zarif kalıyor. Bugün seni zorlayan şey ne kadar büyük görünürse görünsün, sen ondan hızlısın.",
+    "guidance": "Ağırlıklarını bir an için bırak — bugün hafifliği seç.",
+    "rarity": "rare"
   },
   {
     "id": "a055",
     "name": "Yaban Domuzu",
     "emoji": "🐗",
     "element": "toprak",
-    "symbolism": ["cesaret", "ham güç", "savaşçı ruhu", "yenilmezlik"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Wild_Boar_Farrowing.jpg&width=300",
-    "anatolianMeaning": "Kelt geleneğinde yaban domuzu, savaşçıların en yüksek totemleri arasında yer alır; tanrısal şölen sofralarında ölümsüzlük yemeği olarak sunulur. Norse mitolojisinde ise Freyr ve Freyja'nın kutsal hayvanıdır; Hint epiklerinde Vishnu'nun yaban domuzu avatarı Varaha yeri karanlıktan kurtarır.",
-    "dailyMessage": "Yaban domuzu bugün sana dur demek yerine geç diyor. Önündeki engel büyük görünebilir ama içindeki ham güç daha büyük. Korkmadan ileri git. Bugün tereddüt ettiğin bir konuda harekete geç — düşünmeden, planlamadan, sadece hareket et.",
-    "guidance": "Bugün ertelediğin bir şeye doğrudan ve kararlıca adım at.",
+    "symbolism": [
+      "ham güç",
+      "cesaret",
+      "savaşçı yürek",
+      "toprak bağı"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Wild_Boar_Facing_Viewer.jpg&width=300",
+    "anatolianMeaning": "Kelt ve Norse mitolojisinde yaban domuzu, savaşçının kutsal hayvanıdır. Yunan'da tanrıların avladığı kutsal bir güçtür, Hint geleneğinde ise Vishnu'nun dünyayı kurtardığı formlarından biridir.",
+    "dailyMessage": "Yaban Domuzu bugün seni doğrudan, korkusuz bir eyleme çağırıyor. Uzun süredir ertelediğin, etrafından dolaştığın bir şey var. Bugün dürüstçe ve dimdik karşısına geç. Ham güç içinde hazır bekliyor.",
+    "guidance": "Korduğun şeyin tam karşısına geç — güvenin içinden değil, eyleminle oluşur.",
     "rarity": "uncommon"
   },
   {
     "id": "a056",
     "name": "Kedi",
-    "emoji": "🐈",
+    "emoji": "🐱",
     "element": "hava",
-    "symbolism": ["bağımsızlık", "gece sezgisi", "büyü", "öz-belirlenim"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Cat_November_2010-1a.jpg&width=300",
-    "anatolianMeaning": "Mısır'da Bastet kültü, kediyi güneş ve korumanın tanrıçası olarak kutsar; gece görüşü onu bilgelik ve sırların hâkimi yapar. Kelt geleneğinde kediler öteki dünyaya açılan kapıların bekçileri, Slav folklorunda ise ev ruhlarıyla iletişim kuran büyülü varlıklardır.",
-    "dailyMessage": "Kedi bugün sana kendi kurallarınla yaşamayı hatırlatıyor. Onay bekleme — kendi iç sesine kulak ver. Seni zorlayan bir ilişki ya da durum var mı? Kedinin bağımsızlığı kibirden değil, öz-saygıdan gelir. Sen de sınırlarını zarif ama net çiz.",
-    "guidance": "Bugün başkasının beklentisi değil, senin gerçek ihtiyacın önce gelsin.",
+    "symbolism": [
+      "bağımsızlık",
+      "gece sezgisi",
+      "büyü",
+      "öz-güven"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Cat_August_2010-4.jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'da Bastet olarak tapınılan kedi, ev koruyucusu ve dişil gücün simgesiydi. Kelt ve Slav geleneklerinde gece dünyasının büyücüsü, görünmeyeni gören varlıktır.",
+    "dailyMessage": "Kedi bugün sana kendi kurallarınla yaşamayı hatırlatıyor. Herkesin beklentisine göre şekillenmek yorucu — bugün kendi doğanı dinle. Sezgin ne söylüyor? Hangi kapıyı içgüdüyle açıp hangisini kapatmak istiyorsun?",
+    "guidance": "Başkalarının onayına ihtiyaç duymadan bir karar ver — bu seninki.",
     "rarity": "common"
   },
   {
     "id": "a057",
     "name": "Yusufçuk",
-    "emoji": "🪲",
+    "emoji": "🫧",
     "element": "su",
-    "symbolism": ["illüzyon", "ışık", "çevik zihin", "dönüşüm"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Dragonfly_October_2012-1.jpg&width=300",
-    "anatolianMeaning": "Japon kültüründe yusufçuk, savaşçıların cesaretini ve kazancını simgeler; 'Akitsushima' (Yusufçuk Adası) Japonya'nın kadim adlarından biridir. Kuzey Amerika yerli geleneklerinde ise illüzyonu delerek gerçeği görme ve hızlı düşüncenin simgesidir; Hint mitolojisinde de ışıkla dans eden bilge ruh olarak anılır.",
-    "dailyMessage": "Yusufçuk bugün sana yüzeyin altına bakmanı söylüyor. Gördüğün her şey göründüğü gibi değil — ışığın kırılması illüzyon yaratır. Bugün bir duruma ya da insana önyargısız, taze gözlerle bak. Renk değişiyor mu? Belki gerçek de değişiyordur.",
-    "guidance": "Bugün hızla yargılamadan önce bir an dur; görüneni değil, olası gerçeği hisset.",
-    "rarity": "common"
+    "symbolism": [
+      "illüzyon",
+      "ışık dönüşümü",
+      "çevik zihin",
+      "an bilinci"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Blue_dragonfly_-_Aeshna_cyanea.jpg&width=300",
+    "anatolianMeaning": "Kuzey Amerika, Japon ve Hint geleneklerinde yusufçuk, gerçekliğin illüzyonla dansını simgeler. Suyun üzerinde uçan bu varlık, iki dünya arasında köprü kurar.",
+    "dailyMessage": "Yusufçuk bugün sana şunu soruyor: gördüğün her şey gerçek mi? Bazen bir durumu olduğundan ağır, bazen de olduğundan basit görürüz. Bugün biraz yana çekil — ışığın farklı açısından bak.",
+    "guidance": "Katı görüşünü yumuşat — aynı durumun başka yorumu da var.",
+    "rarity": "uncommon"
   },
   {
     "id": "a058",
     "name": "Hüdhüd",
     "emoji": "🐦",
     "element": "hava",
-    "symbolism": ["ilahi rehber", "ruhsal mesaj", "bilge yolcu", "habercilik"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Hoopoe_mauritania.jpg&width=300",
-    "anatolianMeaning": "Kur'an'da Süleyman peygamberin hüdhüdü, Seba Melikesi Belkıs'ın haberini taşır — bilgeliğin ve ilahi rehberliğin sembolüdür. Faridüddin Attar'ın 'Mantık-ut Tayr' eserinde ise hüdhüd, ruhları Simurg'a doğru yönlendiren rehber kuştur; her yolculuğun başındaki irşad sesini temsil eder.",
-    "dailyMessage": "Hüdhüd bugün sana bir mesaj taşıyor. Beklenmedik bir yerde, beklenmedik birinden ya da içinden gelen sessiz bir ses — onu atlamayın. Bugün aldığın haberler, karşılaştığın insanlar ya da okuduğun bir şey tesadüf değil; ilahi yönlendirmenin dilidir. Kulak ver.",
-    "guidance": "Bugün gelen bir mesaja, işarete ya da içgüdüsel sese gerçekten kulak ver ve bir adım at.",
+    "symbolism": [
+      "ilahi rehber",
+      "ruhsal mesaj",
+      "bilge yolcu",
+      "sadakat"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Upupa_epops_close.jpg&width=300",
+    "anatolianMeaning": "Kur'an-ı Kerim'de Süleyman Peygamber'in elçisi olarak geçen Hüdhüd, iki krallık arasında gerçeği taşıyan kutsal habercidir. Attar'ın Mantık-ut Tayr'ında ise ruhun Tanrı'ya olan yolculuğunda rehberlik eden bilge kuştur.",
+    "dailyMessage": "Hüdhüd bugün sana bir mesaj getiriyor — ama dışarıdan değil, içeriden. Uzun süredir bildiğin ama görmezden geldiğin bir gerçek var. O ses bugün biraz daha yüksek konuşuyor. Dinlemeye hazır mısın?",
+    "guidance": "Kalbinin söylediği ama aklının ertelediği şeyle bugün yüzleş.",
     "rarity": "rare"
   },
   {
@@ -950,11 +990,16 @@
     "name": "Akbaba",
     "emoji": "🦅",
     "element": "hava",
-    "symbolism": ["arınma", "ölümü kucaklama", "geri dönüşüm döngüsü", "temizlik"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Gyps_africanus_-Kruger_National_Park-8.jpg&width=300",
-    "anatolianMeaning": "Eski Mısır'da Nekhbet, akbaba başlı ana tanrıçadır; firavunları ve yeni doğanları korur, üst Mısır'ın sembolüdür. Aztek ve Kuzey Amerika geleneklerinde akbaba, ölümü yok eden değil dönüştüren kutsal bir temizleyicidir — yaşamın sürmesi için vazgeçilmez bir arınma gücü olarak saygı görür.",
-    "dailyMessage": "Akbaba bugün seni arınmaya çağırıyor. Bitiği hâlde tuttuğun, çürüdüğü hâlde bırakmadığın şey seni beslemez — seni yorar. Onu bırakmak acı verici görünse de o bırakış, yeni yaşamın zeminidir. Döngü böyle işler: eski çözülür, yeni doğar.",
-    "guidance": "Hayatında bitmesi gereken ama hâlâ sürdürdüğün bir şeyi fark et ve bırakmak için ilk adımı at.",
+    "symbolism": [
+      "arınma",
+      "döngü",
+      "ölümü kucaklama",
+      "yenilenme"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Gyps_africanus_(Ruppell%27s_vulture).jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'da Nekhbet olarak kutlanan akbaba, üst Mısır'ın koruyucu tanrıçasıydı. Aztek, Kuzey Amerika ve Afrika geleneklerinde ölümü temizleyen, döngüyü tamamlayan kutsal arınma kuşudur.",
+    "dailyMessage": "Akbaba bugün sana zor bir soruyu soruyor: artık işe yaramayan neyi taşımaya devam ediyorsun? Her şeyin bir döngüsü var — sona ermek, başlamayı mümkün kılar. Bugün bir şeyi bırakmaya izin ver.",
+    "guidance": "Bitmesi gereken şeyin bitmesine izin ver — bu sonu değil, temizlenmeyi seç.",
     "rarity": "uncommon"
   },
   {
@@ -962,11 +1007,16 @@
     "name": "Jaguar",
     "emoji": "🐆",
     "element": "toprak",
-    "symbolism": ["gece güneşi", "şaman dönüşümü", "alt dünya", "güç"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Standing_jaguar.jpg&width=300",
-    "anatolianMeaning": "Aztek mitolojisinde jaguar, geceleri güneşin dönüştüğü formdur — karanlıkta yanan gece güneşidir. Maya geleneğinde şamanlar jaguar kılığına bürünerek alt dünyaya iner, ata ruhlarıyla iletişim kurar; And şamanizminde ise dönüşüm ve gizli güç enerjisinin taşıyıcısıdır.",
-    "dailyMessage": "Jaguar bugün karanlık içindeki gücünü hatırlatıyor. Zorlandığın, belirsizlikte kaldığın anlarda bile içinde bir ateş yanıyor. Gecenin derinliğinde avlanan jaguar gibi, tam görünmezlikte en güçlüsün. Bu karanlık seni yutmuyor — seni öğretiyor.",
-    "guidance": "Bugün zor bir duruma dönüp bak: orada ne öğrendin, hangi gücün uyandı?",
+    "symbolism": [
+      "gece güneşi",
+      "şaman dönüşümü",
+      "alt dünya",
+      "güç"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Jaguar_at_the_San_Diego_Zoo_1.jpg&width=300",
+    "anatolianMeaning": "Aztek ve Maya şamanizminin en güçlü hayvanı. Jaguar, gece güneşini temsil eder — gündüz karanlıkta yürüyen, görünmeyeni gören, alt dünyanın efendisidir. Şaman onun formuna bürünerek öteki âleme geçer.",
+    "dailyMessage": "Jaguar bugün seni karanlıkta gezmeye davet ediyor. Korktuğun, kaçındığın o yerler — tam da içindeki gücün saklı olduğu yerler. Sessizce, sabırla, kesin adımlarla. Bugün kaçmak değil, yüzleşmek zamanı.",
+    "guidance": "Güçlü olduğun yer, en çok korktuğun yerin tam içinde gizlidir.",
     "rarity": "rare"
   },
   {
@@ -974,71 +1024,101 @@
     "name": "Kobra",
     "emoji": "🐍",
     "element": "ateş",
-    "symbolism": ["ilahi koruma", "kundalini gücü", "kral işareti", "uyandırma"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Indian_cobra.jpg&width=300",
-    "anatolianMeaning": "Eski Mısır'da Wadjet kobra tanrıçası, firavunların taçlarını süsler ve krallığın kutsal koruyucusudur. Hint geleneğinde kobra, omurganın dibinden başını kaldıran kundalini enerjisini simgeler; Shiva'nın boynundaki kobra bilinç ve dönüşümün işaretidir.",
-    "dailyMessage": "Kobra bugün içindeki uyuyan enerjini uyandırıyor. Uzun süredir baskı altında tuttuğun bir güç var — bir tutku, bir yetenek, bir hakikat. Bugün ona izin ver: baş kaldırsın, boyun uzatsın, görünsün. Tehdit değil, taç gibi taşı onu.",
-    "guidance": "Bastırdığın bir gücü, yeteneği ya da arzuyu bugün dışa vur — küçük de olsa bir adım.",
-    "rarity": "uncommon"
+    "symbolism": [
+      "ilahi koruma",
+      "kundalini",
+      "kral işareti",
+      "gizli güç"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ophiophagus_hannah_2.jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'da Wadjet olarak firavunların tacındaki kobra, ilahi koruyucu güçtü. Hint geleneğinde ise kundalini enerjisini — omurgada yükselen uyanış ateşini — simgeler.",
+    "dailyMessage": "Kobra bugün içinde uyuyan gücü uyandırıyor. Uzun süredir bastırılmış, beklemeye alınmış bir enerji var. O güç saldırmak için değil, seni korumak için var. Bugün kendi sınırlarını net çiz.",
+    "guidance": "Kendini savunmak için özür dileme — sınırların sağlıklı olduğunun işaretidir.",
+    "rarity": "rare"
   },
   {
     "id": "a062",
     "name": "Puma",
     "emoji": "🦁",
     "element": "toprak",
-    "symbolism": ["sessiz liderlik", "yalnız güç", "gizli cesaret", "öz-yetkinlik"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Mountain_lion_cougar.jpg&width=300",
-    "anatolianMeaning": "And şamanizminde puma (Inka'da 'Puma') yeraltı, yeryüzü ve gökyüzü arasındaki orta dünyayı temsil eder; Cusco şehri puma şeklinde kurulmuştur. Kuzey Amerika'nın pek çok yerli geleneğinde ise puma sessiz ama derin liderliğin, bağımsız gücün ve kendi yolunu çizmenin simgesidir.",
-    "dailyMessage": "Puma bugün sessizce güçlü olmanı hatırlatıyor. Bağırmana gerek yok, ispat etmene gerek yok. Gerçek güç kendinden emin adımlarla sessizce ilerler. Bugün kim olduğunu kanıtlamaya çalışmak yerine, sadece ol. Güven sessizliğinden gelir.",
-    "guidance": "Bugün bir şeyi ispat etme çabasından vazgeç; sadece kendin ol ve hareket et.",
-    "rarity": "rare"
+    "symbolism": [
+      "sessiz liderlik",
+      "yalnız güç",
+      "gizli cesaret",
+      "sabırlı eylem"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Mountain_Lion_-_Puma_concolor.jpg&width=300",
+    "anatolianMeaning": "Kuzey ve Güney Amerika yerli geleneklerinde puma, görünmeden yönetenin simgesidir. Aztek geleneğinde sessiz gücün, içten gelen otoritenin kutsal hayvanıdır.",
+    "dailyMessage": "Puma bugün sessizliğinin gücünü hatırlatıyor. Her şeyi söylemek, her adımını açıklamak zorunda değilsin. En güçlü hareketler çoğu zaman sessizce yapılır. Sabırlı ol — hamleni zamanında yap.",
+    "guidance": "Kendini kanıtlama ihtiyacı hissetme — gerçek güç sessizdir.",
+    "rarity": "uncommon"
   },
   {
     "id": "a063",
     "name": "Su Samuru",
     "emoji": "🦦",
     "element": "su",
-    "symbolism": ["oyun", "kadın bilgeliği", "şans kapısı", "neşeli akış"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Sea_otter_cropped.jpg&width=300",
-    "anatolianMeaning": "Kuzey Amerika yerli geleneklerinde su samuru, kadın bilgeliğinin ve neşeli yaratıcılığın kutsal hayvanıdır; oyun oynamayı bilen kişinin şansı çektiğine inanılır. Kelt ve Norse geleneklerinde ise su samurunun kürkü uğur getirir, doğasındaki serbest akış su ruhlarının lütfunu simgeler.",
-    "dailyMessage": "Su samuru bugün sana oynamayı hatırlatıyor. Hayat ne zaman bu kadar ciddileşti? Bugün kendinle biraz eğlen — gülünç olsun, hafif olsun, serbest olsun. Oyun bir kaçış değil; en derin yaratıcılığın kapısı. Şans, oynayan ruha daha çabuk gelir.",
-    "guidance": "Bugün hiçbir amacı olmayan, sadece eğlenceli bir şey yap.",
+    "symbolism": [
+      "oyun",
+      "kadın bilgeliği",
+      "şans",
+      "akışkanlık"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Lontra_canadensis.jpg&width=300",
+    "anatolianMeaning": "Kuzey Amerika ve Kelt geleneklerinde su samuru, oyunun ve kadın sezgisinin kutsal hayvanıdır. Slav folklorunda ise şans kapısını açan, nehrin sevinçli ruhudur.",
+    "dailyMessage": "Su Samuru bugün sana hafifliği hatırlatıyor. Her şeyi çok ciddiye alıyor olabilirsin — ama hayat da bir nehir gibi akıyor ve bu nehirde oynamak da bir bilgeliktir. Bugün neyle eğlenebilirsin?",
+    "guidance": "Bugün bir şeyi oyunla yap — ciddiyet her zaman en iyi öğretmen değildir.",
     "rarity": "common"
   },
   {
     "id": "a064",
     "name": "Balıkçıl",
-    "emoji": "🐦",
+    "emoji": "🦢",
     "element": "su",
-    "symbolism": ["sabır", "odak", "öz-belirlenim", "doğru an"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Grey_Heron_(Ardea_cinerea).jpg&width=300",
-    "anatolianMeaning": "Mısır'da balıkçıl, Bennu kuşu — Güneş Tanrısı Ra'nın simgesi ve yaratılışın ilk sesi — olarak tasvir edilir. Kelt geleneğinde yalnız ve odaklı bekleme gücünü, Çin geleneğinde ise sabrın ve öz-disiplinin meyve verdiğini temsil eder.",
-    "dailyMessage": "Balıkçıl bugün sana beklemesini bilmeni söylüyor. Sonuç için acele etme — doğru an gelecek ve sen hazır olacaksın. O an geldiğinde tereddüt etme; tüm bekleyişin tek bir keskin harekete dönüşsün. Sabır zayıflık değil, ustanın silahıdır.",
-    "guidance": "Acele etme; bugün fırsatını bekle ve geldiğinde tüm odakla hareket et.",
+    "symbolism": [
+      "sabır",
+      "odak",
+      "öz-belirlenim",
+      "derinlik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Great_Blue_Heron-27527-2.jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'da yaratılışın başlangıcındaki kutsal kuş olarak görülen balıkçıl, Kelt ve Çin geleneklerinde sabır ile derin odaklanmanın simgesidir. Kuzey Amerika geleneğinde ise öz-belirlenim ve bağımsız ruhun hayvanıdır.",
+    "dailyMessage": "Balıkçıl bugün seni bir yerde saatlerce bekleyebilen o derin sabra davet ediyor. Acele etme — doğru an gelecek. Gözlerini kırpmadan bekleyen bu kuş gibi, bugün odağını kaybetme.",
+    "guidance": "Acelesi olmayan şeyi zorlamadan bekle — hazır olduğunda gelir.",
     "rarity": "common"
   },
   {
     "id": "a065",
     "name": "Çakal",
-    "emoji": "🐺",
+    "emoji": "🐕",
     "element": "toprak",
-    "symbolism": ["trickster öğretici", "sınır yürüyücüsü", "geçiş rehberi", "dönüşüm"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Golden_jackal_(Canis_aureus).jpg&width=300",
-    "anatolianMeaning": "Eski Mısır'da çakal başlı Anubis, ölülerin ruhlarını tartarak yargılar ve öte âleme rehberlik eder — geçiş ve dönüşümün tanrısıdır. Kuzey Amerika'da Coyote (trickster), hata yaparak öğreten ve sınırları zorlayan yaratıcı bir güçtür; Afrika geleneklerinde ise çakal bilgelik ve hilekârlığın aynı anda var olduğu bir öğreticidir.",
-    "dailyMessage": "Çakal bugün sana hayatın düzeni bozduğu anların da bir öğretisi olduğunu hatırlatıyor. Planlar bozuldu mu? Beklediğin olmadı mı? Çakal güler — çünkü tam burada öğreniyorsun. Sınırda yürümek hem tehlikeli hem de özgürleştirici. Hata yaptıysan, onun içinde saklı hazineyı ara.",
-    "guidance": "Bugün bir hatayı ya da beklenmedik gelişmeyi yargılamadan incele: ne öğretiyor?",
+    "symbolism": [
+      "trickster öğretici",
+      "sınır yürüyücüsü",
+      "geçiş rehberi",
+      "gölge bilgeliği"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Golden_jackal_Canis_aureus.jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'da Anubis olarak ölülerin ruhlarını öteki dünyaya taşıyan kutsal rehberdir. Kuzey Amerika'da Coyote adıyla bilinen en büyük trickster'dır — öğretmenliği komedi yoluyla yapar, hatalar aracılığıyla büyütür.",
+    "dailyMessage": "Çakal bugün sana beklenmedik bir ders geliyor haberi veriyor. Güldüğün, küçümsediğin ya da kaçındığın bir şey aslında en büyük öğretmenin. Gülmeye devam et — ama kulağını da aç.",
+    "guidance": "Bugün seni güldüren ya da sinir eden şeyin içinde bir ders saklı.",
     "rarity": "uncommon"
   },
   {
     "id": "a066",
     "name": "Ketsal Kuşu",
-    "emoji": "🦜",
+    "emoji": "🦚",
     "element": "hava",
-    "symbolism": ["özgürlük", "kutsal güzellik", "ilahi renk", "onur"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Resplendent_Quetzal_(Pharomachrus_mocinno).jpg&width=300",
-    "anatolianMeaning": "Aztek ve Maya geleneğinde Quetzal, Tüylü Yılan tanrısı Quetzalcoatl'ın kutsal kuşudur; tüyleri altından değerli sayılır. Esir düşen ketsal yaşamak yerine ölmeyi seçer — bu yüzden özgürlüğün ve onurun simgesidir; Maya şamanizmiyle derin bağı olan bir varlıktır.",
-    "dailyMessage": "Ketsal kuşu bugün sana onurunu hatırlatıyor. Hangi kafeste, hangi kısıtlamada var olmak zorunda hissediyorsun kendini? Belki kafes gerçek, belki zihninde — ama ketsal hiçbir zaman esareti kabul etmez. Özgürlüğün için gerçek bir bedel ödemek zorunda kalabilirsin; buna değer.",
-    "guidance": "Bugün seni kısıtlayan bir duruma ya da alışkanlığa karşı onurlu bir 'hayır' söyle.",
+    "symbolism": [
+      "özgürlük",
+      "kutsal güzellik",
+      "ilahi renk",
+      "esaret kabul etmeme"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Pharomachrus_mocinno.jpg&width=300",
+    "anatolianMeaning": "Aztek ve Maya uygarlıklarının en kutsal kuşu. Ketsal'ın tüyleri, firavunların taçlarını süsler, özgürlüğün kutsal simgesiydi — esir düştüğünde yaşamayı reddederdi. Quetzalcoatl yılanlı-kanatlı tanrının adı bu kuştan gelir.",
+    "dailyMessage": "Ketsal Kuşu bugün sana soruyor: hangi kafeste yaşıyorsun? Bazen kafes dışarıda değil, içimizdeki inançlarda olur. Bugün hangi özgürlüğünü geri almaya hazırsın?",
+    "guidance": "Seni küçülten herhangi bir durumu — içsel ya da dışsal — fark et ve adım at.",
     "rarity": "rare"
   },
   {
@@ -1046,11 +1126,16 @@
     "name": "Maymun",
     "emoji": "🐒",
     "element": "hava",
-    "symbolism": ["zeka", "yaratıcılık", "oyuncu zihin", "uyum"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Vervet_monkey_(Chlorocebus_pygerythrus).jpg&width=300",
-    "anatolianMeaning": "Hint mitolojisinde Hanuman, maymun ordusuyla Ram'a hizmet eden sadık ve güçlü bir tanrısal varlıktır; zekâ, fedakârlık ve hizmetin sembolüdür. Çin astrolojisinde maymun yılı yaratıcı dehayı ve fırsatçı zekâyı simgelerken, Aztek geleneğinde müziğin, dansın ve yaratıcı sanatların önemli taşıyıcısıdır.",
-    "dailyMessage": "Maymun bugün zihninin çevikliğine güvenmeni söylüyor. Problemlerin çözümü bazen ciddi düşüncede değil, oyuncu bir perspektifte saklı. Bugün bir şeyi farklı yaklaş — tersine çevir, eğlendir, beklenmedik bir yol dene. Zekân en iyi hâlde oynarken çalışır.",
-    "guidance": "Bugün bir soruna alışılmışın dışında, yaratıcı ve eğlenceli bir yaklaşım dene.",
+    "symbolism": [
+      "zeka",
+      "yaratıcılık",
+      "oyuncu zihin",
+      "esneklik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Rhesus_Macaque,_Galta,_Rajasthan,_India.jpg&width=300",
+    "anatolianMeaning": "Hint geleneğinde Hanuman figürüyle tanrısal bağlılık ve olağanüstü gücün simgesi olan maymun, Çin takviminde en zeki ve yaratıcı ruhtur. Aztek geleneğinde ise zanaat ve sanatın koruyucusudur.",
+    "dailyMessage": "Maymun bugün zihnini esnetmeye davet ediyor. Problemi alışılagelen yoldan çözmek zorunda değilsin — belki ters taraftan, belki beklenmedik bir esneklikle. Bugün yaratıcı ol.",
+    "guidance": "Tek bir çözüm yolu takip etme — farklı açılardan bak, yeni yol bulursun.",
     "rarity": "common"
   },
   {
@@ -1058,11 +1143,16 @@
     "name": "Papağan",
     "emoji": "🦜",
     "element": "hava",
-    "symbolism": ["renkli iletişim", "hafıza", "öğretici ses", "yankı"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Macaw_edit.jpg&width=300",
-    "anatolianMeaning": "Sufi geleneğinde Mevlana Rumi, papağanı ruhun Tanrı'ya duyduğu özlemin sesi olarak kullanır; 'Masnavi'nin açılışında ney ile papağan aynı hasreti taşır. And ve Afrika geleneklerinde papağan kutsal sözlerin taşıyıcısı, öğretici seslerin yankısıdır; söylediğimiz sözlerin gerçekliği şekillendirdiğini hatırlatır.",
-    "dailyMessage": "Papağan bugün sana söylediğin sözlerin gücünü hatırlatıyor. Ağzından ne çıkıyor? Şikâyet mi, şükür mü? Kınama mı, takdir mi? Bugün dilini bilinçle kullan — bir kez söylenen söz, dünyaya bir tohum eker. Güzel bir şey söyle, dürüst bir şey söyle.",
-    "guidance": "Bugün biri hakkında ya da kendin hakkında güzel, gerçek bir şey söyle — sesli olarak.",
+    "symbolism": [
+      "iletişim",
+      "hafıza",
+      "öğretici ses",
+      "doğruluk"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Tanimbar_Cockatoo.jpg&width=300",
+    "anatolianMeaning": "Rumi'nin Mesnevi'sinde papağan, insan ruhunun özgürlüğe özlemini dile getirir. Sufi geleneğinde ilahi aşkın dili, And şamanizminde ise ormanın renkli bilgesidir.",
+    "dailyMessage": "Papağan bugün sana söylediklerini geri yansıtıyor. Başkalarına söylediğin sözleri kendi kulağınla duyuyor musun? Verdiğin tavsiyeyi kendin uyguluyor musun? Bugün kendi sesine kulak ver.",
+    "guidance": "Başkasına söylediğin en güzel öğüdü bugün kendine uygula.",
     "rarity": "common"
   },
   {
@@ -1070,11 +1160,16 @@
     "name": "Bizon",
     "emoji": "🦬",
     "element": "toprak",
-    "symbolism": ["kutsal bereket", "minnettarlık", "topluluk gücü", "cömertlik"],
+    "symbolism": [
+      "kutsal bereket",
+      "minnettarlık",
+      "topluluk",
+      "güç"
+    ],
     "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/American_bison_k5680-1.jpg&width=300",
-    "anatolianMeaning": "Kuzey Amerika Lakota, Cheyenne ve diğer yerli geleneklerinde Kutsal Beyaz Bufalo İneği, en yüce inanç varlıklarından biridir; bizon, halkın hem bedensel hem ruhsal besininin simgesidir. Tibet geleneğinde benzer büyük hayvanlar cömertliği ve topluluğa hizmetin bereketini temsil eder.",
-    "dailyMessage": "Bizon bugün seni minnettarlığa ve cömertliğe davet ediyor. Elindekini gör — ne kadar çok şey var. Topluluğun, bedenin, zamanın, sevgin. Bugün sahip olduklarına gerçekten teşekkür et ve bir şeyini paylaş. Veren el alan elden daha güçlüdür.",
-    "guidance": "Bugün sahip olduğun bir nimeti fark et ve bunu birine — bir şey vererek ya da söyleyerek — yansıt.",
+    "anatolianMeaning": "Kuzey Amerika Düzlükleri halklarının kutsal hayvanı. Bizon, yaşamın her parçasını — eti, derisi, kemiği — bağış olarak sunar; bu nedenle sonsuz minnettarlığın simgesidir. Büyük Bizon Ruhu, tüm doğanın dengesini korur.",
+    "dailyMessage": "Bizon bugün seni minnettarlığa davet ediyor. Etrafındaki insanlar, sahip olduğun şeyler, geçtiğin zorluklar — hepsi seni besleyen bir bereketin parçası. Bugün bir şeye yürekten şükret.",
+    "guidance": "Bugün fark etmeden aldığın bir şeye açıkça minnettarlık ifade et.",
     "rarity": "uncommon"
   },
   {
@@ -1082,11 +1177,16 @@
     "name": "Kanguru",
     "emoji": "🦘",
     "element": "toprak",
-    "symbolism": ["ileri atılış", "yolculuk", "sıçrama cesareti", "momentum"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Kangaroo_and_joey03.jpg&width=300",
-    "anatolianMeaning": "Aborijin Avustralya geleneklerinde kanguru, Rüya Zamanı'nın (Dreamtime) önemli bir yaratığıdır; ata varlıkların yolculuk hikâyelerinde ileri doğru sıçrayan, asla geri gitmeyen güç olarak anılır. Kesesi ise bağlılığı ve nesil aktarımını simgeler — geleceği taşıyan ana.",
-    "dailyMessage": "Kanguru bugün sana ileri sıçramanı söylüyor. Kanguru geriye gidemez — sadece ileri. Geçmişte saplanıp kalmanın zamanı değil; bugün bir sıçrama yap. Küçük ya da büyük fark etmez — hareketin kendisi momentum yaratır. Ne bekliyorsun?",
-    "guidance": "Bugün ertelediğin, korktuğun ya da hazır olmadığını düşündüğün o adımı at.",
+    "symbolism": [
+      "ileri atılış",
+      "yolculuk",
+      "sıçrama cesareti",
+      "anaç güç"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Kangaroo_Australia_filtered.jpg&width=300",
+    "anatolianMeaning": "Avustralya Aborijin Rüya Zamanı geleneğinin en önemli hayvanlarından biri. Kanguru, yalnızca ileri atlayan bir varlıktır — asla geri gidemez; bu nedenle ileriye bakışın, yolculuğun ve anaçlığın simgesidir.",
+    "dailyMessage": "Kanguru bugün sana sadece bir yön olduğunu hatırlatıyor: ileri. Geçmişe dönüp geçmişi yaşatmaya çalışmak seni yormaktan başka bir şey yapmıyor. O sıçramayı yapmaya hazır mısın?",
+    "guidance": "Bitmemiş gibi görünen bir şeyi bugün bitir ve bir adım ileri at.",
     "rarity": "common"
   },
   {
@@ -1094,11 +1194,16 @@
     "name": "Ren Geyiği",
     "emoji": "🦌",
     "element": "toprak",
-    "symbolism": ["şaman aracı", "kozmik yolculuk", "ata bağlantısı", "kutup bilgeliği"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Rangifer_tarandus_-_Jukkasjärvi-4.jpg&width=300",
-    "anatolianMeaning": "Sibir ve Altay şamanizminde ren geyiği, şamanın kozmik yolculuğunu gerçekleştirdiği kutsal araçtır; şamanlar ren geyiğinin sırtında üst ve alt dünyalara ulaşır. Norse mitolojisinde Yggdrasil'in dallarında ren geyikleri kozmik düzenin bekçileridir ve ata ruhlarıyla bağlantının simgesidir.",
-    "dailyMessage": "Ren geyiği bugün seni kozmik yolculuğa çağırıyor. Atalarından — biyolojik ya da ruhsal — gelen bilgelik sende saklı. Bu gün bir an dur, içeri bak: seni bu noktaya getiren tüm yolculuğu hisset. Nereye gidiyorsun ve bu yol seni mi taşıyor, yoksa sen mi taşıyorsun?",
-    "guidance": "Bugün atalarına, kökenine ya da geçmişin öğretilerine bağlan — bir ritüel, anı ya da sessizce dua ile.",
+    "symbolism": [
+      "şaman aracı",
+      "kozmik yolculuk",
+      "ata bağlantısı",
+      "rehberlik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Rangifer_tarandus_-_Wrangel_Island.jpg&width=300",
+    "anatolianMeaning": "Sibirya ve Altay şamanizminin kutsal yolculuk hayvanı. Şaman, ren geyiğinin sırtına binerek üç dünya arasında yolculuk yapar. Sami ve Norse geleneğinde de kozmosun içinden geçen kutsal rehberdir.",
+    "dailyMessage": "Ren Geyiği bugün seni bilmediğin bir yere götürmeye hazır. İçinde bir rehber var — geçmişten gelen, atalardan süzülen bir bilgelik. Bugün içgüdülerini açık tut; seni nereye götürdüğünü gör.",
+    "guidance": "Planlamadan, sadece içgüdünle bir adım at — ne göreceğine şaşırabilirsin.",
     "rarity": "uncommon"
   },
   {
@@ -1106,11 +1211,16 @@
     "name": "Kirpi",
     "emoji": "🦔",
     "element": "toprak",
-    "symbolism": ["savunma", "içgözlem", "yavaş bilgelik", "hassasiyet"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Igel.JPG&width=300",
-    "anatolianMeaning": "Slav ve İran folklorunda kirpi, bilgeliğini yavaş ve içten toplayan bir dost varlık olarak görülür; dikenleri onu kötüye karşı korur ama içi yumuşak ve hassastır. Kelt geleneğinde ise kirpi toprağın sesini, dünyanın ritimlerini hisseden derin bir hayvan olarak saygı görür.",
-    "dailyMessage": "Kirpi bugün seni iç dünyandaki hassasiyete davet ediyor. Dışarıya dikenli görünmen, içinin yumuşak ve derin olduğunu gizlemiyor. Bugün hassasiyetini bir zayıflık olarak değil, bir güç olarak gör. Kim olduğunu bilenlerle bu yumuşak kısmını paylaşabilirsin.",
-    "guidance": "Bugün hassasiyetine güven — bir şeyi hissediyorsan, o his gerçek ve değerlidir.",
+    "symbolism": [
+      "savunma",
+      "içgözlem",
+      "yavaş bilgelik",
+      "dikkatli adım"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Erinaceus_europaeus_LC0119.jpg&width=300",
+    "anatolianMeaning": "Slav ve Kelt folklorunda kirpi, toprağın bilgesidir — küçük ama dokunulmazdır. İran geleneğinde ise zekâsıyla büyük hayvanları alt eden kahramanlık simgesidir.",
+    "dailyMessage": "Kirpi bugün sana dikkatli adım atmayı hatırlatıyor. Her açılma, her güven, her adım bir seçimdir. Kendinle zaman geçir; içinde ne biriktirdin, neyi bırakmaya hazırsın? Yavaşlamak bilgeliktir.",
+    "guidance": "Bugün hızlı cevap verme — önce içinde ne hissettiğine bak.",
     "rarity": "common"
   },
   {
@@ -1118,11 +1228,16 @@
     "name": "Kertenkele",
     "emoji": "🦎",
     "element": "ateş",
-    "symbolism": ["rüya", "güneş enerjisi", "hızlı adaptasyon", "yeniden büyüme"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Lizard_in_Pak_Chong.jpg&width=300",
-    "anatolianMeaning": "Kuzey Amerika yerli geleneklerinde kertenkele rüyaların ve bilinçdışının habercisidir; rüya görme ve vizyon alma güçleriyle ilişkilendirilir. Aborijin geleneklerinde ise güneşin enerjisini depolayan, hızla adapte olan ve kaybettiği kuyruğu yeniden büyütebilme özelliğiyle dönüşümü simgeleyen kutsal bir varlıktır.",
-    "dailyMessage": "Kertenkele bugün rüyalarına ve içgüdülerine kulak vermeni söylüyor. Güneşin sıcaklığında uzanmak gibi — kendin ol, ısın, yavaşla. Kaybettiğin bir şey var mı? O kuyruğu yeniden büyütebilirsin. Adaptasyon güçsüzlük değil, canlılığın en saf biçimidir.",
-    "guidance": "Dün geceki rüyanı ya da bugün gelen güçlü bir sezgiyi not et veya üzerine düşün.",
+    "symbolism": [
+      "rüya",
+      "güneş enerjisi",
+      "hızlı adaptasyon",
+      "yeniden doğuş"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Green_iguana_on_a_tree.jpg&width=300",
+    "anatolianMeaning": "Kuzey Amerika ve Aborijin geleneğinde kertenkele, rüya dünyasının kapısını tutan varlıktır. And şamanizminde ise güneşin ısısını taşıyan, anın içinde yaşamanın simgesidir.",
+    "dailyMessage": "Kertenkele bugün sana rüyalarını ciddiye almayı söylüyor. Uyurken gördüklerin, uyanık aklının göremediği bir şeyi gösteriyor. Ayrıca: hızla değişen bir durumla karşılaşırsan, uyum sağla — kertenkele gibi.",
+    "guidance": "Bu gece uyumadan önce bir sorum kendine sor ve sabah aklında ne olduğuna bak.",
     "rarity": "common"
   },
   {
@@ -1130,23 +1245,33 @@
     "name": "Koç",
     "emoji": "🐏",
     "element": "ateş",
-    "symbolism": ["ilahi yaratıcılık", "öncü liderlik", "güneş gücü", "doğurganlık"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ovis_aries_ram.jpg&width=300",
-    "anatolianMeaning": "Eski Mısır'da Amun tanrısı koç başıyla tasvir edilir; yaratıcı güneş enerjisinin, doğurganlığın ve kral gücünün simgesidir. Yunan mitolojisinde Zeus'la özdeşleşir, Altın Postun efsanesiyle cesurca yolculuğun ve ödülünün sembolü hâline gelir; Hint geleneğinde ise güneş arabalarını çeken ilahi hayvan olarak anılır.",
-    "dailyMessage": "Koç bugün seni öne çıkmaya davet ediyor. Öncülük etmek kimi zaman yorucu görünür — ama sen bu enerjiyi taşıyorsun. Bugün başkasının adımını bekleme; sen at o adımı. Bir fikir, bir karar, bir başlangıç — kim başlarsa hayat ona akar.",
-    "guidance": "Bugün bir konuda liderlik et: ilk adımı at, önerini sun, harekete geç.",
+    "symbolism": [
+      "ilahi yaratıcılık",
+      "öncü liderlik",
+      "güneş gücü",
+      "kararlılık"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ovis_ammon_-_Barbary_sheep.jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'da baş tanrı Amun'un kutsal hayvanı olan koç, yaratıcı gücün ve güneş enerjisinin simgesiydi. Yunan geleneğinde Zeus'un avludaki hayvanı, Hint'te ise Agni ateş tanrısının aracıdır.",
+    "dailyMessage": "Koç bugün seni başlatmaya davet ediyor. Koç asla beklemez — kafasını koyar ve geçer. Çok uzun süre düşündüğün bir adım var; bugün onun zamanı. Harekete geç.",
+    "guidance": "Analiz etmeyi bırak, başla — ilk adım diğerlerini mümkün kılar.",
     "rarity": "uncommon"
   },
   {
     "id": "a075",
-    "name": "Sazan / Koi",
+    "name": "Koi Balığı",
     "emoji": "🐠",
     "element": "su",
-    "symbolism": ["dönüşüm azmi", "bereket", "kararlılık", "sabır"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Koi_food.jpg&width=300",
-    "anatolianMeaning": "Çin ve Japon mitolojisinde koi balığı, Sarı Nehir'in akıntısına karşı yüzerek Ejder Kapısı'na ulaşan ve ejdere dönüşen varlığın simgesidir — kararlılık ve dönüşümün en güçlü imgesi. Sufi geleneğinde ise suyun içinde var olan balık, hakikatin içindeyken onu arayan ruhun metaforudur.",
-    "dailyMessage": "Koi balığı bugün kararlılığını onurlandırıyor. Akıntıya karşı yüzmek yorucu — ama dur, nereye gittiğine bak. Dönüşümün kapısı tam önünde. Bugün bir adım daha at; vazgeçme anı tam da en yaklaştığın andır. Sen ejdere dönüşme yolundasın.",
-    "guidance": "Bugün bir kez daha dene: vazgeçmeyi düşündüğün şeye bir adım daha.",
+    "symbolism": [
+      "dönüşüm azmi",
+      "bereket",
+      "kararlılık",
+      "aşma"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Koi-karp.jpg&width=300",
+    "anatolianMeaning": "Çin ve Japon geleneğinde koi balığı, şelaleden yukarı çıkarak ejderhaya dönüşen efsanevi varlıktır. Bu dönüşüm; azim, kararlılık ve imkânsızı başarmanın simgesidir. Sufi geleneğinde bereketin ve bolluğun sesi.",
+    "dailyMessage": "Koi bugün sana şunu hatırlatıyor: akıntıya karşı yüzmek seni pes ettirmesin. Zor olan şey tam da seni dönüştürecek olan şeydir. Bugün vazgeçme eşiğindeysen, bir adım daha at.",
+    "guidance": "Bırakmak istediğin o şeye bugün bir gün daha ver.",
     "rarity": "uncommon"
   },
   {
@@ -1154,11 +1279,16 @@
     "name": "Bukalemun",
     "emoji": "🦎",
     "element": "hava",
-    "symbolism": ["uyum", "bağlam okuma", "gizlenme bilgeliği", "çevre duyarlılığı"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Chameleon_Sept_2009-1.jpg&width=300",
-    "anatolianMeaning": "Afrika geleneklerinde bukalemun, hem trickster hem de bilge bir ata varlık olarak anılır; renk değiştirme becerisi sayesinde ölümden kaçar ya da mesajı iletir. Hint ve And mitolojilerinde ise çevresini okuyarak değişen bukalemun, bağlam zekâsının ve hayatta kalma bilgeliğinin simgesidir.",
-    "dailyMessage": "Bukalemun bugün sana ortamını okuma ve uyum sağlama gücünü hatırlatıyor. Her durumda aynı renkte olmak zorunda değilsin — bağlama göre değişmek zayıflık değil, zekanın tezahürü. Bugün hangi ortamdasın ve bu ortam senden ne istiyor? Kendini kaybetmeden uyum sağla.",
-    "guidance": "Bugün içinde bulunduğun ortamı gözlemle ve en uygun tepkini — değerlerinden taviz vermeden — seç.",
+    "symbolism": [
+      "uyum",
+      "bağlam okuma",
+      "gizlenme bilgeliği",
+      "denge"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Chamaeleo_chamaeleon_-_1.jpg&width=300",
+    "anatolianMeaning": "Afrika şaman geleneğinde bukalemun, çevresini anlayarak hayatta kalan bilge varlıktır. Hint mitolojisinde ise hem görünür hem görünmez olabilen, bağlamı okuyan kutsal bir uyum ustasıdır.",
+    "dailyMessage": "Bukalemun bugün sana uyum ile kaybolmanın farkını öğretiyor. Duruma uyum sağlamak akıllıcadır — ama kendini kaybetmek değil. Bugün hem esnek ol hem de kim olduğunu unutma.",
+    "guidance": "Ortama uyum sağlarken, özünden taviz verme.",
     "rarity": "common"
   },
   {
@@ -1166,23 +1296,33 @@
     "name": "Porsuk",
     "emoji": "🦡",
     "element": "toprak",
-    "symbolism": ["kök bilgeliği", "toprak koruyucusu", "inatçı cesaret", "derinlik"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Meles_meles_-_badger.jpg&width=300",
-    "anatolianMeaning": "Kelt geleneğinde porsuk, toprak ruhlarının koruyucusu ve bitkisel bilgeliğin bekçisidir; şifalı bitki bilgisi porsuktan öğrenildiğine inanılır. Norse ve Slav geleneklerinde inatçılığıyla bilinen bu hayvan, Kuzey Amerika'da ise toprağı kazan ve karanlık tünellerde yolunu bulan derin bir totem olarak saygı görür.",
-    "dailyMessage": "Porsuk bugün seni köklerine dönmeye çağırıyor. Derinlere in — duygularına, geçmişine, bedenine. Zor bir konudan kaçmak yerine onun içine gir; porsuk gibi, tüneli kazan ve ilerle. Gerçek güç derinlikten gelir, yüzeyden değil.",
-    "guidance": "Bugün bir konuyu yüzeysel geçiştirme; derinlemesine düşün, hisset ya da araştır.",
-    "rarity": "uncommon"
+    "symbolism": [
+      "kök bilgeliği",
+      "toprak koruyucusu",
+      "inatçı cesaret",
+      "derine inme"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Badger-badger.jpg&width=300",
+    "anatolianMeaning": "Kelt ve Norse geleneğinde porsuk, toprağın derinliklerine inen, köklü bilgeliğin sahibi kutsal hayvandır. Kuzey Amerika'da ise kendi yolunu açan, engellerden yılmayan savaşçı ruhun simgesidir.",
+    "dailyMessage": "Porsuk bugün seni yüzeyin altına inmeye davet ediyor. Görünen sorunun altında ne yatıyor? Bugün derine in — asıl meseleyi, asıl duyguyu bul. Porsuk gibi kazarak ilerlemeye hazır ol.",
+    "guidance": "Sorunun yüzeyiyle değil, köküyle ilgilen.",
+    "rarity": "common"
   },
   {
     "id": "a078",
     "name": "Kunduz",
     "emoji": "🦫",
     "element": "toprak",
-    "symbolism": ["yaratıcı inşa", "topluluk mühendisliği", "azim", "pratik bilgelik"],
+    "symbolism": [
+      "yaratıcı inşa",
+      "topluluk",
+      "azim",
+      "pratik bilgelik"
+    ],
     "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/American_Beaver.jpg&width=300",
-    "anatolianMeaning": "Kuzey Amerika Algonquin geleneğinde kunduz, yaratıcılığı ve topluluk için çalışmayı temsil eden kutsal bir toteme sahiptir; barajları hem ekosistemi hem de kendi topluluğunu besler. Slav ve Kelt geleneklerinde ise kunduz pratik zekanın ve sabırlı inşa gücünün simgesidir.",
-    "dailyMessage": "Kunduz bugün seni inşa etmeye davet ediyor. Hayatında hangi 'barajı' kurmak istiyorsun? Bir proje, bir ilişki, bir alışkanlık — bugün bir tuğla koy. Kunduz her gün çalışır, her gün inşa eder; büyük sonuçlar küçük günlük eylemlerden doğar.",
-    "guidance": "Bugün uzun vadeli bir hedefe somut, küçük bir katkı yap.",
+    "anatolianMeaning": "Kuzey Amerika yerli geleneğinde kunduz, doğanın mühendisidir — ekosistemi dönüştüren, topluluk için inşa eden kutsal varlıktır. Slav folklorunda ise evin ve ailenin koruyucusu olan çalışkan bilgedir.",
+    "dailyMessage": "Kunduz bugün seni somut bir şey inşa etmeye davet ediyor. Hayallerini planlamak değil, bir tuğla koymak zamanı. Küçük, pratik, gerçek bir adım. Ne inşa ediyorsun ve bugün ne yapabilirsin?",
+    "guidance": "Bugün küçük ama somut bir şey yap — büyük projeler tek taşla başlar.",
     "rarity": "common"
   },
   {
@@ -1190,11 +1330,16 @@
     "name": "Guguk Kuşu",
     "emoji": "🐦",
     "element": "hava",
-    "symbolism": ["zaman bilinci", "kadınsı ses", "ruh çağırıcı", "mevsim habercisi"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Common_Cuckoo_Cuculus_canorus.jpg&width=300",
-    "anatolianMeaning": "Türk ve Sibir şamanizminde guguk kuşunun sesi baharı ve yeni zamanı müjdeler; kimi geleneklerde ruhların çağrısını taşıdığına inanılır. Slav folklorunda guguk kuşuna 'ne kadar yaşayacaksın?' diye sorulur — zamanın ve kaderin habercisidir; Kelt geleneğinde ise dönüşümün ve yeni dönemlerin sesi sayılır.",
-    "dailyMessage": "Guguk kuşu bugün sana zamanın farkında olmanı söylüyor. Doğru an — şu an mı? Mevsimler değişiyor, dönemler kapanıp açılıyor. Gidecek bir şey, başlayacak bir şey var. Bugün hangi döneme girdiğini ya da hangisinden çıkman gerektiğini hisset.",
-    "guidance": "Bugün hayatındaki bir dönüm noktasını fark et ve ona isim ver: 'Bu dönem bitiyor / bu dönem başlıyor.'",
+    "symbolism": [
+      "zaman bilinci",
+      "döngü sesi",
+      "ruh çağırıcı",
+      "değişim işareti"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Cuculus_canorus_vogelartinfo_chris_romeiks_D7C8243_cropped.jpg&width=300",
+    "anatolianMeaning": "Türk ve Altay şamanizminde guguk kuşunun sesi, ruhun çağrısıdır — şamanların öteki dünya ile iletişimini simgeler. Slav folklorunda ise hayatın kaç yıl kaldığını sayan gizemli varlıktır; zamanın sesini taşır.",
+    "dailyMessage": "Guguk Kuşu bugün sana bir şeyi hatırlatıyor: zamanın geçiyor. Bu korku değil — bir davet. Ertelediğin o şeyi bugün bir an için düşün. Kaç gügük sesi kaldı senin için?",
+    "guidance": "Ertelediğin önemli şeyi bugün küçük bir adımla başlat.",
     "rarity": "uncommon"
   },
   {
@@ -1202,35 +1347,50 @@
     "name": "Saksağan",
     "emoji": "🐦‍⬛",
     "element": "hava",
-    "symbolism": ["haberci", "ikili doğa", "denge", "şans ve uğursuzluk"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Pica_pica_-_cropped.jpg&width=300",
-    "anatolianMeaning": "Çin geleneğinde saksağan 'sevinç kuşu'dur; iki saksağan mutluluk ve evliliğin simgesidir. Kelt ve Slav folklorunda ise hem uğur hem uğursuzluğu birlikte taşıyan ikili bir varlıktır — 'biri keder, ikisi sevinç' sayılır; Kuzey Amerika'da habercilik ve sınır aşıcılığıyla bilinir.",
-    "dailyMessage": "Saksağan bugün sana dualitéyi, hayatın iki yüzünü hatırlatıyor. Hiçbir şey saf iyi ya da saf kötü değil. Bugün zorlandığın bir duruma bak: içinde ne iyilik, ne güzellik var? Denge zıtların birbirini iptal etmesiyle değil, birbirini tamamlamasıyla gelir.",
-    "guidance": "Bugün olumsuz gördüğün bir şeyde gizli bir iyiliği ya da fırsatı bul.",
+    "symbolism": [
+      "haberci",
+      "ikili doğa",
+      "zeka",
+      "denge"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Pica_pica_pica_portrait.jpg&width=300",
+    "anatolianMeaning": "Çin geleneğinde saksağan, sevinci ve iyi haberi taşıyan kutsal kuştur. Kelt ve Slav folklorunda ise ikili doğasıyla — bir kanat siyah, bir kanat beyaz — hayatın zıtlıklarını dengeleyen bilge habercidir.",
+    "dailyMessage": "Saksağan bugün sana iki taraflı bir gerçeği gösteriyor. Siyah mı görüyorsun, beyaz mı? Her ikisi de aynı anda var olabilir. Bugün yargılamak yerine, farklı açıdan bakmayı dene.",
+    "guidance": "Karşı görüşü gerçekten anlamaya çalış — orada da bir doğru parçası olabilir.",
     "rarity": "common"
   },
   {
     "id": "a081",
     "name": "Simurg",
-    "emoji": "🦅",
+    "emoji": "✨",
     "element": "hava",
-    "symbolism": ["kolektif bilgelik", "en yüksek hakikat", "ilahi aşkın", "bütünlük"],
-    "imageUrl": "",
-    "anatolianMeaning": "Pers-İran geleneğinin ve Sufi düşüncesinin en büyük simgesi olan Simurg, Faridüddin Attar'ın 'Mantık-ut Tayr' eserinde otuz kuşun (si murg) kendisi olduğunu keşfettiği ilahi bütündür. Türk geleneğinde Zümrüdü Anka adıyla bilinen bu efsanevi kuş, bilgeliğin, ölümsüzlüğün ve ilahi aşkının simgesidir.",
-    "dailyMessage": "Simurg bugün sana en derin hakikati fısıldıyor: aradığın her şey zaten sendedir. Yolculuk dışarıya değil, içeriye. Otuz kuş gibi, sonunda aynaya bakıyorsun — ve orada gördüğün hem sen, hem de aranan. Bugün bu sırra otur; düşün, hisset, bil.",
-    "guidance": "Bugün dışarıda aradığın bir şeyi içinde ara: hangi niteliği kendin taşıyorsun?",
+    "symbolism": [
+      "kolektif bilgelik",
+      "ilahi hakikat",
+      "aşkın",
+      "birlik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Simurgh_on_a_13th_century_Persian_plate.jpg&width=300",
+    "anatolianMeaning": "Attar'ın ölümsüz eseri Mantık-ut Tayr'da otuz kuşun 'Simurg'u aradığı yolculukta, sonunda anlaşılır ki Simurg onların kendisidir — 'si' otuz, 'murg' kuş demektir. Pers ve Türk mitolojisinde Hüma ile özdeşleşir; bilgeliğin en yüce zirvesini simgeler.",
+    "dailyMessage": "Simurg bugün sana en derin gerçeği fısıldıyor: aradığın şey zaten sende. Dışarıda aradığın o anlam, o huzur, o cevap — kendi içinde bekliyordu. Bugün dışarıya bakma, içeriye bak.",
+    "guidance": "Başkasından beklediğin o şeyi bugün kendin için yap.",
     "rarity": "legendary"
   },
   {
     "id": "a082",
     "name": "Garuda",
-    "emoji": "🦅",
+    "emoji": "🔥",
     "element": "ateş",
-    "symbolism": ["ilahi araç", "özgürlük", "güneş gücü", "kötülüğü yenme"],
-    "imageUrl": "",
-    "anatolianMeaning": "Hint mitolojisinde Garuda, Vishnu'nun ilahi aracıdır — yılanları yok eden, özgürlüğü simgeleyen ve güneş ışığının kanatlarını taşıyan efsanevi bir kartal-insan varlığıdır. Budist gelenekte de güçlü bir koruyucu varlık olan Garuda, Endonezya, Tayland ve Kamboçya'nın ulusal sembolü olarak kutsallığını korur.",
-    "dailyMessage": "Garuda bugün sana ilahi bir görevin olduğunu hatırlatıyor. Engellerin büyük görünebilir — yılanlar, korkular, kısıtlamalar. Ama Garuda gibi gücün ilahi bir kaynaktan geliyor. Bugün bir kötülüğü, bir korkuyu ya da seni saran bir zinciri yık. Kanatlarını aç.",
-    "guidance": "Bugün seni kısıtlayan ya da sana zarar veren bir şeyle cesurca yüzleş ve ilk adımı at.",
+    "symbolism": [
+      "ilahi araç",
+      "özgürlük",
+      "güneş gücü",
+      "iyiliğin savunucusu"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Garuda_Indonesia.svg&width=300",
+    "anatolianMeaning": "Hindu ve Budist mitolojisinde Vishnu'nun kutsal bineği olan Garuda, kartal başlı insan bedenli tanrısal varlıktır. Zehri ve kötülüğü yok eden, özgürlüğün ve güneş enerjisinin simgesidir. Endonezya ve Tayland ulusal sembolüdür.",
+    "dailyMessage": "Garuda bugün seni iyiliğin savunucusu olmaya davet ediyor. Gördüğün haksızlık karşısında sus değil, konuş. Güneş gibi parlak, kartal gibi keskin bir kararlılıkla. Bugün neyin için ayağa kalkacaksın?",
+    "guidance": "Doğru bildiğin şeyi bugün cesaretle ifade et.",
     "rarity": "legendary"
   },
   {
@@ -1238,23 +1398,33 @@
     "name": "Keçi",
     "emoji": "🐐",
     "element": "toprak",
-    "symbolism": ["yaratıcılık", "dağ özgürlüğü", "sarp yol", "inatçı tırmanış"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Mountain_goat_us_fish_and_wildlife.jpg&width=300",
-    "anatolianMeaning": "Yunan mitolojisinde Pan, keçi bacaklı tanrıdır; doğanın ve yaratıcılığın, müziğin ve özgür ruhun simgesidir. Kelt geleneğinde dağ keçisi, en yüksek zirvelere ulaşmanın ve zorlu yollarda yılmadan ilerlemenin simgesiyken, Hint geleneğinde Agni ateş tanrısının aracı olan keçi, ilahi yaratıcı gücü simgeler.",
-    "dailyMessage": "Keçi bugün sarp yolda ilerlemenin değerini hatırlatıyor. Herkesin gidemediği yerde sen adım adım çıkıyorsun. Sana kolay gelen yol değil, doğru yol önemli. Bugün zorlandığın bir şeye devam et — her adım kazandırmaktadır.",
-    "guidance": "Zor ama doğru olan yolda bugün bir adım daha at; vazgeçme.",
+    "symbolism": [
+      "yaratıcılık",
+      "dağ özgürlüğü",
+      "sarp yol",
+      "canlılık"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Capra_caucasica_Eichwald,_1831.jpg&width=300",
+    "anatolianMeaning": "Yunan mitolojisinde Pan tanrısının kutsal hayvanı olan keçi, bereket, müzik ve yabani özgürlüğün simgesidir. Hint ve Kelt geleneklerinde ise en sarp kayalıkları tırmanan cesur ruhun arketipidir.",
+    "dailyMessage": "Keçi bugün sana en dik yamacı tırmanmayı öğretiyor. Başkaları imkânsız dedi, yol yok dedi — ama keçi başka bir çıkış yolu bulur. Bugün 'nasıl yapılır?' sorusu yerine 'başka nasıl yapılabilir?' sorusunu sor.",
+    "guidance": "Tıkandığında aynı yolu denemeyi bırak — kenardan bir basamak bul.",
     "rarity": "common"
   },
   {
     "id": "a084",
     "name": "İbis",
-    "emoji": "🐦",
+    "emoji": "🦢",
     "element": "hava",
-    "symbolism": ["bilgelik", "kutsal yazı", "ilahi iletişim", "ölçü ve denge"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Sacred_ibis_Threskiornis_aethiopicus.jpg&width=300",
-    "anatolianMeaning": "Eski Mısır'da ibis, bilgelik ve yazının tanrısı Thoth'un kutsal hayvanıdır; hiyeroglifi, matematiği ve tüm bilimleri simgeler. Thoth, ruhların ölçüldüğü sahnede yargı tutanağını tutan tanrıdır — bilginin ve adaletin ilahi koruyucusudur; Afrika geleneğinde ise ibis, bilge konuşmanın ve kutsal mesajın habercisidir.",
-    "dailyMessage": "İbis bugün seni bilgiye ve ölçülü konuşmaya davet ediyor. Bugün bir şeyi öğren — gerçekten, derinlemesine. Ya da söyleyeceklerini tartarak söyle: söz ölçülmeden atılmamalı. Bilgelik sessizlik ve konuşma arasındaki denge içinde yaşar.",
-    "guidance": "Bugün bir şeyi öğrenmek için bilinçli zaman ayır ya da söyleyeceklerini içinden bir kez gözden geçir.",
+    "symbolism": [
+      "bilgelik",
+      "kutsal yazı",
+      "ilahi iletişim",
+      "gözlem"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ibis_ibis_1.jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'da bilgelik tanrısı Thoth'un kutsal hayvanı olan ibis, yazının, astronominin ve tüm bilgi dallarının koruyucusuydu. Thoth, ibis başlı bir tanrı olarak çizilir — bu kuş, bilgiyi kutsal yapan varlıktır.",
+    "dailyMessage": "İbis bugün seni gözlemlemeye davet ediyor. Konuşmak yerine dinle; cevap vermek yerine not al. Bugün çevrenizde ne öğrenilebilir? Sessiz gözlem, bazen en büyük bilgeliği getirir.",
+    "guidance": "Bugün bir durumu değerlendirmeden önce biraz daha gözlemle.",
     "rarity": "uncommon"
   },
   {
@@ -1262,11 +1432,16 @@
     "name": "İskarabe",
     "emoji": "🪲",
     "element": "ateş",
-    "symbolism": ["yeniden doğuş güneşi", "dönüşüm", "uğur", "yaratıcı güç"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Scarabaeus_sacer_MHNT.jpg&width=300",
-    "anatolianMeaning": "Eski Mısır'da iskarabe (Khepri), sabah güneşini gökyüzünde yuvarlayan ilahi varlıktır; güneşin her gün yeniden doğuşunu temsil eder ve ölümden sonra dirilişin en güçlü sembolüdür. Mısır mumyalarının üzerine yerleştirilen iskarabe mühürleri, ruhun yeniden doğacağına olan inancı simgeler.",
-    "dailyMessage": "İskarabe bugün seni yeniden doğuşun gücüyle karşılıyor. Güneş her gün doğuyor — sen de her gün yeniden başlayabilirsin. Dün ne olursa olsun, bugün güneş yeniden yükseliyor. Hayatında hangi yeniden başlangıç sizi bekliyor? O başlangıcı bugün koru ve besle.",
-    "guidance": "Bugün yeni bir başlangıç için bir niyet koy — yazılı ya da sözlü olarak.",
+    "symbolism": [
+      "yeniden doğuş",
+      "dönüşüm",
+      "uğur",
+      "güneş enerjisi"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Scarabaeus_sacer_2.jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'ın en güçlü sembollerinden biri. İskarabe, güneş diskini yuvarlayan böcekten esinlenerek Ra'nın gökyüzündeki yolculuğunu simgeler — her gün yeniden doğan güneş, her sabah yeniden başlayan yaşamdır.",
+    "dailyMessage": "İskarabe bugün seni yeniden başlatıyor. Dün ne oldu olsun — bugün güneş yeniden doğdu ve sen de yeniden başlayabilirsin. Sırtladığın o yük yarına taşınmak zorunda değil. Bırak, hafifle, yeni başla.",
+    "guidance": "Bir dünü bugüne taşıma — her sabah temiz bir sayfa.",
     "rarity": "uncommon"
   },
   {
@@ -1274,47 +1449,67 @@
     "name": "Piton",
     "emoji": "🐍",
     "element": "toprak",
-    "symbolism": ["ata ruhu", "bereket", "kutsal koruyucu", "toprak gücü"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Python_sebae_in_the_Serengeti.jpg&width=300",
-    "anatolianMeaning": "Batı Afrika Dahomey geleneğinde Dev Python, dünyanın yaratılışında yeri destekleyen ve spirale sarılan kutsal varlıktır; krallığın ve toprak veriminin koruyucusudur. Aborijin Avustralya'da gökkuşağı yılanı Rüya Zamanı'nın en güçlü varlıklarından biridir; And geleneğinde ise büyük yılan kozmik suyun ve bereketin simgesidir.",
-    "dailyMessage": "Piton bugün seni toprakla bağını güçlendirmeye çağırıyor. Ata ruhların, yerde yatanların, geri dönenin enerjisi seninle. Bugün bedenini, toprağı, kökünü hisset. Büyük şeyler yüksekte değil, derinlerde inşa edilir.",
-    "guidance": "Bugün ayaklarını yere bas — kısa bir yürüyüş, toprakla temas ya da derin bir nefes.",
+    "symbolism": [
+      "ata ruhu",
+      "kutsal koruyucu",
+      "bereket",
+      "toprak bağlantısı"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Python_molurus_molurus.jpg&width=300",
+    "anatolianMeaning": "Batı Afrika Yoruba geleneğinde piton, tanrının bir tezahürüdür — köylerin koruyucusu, ata ruhlarının temsilcisi. Aborijin geleneğinde ise toprağı ve suyu birbirine bağlayan, dünyanın düzenini koruyan kutsal varlıktır.",
+    "dailyMessage": "Piton bugün seni köklere davet ediyor. Seni besleyen, destekleyen o görünmez düzeni fark et. Ailenin, geleneğinin, bu toprağın sana verdiği şeyler — onları küçümseme. Bugün bir kökünü hatırla.",
+    "guidance": "Seni bugüne taşıyan birileri var — onlara minnetini içten hisset.",
     "rarity": "uncommon"
   },
   {
     "id": "a087",
     "name": "Albatros",
-    "emoji": "🦅",
+    "emoji": "🕊️",
     "element": "hava",
-    "symbolism": ["sonsuz yolculuk", "özgürlük", "okyanusun rehberi", "uzun soluklu azim"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Diomedea_exulans_in_flight_-_SE_Tasmania.jpg&width=300",
-    "anatolianMeaning": "Kelt ve denizci geleneklerinde albatros, denizcilerin ruhunu taşıdığına inanılan kutsal bir kuştur — öldürmek lanet getirir. Polinezya geleneğinde okyanusların sonsuz yolcusu olan albatros, özgürlüğü, uzun yolculuğu ve hedefine asla şüphe etmeden ulaşmayı simgeler; kış uyutmadan aylarca havada kalır.",
-    "dailyMessage": "Albatros bugün uzun yolculuğunda sana güç veriyor. Yoruldun mu? Doğru. Bu yolculuk uzun. Ama albatros rüzgârı okuyarak uçar — karşı rüzgâra güç harcamaz, onunla dans eder. Bugün seni engelleyen değil, taşıyan rüzgârı bul. Yolun hâlâ devam ediyor.",
-    "guidance": "Bugün seni yoranla değil, seni taşıyanla ilgilen: hangi enerji, hangi insan seni destekliyor?",
-    "rarity": "rare"
+    "symbolism": [
+      "sonsuz yolculuk",
+      "okyanus özgürlüğü",
+      "dayanıklılık",
+      "güven"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Diomedea_exulans_-_SE_Tasmania.jpg&width=300",
+    "anatolianMeaning": "Kelt denizcilerinin kutsal kuşu olan albatros, okyanusun yorulmaz ruhudur. Yıllarca karaya inmeden uçar; bu nedenle sonsuz dayanıklılığın ve özgür ruhun simgesidir. Bir albatrosu öldürmek, denizde en kötü uğursuzluğu getirir.",
+    "dailyMessage": "Albatros bugün sana uzun yolun güzelliğini hatırlatıyor. Her yolculuğun bir sonu vardır ama yol boyunca öğrendiklerini, yol boyunca hissettiklerini küçümseme. Bugün hedefe değil, yolun kendisine bak.",
+    "guidance": "Varış noktasını değil, bugünün yolculuğunu hisset.",
+    "rarity": "uncommon"
   },
   {
     "id": "a088",
     "name": "Flamingo",
     "emoji": "🦩",
     "element": "su",
-    "symbolism": ["zarafet", "topluluk dengesi", "pembede bilgelik", "öz-ifade"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Flamingos_Laguna_Colorada.jpg&width=300",
-    "anatolianMeaning": "Afrika geleneklerinde flamingo topluluk bilgeliğinin ve suyun kutsal bekçisidir; pembe rengi güneşin suyayla birleştiği yerde doğar, bu yüzden kimi kültürlerde şafağın ve doğanın armağanı sayılır. Aborijin geleneklerinde ise topluluk içinde benzersiz kalmanın, renginle var olmanın simgesidir.",
-    "dailyMessage": "Flamingo bugün seni hem kendine hem topluluğuna davet ediyor. Bir flamingo tek başına güzel — ama binlerce flamingo birlikte bir mucize. Bugün kendi renginde parlak ol ve aynı zamanda etrafındakilerle uyum içinde ol. Olmaya çalıştığın kişiyi çevrenle paylaş.",
-    "guidance": "Bugün hem kendine özgü ol hem de bir topluluğa katkı ver: bir gruba katıl ya da birine destek ol.",
+    "symbolism": [
+      "zarafet",
+      "topluluk dengesi",
+      "denge",
+      "renklilik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Greater_flamingo_Phoenicopterus_ruber_roseus.jpg&width=300",
+    "anatolianMeaning": "Afrika şaman geleneğinde flamingo, suyun ve güneşin ortasında duran denge varlığıdır. Tek ayak üzerinde durması, fiziksel denge ile iç huzurun simgesidir. Toplu yaşamaları ise topluluğun gücünü gösterir.",
+    "dailyMessage": "Flamingo bugün sana denge ve güzelliği aynı anda tutabilmenin mümkün olduğunu gösteriyor. Kalabalık içinde kaybolmadan kendini koruyabilmek bir sanattır. Bugün kalabalıkta nasıl duruyorsun?",
+    "guidance": "Çevrenin gürültüsü içinde kendi merkezini bul — o denge sende.",
     "rarity": "common"
   },
   {
     "id": "a089",
     "name": "Manta Vatoz",
-    "emoji": "🐟",
+    "emoji": "🌊",
     "element": "su",
-    "symbolism": ["su uçuşu", "derinlik yolculuğu", "özgür ruh", "zarif güç"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Manta_birostris-edit2.jpg&width=300",
-    "anatolianMeaning": "Polinezya geleneğinde manta vatoz, okyanusun özgür ruhu olarak saygı görür; büyük ve zarif vücuduyla sulardaki en özgür varlık sayılır. And şamanizminde suların derinlik gücünü ve suyun içindeki görünmez dünyayı temsil ederken, Aborijin geleneklerinde ise sularda derinlere dalan ruhun simgesidir.",
-    "dailyMessage": "Manta vatoz bugün seni derinlere davet ediyor. Yüzeyde değil, derinlerde ne var? Duyguların, bilinçdışın, hayallerinin katmanlarına dal. Orada bulunan şeyden korkma — manta gibi zarif ve büyük hissedeceksin. Derinlik seni boğmaz; özgürleştirir.",
-    "guidance": "Bugün bir duyguyu ya da düşünceyi yüzeysel geçiştirme; derinlere dal ve ne bulduğunu gör.",
+    "symbolism": [
+      "su uçuşu",
+      "derinlik yolculuğu",
+      "özgür ruh",
+      "sezgi"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Manta_birostris-Thailand4.jpg&width=300",
+    "anatolianMeaning": "Polinezya deniz geleneğinde manta vatoz, okyanusun ruhani dansçısıdır — görünmez akıntıları hisseden, derinlikleri anlayan varlık. And şamanizminde ise iki dünyanın — yüzey ve derin — arasındaki bilge köprüdür.",
+    "dailyMessage": "Manta Vatoz bugün seni görünmez akıntılara dikkat etmeye davet ediyor. Bir ilişkide, bir durumda, yüzeyin altında ne oluyor? Bugün sezginle o derin akıntıyı hisset.",
+    "guidance": "Görünen değil, hissedilen gerçeğe bugün biraz daha alan aç.",
     "rarity": "rare"
   },
   {
@@ -1322,11 +1517,16 @@
     "name": "Yele Kurdu",
     "emoji": "🐺",
     "element": "toprak",
-    "symbolism": ["yalnız güçlü", "And ormancısı", "özgün yol", "kendi sürünü olmak"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Chrysocyon_brachyurus_Brasilia_Zoo.jpg&width=300",
-    "anatolianMeaning": "And şamanizminde Yele Kurdu (Aguará Guazú), sürüsüz yürüyen, kendi yolunu çizen kutsal bir hayvandır; ne tam kurt ne tam tilki, kendi türünün tek temsilcisi. Bu benzersizliği nedeniyle And kültürlerinde özgün yolun, sınıflandırılamaz ruhun ve yalnız ama güçlü olanın simgesi sayılır.",
-    "dailyMessage": "Yele kurdu bugün sana yalnız ama güçlü olmanın onurunu gösteriyor. Hiçbir sürüye tam olarak ait olmak zorunda değilsin. Farklılığın eksiklik değil — özgünlüğün. Bugün başkalarına benzemek için çaba harcama; sadece kendin ol ve o yolda yürü.",
-    "guidance": "Bugün senin için özgün olan bir şeyi — farklı olanı — kabul et ve ifade et.",
+    "symbolism": [
+      "yalnız ama güçlü",
+      "özgün yol",
+      "köprü kurucu",
+      "And ruhu"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Maned_wolf2.jpg&width=300",
+    "anatolianMeaning": "Güney Amerika And şamanizminin kutsal hayvanı. Yele Kurdu ne tam bir kurt ne de tam bir tilkidir — kendi sınıfının tek üyesidir. Bu özgünlüğü, kendi yolunu kendi başına yürümenin simgesi yapar.",
+    "dailyMessage": "Yele Kurdu bugün sana diyor ki: sen de kendi kategorindesin. Başkalarıyla karşılaştırmayı bırak — senin yolun başkalarına benzemiyor olabilir ve bu mükemmel. Özgün olmak, yalnız olmakla aynı şey değil.",
+    "guidance": "Kendinle kıyasladığın kişinin yolunu bırak — senin yolun sende.",
     "rarity": "rare"
   },
   {
@@ -1334,23 +1534,33 @@
     "name": "Ateş Kuşu",
     "emoji": "🔥",
     "element": "ateş",
-    "symbolism": ["arzu ateşi", "ilham", "peşinden koşmayı hak etmek", "yeniden doğuş"],
-    "imageUrl": "",
-    "anatolianMeaning": "Slav mitolojisinde Zhar-Ptitsa (Ateş Kuşu), yakalanamazlığıyla arzunun ve zorlu ödülün simgesidir; bir tüyü bile karanlığı aydınlatır. Türk geleneğinde Zümrüdü Anka olarak anılan bu kuş, ölüp yeniden doğan, her seferinde daha parlak yükselen ateş varlığıdır; Hint geleneğinde ise ilahi ilhamın gökten inen kıvılcımını temsil eder.",
-    "dailyMessage": "Ateş kuşu bugün seni peşinden koştuğun şeyin değerini hatırlatıyor. Çok zorlu görünüyor mu? İyi. Gerçek ateş kolay yakılmaz. İçinde bir arzunun kıvılcımı var — onu söndürme, körükle. Bugün seni en çok neyin yaktığını bil ve ona doğru bir adım at.",
-    "guidance": "Bugün en büyük arzunu — söylemekten korktuğunu — içinde ya da bir yere yaz.",
+    "symbolism": [
+      "arzu ateşi",
+      "ilham",
+      "peşinden koşmayı hak etmek",
+      "dönüşüm"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Zhar-Ptitsa.jpg&width=300",
+    "anatolianMeaning": "Slav mitolojisinde Zhar-Ptitsa olarak bilinen Ateş Kuşu, ulaşılması imkânsız ama ardından koşulmadan durulması da imkânsız olan kutsal varlıktır. Türk geleneğindeki Zümrüd-ü Anka ile ve Hint'in anka kuşuyla özdeşleşir.",
+    "dailyMessage": "Ateş Kuşu bugün içinde bir arzuyu alevlendiriyor. Uzun süredir bastırdığın, 'gerçekçi değil' dediğin o istek — o ateştir. Ateş yakılmak için değil, ısıtmak için vardır. Bugün o arzuna izin ver.",
+    "guidance": "Mantıklı değil gibi görünen bir arzunu bugün küçük bir adımla kabul et.",
     "rarity": "rare"
   },
   {
     "id": "a092",
     "name": "Deve Kuşu",
-    "emoji": "🦤",
+    "emoji": "🦚",
     "element": "toprak",
-    "symbolism": ["gerçeğe yüzleşme", "yerden güç", "çok yönlü beden", "büyük adım"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ostrich,_Botswana.jpg&width=300",
-    "anatolianMeaning": "Eski Mısır'da deve kuşu tüyü, Maat tanrıçasının adalet terazisinde kalplerin ölçüldüğü ölçü aracıdır; doğruluk ve hafif vicdanın simgesidir. Afrika geleneğinde ise deve kuşu kaçmak yerine yere yatan, yere bağlı güçlü ama uçamayan bir varlık olarak cesur yüzleşmenin ve bedeni kabul etmenin simgesidir.",
-    "dailyMessage": "Deve kuşu bugün seni gerçekle yüzleşmeye davet ediyor. Başını kuma gömmek yerine yükselt — gerçek ne? Ne görüyorsun, ne hissediyorsun, ne bilmek istemiyorsun? Deve kuşu uçamaz ama en hızlı kara hayvanlarından biridir. Gücün kanatlarında değil, ayaklarında.",
-    "guidance": "Bugün kaçındığın bir gerçeği kabul et ve ona dair küçük ama somut bir adım at.",
+    "symbolism": [
+      "gerçeğe yüzleşme",
+      "yerden güç",
+      "hız",
+      "pratik güç"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ostrich_Struthio_camelus.jpg&width=300",
+    "anatolianMeaning": "Afrika şaman geleneğinde deve kuşu, büyük ama farklı bir güce sahip varlıktır — uçamaz ama yeryüzünde kimse ondan hızlı koşamaz. Mısır'da Maat'ın terazisinde ruh, deve kuşu tüyüyle ölçülürdü — hakikatin simgesi.",
+    "dailyMessage": "Deve Kuşu bugün sana başka bir güç biçimini gösteriyor. Herkes gibi uçman gerekmez — ama kendi alanında kimse seninle yarışamaz. Bugün kendi özgün güçlerini tanı ve orada ilerle.",
+    "guidance": "Başkasının yeteneklerini değil, kendi güçlü yönünü geliştir bugün.",
     "rarity": "common"
   },
   {
@@ -1358,11 +1568,16 @@
     "name": "Kilin",
     "emoji": "🦄",
     "element": "ateş",
-    "symbolism": ["kutsal şans", "nadir doğuş", "dürüstlük işareti", "barış"],
-    "imageUrl": "",
-    "anatolianMeaning": "Çin, Japon ve Kore mitolojilerinin en kutsal hayvanlarından olan Kilin (Qilin/Kirin), yalnızca dürüst ve erdemli hükümdarlığın zamanında görünür; bilge bir liderin ya da kutsal bir varlığın doğuşunu müjdeler. Konfüçyüs'ün doğumunda da Kilin belirdiğine inanılır; saflık, nadir güzellik ve ilahi adaletin simgesidir.",
-    "dailyMessage": "Kilin bugün sana nadir ve güzel olanın varlığını hatırlatıyor. Sen de böyle bir anlın, böyle bir doğuşun içindesin. Bu dönem tekrar gelmeyebilir. Bugün dürüstlükle, zarafetle, tam olarak kendinle var ol. Kilin yalnızca erdemli anlarda görünür.",
-    "guidance": "Bugün dürüstlüğünü ve zarafetini bir söz ya da eylemle somut olarak göster.",
+    "symbolism": [
+      "kutsal şans",
+      "nadir doğuş",
+      "dürüstlük",
+      "ilahi işaret"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Qilin_Ming_Dynasty_painting.jpg&width=300",
+    "anatolianMeaning": "Çin, Japon ve Kore mitolojisinin en kutsal mitolojik hayvanı. Kilin, yalnızca erdemli bir hükümdar hüküm sürdüğünde görünür; dürüstlüğün ve kutsal şansın habercisidir. Onun görünmesi ilahi bir onayın işaretidir.",
+    "dailyMessage": "Kilin bugün sana nadir bir an yaşadığını hatırlatıyor. Bu an — bu güzel, özel, kırılgan an — kendini tekrar etmeyebilir. Dikkat et, kıymetini bil. Bugün etrafındaki nadirliği fark et.",
+    "guidance": "Olağan görünen bir anın içindeki olağanüstülüğü bugün fark et.",
     "rarity": "legendary"
   },
   {
@@ -1370,11 +1585,16 @@
     "name": "Su Aygırı",
     "emoji": "🦛",
     "element": "su",
-    "symbolism": ["doğum gücü", "sular koruyucusu", "ana gücü", "bereketli beden"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Hippo_at_Ngorongoro.jpg&width=300",
-    "anatolianMeaning": "Eski Mısır'da su aygırı başlı Taweret tanrıçası, doğumun ve anneliğin koruyucusudur; gebe kadınları ve yeni doğanları korur, bereket getirir. Afrika geleneğinde ise su aygırı suyun bekçisi, topluluğun anaç koruyucusu ve ham doğal gücün simgesidir — görünüşüne aldanma, derindir.",
-    "dailyMessage": "Su aygırı bugün seni içindeki ana gücüne bağlıyor. Koruyucu, besleyici, güçlü. Hem kendine hem sevdiklerine bu bakımı göster. Bugün bedenini, duygularını, ihtiyaçlarını önemse. Güçlü olmak sertlik değil — derinlik ve besleyiciliktir.",
-    "guidance": "Bugün hem kendine hem yakınındaki birine somut bir özen göster.",
+    "symbolism": [
+      "doğum gücü",
+      "dişil güç",
+      "sular koruyucusu",
+      "anaç cesaret"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Hippopotamus_in_Botswana.jpg&width=300",
+    "anatolianMeaning": "Eski Mısır'da hamile kadınların ve doğumun koruyucusu Taweret, su aygırı başlı bir tanrıçaydı. Nil'in sahibi ve koruyucusu olarak suyun egemenliğini temsil eder. Afrika'da ise en tehlikeli ama en hayat verici yaratık olarak bilinir.",
+    "dailyMessage": "Su Aygırı bugün dişil gücünü — ister kadın ister erkek ol — uyandırıyor. Besleyici, koruyucu, gerektiğinde sert. Bugün kimi koruyorsun, neyi besleyip büyütüyorsun? O güç sende hazır.",
+    "guidance": "Koruması gerekeni bugün açıkça, cesurca koru.",
     "rarity": "uncommon"
   },
   {
@@ -1382,11 +1602,16 @@
     "name": "Anakonda",
     "emoji": "🐍",
     "element": "su",
-    "symbolism": ["Orta Dünya", "su bilgeliği", "kozmik yılan", "dönüşüm"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Eunectes_murinus.jpg&width=300",
-    "anatolianMeaning": "And şamanizminde Anakonda (Sachamama/Yakumama), Orta Dünyanın ve su dünyasının en güçlü ruhudur; nehirlerin yöneticisi, su bitkilerinin ve yaşamın koruyucusudur. Şamanlar anakondanın ruhundan yeryüzünün ve suyun gizemleri hakkında bilgi alır; kozmik yılan olarak dünya ekseninin simgesidir.",
-    "dailyMessage": "Anakonda bugün sana suyun bilgeliğini sunuyor. Su gibi ol — akış, kıvrıl, geç. Katı olmak değil, uyumlu ve güçlü olmak. Seni zorlayan durumu dirençle değil, sarmalayarak geç. Anakonda avını güçle değil, sabırlı bir sarmayla taşır.",
-    "guidance": "Bugün bir çatışma ya da zorluğu direnmek yerine çevreleyerek, anlayışla geç.",
+    "symbolism": [
+      "kozmik yılan",
+      "su bilgeliği",
+      "dönüşüm",
+      "Orta Dünya"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Eunectes_murinus_2.jpg&width=300",
+    "anatolianMeaning": "And şamanizminin Orta Dünya hakimidir — ne gökyüzünün ne yerin, suyun ve ormanın arasındaki yaşam enerjisinin simgesidir. Amazonia yerlileri için anakonda, büyük nehirlerin ruhunun bedenidir.",
+    "dailyMessage": "Anakonda bugün sana yavaş ama kesin bir gücü hatırlatıyor. Sarmalıyor, kavruyor, dönüştürüyor — ama kırmadan. Bazen hayat da böyle çalışır: yavaşça sıkıştırır, ta ki yeniden doğana kadar. Bugün neyi dönüştürmeye hazırsın?",
+    "guidance": "Direnme — dönüşüm bazen baskı altında gerçekleşir, bu süreçte güven.",
     "rarity": "rare"
   },
   {
@@ -1394,11 +1619,16 @@
     "name": "Tukan",
     "emoji": "🦜",
     "element": "hava",
-    "symbolism": ["renklilik", "yaratıcı iletişim", "tropik bilgelik", "göz alıcı var oluş"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ramphastos_toco_-Belem_Brazil-8.jpg&width=300",
-    "anatolianMeaning": "Amazonia ve And geleneklerinde tukan, doğanın bolluğunu ve rengini simgeleyen kutsal bir habercidir; tüyleri şaman törenlerinde kullanılır ve ruhani boyutla bağlantıyı temsil eder. Büyük gagası, sesinin ve iletişiminin gücüne işaret eder — söylenecek şeyi gür ve renkli söyle.",
-    "dailyMessage": "Tukan bugün sana kendini renkli ve özgün ifade etmeni söylüyor. Ağzındaki o gagayı kullan — büyük, cesur, görünür konuş. Renklerin bir şeyi anlatıyor. Bugün sesi kıs değil, aç. Kim olduğunu, ne istediğini, ne hissettiğini söyle.",
-    "guidance": "Bugün kendini ifade etmekten çekindiğin bir alanda sesini çıkar.",
+    "symbolism": [
+      "renklilik",
+      "yaratıcı iletişim",
+      "tropik bilgelik",
+      "bereket"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Ramphastos_toco_-Brazil-8.jpg&width=300",
+    "anatolianMeaning": "Amazonia ve And şaman geleneğinde tukan, ormanın renkli bilgesidir. Gösterişli gagası, zenginliği ve bolluk içinde yaşamayı simgeler; renkleri ise hayatın kutlanmasını temsil eder. Tropik şaman seremonilerinde tukan tüyleri kutsal süs olarak kullanılır.",
+    "dailyMessage": "Tukan bugün sana hayatını biraz daha renkli yaşamayı öneriyor. Her gün aynı tonda geçmek zorunda değil. Bugün bir şeyi farklı yap — giyin, konuş, yürü — küçük bir renkle başla.",
+    "guidance": "Bugün sıradan bir şeyi biraz daha güzel, biraz daha renkli yap.",
     "rarity": "common"
   },
   {
@@ -1406,23 +1636,33 @@
     "name": "Dingo",
     "emoji": "🐕",
     "element": "toprak",
-    "symbolism": ["yabani özgürlük", "saf içgüdü", "ehlileşmemiş ruh", "çöl bilgeliği"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Dingo-Jurtiga.jpg&width=300",
-    "anatolianMeaning": "Aborijin Avustralya geleneğinde dingo, Rüya Zamanı'nın önemli bir yaratığıdır; ne tam evcil ne tam vahşi olan dingo, iki dünyanın arasında var olur. Ehlileşmemiş ruhu ve saf içgüdüsüyle Aborijin spiritüalitesinde doğanın özgür sesini, insan ve doğa arasındaki köprüyü simgeler.",
-    "dailyMessage": "Dingo bugün sana ehlileşmemiş yanını hatırlatıyor. Toplumun beklentileri, kurallar, kalıplar — bunların ne kadarı gerçekten senin? İçgüdün ne söylüyor? Bugün o saf, ilk sese kulak ver; zihnin değil, içgüdün rehberlik etsin.",
-    "guidance": "Bugün mantıkla değil, saf içgüdünle bir karar ver ya da bir adım at.",
-    "rarity": "uncommon"
+    "symbolism": [
+      "yabani özgürlük",
+      "saf içgüdü",
+      "ehlileşmemiş ruh",
+      "sadakat"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Dingo_Noosa.jpg&width=300",
+    "anatolianMeaning": "Avustralya Aborijin geleneğinin kutsal yoldaşı. Dingo ne tam yabani ne tam evcildir — bu ikisi arasındaki köprüdür. Rüya Zamanı hikâyelerinde insan ile doğa arasındaki unutulan bağı simgeler.",
+    "dailyMessage": "Dingo bugün seni en saf içgüdüne dönmeye davet ediyor. Tüm sosyal beklentileri, kuralları bir kenara bırak — sadece içinde ne hissediyorsun? Bugün o ham, saf sesi duyabilir misin?",
+    "guidance": "Sosyal filtreyi kaldır ve gerçekten ne istediğini bugün kendine sor.",
+    "rarity": "common"
   },
   {
     "id": "a098",
     "name": "Platipus",
     "emoji": "🦆",
     "element": "su",
-    "symbolism": ["çift doğa", "benzersizlik", "sınıflandırılamaz güzellik", "özgünlük"],
+    "symbolism": [
+      "çift doğa",
+      "benzersizlik",
+      "sınıflandırılamaz güzellik",
+      "merak"
+    ],
     "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Platypus.jpg&width=300",
-    "anatolianMeaning": "Aborijin Avustralya geleneğinde platipus, birden fazla varlığın özünü taşıyan kutsal bir birleşim yaratığıdır; ördek, kunduz ve su samurunu andıran bu varlık, hangi kategoriye koyulacağını reddeden özgünlüğün simgesidir. Rüya Zamanı'nda sınırları aşan, tanımlanamaz güzelliğiyle bilinen kutsal bir totemdir.",
-    "dailyMessage": "Platipus bugün sana sınıflandırılmayı reddetme cesaretini veriyor. Kim olduğunu tek bir kelimeyle açıklamak zorunda değilsin. Çelişkili, karmaşık, çok boyutlu olabilirsin — bu kusur değil, zenginlik. Bugün kendinin en tuhaf, en özgün yanını kucakla.",
-    "guidance": "Bugün kendinin 'garip' ya da 'uyumsuz' bulduğun bir yönünü sev ve kabul et.",
+    "anatolianMeaning": "Avustralya Aborijin Rüya Zamanı'nda platipus, farklı türlerin birleşiminden doğan ama hiçbirine tam ait olmayan özel bir varlıktır. Hem memeli hem yumurtlayan, hem kara hem su hayvanı olarak Rüya Zamanı'nın anlat bireysellerin simgesidir.",
+    "dailyMessage": "Platipus bugün sana diyor ki: tanımlanmak zorunda değilsin. Kendini bir kategoriye, bir etikete, bir kalıba sokmaya çalışmayı bırak. Sen birden fazla şeysin ve bu karmaşıklık senin güzelliğindir.",
+    "guidance": "Kendini tanımlamaktan vazgeç — ol, yeter.",
     "rarity": "rare"
   },
   {
@@ -1430,11 +1670,16 @@
     "name": "Dalgıç Kuşu",
     "emoji": "🐦",
     "element": "su",
-    "symbolism": ["rüya", "bilinçaltı sesi", "içsel çığlık", "su ve hava arası"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Gavia_immer_-Minocqua,_Wisconsin,_USA-8.jpg&width=300",
-    "anatolianMeaning": "Kuzey Amerika Büyük Göller geleneğinde (Ojibwe ve diğerleri) dalgıç kuşunun (loon) sesi, öteki dünyadan gelen bir çığlık olarak kabul edilir; ruhların ve rüyaların sesini taşıdığına inanılır. Sibir şamanizminde ise dalgıç kuşu, hem suya dalabilen hem de gökyüzüne yükselen aracı varlıktır — bilinçaltı ile bilinç arasındaki geçişin simgesi.",
-    "dailyMessage": "Dalgıç kuşu bugün seni iç sesinle buluşturuyor. Derinlerin sesi — bazen ürkütücü, bazen yalnız, bazen çok güzel. O sesi duyuyor musun? Rüyalar, hisler, aniden gelen duygular — bunlar bilinçaltının mesajları. Onları dinle, yargılama.",
-    "guidance": "Bugün iç sesinle — rüyan, sezgin ya da bastırılmış bir duygunla — sessizce otur.",
+    "symbolism": [
+      "rüya",
+      "bilinçaltı sesi",
+      "içsel çığlık",
+      "derinlik"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/Common_loon.jpg&width=300",
+    "anatolianMeaning": "Sibirya şamanizminde dalgıç kuşunun çığlığı, öteki dünyanın sesidir. Kuzey Amerika Büyük Göller halklarında ise rüyaların ve bilinçaltının habercisidir — onun sesini duymak derin bir içsel mesajın işaretidir.",
+    "dailyMessage": "Dalgıç Kuşu bugün içindeki o derin sesi dinlemeni söylüyor. Bastırdığın, duymazdan geldiğin bir his var — bugün ona izin ver. Onun tuhaf, güzel çığlığı gibi, içindeki ses de duyulmayı hak ediyor.",
+    "guidance": "Bastırdığın bir duyguyu bugün küçük bir şekilde dışa vur.",
     "rarity": "uncommon"
   },
   {
@@ -1442,11 +1687,16 @@
     "name": "Beyaz Geyik",
     "emoji": "🦌",
     "element": "hava",
-    "symbolism": ["kutsal belirti", "dönüm noktası", "ilahi çağrı", "ruhsal eşik"],
-    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/White_deer.jpg&width=300",
-    "anatolianMeaning": "Kelt geleneğinde beyaz geyik, Öteki Dünya'dan gelen habercilerdir; onu gören kişinin ruhsal yolculuğunun ya da büyük bir dönüşümün eşiğinde olduğu söylenir. Türk ve Altay geleneğinde kutsal ak geyik şamanın rehberidir, Çin mitolojisinde ölümsüzlüğün simgesi, Kuzey Amerika'da ise ilahi çağrının en güçlü işaretidir.",
-    "dailyMessage": "Beyaz Geyik bugün sana ilahi bir işaret gönderiyor. Bu karşılaşma tesadüf değil — eşiğin üzerinde duruyorsun. Hayatında bir kapı açılıyor ya da kapanıyor; bu dönüm noktasını kaçırma. Kutsal olanın seni gördüğünü bil ve sen de onu gör. İç çağrını duyuyor musun?",
-    "guidance": "Bugün hayatının önemli bir dönüm noktasını fark et ve buna adanmış bir niyet ya da adım belirle.",
+    "symbolism": [
+      "kutsal belirti",
+      "dönüm noktası",
+      "ilahi çağrı",
+      "nadir an"
+    ],
+    "imageUrl": "https://commons.wikimedia.org/w/index.php?title=Special:FilePath/White_deer_-_The_Art_of_White_Deer.jpg&width=300",
+    "anatolianMeaning": "Kelt, Türk, Kuzey Amerika, Çin ve Slav geleneklerinin tamamında beyaz geyik, ilahi bir mesajın habercisidir. Görülmesi bir dönüm noktasının, kader değişiminin işaretidir — peşinden gidilmeli ama asla avlanmamalıdır.",
+    "dailyMessage": "Beyaz Geyik bugün sana bir dönüm noktasında olduğunu haber veriyor. Hayatında bir şey değişmek üzere ya da şu an değişiyor — bu değişimi korkuyla değil, kutsal bir davet olarak karşıla. Nereye çağrılıyorsun?",
+    "guidance": "Kalbinin seni çektiği yönü bu sefer mantığın önünde bırak.",
     "rarity": "legendary"
   }
 ]
