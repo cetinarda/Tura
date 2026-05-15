@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../theme/colors';
 import animalsData from '../data/animals.json';
 import { AnimalDetailScreen } from './AnimalDetailScreen';
+import { useI18n } from '../i18n/useI18n';
 
 interface Props {
   onClose: () => void;
@@ -22,6 +23,7 @@ type Animal = typeof animalsData[0];
 
 export function AnimalLibraryScreen({ onClose, embedded }: Props) {
   const insets = useSafeAreaInsets();
+  const { t } = useI18n();
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<Animal | null>(null);
 
@@ -60,15 +62,15 @@ export function AnimalLibraryScreen({ onClose, embedded }: Props) {
       {!embedded && (
         <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
           <TouchableOpacity onPress={onClose} hitSlop={12}>
-            <Text style={styles.back}>← Geri</Text>
+            <Text style={styles.back}>{t('animalLibrary.back')}</Text>
           </TouchableOpacity>
-          <Text style={styles.familyTag}>SAKİN · HAYVAN</Text>
+          <Text style={styles.familyTag}>{t('animalLibrary.familyTag')}</Text>
         </View>
       )}
 
       <View style={[styles.header, embedded && styles.headerCompact]}>
         <Text style={styles.subtitle}>
-          Anadolu'dan dünyaya · {animalsData.length} hayvan rehberi
+          {t('animalLibrary.subtitle').replace('{count}', String(animalsData.length))}
         </Text>
       </View>
 
@@ -78,7 +80,7 @@ export function AnimalLibraryScreen({ onClose, embedded }: Props) {
           style={styles.searchInput}
           value={query}
           onChangeText={setQuery}
-          placeholder="İsim, sembol veya unsur ile ara..."
+          placeholder={t('animalLibrary.searchPlaceholder')}
           placeholderTextColor={Colors.textMuted}
           autoCapitalize="none"
           autoCorrect={false}
@@ -96,7 +98,7 @@ export function AnimalLibraryScreen({ onClose, embedded }: Props) {
         showsVerticalScrollIndicator={false}
       >
         {groups.length === 0 && (
-          <Text style={styles.empty}>Arama sonucu yok.</Text>
+          <Text style={styles.empty}>{t('animalLibrary.noResults')}</Text>
         )}
         {groups.map(([letter, items]) => (
           <View key={letter} style={styles.group}>

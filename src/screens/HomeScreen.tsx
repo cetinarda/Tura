@@ -18,6 +18,7 @@ import animalsData from '../data/animals.json';
 import philosophersData from '../data/philosophers.json';
 import { useTuraStore } from '../store/useStore';
 import { AnimalDetailScreen } from './AnimalDetailScreen';
+import { useI18n } from '../i18n/useI18n';
 
 interface HomeScreenProps {
   onNavigateToProfile?: () => void;
@@ -28,10 +29,6 @@ const CARD_W = Math.min(Math.round(SCREEN_W * 0.65), 270);
 const CARD_H = Math.round(CARD_W * 1.75);
 const STACK = 7;
 
-const DECKS = [
-  { title: 'Hayvan', short: 'HAYVAN', subtitle: 'Ruhunun yoldaşını dinle', color: Colors.teal, motif: '⊕' },
-  { title: 'Sözler', short: 'SÖZ',   subtitle: 'Anadolu bilgeliğinden',   color: Colors.gold, motif: '✦' },
-];
 
 // ─── Kilim band ────────────────────────────────────────────────────────────────
 function KilimBand({ color }: { color: string }) {
@@ -120,7 +117,7 @@ function AnimalContent({ animal, onOpenDetail }: { animal: typeof animalsData[0]
       </View>
       <TouchableOpacity onPress={onOpenDetail} style={cs.detailBtn} activeOpacity={0.8}>
         <Text style={[cs.detailBtnText, { color: Colors.tealLight }]}>
-          {animal.name}'ın derin rehberliği →
+          {animal.name}{t('home.detailBtn')}
         </Text>
       </TouchableOpacity>
     </View>
@@ -150,7 +147,13 @@ function MiniDeck({ deck, state }: { deck: typeof DECKS[0]; state: 'done' | 'act
 // ─── Home screen ───────────────────────────────────────────────────────────────
 export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const insets = useSafeAreaInsets();
+  const { t } = useI18n();
   const { profile, dailyReading, generateDailyReading, updateStats } = useTuraStore();
+
+  const DECKS = [
+    { title: t('home.decks.animal.title'), short: t('home.decks.animal.short'), subtitle: t('home.decks.animal.subtitle'), color: Colors.teal, motif: '⊕' },
+    { title: t('home.decks.quote.title'),  short: t('home.decks.quote.short'),  subtitle: t('home.decks.quote.subtitle'),  color: Colors.gold, motif: '✦' },
+  ];
 
   const [reading, setReading] = useState(dailyReading);
   const [step, setStep]       = useState(0);
@@ -231,10 +234,10 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
 
   const greeting = () => {
     const h = new Date().getHours();
-    if (h < 6)  return 'Gece';
-    if (h < 12) return 'Günaydın';
-    if (h < 18) return 'İyi günler';
-    return 'İyi akşamlar';
+    if (h < 6)  return t('home.greeting.night');
+    if (h < 12) return t('home.greeting.morning');
+    if (h < 18) return t('home.greeting.afternoon');
+    return t('home.greeting.evening');
   };
 
   if (showAnimalDetail && animal) {
@@ -249,7 +252,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>{greeting()}</Text>
-          <Text style={styles.username}>{profile?.name || 'Yolcu'}</Text>
+          <Text style={styles.username}>{profile?.name || t('home.defaultUser')}</Text>
         </View>
         <TouchableOpacity onPress={onNavigateToProfile} style={styles.profileBtn}>
           <Text style={styles.profileInitial}>
@@ -265,8 +268,8 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
           /* ── Done screen ── */
           <View style={styles.doneWrap}>
             <Text style={{ fontSize: 40, color: Colors.gold }}>☀</Text>
-            <Text style={styles.doneTitle}>Günlük rehberlik{'\n'}tamamlandı</Text>
-            <Text style={styles.doneSub}>Yarın yeni bir yolculuk başlar</Text>
+            <Text style={styles.doneTitle}>{t('home.doneTitle')}</Text>
+            <Text style={styles.doneSub}>{t('home.doneSub')}</Text>
             {quote && (
               <>
                 <View style={styles.doneLine} />
@@ -323,7 +326,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
 
                       <View style={styles.tapRow}>
                         <View style={[styles.tapLine, { backgroundColor: deck.color }]} />
-                        <Text style={[styles.tapHint, { color: deck.color }]}>salla · dokun</Text>
+                        <Text style={[styles.tapHint, { color: deck.color }]}>{t('home.tapHint')}</Text>
                         <View style={[styles.tapLine, { backgroundColor: deck.color }]} />
                       </View>
                     </View>
@@ -359,7 +362,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
                     activeOpacity={0.8}
                   >
                     <Text style={[styles.nextBtnText, { color: deck.color }]}>
-                      {step < DECKS.length - 1 ? 'Sıradaki Deste →' : 'Tamamlandı ✦'}
+                      {step < DECKS.length - 1 ? t('home.nextDeck') : t('home.completed')}
                     </Text>
                   </TouchableOpacity>
                 </Animated.View>

@@ -13,19 +13,21 @@ import { AnimalLibraryScreen } from './AnimalLibraryScreen';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { NagualScreen } from './NagualScreen';
 import { useTuraStore } from '../store/useStore';
+import { useI18n } from '../i18n/useI18n';
 
 type Panel = 'library' | 'finder' | 'nagual';
 
 const PANELS = [
-  { key: 'library' as Panel, title: 'Hayvanlar', symbol: '⊕', color: Colors.tealLight, helpKey: 'totem' },
-  { key: 'finder'  as Panel, title: 'Bul',       symbol: '✦', color: Colors.gold,      helpKey: 'rehber' },
-  { key: 'nagual'  as Panel, title: 'Rehberlik', symbol: '◈', color: Colors.ember,     helpKey: 'nagual' },
+  { key: 'library' as Panel, labelKey: 'animalsHub.panels.library',  symbol: '⊕', color: Colors.tealLight, helpKey: 'totem' },
+  { key: 'finder'  as Panel, labelKey: 'animalsHub.panels.finder',   symbol: '✦', color: Colors.gold,      helpKey: 'rehber' },
+  { key: 'nagual'  as Panel, labelKey: 'animalsHub.panels.guidance', symbol: '◈', color: Colors.ember,     helpKey: 'nagual' },
 ];
 
 export function AnimalsHubScreen() {
   const insets = useSafeAreaInsets();
   const { profile } = useTuraStore();
   const [panel, setPanel] = useState<Panel>('library');
+  const { t } = useI18n();
 
   const active = PANELS.find(p => p.key === panel)!;
   const noClose = () => {};
@@ -36,9 +38,9 @@ export function AnimalsHubScreen() {
 
       {/* Top: eyebrow + current panel name + help */}
       <View style={styles.headerBar}>
-        <Text style={styles.eyebrow}>SAKİN · HAYVAN</Text>
+        <Text style={styles.eyebrow}>{t('animalsHub.eyebrow' as any)}</Text>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>{active.title}</Text>
+          <Text style={styles.title}>{t(active.labelKey as any)}</Text>
           <HelpButton termKey={active.helpKey} />
         </View>
       </View>
@@ -65,7 +67,7 @@ export function AnimalsHubScreen() {
                 { color: isActive ? p.color : Colors.textMuted },
                 isActive && { fontWeight: Typography.weight.semibold },
               ]}>
-                {p.title}
+                {t(p.labelKey as any)}
               </Text>
             </TouchableOpacity>
           );

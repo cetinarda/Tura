@@ -14,14 +14,15 @@ import { AnimalsHubScreen } from '../screens/AnimalsHubScreen';
 import { ArchiveScreen } from '../screens/ArchiveScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { GlossaryFAB } from '../components/HelpButton';
+import { useI18n } from '../i18n/useI18n';
 
 type Tab = 'home' | 'animals' | 'archive' | 'profile';
 
-const TABS: { key: Tab; label: string; symbol: string; activeColor: string }[] = [
-  { key: 'home',    label: 'Bugün',     symbol: '✦',  activeColor: Colors.gold },
-  { key: 'animals', label: 'Hayvanlar', symbol: '⊕',  activeColor: Colors.tealLight },
-  { key: 'archive', label: 'Arşiv',     symbol: '◈',  activeColor: Colors.purple },
-  { key: 'profile', label: 'Profil',    symbol: '⊙',  activeColor: Colors.sakinLavender },
+const TABS: { key: Tab; labelKey: string; symbol: string; activeColor: string }[] = [
+  { key: 'home',    labelKey: 'tabs.today',    symbol: '✦',  activeColor: Colors.gold },
+  { key: 'animals', labelKey: 'tabs.animals',  symbol: '⊕',  activeColor: Colors.tealLight },
+  { key: 'archive', labelKey: 'tabs.archive',  symbol: '◈',  activeColor: Colors.purple },
+  { key: 'profile', labelKey: 'tabs.profile',  symbol: '⊙',  activeColor: Colors.sakinLavender },
 ];
 
 const TAB_BAR_H = 56; // approximate tab bar height for padding calculation
@@ -31,6 +32,7 @@ export function TabNavigator() {
   const [activeTab, setActiveTab] = useState<Tab>('home');
   const insets = useSafeAreaInsets();
   const { height: winH } = useWindowDimensions();
+  const { t } = useI18n();
 
   const tabBarHeight = TAB_BAR_H + insets.bottom + 4;
 
@@ -69,7 +71,7 @@ export function TabNavigator() {
                 onPress={() => setActiveTab(tab.key)}
                 activeOpacity={0.7}
                 accessibilityRole="tab"
-                accessibilityLabel={tab.label}
+                accessibilityLabel={t(tab.labelKey as any)}
                 accessibilityState={{ selected: isActive }}
               >
                 <View style={[styles.tabIndicator, isActive && { backgroundColor: tab.activeColor }]} />
@@ -84,7 +86,7 @@ export function TabNavigator() {
                   styles.tabLabel,
                   { color: isActive ? tab.activeColor : Colors.textMuted },
                 ]}>
-                  {tab.label}
+                  {t(tab.labelKey as any)}
                 </Text>
               </TouchableOpacity>
             );

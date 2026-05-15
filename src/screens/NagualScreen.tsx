@@ -7,6 +7,7 @@ import animalsData from '../data/animals.json';
 import { useTuraStore } from '../store/useStore';
 import { calcLifePath } from '../utils/numerology';
 import { calcHDType } from '../utils/humanDesign';
+import { useI18n } from '../i18n/useI18n';
 
 interface Props { onClose: () => void; embedded?: boolean; }
 type Nagual = typeof nagualsData[0];
@@ -56,6 +57,7 @@ function getPersonalNagual(
 
 export function NagualScreen({ onClose, embedded }: Props) {
   const insets = useSafeAreaInsets();
+  const { t } = useI18n();
   const { profile } = useTuraStore();
   const [nagual] = useState<Nagual>(() => getWeeklyNagual());
   const daysLeft = getDaysRemaining();
@@ -70,46 +72,43 @@ export function NagualScreen({ onClose, embedded }: Props) {
       {!embedded && (
         <View style={[styles.topBar, { paddingTop: insets.top + Spacing.sm }]}>
           <TouchableOpacity onPress={onClose} hitSlop={12}>
-            <Text style={styles.back}>← Geri</Text>
+            <Text style={styles.back}>{t('nagual.back')}</Text>
           </TouchableOpacity>
-          <Text style={styles.familyTag}>SAKİN · NAGUAL</Text>
+          <Text style={styles.familyTag}>{t('nagual.familyTag')}</Text>
         </View>
       )}
 
       <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.intro}>
-          <Text style={styles.introTitle}>Nagual — Dönemsel Rehber</Text>
+          <Text style={styles.introTitle}>{t('nagual.introTitle')}</Text>
           <Text style={styles.introText}>
-            Totem hayvanın seninle doğar, ömür boyu kalır. Nagual ise belirli bir
-            döneminde sana eşlik eden geçici rehberdir. Bir sınav, bir dönüşüm,
-            bir kriz anında yanına gelir. Görevini tamamlayınca yerini başka bir
-            rehbere bırakır.
+            {t('nagual.introText')}
           </Text>
         </View>
 
         {/* Universal weekly nagual */}
         <View style={[styles.heroCard, { borderColor: Colors.ember + '60' }]}>
-          <Text style={styles.weekTag}>BU HAFTA · EVRENSEL</Text>
+          <Text style={styles.weekTag}>{t('nagual.weekTag')}</Text>
           <Text style={styles.heroEmoji}>{nagual.emoji}</Text>
           <Text style={styles.heroName}>{nagual.name}</Text>
           <Text style={styles.heroAspect}>{(nagual as any).aspect}</Text>
           <View style={styles.divider} />
           <Text style={styles.dailyMsg}>{(nagual as any).dailyMessage}</Text>
           <View style={[styles.guideBox, { borderColor: Colors.ember + '40' }]}>
-            <Text style={styles.guideLabel}>BU DÖNEMDE</Text>
+            <Text style={styles.guideLabel}>{t('nagual.thisWeek')}</Text>
             <Text style={styles.guideText}>{(nagual as any).guidance}</Text>
           </View>
           <View style={styles.metaRow}>
             <Text style={styles.metaText}>{nagual.element.toUpperCase()}</Text>
             <View style={styles.metaDot} />
-            <Text style={styles.metaText}>{daysLeft} gün kaldı</Text>
+            <Text style={styles.metaText}>{t('nagual.daysLeft').replace('{n}', String(daysLeft))}</Text>
           </View>
         </View>
 
         {/* Personal nagual */}
         {personal ? (
           <View style={[styles.personalCard, { borderColor: Colors.teal + '60' }]}>
-            <Text style={styles.personalTag}>KİŞİSEL REHBERİM</Text>
+            <Text style={styles.personalTag}>{t('nagual.personalTag')}</Text>
             <Text style={styles.heroEmoji}>{personal.animal.emoji}</Text>
             <Text style={styles.heroName}>{personal.animal.name}</Text>
             <Text style={[styles.heroAspect, { color: Colors.tealLight }]}>
