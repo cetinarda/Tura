@@ -14,6 +14,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../theme/colors';
 import animalsData from '../data/animals.json';
+import { useLocalizedAnimals } from '../i18n/localize';
+import { useI18n } from '../i18n/useI18n';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -228,11 +230,17 @@ interface Props {
 
 export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Props) {
   const insets = useSafeAreaInsets();
+  const { lang } = useI18n();
+  const localAnimals = useLocalizedAnimals();
   const [mode, setMode]         = useState<Mode>('intro');
   const [qIndex, setQIndex]     = useState(0);
   const [picks, setPicks]       = useState<Option[]>([]);
   const [chosen, setChosen]     = useState<number | null>(null);
   const [result, setResult]     = useState<AnimalResult | null>(null);
+
+  const displayAnimal: typeof animalsData[0] | null = result
+    ? ((localAnimals.find((a: any) => a.id === result.animal.id) as typeof animalsData[0] | undefined) || result.animal)
+    : null;
 
   // birth form
   const prefill = prefillBirthDate?.split('-') ?? [];
@@ -440,18 +448,18 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
           <View style={styles.resultCard}>
             <View style={[styles.medallion, { borderColor: Colors.teal + '50' }]}>
               <View style={[styles.medallionInner, { borderColor: Colors.teal + '30' }]}>
-                <Text style={styles.resultEmoji}>{result.animal.emoji}</Text>
+                <Text style={styles.resultEmoji}>{displayAnimal!.emoji}</Text>
               </View>
             </View>
-            <Text style={styles.resultName}>{result.animal.name}</Text>
-            <Text style={styles.resultMeta}>{result.animal.element} · {result.animal.symbolism[0]}</Text>
+            <Text style={styles.resultName}>{displayAnimal!.name}</Text>
+            <Text style={styles.resultMeta}>{displayAnimal!.element} · {displayAnimal!.symbolism[0]}</Text>
             <View style={[styles.divider, { backgroundColor: Colors.teal }]} />
-            <Text style={styles.resultMsg}>{result.animal.dailyMessage}</Text>
+            <Text style={styles.resultMsg}>{displayAnimal!.dailyMessage}</Text>
             <View style={[styles.guidanceBox, { borderColor: Colors.teal + '35' }]}>
-              <Text style={[styles.guidanceTxt, { color: Colors.tealLight }]}>{result.animal.guidance}</Text>
+              <Text style={[styles.guidanceTxt, { color: Colors.tealLight }]}>{displayAnimal!.guidance}</Text>
             </View>
             <View style={styles.tagsRow}>
-              {result.animal.symbolism.map((s, i) => (
+              {displayAnimal!.symbolism.map((s: string, i: number) => (
                 <View key={i} style={[styles.tag, { borderColor: Colors.teal + '40' }]}>
                   <Text style={[styles.tagTxt, { color: Colors.teal }]}>{s}</Text>
                 </View>
@@ -459,7 +467,7 @@ export function AnimalFinderScreen({ onClose, prefillBirthDate, embedded }: Prop
             </View>
           </View>
 
-          <Text style={styles.anatolianTxt}>{result.animal.anatolianMeaning}</Text>
+          <Text style={styles.anatolianTxt}>{displayAnimal!.anatolianMeaning}</Text>
 
           <TouchableOpacity
             style={styles.doneBtn}

@@ -13,6 +13,7 @@ import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../th
 import animalsData from '../data/animals.json';
 import { AnimalDetailScreen } from './AnimalDetailScreen';
 import { useI18n } from '../i18n/useI18n';
+import { useLocalizedAnimals } from '../i18n/localize';
 
 interface Props {
   onClose: () => void;
@@ -23,20 +24,21 @@ type Animal = typeof animalsData[0];
 
 export function AnimalLibraryScreen({ onClose, embedded }: Props) {
   const insets = useSafeAreaInsets();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const animals = useLocalizedAnimals();
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<Animal | null>(null);
 
   const sorted = useMemo(() => {
-    return [...animalsData].sort((a, b) => a.name.localeCompare(b.name, 'tr'));
-  }, []);
+    return [...animals].sort((a, b) => a.name.localeCompare(b.name, lang === 'tr' ? 'tr' : 'en'));
+  }, [animals, lang]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return sorted;
     return sorted.filter(a =>
       a.name.toLowerCase().includes(q) ||
-      a.symbolism.some(s => s.toLowerCase().includes(q)) ||
+      a.symbolism.some((s: string) => s.toLowerCase().includes(q)) ||
       a.element.toLowerCase().includes(q)
     );
   }, [query, sorted]);
@@ -45,13 +47,13 @@ export function AnimalLibraryScreen({ onClose, embedded }: Props) {
   const groups = useMemo(() => {
     const map = new Map<string, Animal[]>();
     for (const a of filtered) {
-      const letter = a.name[0].toLocaleUpperCase('tr');
+      const letter = a.name[0].toLocaleUpperCase(lang === 'tr' ? 'tr' : 'en');
       const list = map.get(letter) || [];
       list.push(a);
       map.set(letter, list);
     }
     return Array.from(map.entries());
-  }, [filtered]);
+  }, [filtered, lang]);
 
   if (selected) {
     return <AnimalDetailScreen animal={selected as any} onClose={() => setSelected(null)} />;
@@ -70,7 +72,7 @@ export function AnimalLibraryScreen({ onClose, embedded }: Props) {
 
       <View style={[styles.header, embedded && styles.headerCompact]}>
         <Text style={styles.subtitle}>
-          {t('animalLibrary.subtitle').replace('{count}', String(animalsData.length))}
+          {t('animalLibrary.subtitle').replace('{count}', String(animals.length))}
         </Text>
       </View>
 

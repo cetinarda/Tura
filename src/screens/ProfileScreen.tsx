@@ -16,6 +16,7 @@ import { useTuraStore } from '../store/useStore';
 import stonesData from '../data/stones.json';
 import animalsData from '../data/animals.json';
 import nagualsData from '../data/naguals.json';
+import { useLocalizedAnimals, useLocalizedStones, useLocalizedNaguals } from '../i18n/localize';
 import { calcNumerology, LIFE_PATH_MEANINGS } from '../utils/numerology';
 import { getHDProfile, GATE_NAMES } from '../utils/humanDesign';
 import { getWeeklyReading } from '../utils/weeklyReading';
@@ -86,14 +87,18 @@ export function ProfileScreen() {
   const [editMinute, setEditMinute] = useState('');
   const [editCity, setEditCity] = useState('');
 
+  const localAnimals = useLocalizedAnimals();
+  const localStones = useLocalizedStones();
+  const localNaguals = useLocalizedNaguals();
+
   const topStoneId  = getTopStat(stats.stoneCounts);
   const topAnimalId = getTopStat(stats.animalCounts);
   const topSource   = getTopStat(stats.sourceCounts);
   const topNagualId = getTopStat(stats.nagualCounts || {});
 
-  const topStone  = topStoneId  ? stonesData.find(s => s.id === topStoneId)  : null;
-  const topAnimal = topAnimalId ? animalsData.find(a => a.id === topAnimalId) : null;
-  const topNagual = topNagualId ? nagualsData.find(n => n.id === topNagualId) : null;
+  const topStone  = topStoneId  ? localStones.find(s => s.id === topStoneId)  : null;
+  const topAnimal = topAnimalId ? localAnimals.find(a => a.id === topAnimalId) : null;
+  const topNagual = topNagualId ? localNaguals.find(n => n.id === topNagualId) : null;
 
   const totalReadings = profile?.totalReadings || 0;
   const streak        = profile?.streak || 0;

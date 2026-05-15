@@ -19,6 +19,7 @@ import philosophersData from '../data/philosophers.json';
 import { useTuraStore } from '../store/useStore';
 import { AnimalDetailScreen } from './AnimalDetailScreen';
 import { useI18n } from '../i18n/useI18n';
+import { useLocalizedAnimals, useLocalizedQuotes, useLocalizedPhilosophers } from '../i18n/localize';
 
 interface HomeScreenProps {
   onNavigateToProfile?: () => void;
@@ -150,6 +151,9 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   const insets = useSafeAreaInsets();
   const { t } = useI18n();
   const { profile, dailyReading, generateDailyReading, updateStats } = useTuraStore();
+  const animals = useLocalizedAnimals();
+  const quotes = useLocalizedQuotes();
+  const philosophers = useLocalizedPhilosophers();
 
   const DECKS = [
     { title: t('home.decks.animal.title'), short: t('home.decks.animal.short'), subtitle: t('home.decks.animal.subtitle'), color: Colors.teal, motif: '⊕' },
@@ -202,8 +206,8 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
     return () => { sub?.remove(); };
   }, []);
 
-  const quote  = reading ? quotesData.find(q => q.id === reading.quoteId)  : null;
-  const animal = reading ? animalsData.find(a => a.id === reading.animalId) : null;
+  const quote  = reading ? quotes.find(q => q.id === reading.quoteId)  : null;
+  const animal = reading ? animals.find(a => a.id === reading.animalId) : null;
 
   const deck = DECKS[step];
 

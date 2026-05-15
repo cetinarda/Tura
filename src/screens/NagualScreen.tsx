@@ -8,6 +8,7 @@ import { useTuraStore } from '../store/useStore';
 import { calcLifePath } from '../utils/numerology';
 import { calcHDType } from '../utils/humanDesign';
 import { useI18n } from '../i18n/useI18n';
+import { useLocalizedNaguals, useLocalizedAnimals } from '../i18n/localize';
 
 interface Props { onClose: () => void; embedded?: boolean; }
 type Nagual = typeof nagualsData[0];
@@ -28,7 +29,7 @@ function getDaysRemaining(): number {
 function getPersonalNagual(
   birthDate: string,
   element: string,
-): { animal: Animal; lifePath: number; hdType: string; reason: string } | null {
+): { animal: Animal; lifePath: number; hdType: string } | null {
   const pool = animalsData.filter(a => a.element === element);
   if (pool.length === 0) return null;
 
@@ -36,36 +37,59 @@ function getPersonalNagual(
   const hdType = calcHDType(birthDate);
   const week = Math.floor(Date.now() / (1000 * 60 * 60 * 24 * 7));
 
-  // Seed: life path anchors which animals in the pool resonate (modular offset),
-  // week rotates slowly so the guide changes monthly-ish but stays consistent.
   const seed = (lifePath * 11 + week) % pool.length;
   const animal = pool[seed];
 
-  const hdReasons: Record<string, string> = {
-    'Jeneratör': 'yanıtlama gücünü',
-    'Manifesting Jeneratör': 'çok boyutlu enerjini',
-    'Projektör': 'yönlendirme sezgini',
-    'Manifestor': 'başlatma gücünü',
-    'Reflektör': 'yansıtma bilgeliğini',
-  };
-  const hdReason = hdReasons[hdType] || 'içsel gücünü';
+  return { animal, lifePath, hdType };
+}
 
-  const reason = `${element.charAt(0).toUpperCase() + element.slice(1)} unsuru · Yaşam yolu ${lifePath} · ${hdType} tipi — bu dönemde ${hdReason} desteklemek için seninle.`;
-
-  return { animal, lifePath, hdType, reason };
+const HD_REASONS_TR: Record<string, string> = {
+  'Jeneratör': 'yanıtlama gücünü',
+  'Manifesting Jeneratör': 'çok boyutlu enerjini',
+  'Projektör': 'yönlendirme sezgini',
+  'Manifestor': 'başlatma gücünü',
+  'Reflektör': 'yansıtma bilgeliğini',
+};
+const HD_REASONS_EN: Record<string, string> = {
+  'Jeneratör': 'your power of response',
+  'Manifesting Jeneratör': 'your multidimensional energy',
+  'Projektör': 'your guiding intuition',
+  'Manifestor': 'your initiating power',
+  'Reflektör': 'your reflective wisdom',
+};
+const ELEMENT_TR_TO_EN: Record<string, string> = {
+  'ateş': 'fire', 'su': 'water', 'toprak': 'earth', 'hava': 'air',
+};
+function buildReason(lang: 'tr' | 'en', element: string, lifePath: number, hdType: string): string {
+  if (lang === 'en') {
+    const elEn = ELEMENT_TR_TO_EN[element] || element;
+    const hdReason = HD_REASONS_EN[hdType] || 'your inner strength';
+    const cap = elEn.charAt(0).toUpperCase() + elEn.slice(1);
+    return `${cap} element · Life path ${lifePath} · ${hdType} type — here to support ${hdReason} in this period.`;
+  }
+  const hdReason = HD_REASONS_TR[hdType] || 'içsel gücünü';
+  const cap = element.charAt(0).toUpperCase() + element.slice(1);
+  return `${cap} unsuru · Yaşam yolu ${lifePath} · ${hdType} tipi — bu dönemde ${hdReason} desteklemek için seninle.`;
 }
 
 export function NagualScreen({ onClose, embedded }: Props) {
   const insets = useSafeAreaInsets();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { profile } = useTuraStore();
-  const [nagual] = useState<Nagual>(() => getWeeklyNagual());
+  const localNaguals = useLocalizedNaguals() as Nagual[];
+  const localAnimals = useLocalizedAnimals() as Animal[];
+  const [rawNagual] = useState<Nagual>(() => getWeeklyNagual());
+  const nagual = localNaguals.find(n => n.id === rawNagual.id) || rawNagual;
   const daysLeft = getDaysRemaining();
 
   const personal = useMemo(() => {
     if (!profile?.birthDate || !profile?.element) return null;
-    return getPersonalNagual(profile.birthDate, profile.element);
-  }, [profile?.birthDate, profile?.element]);
+    const raw = getPersonalNagual(profile.birthDate, profile.element);
+    if (!raw) return null;
+    const animal = localAnimals.find(a => a.id === raw.animal.id) || raw.animal;
+    const reason = buildReason(lang, profile.element, raw.lifePath, raw.hdType);
+    return { ...raw, animal, reason };
+  }, [profile?.birthDate, profile?.element, localAnimals, lang]);
 
   return (
     <View style={styles.root}>

@@ -11,10 +11,7 @@ import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../th
 import { useTuraStore } from '../store/useStore';
 import { useI18n } from '../i18n/useI18n';
 
-import quotesData from '../data/quotes.json';
-import stonesData from '../data/stones.json';
-import animalsData from '../data/animals.json';
-import nagualsData from '../data/naguals.json';
+import { useLocalizedAnimals, useLocalizedQuotes, useLocalizedNaguals, useLocalizedStones } from '../i18n/localize';
 
 type FilterType = 'all' | 'quote' | 'stone' | 'animal' | 'nagual';
 
@@ -30,6 +27,10 @@ export function ArchiveScreen() {
   const insets = useSafeAreaInsets();
   const { t, lang } = useI18n();
   const { archive, stats, getTopStat } = useTuraStore();
+  const animals = useLocalizedAnimals();
+  const quotes = useLocalizedQuotes();
+  const naguals = useLocalizedNaguals();
+  const stones = useLocalizedStones();
   const [filter, setFilter] = useState<FilterType>('all');
   const [expanded, setExpanded] = useState<string | null>(null);
 
@@ -38,9 +39,9 @@ export function ArchiveScreen() {
   const topAnimalId = getTopStat(stats.animalCounts);
   const topNagualId = getTopStat(stats.nagualCounts || {});
 
-  const topStone = topStoneId ? stonesData.find(s => s.id === topStoneId) : null;
-  const topAnimal = topAnimalId ? animalsData.find(a => a.id === topAnimalId) : null;
-  const topNagual = topNagualId ? nagualsData.find(n => n.id === topNagualId) : null;
+  const topStone = topStoneId ? stones.find(s => s.id === topStoneId) : null;
+  const topAnimal = topAnimalId ? animals.find(a => a.id === topAnimalId) : null;
+  const topNagual = topNagualId ? naguals.find(n => n.id === topNagualId) : null;
 
   const formattedDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -49,10 +50,10 @@ export function ArchiveScreen() {
   };
 
   const renderEntry = ({ item }: { item: typeof archive[0] }) => {
-    const quote = quotesData.find(q => q.id === item.quoteId);
-    const stone = stonesData.find(s => s.id === item.stoneId);
-    const animal = animalsData.find(a => a.id === item.animalId);
-    const nagual = nagualsData.find(n => n.id === (item as any).nagualId);
+    const quote = quotes.find(q => q.id === item.quoteId);
+    const stone = stones.find(s => s.id === item.stoneId);
+    const animal = animals.find(a => a.id === item.animalId);
+    const nagual = naguals.find(n => n.id === (item as any).nagualId);
     const isExpanded = expanded === item.date;
 
     return (
