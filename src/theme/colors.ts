@@ -102,6 +102,8 @@ export const Spacing = {
   xxxl: 64,
 } as const;
 
+export const TAB_BAR_HEIGHT = 60; // tab bar height without safe area inset
+
 export const BorderRadius = {
   sm: 8,
   md: 12,

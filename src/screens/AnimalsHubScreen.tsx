@@ -19,7 +19,7 @@ type Panel = 'library' | 'finder' | 'nagual';
 const PANELS = [
   { key: 'library' as Panel, title: 'Hayvanlar', symbol: '⊕', color: Colors.tealLight, helpKey: 'totem' },
   { key: 'finder'  as Panel, title: 'Bul',       symbol: '✦', color: Colors.gold,      helpKey: 'rehber' },
-  { key: 'nagual'  as Panel, title: 'Nagual',    symbol: '◈', color: Colors.ember,     helpKey: 'nagual' },
+  { key: 'nagual'  as Panel, title: 'Rehberlik', symbol: '◈', color: Colors.ember,     helpKey: 'nagual' },
 ];
 
 export function AnimalsHubScreen() {

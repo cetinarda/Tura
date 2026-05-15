@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
+import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../theme/colors';
 import nagualsData from '../data/naguals.json';
 import animalsData from '../data/animals.json';
 import { useTuraStore } from '../store/useStore';
@@ -137,7 +137,7 @@ export function NagualScreen({ onClose, embedded }: Props) {
           </View>
         )}
 
-        <View style={{ height: insets.bottom + Spacing.xl }} />
+        <View style={{ height: insets.bottom + TAB_BAR_HEIGHT + Spacing.md }} />
       </ScrollView>
     </View>
   );

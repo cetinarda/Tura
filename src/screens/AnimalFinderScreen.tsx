@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
-import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
+import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../theme/colors';
 import animalsData from '../data/animals.json';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -562,7 +562,7 @@ const styles = StyleSheet.create({
 
   // Birth form
   birthWrap: {
-    padding: Spacing.lg, gap: Spacing.md, paddingBottom: Spacing.xxxl,
+    padding: Spacing.lg, gap: Spacing.md, paddingBottom: TAB_BAR_HEIGHT + Spacing.lg,
   },
   birthTitle: {
     fontSize: Typography.size.xl, fontWeight: Typography.weight.semibold,
@@ -598,7 +598,7 @@ const styles = StyleSheet.create({
 
   // Result
   resultScroll: {
-    padding: Spacing.lg, alignItems: 'center', gap: Spacing.md, paddingBottom: Spacing.xxxl,
+    padding: Spacing.lg, alignItems: 'center', gap: Spacing.md, paddingBottom: TAB_BAR_HEIGHT + Spacing.lg,
   },
   resultLabel: {
     fontSize: Typography.size.xs, color: Colors.teal,

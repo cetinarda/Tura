@@ -7,7 +7,7 @@ import {
   FlatList,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
+import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../theme/colors';
 import { useTuraStore } from '../store/useStore';
 
 import quotesData from '../data/quotes.json';
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: Spacing.md,
-    paddingBottom: Spacing.xxxl,
+    paddingBottom: TAB_BAR_HEIGHT + Spacing.lg,
   },
   entryCard: {
     backgroundColor: Colors.backgroundCard,

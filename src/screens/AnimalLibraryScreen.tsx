@@ -9,7 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
+import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../theme/colors';
 import animalsData from '../data/animals.json';
 import { AnimalDetailScreen } from './AnimalDetailScreen';
 
@@ -114,7 +114,7 @@ export function AnimalLibraryScreen({ onClose, embedded }: Props) {
             ))}
           </View>
         ))}
-        <View style={{ height: insets.bottom + Spacing.xl }} />
+        <View style={{ height: insets.bottom + TAB_BAR_HEIGHT + Spacing.md }} />
       </ScrollView>
     </View>
   );
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
     paddingHorizontal: Spacing.xs,
   },
-  scroll: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.xl },
+  scroll: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.md },
   empty: {
     textAlign: 'center',
     color: Colors.textMuted,
