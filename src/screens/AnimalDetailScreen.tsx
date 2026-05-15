@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
-import { getAnimalLore } from '../data/animalLore';
 import { getRelatedMyth, getElementPractice } from '../utils/animalRelations';
 import { MythDetail } from './MythsScreen';
+import { useI18n } from '../i18n/useI18n';
+import { useLocalizedLore } from '../i18n/localize';
 
 type Animal = {
   id: string;
@@ -23,7 +24,8 @@ interface Props { animal: Animal; onClose: () => void; }
 
 export function AnimalDetailScreen({ animal, onClose }: Props) {
   const insets = useSafeAreaInsets();
-  const lore = getAnimalLore(animal.id);
+  const { t } = useI18n();
+  const lore = useLocalizedLore(animal.id);
   const [imgErr, setImgErr] = useState(false);
   const [openMyth, setOpenMyth] = useState<ReturnType<typeof getRelatedMyth>>(null);
 
@@ -39,9 +41,9 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
       <ScrollView contentContainerStyle={[styles.scroll, { paddingTop: insets.top + Spacing.sm }]} showsVerticalScrollIndicator={false}>
         <View style={styles.topBar}>
           <TouchableOpacity onPress={onClose} hitSlop={12}>
-            <Text style={styles.back}>← Geri</Text>
+            <Text style={styles.back}>{t('animalDetail.back')}</Text>
           </TouchableOpacity>
-          <Text style={styles.familyTag}>SAKİN · HAYVAN</Text>
+          <Text style={styles.familyTag}>{t('animalDetail.familyTag')}</Text>
         </View>
 
         <View style={styles.hero}>
@@ -58,37 +60,37 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
           <Text style={styles.heroMeta}>{animal.element.toUpperCase()} · {animal.symbolism.slice(0, 3).join(' · ')}</Text>
         </View>
 
-        <Section title="Anadolu'da" color={Colors.gold}>
+        <Section title={t('animalDetail.sections.anatolian')} color={Colors.gold}>
           <Text style={styles.body}>{animal.anatolianMeaning}</Text>
         </Section>
 
-        <Section title="Bugün Sana Söylediği" color={Colors.tealLight}>
+        <Section title={t('animalDetail.sections.todayMessage')} color={Colors.tealLight}>
           <Text style={styles.body}>{animal.dailyMessage}</Text>
           <View style={[styles.affirmBox, { borderColor: Colors.teal + '40' }]}>
-            <Text style={styles.affirmLabel}>REHBERLİK</Text>
+            <Text style={styles.affirmLabel}>{t('animalDetail.sections.guidance')}</Text>
             <Text style={styles.affirmText}>{animal.guidance}</Text>
           </View>
         </Section>
 
         {lore?.jung && (
-          <Section title="Jung Diliyle" color={Colors.sakinLavender}>
+          <Section title={t('animalDetail.sections.jung')} color={Colors.sakinLavender}>
             <Text style={styles.body}>{lore.jung}</Text>
           </Section>
         )}
 
         {lore?.dream && (
-          <Section title="Rüyada Görmek" color={Colors.sakinMoonstone}>
+          <Section title={t('animalDetail.sections.dream')} color={Colors.sakinMoonstone}>
             <Text style={styles.body}>{lore.dream}</Text>
           </Section>
         )}
 
         {lore?.traditions && lore.traditions.length > 0 && (
-          <Section title="Geleneklerde" color={Colors.purpleLight}>
+          <Section title={t('animalDetail.sections.traditions')} color={Colors.purpleLight}>
             <View style={styles.traditionList}>
-              {lore.traditions.map((t, i) => (
+              {lore.traditions.map((tr: any, i: number) => (
                 <View key={i} style={styles.traditionItem}>
-                  <Text style={styles.traditionCulture}>{t.culture}</Text>
-                  <Text style={styles.traditionMeaning}>{t.meaning}</Text>
+                  <Text style={styles.traditionCulture}>{tr.culture}</Text>
+                  <Text style={styles.traditionMeaning}>{tr.meaning}</Text>
                 </View>
               ))}
             </View>
@@ -96,8 +98,8 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
         )}
 
         {lore?.myths && lore.myths.length > 0 && (
-          <Section title="Efsaneler" color={Colors.gold}>
-            {lore.myths.map((m, i) => (
+          <Section title={t('animalDetail.sections.myths')} color={Colors.gold}>
+            {lore.myths.map((m: string, i: number) => (
               <View key={i} style={styles.mythBox}>
                 <Text style={styles.mythSymbol}>✦</Text>
                 <Text style={styles.body}>{m}</Text>
@@ -107,13 +109,13 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
         )}
 
         {lore?.shadow && (
-          <Section title="Gölge Tarafı" color={Colors.ember}>
+          <Section title={t('animalDetail.sections.shadow')} color={Colors.ember}>
             <Text style={styles.body}>{lore.shadow}</Text>
           </Section>
         )}
 
         {lore?.whenAppears && (
-          <Section title="Ne Zaman Gelir" color={Colors.tealLight}>
+          <Section title={t('animalDetail.sections.whenAppears')} color={Colors.tealLight}>
             <Text style={styles.body}>{lore.whenAppears}</Text>
           </Section>
         )}
@@ -121,13 +123,12 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
         {!lore && (
           <View style={styles.missingLore}>
             <Text style={styles.missingText}>
-              Bu hayvanın derin rehberliği yakında genişleyecek.{'\n'}
-              Şimdilik Anadolu sesini ve günün okumasını taşıyor.
+              {t('animalDetail.missingLore')}
             </Text>
           </View>
         )}
 
-        <Section title="Bu Hafta Pratik" color={Colors.tealLight}>
+        <Section title={t('animalDetail.sections.thisPractice')} color={Colors.tealLight}>
           <View style={[styles.practiceBox, { borderColor: Colors.teal + '40' }]}>
             <Text style={styles.practiceMark}>✦</Text>
             <Text style={styles.practiceText}>{practice}</Text>
@@ -135,7 +136,7 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
         </Section>
 
         {relatedMyth && (
-          <Section title="İlgili Mit" color={Colors.sakinLavender}>
+          <Section title={t('animalDetail.sections.relatedMyth')} color={Colors.sakinLavender}>
             <TouchableOpacity
               style={[styles.relatedMyth, { borderColor: Colors.sakinLavender + '50' }]}
               onPress={() => setOpenMyth(relatedMyth)}
@@ -150,7 +151,7 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
                   {(relatedMyth as any).aspect?.toUpperCase()}
                 </Text>
                 <Text style={styles.relatedHint}>
-                  Bu hayvanla rezonans kuran sembolik güç →
+                  {t('animalDetail.resonanceHint')}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -158,7 +159,7 @@ export function AnimalDetailScreen({ animal, onClose }: Props) {
         )}
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>SAKİN AİLESİ ✦</Text>
+          <Text style={styles.footerText}>{t('animalDetail.footer')}</Text>
         </View>
       </ScrollView>
     </View>
