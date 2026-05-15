@@ -9,6 +9,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius, TAB_BAR_HEIGHT } from '../theme/colors';
 import { useTuraStore } from '../store/useStore';
+import { useI18n } from '../i18n/useI18n';
 
 import quotesData from '../data/quotes.json';
 import stonesData from '../data/stones.json';
@@ -27,6 +28,7 @@ const FILTERS: { key: FilterType; label: string; color: string }[] = [
 
 export function ArchiveScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useI18n();
   const { archive, stats, getTopStat } = useTuraStore();
   const [filter, setFilter] = useState<FilterType>('all');
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -135,13 +137,13 @@ export function ArchiveScreen() {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
-        <Text style={styles.title}>Arşiv</Text>
-        <Text style={styles.subtitle}>{archive.length} okuma</Text>
+        <Text style={styles.title}>{t('archive.title')}</Text>
+        <Text style={styles.subtitle}>{t('archive.readingsCount').replace('{n}', String(archive.length))}</Text>
       </View>
 
       {archive.length > 0 && (
         <View style={styles.reportCard}>
-          <Text style={styles.reportTitle}>Ruhsal Harita</Text>
+          <Text style={styles.reportTitle}>{t('archive.spiritualMap')}</Text>
           <View style={styles.reportRow}>
             {topSource && (
               <View style={styles.reportItem}>

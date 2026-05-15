@@ -117,7 +117,7 @@ export function NagualScreen({ onClose, embedded }: Props) {
             <View style={[styles.divider, { backgroundColor: Colors.teal }]} />
             <Text style={styles.dailyMsg}>{personal.animal.dailyMessage}</Text>
             <View style={[styles.guideBox, { borderColor: Colors.teal + '40' }]}>
-              <Text style={[styles.guideLabel, { color: Colors.tealLight }]}>REHBERLİK</Text>
+              <Text style={[styles.guideLabel, { color: Colors.tealLight }]}>{t('nagual.guidance')}</Text>
               <Text style={styles.guideText}>{personal.animal.guidance}</Text>
             </View>
             <View style={[styles.reasonBox, { borderColor: Colors.teal + '25' }]}>
@@ -127,12 +127,8 @@ export function NagualScreen({ onClose, embedded }: Props) {
         ) : (
           <View style={styles.lockedCard}>
             <Text style={styles.lockedEmoji}>✦</Text>
-            <Text style={styles.lockedTitle}>Kişisel Rehberim</Text>
-            <Text style={styles.lockedText}>
-              Doğum haritana göre sana özel dönemsel bir rehber hayvan belirlemek için
-              profil bilgilerini tamamla.{'\n\n'}
-              Profil → Kişisel Harita bölümünden doğum tarihi ve unsurunu ekleyebilirsin.
-            </Text>
+            <Text style={styles.lockedTitle}>{t('nagual.locked.title')}</Text>
+            <Text style={styles.lockedText}>{t('nagual.locked.text')}</Text>
           </View>
         )}
 
