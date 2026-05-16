@@ -391,6 +391,13 @@ export const en = {
       enablePremium: '⚙ DEV · Enable Premium',
       disablePremium: '⚙ DEV · Disable Premium',
     },
+    // Notification rationale (App Store 4.5.4 / Play Console)
+    notif: {
+      rationaleTitle: 'Daily reminder',
+      rationaleMessage: 'Should Tura send a quiet reminder at 08:00 each morning so you can draw your daily card? Notifications are never used for advertising or marketing.',
+      rationaleConfirm: 'Allow',
+      rationaleCancel: 'Not Now',
+    },
     // Language
     language: {
       title: 'Language',
@@ -457,6 +464,9 @@ export const en = {
     errorPurchaseTitle: "Error",
     infoRestore: "Restore subscription service coming soon.",
     infoRestoreTitle: "Info",
+    infoRestoreNone: "No active subscription was found for this account.",
+    linkTerms: "Terms of Use",
+    linkPrivacy: "Privacy Policy",
   },
 
   // ─── Elements ─────────────────────────────────────────────────────────────────

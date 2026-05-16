@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,10 +7,13 @@ import {
   ScrollView,
   Platform,
   Alert,
+  Linking,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
-import { activateMockPremium } from '../lib/premium';
+import { purchasePlan, restorePurchases, devSetMockPremium } from '../lib/premium';
+import { fetchOfferings, isIapAvailable, type OfferingProduct } from '../lib/iap';
+import { LEGAL_URLS } from '../lib/legal';
 import { useI18n } from '../i18n/useI18n';
 
 interface Props {
@@ -25,6 +28,18 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
   const { t, lang } = useI18n();
   const [plan, setPlan] = useState<Plan>('mikro');
   const [busy, setBusy] = useState(false);
+  const [products, setProducts] = useState<Record<Plan, OfferingProduct | undefined>>({ mikro: undefined, premium: undefined });
+
+  useEffect(() => {
+    if (!isIapAvailable()) return;
+    fetchOfferings()
+      .then(list => {
+        const next: Record<Plan, OfferingProduct | undefined> = { mikro: undefined, premium: undefined };
+        for (const p of list) next[p.plan as Plan] = p;
+        setProducts(next);
+      })
+      .catch(() => { /* keep fallback prices */ });
+  }, []);
 
   const MIKRO_FEATURES = [
     { icon: '⊕', title: lang === 'en' ? 'Full Animal Guidance' : 'Tüm Hayvan Rehberliği', desc: lang === 'en' ? 'Deep pages: mythology, Jung, traditions, shadow' : 'Derin sayfalar: mitoloji, Jung, gelenekler, gölge' },
@@ -42,9 +57,19 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
   const handlePurchase = async () => {
     setBusy(true);
     try {
-      await activateMockPremium(plan === 'mikro' ? 'monthly' : 'yearly');
-      onActivated();
-    } catch {
+      if (!isIapAvailable()) {
+        if (__DEV__) {
+          await devSetMockPremium(plan === 'mikro' ? 'monthly' : 'yearly');
+          onActivated();
+          return;
+        }
+        Alert.alert(t('paywall.errorPurchaseTitle' as any), t('paywall.errorPurchase' as any));
+        return;
+      }
+      const state = await purchasePlan(plan);
+      if (state.tier !== 'free') onActivated();
+    } catch (e: any) {
+      if (e?.userCancelled) return;
       Alert.alert(t('paywall.errorPurchaseTitle' as any), t('paywall.errorPurchase' as any));
     } finally {
       setBusy(false);
@@ -54,8 +79,29 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
   const features = plan === 'mikro' ? MIKRO_FEATURES : PREMIUM_FEATURES;
 
   const handleRestore = async () => {
-    Alert.alert(t('paywall.infoRestoreTitle' as any), t('paywall.infoRestore' as any));
+    if (!isIapAvailable()) {
+      Alert.alert(t('paywall.errorPurchaseTitle' as any), t('paywall.errorPurchase' as any));
+      return;
+    }
+    setBusy(true);
+    try {
+      const state = await restorePurchases();
+      if (state.tier !== 'free') {
+        onActivated();
+      } else {
+        Alert.alert(t('paywall.infoRestoreTitle' as any), t('paywall.infoRestoreNone' as any));
+      }
+    } catch {
+      Alert.alert(t('paywall.errorPurchaseTitle' as any), t('paywall.errorPurchase' as any));
+    } finally {
+      setBusy(false);
+    }
   };
+
+  const openLegal = (url: string) => { Linking.openURL(url).catch(() => {}); };
+
+  const mikroPrice = products.mikro?.priceString ?? '24 ₺';
+  const premiumPrice = products.premium?.priceString ?? '89 ₺';
 
   return (
     <View style={styles.root}>
@@ -83,14 +129,14 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
           <PlanCard
             active={plan === 'mikro'}
             label={t('paywall.mikroPlan' as any)}
-            price="24 ₺"
+            price={mikroPrice}
             cadence={t('paywall.mikroCadence' as any)}
             onPress={() => setPlan('mikro')}
           />
           <PlanCard
             active={plan === 'premium'}
             label={t('paywall.premiumPlan' as any)}
-            price="89 ₺"
+            price={premiumPrice}
             cadence={t('paywall.premiumCadence' as any)}
             badge={t('paywall.mostPopular' as any)}
             onPress={() => setPlan('premium')}
@@ -133,6 +179,15 @@ export function PaywallScreen({ onClose, onActivated }: Props) {
         <Text style={styles.legal}>
           {t('paywall.legal' as any)}
         </Text>
+        <View style={styles.legalLinks}>
+          <TouchableOpacity onPress={() => openLegal(LEGAL_URLS.terms)} hitSlop={8}>
+            <Text style={styles.legalLink}>{t('paywall.linkTerms' as any)}</Text>
+          </TouchableOpacity>
+          <Text style={styles.legalSep}>·</Text>
+          <TouchableOpacity onPress={() => openLegal(LEGAL_URLS.privacy)} hitSlop={8}>
+            <Text style={styles.legalLink}>{t('paywall.linkPrivacy' as any)}</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -291,5 +346,23 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     marginTop: Spacing.md,
     opacity: 0.7,
+  },
+  legalLinks: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: Spacing.xs,
+    marginTop: Spacing.sm,
+  },
+  legalLink: {
+    fontSize: 11,
+    color: Colors.gold,
+    textDecorationLine: 'underline',
+    letterSpacing: 0.5,
+  },
+  legalSep: {
+    fontSize: 11,
+    color: Colors.textMuted,
+    marginHorizontal: 4,
   },
 });

@@ -391,6 +391,13 @@ export const tr = {
       enablePremium: '⚙ DEV · Premium Aç',
       disablePremium: '⚙ DEV · Premium Kapat',
     },
+    // Notification rationale (App Store 4.5.4 / Play Console)
+    notif: {
+      rationaleTitle: 'Günlük hatırlatma',
+      rationaleMessage: 'Tura, her sabah 08:00\'de günün kartını çekmen için sessiz bir hatırlatma göndersin mi? Bildirim hiçbir şekilde reklam veya pazarlama amacıyla kullanılmaz.',
+      rationaleConfirm: 'İzin Ver',
+      rationaleCancel: 'Şimdi Değil',
+    },
     // Language
     language: {
       title: 'Dil',
@@ -457,6 +464,9 @@ export const tr = {
     errorPurchaseTitle: "Hata",
     infoRestore: "Aboneliği geri yükleme servisi yakında.",
     infoRestoreTitle: "Bilgi",
+    infoRestoreNone: "Bu hesaba bağlı aktif bir abonelik bulunamadı.",
+    linkTerms: "Kullanım Şartları",
+    linkPrivacy: "Gizlilik Politikası",
   },
 
   // ─── Elements ─────────────────────────────────────────────────────────────────

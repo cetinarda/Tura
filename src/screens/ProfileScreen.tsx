@@ -23,9 +23,9 @@ import { getWeeklyReading } from '../utils/weeklyReading';
 import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { MythsScreen } from './MythsScreen';
 import { PaywallScreen } from './PaywallScreen';
-import { usePremium, clearPremium, activateMockPremium } from '../lib/premium';
+import { usePremium, devClearPremiumCache, devSetMockPremium } from '../lib/premium';
 import { HelpButton } from '../components/HelpButton';
-import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermission } from '../lib/notifications';
+import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermissionWithRationale } from '../lib/notifications';
 import { useI18n } from '../i18n/useI18n';
 
 function hdTypeToGlossaryKey(type: string): string {
@@ -402,7 +402,12 @@ export function ProfileScreen() {
 
   const toggleReminders = async (val: boolean) => {
     if (val) {
-      const granted = await requestNotificationPermission();
+      const granted = await requestNotificationPermissionWithRationale({
+        title: t('profile.notif.rationaleTitle' as any),
+        message: t('profile.notif.rationaleMessage' as any),
+        confirm: t('profile.notif.rationaleConfirm' as any),
+        cancel: t('profile.notif.rationaleCancel' as any),
+      });
       if (!granted) return;
       await scheduleDailyReminder(8, 0);
       setRemindersOn(true);
@@ -487,7 +492,12 @@ export function ProfileScreen() {
             {premium.isPremium && (
               <TouchableOpacity
                 style={styles.linkBtn}
-                onPress={async () => { await clearPremium(); premium.refresh(); }}
+                onPress={() => {
+                  const url = Platform.OS === 'ios'
+                    ? 'https://apps.apple.com/account/subscriptions'
+                    : 'https://play.google.com/store/account/subscriptions';
+                  Linking.openURL(url).catch(() => {});
+                }}
               >
                 <Text style={styles.linkBtnText}>{t('profile.account.cancelBtn')}</Text>
               </TouchableOpacity>
@@ -1022,24 +1032,26 @@ export function ProfileScreen() {
         <Text style={styles.langNote}>{t('profile.language.note' as any)}</Text>
       </View>
 
-      {/* ── DEV ── */}
-      <View style={styles.devSection}>
-        <TouchableOpacity
-          style={styles.devBtn}
-          onPress={async () => {
-            if (premium.isPremium) {
-              await clearPremium();
-            } else {
-              await activateMockPremium('yearly');
-            }
-            premium.refresh();
-          }}
-        >
-          <Text style={styles.devBtnText}>
-            {premium.isPremium ? t('profile.dev.disablePremium') : t('profile.dev.enablePremium')}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      {/* ── DEV-only — stripped from production builds ── */}
+      {__DEV__ && (
+        <View style={styles.devSection}>
+          <TouchableOpacity
+            style={styles.devBtn}
+            onPress={async () => {
+              if (premium.isPremium) {
+                await devClearPremiumCache();
+              } else {
+                await devSetMockPremium('yearly');
+              }
+              premium.refresh();
+            }}
+          >
+            <Text style={styles.devBtnText}>
+              {premium.isPremium ? t('profile.dev.disablePremium') : t('profile.dev.enablePremium')}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </ScrollView>
   );
 }
