@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchEntitlement, isIapAvailable, purchase as iapPurchase, restore as iapRestore, type PlanKey } from './iap';
+import { checkSupabaseEntitlement } from './entitlement';
 
 const PREMIUM_CACHE_KEY = '@tura_premium_cache';
 
@@ -37,13 +38,30 @@ async function writeCache(state: PremiumState): Promise<void> {
 }
 
 export async function getPremiumState(): Promise<PremiumState> {
-  if (!isIapAvailable()) return readCache();
-  const ent = await fetchEntitlement();
-  const state: PremiumState = ent.active
-    ? { tier: planFromProductId(ent.productId), expiresAt: ent.expiresAt, willRenew: ent.willRenew }
-    : FREE_STATE;
-  await writeCache(state);
-  return state;
+  // 1. Native IAP (RevenueCat / StoreKit) — highest priority
+  if (isIapAvailable()) {
+    const ent = await fetchEntitlement();
+    if (ent.active) {
+      const state: PremiumState = { tier: planFromProductId(ent.productId), expiresAt: ent.expiresAt, willRenew: ent.willRenew };
+      await writeCache(state);
+      return state;
+    }
+  }
+
+  // 2. Supabase cross-platform entitlement (web Stripe purchase or license key)
+  const supaEnt = await checkSupabaseEntitlement();
+  if (supaEnt.active) {
+    const state: PremiumState = {
+      tier: supaEnt.product === 'mikro' ? 'monthly' : 'yearly',
+      expiresAt: supaEnt.expiresAt,
+      willRenew: false,  // web subscriptions renew server-side, not client-tracked
+    };
+    await writeCache(state);
+    return state;
+  }
+
+  // 3. Cached state (offline fallback — last known good)
+  return readCache();
 }
 
 export async function purchasePlan(plan: PlanKey): Promise<PremiumState> {

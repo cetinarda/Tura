@@ -25,6 +25,7 @@ import { AnimalFinderScreen } from './AnimalFinderScreen';
 import { MythsScreen } from './MythsScreen';
 import { PaywallScreen } from './PaywallScreen';
 import { usePremium, devClearPremiumCache, devSetMockPremium } from '../lib/premium';
+import { redeemLicenseKey } from '../lib/entitlement';
 import { HelpButton } from '../components/HelpButton';
 import { scheduleDailyReminder, cancelDailyReminder, requestNotificationPermissionWithRationale } from '../lib/notifications';
 import { useI18n } from '../i18n/useI18n';
@@ -77,6 +78,9 @@ export function ProfileScreen() {
   const premium = usePremium();
   const [showPaywall, setShowPaywall] = useState(false);
   const [remindersOn, setRemindersOn] = useState(false);
+  const [licenseKey, setLicenseKey] = useState('');
+  const [licenseStatus, setLicenseStatus] = useState<'idle' | 'busy' | 'ok' | 'error'>('idle');
+  const [licenseMsg, setLicenseMsg] = useState('');
 
   const [showOnboarding, setShowOnboarding] = useState(isNewUser);
   const [name, setName] = useState('');
@@ -418,6 +422,32 @@ export function ProfileScreen() {
     }
   };
 
+  const handleLicenseRedeem = async () => {
+    if (!licenseKey.trim()) return;
+    if (!session) {
+      setLicenseStatus('error');
+      setLicenseMsg(t('profile.account.licenseSignInRequired' as any));
+      return;
+    }
+    setLicenseStatus('busy');
+    setLicenseMsg('');
+    const result = await redeemLicenseKey(licenseKey);
+    if (result.success) {
+      setLicenseStatus('ok');
+      setLicenseMsg(result.alreadyActive
+        ? t('profile.account.licenseAlready' as any)
+        : t('profile.account.licenseSuccess' as any));
+      setLicenseKey('');
+      premium.refresh();
+    } else {
+      setLicenseStatus('error');
+      const msgKey = result.error === 'not-authenticated' ? 'licenseSignInRequired'
+        : result.error === 'network' ? 'licenseNetwork'
+        : 'licenseInvalid';
+      setLicenseMsg(t(`profile.account.${msgKey}` as any));
+    }
+  };
+
   return (
     <ScrollView
       style={[styles.container, { paddingTop: insets.top }]}
@@ -504,6 +534,41 @@ export function ProfileScreen() {
               </TouchableOpacity>
             )}
           </View>
+
+          {/* ── Lisans Kodu ── only show when not yet premium */}
+          {!premium.isPremium && (
+            <>
+              <View style={styles.accountDivider} />
+              <View style={styles.licenseSection}>
+                <Text style={styles.licenseSectionTitle}>{t('profile.account.licenseTitle' as any)}</Text>
+                <View style={styles.licenseRow}>
+                  <TextInput
+                    style={styles.licenseInput}
+                    value={licenseKey}
+                    onChangeText={v => { setLicenseKey(v.toUpperCase()); setLicenseStatus('idle'); }}
+                    placeholder={t('profile.account.licensePlaceholder' as any)}
+                    placeholderTextColor={Colors.textMuted}
+                    autoCapitalize="characters"
+                    autoCorrect={false}
+                    maxLength={20}
+                    editable={licenseStatus !== 'busy'}
+                  />
+                  <TouchableOpacity
+                    style={[styles.licenseApplyBtn, { opacity: licenseStatus === 'busy' ? 0.5 : 1 }]}
+                    onPress={handleLicenseRedeem}
+                    disabled={licenseStatus === 'busy' || !licenseKey.trim()}
+                  >
+                    <Text style={styles.licenseApplyText}>{t('profile.account.licenseApply' as any)}</Text>
+                  </TouchableOpacity>
+                </View>
+                {licenseMsg ? (
+                  <Text style={[styles.licenseMsg, { color: licenseStatus === 'ok' ? Colors.teal : '#E57373' }]}>
+                    {licenseMsg}
+                  </Text>
+                ) : null}
+              </View>
+            </>
+          )}
 
           <View style={styles.accountDivider} />
 
@@ -1657,6 +1722,51 @@ const styles = StyleSheet.create({
     fontWeight: Typography.weight.bold,
     color: '#1A1208',
     letterSpacing: 0.5,
+  },
+  licenseSection: {
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
+    gap: Spacing.sm,
+  },
+  licenseSectionTitle: {
+    fontSize: Typography.size.xs,
+    color: Colors.textMuted,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+  },
+  licenseRow: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+    alignItems: 'center',
+  },
+  licenseInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
+    borderRadius: BorderRadius.sm,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    fontSize: Typography.size.sm,
+    color: Colors.textPrimary,
+    fontFamily: 'monospace',
+    letterSpacing: 2,
+    backgroundColor: Colors.backgroundCard,
+  },
+  licenseApplyBtn: {
+    backgroundColor: Colors.teal,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+    borderRadius: BorderRadius.sm,
+  },
+  licenseApplyText: {
+    fontSize: Typography.size.xs,
+    fontWeight: Typography.weight.bold,
+    color: Colors.background,
+    letterSpacing: 0.5,
+  },
+  licenseMsg: {
+    fontSize: Typography.size.xs,
+    lineHeight: 18,
   },
   linkBtn: { paddingHorizontal: Spacing.sm, paddingVertical: Spacing.xs },
   linkBtnText: {
