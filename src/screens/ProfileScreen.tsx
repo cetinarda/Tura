@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Linking,
+  Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Typography, Spacing, BorderRadius } from '../theme/colors';
@@ -71,7 +72,7 @@ const HD_STRATEGY_EN: Record<string, string> = {
 
 export function ProfileScreen() {
   const insets = useSafeAreaInsets();
-  const { profile, isNewUser, createProfile, updateBirthData, updateHDType, stats, getTopStat, getLevelTitle, session, signOut, setLanguage, language } = useTuraStore();
+  const { profile, isNewUser, createProfile, updateBirthData, updateHDType, stats, getTopStat, getLevelTitle, session, signOut, deleteAccount, setLanguage, language } = useTuraStore();
   const { t, lang } = useI18n();
   const premium = usePremium();
   const [showPaywall, setShowPaywall] = useState(false);
@@ -534,6 +535,37 @@ export function ProfileScreen() {
               </View>
             </>
           )}
+
+          <View style={styles.accountDivider} />
+          <View style={styles.accountRow}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.accountLabel}>{t('profile.account.deleteLabel' as any)}</Text>
+              <Text style={styles.accountSub}>{t('profile.account.deleteSub' as any)}</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.linkBtn}
+              onPress={() => {
+                Alert.alert(
+                  t('profile.account.deleteConfirmTitle' as any),
+                  t('profile.account.deleteConfirmMessage' as any),
+                  [
+                    { text: t('profile.account.deleteCancel' as any), style: 'cancel' },
+                    {
+                      text: t('profile.account.deleteConfirm' as any),
+                      style: 'destructive',
+                      onPress: async () => {
+                        await deleteAccount();
+                      },
+                    },
+                  ],
+                );
+              }}
+            >
+              <Text style={[styles.linkBtnText, { color: '#E57373' }]}>
+                {t('profile.account.deleteBtn' as any)}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 

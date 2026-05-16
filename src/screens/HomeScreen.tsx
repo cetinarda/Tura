@@ -175,8 +175,8 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
       const qIds = quotesData.map(q => q.id);
       const aIds = animalsData.map(a => a.id);
       generateDailyReading(qIds, aIds, aIds, aIds).then(r => {
-        const q = quotesData.find(x => x.id === r.quoteId)!;
-        updateStats(q.id, q.source, r.animalId, r.animalId, r.nagualId);
+        const q = quotesData.find(x => x.id === r.quoteId);
+        if (q) updateStats(q.id, q.source, r.animalId, r.animalId, r.nagualId);
         setReading(r);
       });
     }

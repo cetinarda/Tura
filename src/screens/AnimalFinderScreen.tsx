@@ -205,9 +205,11 @@ function findAnimalByBirth(day: number, month: number, year: number, hour?: numb
   ];
   let hourLabel = '';
   if (hour !== undefined) {
-    const hr = HOUR_RANGES.find(r => hour >= r.min && hour <= r.max)!;
-    for (const t of hr.traits) traits[t] = (traits[t] || 0) + 3;
-    hourLabel = hr.label;
+    const hr = HOUR_RANGES.find(r => hour >= r.min && hour <= r.max);
+    if (hr) {
+      for (const t of hr.traits) traits[t] = (traits[t] || 0) + 3;
+      hourLabel = hr.label;
+    }
   }
 
   const SEASON_NAMES: Record<string, string> = { hava:'ilkbahar', ateş:'yaz', toprak:'sonbahar', su:'kış' };

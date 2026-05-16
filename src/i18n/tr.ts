@@ -272,6 +272,13 @@ export const tr = {
       remindersSub: "Her sabah 08:00'de rehberin gelsin",
       cloudBackup: 'Veriler buluta yedekleniyor',
       signOutBtn: 'Çıkış',
+      deleteLabel: 'Hesabı Sil',
+      deleteSub: 'Hesabını ve tüm verilerini kalıcı olarak siler.',
+      deleteBtn: 'Sil',
+      deleteConfirmTitle: 'Hesabı silmek istediğine emin misin?',
+      deleteConfirmMessage: 'Tüm okumalar, arşiv, profil ve istatistikler kalıcı olarak silinecek. Bu işlem geri alınamaz.',
+      deleteConfirm: 'Evet, Sil',
+      deleteCancel: 'Vazgeç',
     },
     // Personal Map
     personalMap: {

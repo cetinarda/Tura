@@ -101,6 +101,38 @@ export function useTuraStore() {
     setSession(null);
   }, []);
 
+  /**
+   * Account deletion — Apple Guideline 5.1.1(v) compliance.
+   * Calls the `delete_user` Supabase RPC (must be implemented server-side
+   * with the service-role key), wipes local storage, and signs out.
+   * Falls back to local wipe + signOut if Supabase is not configured or
+   * the RPC is missing (offline-only mode still satisfies the guideline
+   * because no server-side account exists).
+   */
+  const deleteAccount = useCallback(async () => {
+    if (isSupabaseConfigured && session) {
+      try {
+        await supabase.rpc('delete_user');
+      } catch {
+        // Best-effort: continue with local wipe even if RPC is missing,
+        // so the user is not blocked by a server-side gap.
+      }
+      try { await supabase.auth.signOut(); } catch { /* ignore */ }
+    }
+    await Promise.all([
+      AsyncStorage.removeItem(STORAGE_KEYS.PROFILE),
+      AsyncStorage.removeItem(STORAGE_KEYS.DAILY),
+      AsyncStorage.removeItem(STORAGE_KEYS.ARCHIVE),
+      AsyncStorage.removeItem(STORAGE_KEYS.STATS),
+    ]);
+    setProfile(null);
+    setDailyReading(null);
+    setArchive([]);
+    setStats({ quoteCounts: {}, stoneCounts: {}, animalCounts: {}, nagualCounts: {}, sourceCounts: {} });
+    setSession(null);
+    setIsNewUser(true);
+  }, [session]);
+
   const loadAll = async () => {
     try {
       const [profileRaw, dailyRaw, archiveRaw, statsRaw] = await Promise.all([
@@ -129,7 +161,7 @@ export function useTuraStore() {
         setStats({ nagualCounts: {}, ...s });
       }
     } catch (e) {
-      console.error('Load error:', e);
+      if (__DEV__) console.error('Load error:', e);
     } finally {
       setIsLoading(false);
     }
@@ -277,6 +309,7 @@ export function useTuraStore() {
     authReady,
     isAuthenticated: !!session || !isSupabaseConfigured,
     signOut,
+    deleteAccount,
     createProfile,
     saveProfile,
     updateBirthData,

@@ -29,7 +29,7 @@ export function AnimalsHubScreen() {
   const [panel, setPanel] = useState<Panel>('library');
   const { t } = useI18n();
 
-  const active = PANELS.find(p => p.key === panel)!;
+  const active = PANELS.find(p => p.key === panel) ?? PANELS[0];
   const noClose = () => {};
 
   return (

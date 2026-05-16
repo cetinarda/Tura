@@ -272,6 +272,13 @@ export const en = {
       remindersSub: 'Receive your guide every morning at 08:00',
       cloudBackup: 'Data backed up to the cloud',
       signOutBtn: 'Sign Out',
+      deleteLabel: 'Delete Account',
+      deleteSub: 'Permanently delete your account and all data.',
+      deleteBtn: 'Delete',
+      deleteConfirmTitle: 'Delete your account?',
+      deleteConfirmMessage: 'All readings, archive, profile and stats will be permanently erased. This cannot be undone.',
+      deleteConfirm: 'Yes, Delete',
+      deleteCancel: 'Cancel',
     },
     // Personal Map
     personalMap: {
