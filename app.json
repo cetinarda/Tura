@@ -15,7 +15,7 @@
     },
     "ios": {
       "bundleIdentifier": "life.sakin.animals",
-      "buildNumber": "3",
+      "buildNumber": "4",
       "supportsTablet": true,
       "minimumOsVersion": "15.1",
       "config": {
