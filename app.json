@@ -117,9 +117,9 @@
       ]
     ],
     "extra": {
-      "supportUrl": "https://sakin.life/support",
-      "privacyUrl": "https://sakin.life/privacy",
-      "termsUrl": "https://sakin.life/terms",
+      "supportUrl": "https://sakinhayvan.netlify.app/support",
+      "privacyUrl": "https://sakinhayvan.netlify.app/privacy",
+      "termsUrl": "https://sakinhayvan.netlify.app/terms",
       "eas": {
         "projectId": ""
       }
