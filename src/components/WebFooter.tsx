@@ -36,20 +36,15 @@ export function WebFooter() {
 
 const styles = StyleSheet.create({
   bar: {
-    position: 'absolute' as any,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 20,
-    backgroundColor: 'rgba(10, 9, 17, 0.95)',
+    backgroundColor: 'rgba(10, 9, 17, 0.98)',
     borderTopWidth: 1,
     borderTopColor: 'rgba(218, 175, 92, 0.15)',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     gap: 18,
-    zIndex: 1000,
   },
   link: {
     color: Colors.sakinLavender,
