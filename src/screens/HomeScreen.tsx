@@ -20,6 +20,7 @@ import { useTuraStore } from '../store/useStore';
 import { AnimalDetailScreen } from './AnimalDetailScreen';
 import { useI18n } from '../i18n/useI18n';
 import { useLocalizedAnimals, useLocalizedQuotes, useLocalizedPhilosophers } from '../i18n/localize';
+import { DisclaimerModal } from '../components/DisclaimerModal';
 
 interface HomeScreenProps {
   onNavigateToProfile?: () => void;
@@ -252,6 +253,7 @@ export function HomeScreen({ onNavigateToProfile }: HomeScreenProps) {
   return (
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={Colors.background} />
+      <DisclaimerModal />
 
       {/* Header */}
       <View style={styles.header}>
