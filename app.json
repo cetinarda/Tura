@@ -7,7 +7,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -15,7 +15,7 @@
     },
     "ios": {
       "bundleIdentifier": "life.sakin.animals",
-      "buildNumber": "1",
+      "buildNumber": "2",
       "supportsTablet": true,
       "minimumOsVersion": "15.1",
       "config": {
