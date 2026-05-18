@@ -1022,7 +1022,9 @@ export function ProfileScreen() {
         )}
       </View>
 
-      {/* Sakin Ailesi */}
+      {/* Sakin Ailesi — only on web. Hidden on iOS/Android to avoid App Store rejection
+          for cross-promoting external apps/services (Guideline 2.5.6 / 4.2.6). */}
+      {Platform.OS === 'web' && (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{t('profile.sakinFamily.title')}</Text>
         <Text style={styles.familyIntro}>
@@ -1079,6 +1081,7 @@ export function ProfileScreen() {
           ))}
         </View>
       </View>
+      )}
 
       {/* Rozetler */}
       <View style={styles.section}>
