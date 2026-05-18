@@ -11,3 +11,14 @@ npm-debug.*
 web-build/
 .DS_Store
 .netlify/
+
+# Environment variables (never commit real keys)
+.env
+.env.local
+.env.production
+
+# Google Play service account key
+google-service-account.json
+
+# EAS secrets
+*.p8

@@ -1,5 +1,4 @@
 import { Platform } from 'react-native';
-import Constants from 'expo-constants';
 
 // RevenueCat product / entitlement identifiers.
 // Configure these in App Store Connect, Google Play Console, and RevenueCat dashboard.
@@ -12,8 +11,8 @@ export const PRODUCT_IDS = {
 export type PlanKey = keyof typeof PRODUCT_IDS;
 
 const REVENUECAT_KEYS = {
-  ios: (Constants.expoConfig?.extra as any)?.revenueCatIosKey ?? '',
-  android: (Constants.expoConfig?.extra as any)?.revenueCatAndroidKey ?? '',
+  ios: process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY ?? '',
+  android: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY ?? '',
 };
 
 export const isIapAvailable = (): boolean => {

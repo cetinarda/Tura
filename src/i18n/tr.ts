@@ -474,7 +474,7 @@ export const tr = {
     androidPrice: "Fiyatlar Play Store üzerinden gösterilir.",
     ctaBtn: "Üstad Ol ✦",
     restoreBtn: "Aboneliği Geri Yükle",
-    legal: "Abonelik otomatik yenilenir. Hesap ayarlarından iptal edebilirsin. Kullanım şartları ve gizlilik politikası geçerlidir.",
+    legal: "Satın alma onaylandığında ücret App Store hesabınıza yansıtılır. Mevcut dönemin bitiminden en az 24 saat önce iptal edilmezse abonelik otomatik olarak yenilenir. Aboneliklerinizi App Store hesap ayarlarınızdan yönetebilir ve iptal edebilirsiniz.",
     errorPurchase: "Satın alma tamamlanamadı.",
     errorPurchaseTitle: "Hata",
     infoRestore: "Aboneliği geri yükleme servisi yakında.",

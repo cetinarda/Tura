@@ -474,7 +474,7 @@ export const en = {
     androidPrice: "Prices shown via the Play Store.",
     ctaBtn: "Become Master ✦",
     restoreBtn: "Restore Subscription",
-    legal: "Subscription renews automatically. Cancel anytime in account settings. Terms of use and privacy policy apply.",
+    legal: "Payment will be charged to your App Store account at confirmation of purchase. Subscription automatically renews unless cancelled at least 24 hours before the end of the current period. You can manage and cancel subscriptions in your App Store account settings.",
     errorPurchase: "Purchase could not be completed.",
     errorPurchaseTitle: "Error",
     infoRestore: "Restore subscription service coming soon.",
