@@ -15,7 +15,7 @@
     },
     "ios": {
       "bundleIdentifier": "life.sakin.animals",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "supportsTablet": true,
       "minimumOsVersion": "15.1",
       "config": {
@@ -45,26 +45,7 @@
             "NSPrivacyAccessedAPITypeReasons": ["E174.1"]
           }
         ],
-        "NSPrivacyCollectedDataTypes": [
-          {
-            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeEmailAddress",
-            "NSPrivacyCollectedDataTypeLinked": true,
-            "NSPrivacyCollectedDataTypeTracking": false,
-            "NSPrivacyCollectedDataTypePurposes": ["NSPrivacyCollectedDataTypePurposeAppFunctionality"]
-          },
-          {
-            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeUserID",
-            "NSPrivacyCollectedDataTypeLinked": true,
-            "NSPrivacyCollectedDataTypeTracking": false,
-            "NSPrivacyCollectedDataTypePurposes": ["NSPrivacyCollectedDataTypePurposeAppFunctionality"]
-          },
-          {
-            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypePurchaseHistory",
-            "NSPrivacyCollectedDataTypeLinked": true,
-            "NSPrivacyCollectedDataTypeTracking": false,
-            "NSPrivacyCollectedDataTypePurposes": ["NSPrivacyCollectedDataTypePurposeAppFunctionality"]
-          }
-        ],
+        "NSPrivacyCollectedDataTypes": [],
         "NSPrivacyTracking": false
       }
     },

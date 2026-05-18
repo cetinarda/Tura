@@ -498,80 +498,10 @@ export function ProfileScreen() {
         </Text>
       </View>
 
-      {/* Hesap & Bildirimler */}
+      {/* Bildirimler */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t('profile.account.title')}</Text>
+        <Text style={styles.sectionTitle}>{t('profile.account.remindersLabel')}</Text>
         <View style={styles.accountCard}>
-          <View style={styles.accountRow}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.accountLabel}>
-                {premium.isPremium ? t('profile.account.premiumLabel') : t('profile.account.freeLabel')}
-              </Text>
-              <Text style={styles.accountSub}>
-                {premium.isPremium
-                  ? premium.expiresAt
-                    ? t('profile.account.premiumRenewal').replace('{date}', new Date(premium.expiresAt).toLocaleDateString(lang === 'en' ? 'en-GB' : 'tr-TR'))
-                    : t('profile.account.premiumLifetime')
-                  : t('profile.account.freeCta')}
-              </Text>
-            </View>
-            {!premium.isPremium && (
-              <TouchableOpacity style={styles.upgradeBtn} onPress={() => setShowPaywall(true)}>
-                <Text style={styles.upgradeBtnText}>{t('profile.account.upgradeBtn')}</Text>
-              </TouchableOpacity>
-            )}
-            {premium.isPremium && (
-              <TouchableOpacity
-                style={styles.linkBtn}
-                onPress={() => {
-                  const url = Platform.OS === 'ios'
-                    ? 'https://apps.apple.com/account/subscriptions'
-                    : 'https://play.google.com/store/account/subscriptions';
-                  Linking.openURL(url).catch(() => {});
-                }}
-              >
-                <Text style={styles.linkBtnText}>{t('profile.account.cancelBtn')}</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-
-          {/* ── Lisans Kodu ── only show when not yet premium */}
-          {!premium.isPremium && (
-            <>
-              <View style={styles.accountDivider} />
-              <View style={styles.licenseSection}>
-                <Text style={styles.licenseSectionTitle}>{t('profile.account.licenseTitle' as any)}</Text>
-                <View style={styles.licenseRow}>
-                  <TextInput
-                    style={styles.licenseInput}
-                    value={licenseKey}
-                    onChangeText={v => { setLicenseKey(v.toUpperCase()); setLicenseStatus('idle'); }}
-                    placeholder={t('profile.account.licensePlaceholder' as any)}
-                    placeholderTextColor={Colors.textMuted}
-                    autoCapitalize="characters"
-                    autoCorrect={false}
-                    maxLength={20}
-                    editable={licenseStatus !== 'busy'}
-                  />
-                  <TouchableOpacity
-                    style={[styles.licenseApplyBtn, { opacity: licenseStatus === 'busy' ? 0.5 : 1 }]}
-                    onPress={handleLicenseRedeem}
-                    disabled={licenseStatus === 'busy' || !licenseKey.trim()}
-                  >
-                    <Text style={styles.licenseApplyText}>{t('profile.account.licenseApply' as any)}</Text>
-                  </TouchableOpacity>
-                </View>
-                {licenseMsg ? (
-                  <Text style={[styles.licenseMsg, { color: licenseStatus === 'ok' ? Colors.teal : '#E57373' }]}>
-                    {licenseMsg}
-                  </Text>
-                ) : null}
-              </View>
-            </>
-          )}
-
-          <View style={styles.accountDivider} />
-
           <TouchableOpacity
             style={styles.accountRow}
             onPress={() => toggleReminders(!remindersOn)}
@@ -585,52 +515,6 @@ export function ProfileScreen() {
               <View style={[styles.toggleDot, remindersOn && styles.toggleDotOn]} />
             </View>
           </TouchableOpacity>
-
-          {session && (
-            <>
-              <View style={styles.accountDivider} />
-              <View style={styles.accountRow}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.accountLabel}>{session.user.email || 'Hesap'}</Text>
-                  <Text style={styles.accountSub}>{t('profile.account.cloudBackup')}</Text>
-                </View>
-                <TouchableOpacity style={styles.linkBtn} onPress={signOut}>
-                  <Text style={styles.linkBtnText}>{t('profile.account.signOutBtn')}</Text>
-                </TouchableOpacity>
-              </View>
-            </>
-          )}
-
-          <View style={styles.accountDivider} />
-          <View style={styles.accountRow}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.accountLabel}>{t('profile.account.deleteLabel' as any)}</Text>
-              <Text style={styles.accountSub}>{t('profile.account.deleteSub' as any)}</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.linkBtn}
-              onPress={() => {
-                Alert.alert(
-                  t('profile.account.deleteConfirmTitle' as any),
-                  t('profile.account.deleteConfirmMessage' as any),
-                  [
-                    { text: t('profile.account.deleteCancel' as any), style: 'cancel' },
-                    {
-                      text: t('profile.account.deleteConfirm' as any),
-                      style: 'destructive',
-                      onPress: async () => {
-                        await deleteAccount();
-                      },
-                    },
-                  ],
-                );
-              }}
-            >
-              <Text style={[styles.linkBtnText, { color: '#E57373' }]}>
-                {t('profile.account.deleteBtn' as any)}
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
       </View>
 

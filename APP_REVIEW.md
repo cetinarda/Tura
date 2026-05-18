@@ -1,80 +1,42 @@
-# App Store Review Information
+# App Store Review — Sakin Hayvan Rehberi
 
-## Demo Account for Apple Reviewers
+Notes for the App Review team.
 
-Create a dedicated Supabase user and pre-grant premium access:
+## What this app does
 
-```sql
--- 1. Create user via Supabase Auth (email + password) in Dashboard
--- 2. Then run this in SQL Editor:
-INSERT INTO sakin_entitlements (user_id, source, product, expires_at)
-SELECT id, 'key', 'premium', NOW() + INTERVAL '1 year'
-FROM auth.users
-WHERE email = 'reviewer@sakin.life';
-```
+A free Turkish-language spiritual-reflection app focused on animal symbolism. The user shakes the phone (or taps a button) to receive a daily card with an animal totem and a quote, kept in a personal archive.
 
-**Credentials to enter in App Store Connect → App Review Information:**
-- Email: `reviewer@sakin.life`
-- Password: (set a strong password, enter it in App Store Connect)
+## Demo credentials
 
-## Reviewer Notes Template
+**No login required.** The app is fully usable on first launch with no sign-up or sign-in. There is nothing to log in to.
 
-```
-Thank you for reviewing Sakin Hayvan Rehberi.
+## In-app purchases
 
-ACCOUNT ACCESS:
-- Log in with the provided credentials above.
-- This account has Premium access pre-enabled — no purchase is required.
-- To test the subscription paywall, tap the lock icon on any premium feature
-  or go to Profile → upgrade prompt.
+**None.** The app is free with no subscriptions, no IAP, and no premium tier. All features are available to every user.
 
-CORE FEATURE — SHAKE TO DRAW:
-- Shake the device to reveal today's animal guidance card.
-- The shake gesture uses the accelerometer (motion permission).
+## Permissions requested
 
-PUSH NOTIFICATIONS:
-- Optional daily notifications can be enabled in Profile → Account → Reminders.
-- A rationale screen appears before the OS permission prompt.
+- **Motion (NSMotionUsageDescription)** — used only to detect a shake gesture for drawing the day's card. The user can also tap a button instead; permission is not required to use the app.
+- **Notifications (local only)** — optional opt-in for a daily reminder. Local notifications only; no remote push.
 
-ACCOUNT DELETION:
-- Profile → scroll to bottom → Delete Account.
-- A confirmation dialog appears; deletion removes all local data and the Supabase account.
+The app does NOT access camera, microphone, contacts, location, photos, calendar, or HealthKit.
 
-LANGUAGE:
-- Profile → top right globe icon switches between Turkish and English instantly.
+## Data collection
 
-DISCLAIMER:
-- On first launch, an educational disclaimer modal appears explaining the
-  app is for personal reflection only (not medical/spiritual advice).
+**None.** All readings, profile data, and stats are stored locally on the device via AsyncStorage. The privacy manifest (`NSPrivacyCollectedDataTypes`) is empty.
 
-SUBSCRIPTION (IAP):
-- Log out and create a new account to test the paywall.
-- Use Apple's Sandbox Tester environment to test purchases without real payment.
-- Sandbox tester: create at App Store Connect → Users → Sandbox Testers.
-```
+The four APIs declared in the privacy manifest (FileTimestamp, UserDefaults, SystemBootTime, DiskSpace) are required-reason APIs accessed by React Native and Expo infrastructure, not by application code that collects user data.
 
-## App Store Connect Settings
+## Content disclaimer
 
-| Field | Value |
-|-------|-------|
-| Category | Lifestyle |
-| Secondary Category | Education |
-| Content Rights | Does not contain third-party content |
-| Age Rating | 4+ |
-| Encryption | No (ITSAppUsesNonExemptEncryption = false) |
+A disclaimer modal is shown on first launch (and accessible from Profile) stating that the content is **for personal reflection and educational purposes only — not medical, psychological, or spiritual advice.**
 
-## Privacy Nutrition Labels to Declare
+## Account deletion
 
-| Data | Linked to User | Tracking | Purpose |
-|------|---------------|----------|---------|
-| Email Address | Yes | No | App Functionality (auth) |
-| User ID | Yes | No | App Functionality (cloud sync) |
-| Purchase History | Yes | No | App Functionality (entitlement) |
+Not applicable. No accounts exist. Local data can be cleared by deleting the app.
 
-## TestFlight Internal Testing
+## Contact
 
-Before external / App Store submission:
-1. `eas build --profile preview --platform ios`
-2. Upload to TestFlight
-3. Test on real device: shake gesture, notifications, paywall, delete account
-4. Verify disclaimer modal shows once on first launch, not again
+- Support: https://sakinhayvan.netlify.app/support
+- Privacy: https://sakinhayvan.netlify.app/privacy
+- Terms: https://sakinhayvan.netlify.app/terms
