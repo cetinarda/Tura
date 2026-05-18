@@ -8,6 +8,7 @@ import { useTuraStore } from './src/store/useStore';
 import { Colors } from './src/theme/colors';
 import { isSupabaseConfigured } from './src/lib/supabase';
 import { LanguageProvider } from './src/i18n/LanguageContext';
+import { WebFooter } from './src/components/WebFooter';
 
 function Root() {
   const { authReady, isAuthenticated } = useTuraStore();
@@ -35,6 +36,7 @@ export default function App() {
       <SafeAreaProvider>
         <LanguageProvider>
           <Root />
+          <WebFooter />
         </LanguageProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
