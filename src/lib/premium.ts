@@ -5,6 +5,9 @@ import { checkSupabaseEntitlement } from './entitlement';
 
 const PREMIUM_CACHE_KEY = '@tura_premium_cache';
 
+// App is currently free — all features unlocked for all users.
+const APP_IS_FREE = true;
+
 export type PremiumTier = 'free' | 'monthly' | 'yearly';
 
 export interface PremiumState {
@@ -38,6 +41,8 @@ async function writeCache(state: PremiumState): Promise<void> {
 }
 
 export async function getPremiumState(): Promise<PremiumState> {
+  if (APP_IS_FREE) return { tier: 'yearly', willRenew: false };
+
   // 1. Native IAP (RevenueCat / StoreKit) — highest priority
   if (isIapAvailable()) {
     const ent = await fetchEntitlement();
